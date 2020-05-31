@@ -45,7 +45,7 @@ You can access each step of the workflow by using the navigation bar at the top 
 
 ## B. 16S rRNA Analysis
 
-We sequence a total of 30 
+We sequence a total of 30
 
 ### No 1. DADA2 Workflow
 
@@ -86,7 +86,7 @@ In this section of the workflow we summarize the QC & assemby results, the Krake
 
 ## Figures & Tables
 
-Use the links below if you want to jump directly to the code used to produce the **figures and tables** from the original publication. You can also find the full Supplementary files for the paper  [here](supplemental-material.html) but there is no R code on this page. If you want to see the code that produced the supplemental material, the direct links are also below. 
+Use the links below if you want to jump directly to the code used to produce the **figures and tables** from the original publication. You can also find the full Supplementary files for the paper  [here](supplemental-material.html) but there is no R code on this page. If you want to see the code that produced the supplemental material, the direct links are also below.
 
 ### Main Paper
 
@@ -102,13 +102,13 @@ We will rely on color a lot to display information about diversity, distinguish 
 
 Bang Wong has a paper in Nature Methods paper called [Points of view: Color blindness](http://dx.doi.org/10.1038/nmeth.1618)[@wong2011points] where proposes a color-blind friendly color palette that uses contrasting colors that can be distinguished by a range of people. Consider that roughly 8% of people (mostly males) are color blind. So what do you think? Do you want Keanu Reeves to understand your figures or not?
 
-Wong’s scheme is conservative—--there are only 8 colors.  Martin Krzywinsk has a marvelous post on [designing color friendly palettes](http://mkweb.bcgsc.ca/colorblind/palettes.mhtml#page-container) that includes additional [12, 15, and 24](http://mkweb.bcgsc.ca/colorblind/img/colorblindness.palettes.v11.pdf) color palette schemes, which offer more options than Wong’s 8-color palette. We just need to be careful—–figures with too many colors can inhibit our ability to discern patterns. Limited color palettes like these force us to be more selective when deciding what information to target or how many groups to display. 
+Wong’s scheme is conservative—--there are only 8 colors.  Martin Krzywinsk has a marvelous post on [designing color friendly palettes](http://mkweb.bcgsc.ca/colorblind/palettes.mhtml#page-container) that includes additional [12, 15, and 24](http://mkweb.bcgsc.ca/colorblind/img/colorblindness.palettes.v11.pdf) color palette schemes, which offer more options than Wong’s 8-color palette. We just need to be careful—–figures with too many colors can inhibit our ability to discern patterns. Limited color palettes like these force us to be more selective when deciding what information to target or how many groups to display.
 
 ## Creating Color Palletes
 
 Here are a few color palette examples. A light grey  (`#7F7F7F`) was added to the 8-color palette. Shown here are the hex codes for these palettes but if you want the color names and [sRGB](https://en.wikipedia.org/wiki/RGB_color_model) codes you can download plain text versions of the palettes from Martin's website [here](http://mkweb.bcgsc.ca/colorblind/palettes/color.blindness.palettes.v11.tgz).
 
-If you are interested in the R code used to make these palettes, click the arrow to expand the code block. 
+If you are interested in the R code used to make these palettes, click the arrow to expand the code block.
 
 <details markdown="1"><summary>Show/hide code to make palette figures</summary>
 <pre><code>
@@ -118,25 +118,25 @@ wong_pal <- c("#009E73", "#D55E00", "#F0E442",
                 "#CC79A7", "#56B4E9", "#E69F00",
                 "#0072B2", "#7F7F7F", "#000000")
 palette(wong_pal)
-gs1 <- lapply(wong_pal, function(ii, wong_pal) 
+gs1 <- lapply(wong_pal, function(ii, wong_pal)
   grobTree(
     rectGrob(
-      gp = gpar(fill = ii)), 
+      gp = gpar(fill = ii)),
     textGrob(ii, gp = gpar(col = "white"))))
-gs1 <- grid.arrange(grobs = gs1, ncol = 3, 
+gs1 <- grid.arrange(grobs = gs1, ncol = 3,
                top = "8-COLOR PALETTE", right = "")
 
 # 12 color palette
-twelve_pal <- c("#323232", "#BF3465", "#50B29E", "#D9D9D9", 
-                 "#731683", "#1C6CCC", "#21BCFF", "#DFA5E5", 
+twelve_pal <- c("#323232", "#BF3465", "#50B29E", "#D9D9D9",
+                 "#731683", "#1C6CCC", "#21BCFF", "#DFA5E5",
                  "#874310", "#DB6D1B", "#B8CE17", "#F4E345")
 palette(twelve_pal)
-gs2 <- lapply(twelve_pal, function(ii, twelve_pal) 
+gs2 <- lapply(twelve_pal, function(ii, twelve_pal)
   grobTree(
     rectGrob(
-      gp = gpar(fill = ii)), 
+      gp = gpar(fill = ii)),
     textGrob(ii, gp = gpar(col = "white"))))
-gs2 <- grid.arrange(grobs = gs2, ncol = 4, 
+gs2 <- grid.arrange(grobs = gs2, ncol = 4,
                top = "12-COLOR PALETTE", left = "")
 grid.arrange(gs1, gs2, ncol = 2)
 ```
@@ -151,25 +151,25 @@ wong_pal <- c("#009E73", "#D55E00", "#F0E442",
                 "#CC79A7", "#56B4E9", "#E69F00",
                 "#0072B2", "#7F7F7F", "#000000")
 palette(wong_pal)
-gs1 <- lapply(wong_pal, function(ii, wong_pal) 
+gs1 <- lapply(wong_pal, function(ii, wong_pal)
   grobTree(
     rectGrob(
-      gp = gpar(fill = ii)), 
+      gp = gpar(fill = ii)),
     textGrob(ii, gp = gpar(col = "white", fontsize = 10))))
-gs1 <- grid.arrange(grobs = gs1, ncol = 3, 
+gs1 <- grid.arrange(grobs = gs1, ncol = 3,
                top = "8-COLOR PALETTE", right = "")
 
 # 12 color palette
-twelve_pal <- c("#323232", "#BF3465", "#50B29E", "#D9D9D9", 
-                 "#731683", "#1C6CCC", "#21BCFF", "#DFA5E5", 
+twelve_pal <- c("#323232", "#BF3465", "#50B29E", "#D9D9D9",
+                 "#731683", "#1C6CCC", "#21BCFF", "#DFA5E5",
                  "#874310", "#DB6D1B", "#B8CE17", "#F4E345")
 palette(twelve_pal)
-gs2 <- lapply(twelve_pal, function(ii, twelve_pal) 
+gs2 <- lapply(twelve_pal, function(ii, twelve_pal)
   grobTree(
     rectGrob(
-      gp = gpar(fill = ii)), 
+      gp = gpar(fill = ii)),
     textGrob(ii, gp = gpar(col = "white", fontsize = 10))))
-gs2 <- grid.arrange(grobs = gs2, ncol = 4, 
+gs2 <- grid.arrange(grobs = gs2, ncol = 4,
                top = "12-COLOR PALETTE", left = "")
 ```
 
@@ -192,4 +192,4 @@ There is a great article on [Coloring for Colorblindness](https://davidmathlogic
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/intro.Rmd).
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/intro.Rmd).

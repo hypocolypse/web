@@ -42,4 +42,4 @@ PROCEED to 16S rRNA WORKFLOW<br/><a href="16s-dada2.html" rel="prev">N<sup><u>o<
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/field.Rmd).
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/field.Rmd).

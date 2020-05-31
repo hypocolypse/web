@@ -3,7 +3,7 @@ title: "Data Availability"
 description: |
   In this section you can find information on obtaining raw sequencing data, data products, and processing scripts. Of course, all the code is also embeded in the workflows on the website as well.
 author:
-  - name: Jarrod J Scott 
+  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -72,12 +72,11 @@ Step by step instructions for submitting to the ENA
 13) Select **Two Fastq files (Paired)** and Download the template.
 14) Before filling out the form, gzip **.gz** all the trimmed fastq files (these are what you submit)
 15) Then run `md5sum` on all the `tar.gz` files.
-16) Upload all the fastq files. You must do this before submitting the experiment spreadsheet. There are different options for this step. I opened a terminal and typed `ftp webin.ebi.ac.uk`. I entered my user name and password. Then typed `mput *.gz`. The problem was that I had to say yes for each file. Should be a way around this. Documentation can be found [here](https://ena-docs.readthedocs.io/en/latest/submit/fileprep/upload.html). Probably need to type `prompt` first. 
+16) Upload all the fastq files. You must do this before submitting the experiment spreadsheet. There are different options for this step. I opened a terminal and typed `ftp webin.ebi.ac.uk`. I entered my user name and password. Then typed `mput *.gz`. The problem was that I had to say yes for each file. Should be a way around this. Documentation can be found [here](https://ena-docs.readthedocs.io/en/latest/submit/fileprep/upload.html). Probably need to type `prompt` first.
 17) Fill in the sheet including md5 checksum values.
 18) Upload and submit the sheet.
 
-<p class="edit-page">
-  <a href="https://github.com/hypocolypse/web/blob/master/build/data-availability.Rmd">
-    <i class="fas fa-pen pr-2"></i> Edit this page
-  </a>
-</p>
+
+## Source Code {.appendix}
+
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/data-availability.Rmd).

@@ -1,9 +1,9 @@
 ---
 title: "No 2. Annotation Databases"
 description: |
-  Constructing taxonomic & functional annotation databases. 
+  Constructing taxonomic & functional annotation databases.
 author:
-  - name: Jarrod J Scott 
+  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -272,4 +272,4 @@ At this point we should be good to go with the main setup. We may need to instal
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/mg-databases.Rmd).
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-databases.Rmd).

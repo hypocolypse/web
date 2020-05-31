@@ -1,9 +1,9 @@
 ---
 title: "No 2. Data Preparation"
 description: |
-  Complete, reproducible workflow for preparation  of the **16S rRNA** data set. These steps are needed before analyzing the data. R code for tables & figures are hidden (see the GitHub link at the bottom of the page for the raw `.Rmd` file). R code for everything else is shown. 
+  Complete, reproducible workflow for preparation  of the **16S rRNA** data set. These steps are needed before analyzing the data. R code for tables & figures are hidden (see the GitHub link at the bottom of the page for the raw `.Rmd` file). R code for everything else is shown.
 author:
-  - name: Jarrod J Scott 
+  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -18,7 +18,7 @@ library(DT)
 library(ggplot2)
 library(Biostrings); packageVersion("Biostrings")
 library(dplyr)
-library(microbiome)  
+library(microbiome)
 library(tidyverse)
 options(scipen=999)
 knitr::opts_current$get(c(
@@ -30,7 +30,7 @@ knitr::opts_current$get(c(
 ))
 ```
 
-> You will either need to run the [DADA2 workflow](16s-dada2.html) or the grab output file `combo_pipeline.rdata` from the workflow. This file contains the sequence and taxonomy tables. See the [Data Availability](data-availability.html) page for complete details.  
+> You will either need to run the [DADA2 workflow](16s-dada2.html) or the grab output file `combo_pipeline.rdata` from the workflow. This file contains the sequence and taxonomy tables. See the [Data Availability](data-availability.html) page for complete details.
 
 Unless otherwise noted, we primarily use [phyloseq](https://joey711.github.io/phyloseq/)[@mcmurdie2013phyloseq] in this section of the workflow to analyze the 16S rRNA data set. Before we conduct any analyses we first need to *prepare our data set* by curating samples, removing *contaminants*, and creating phyloseq objects.
 
@@ -38,45 +38,45 @@ Unless otherwise noted, we primarily use [phyloseq](https://joey711.github.io/ph
 
 Before we begin, let's create a summary table containing some basic sample metadata and the read count data from the [DADA2 pipeline](16s-dada2.html). We need to inspect how total reads changed through the pipeline. Remember, 8 of the samples were resequenced. Just to get an idea, we combined the results of the [Track Changes](16s-dada2.html#track-read-changes-bonus) analysis for these 8 samples. Table headers are as follows:
 
-| Header                    | Description                                                                              | 
+| Header                    | Description                                                                              |
 |---------------------------|------------------------------------------------------------------------------------------|
-| `Type`                    | the type of source material for the sample (aka the habitat)                             | 
-| `Site`                    | the site where the sample was collected                                                  | 
-| `input`                   | number of raw reads after [`cutadapt`](16s-dada2.html#remove-primers)                    | 
-| `filter`                  | reads remaining after [QC & filtering](16s-dada2.html#quality-assessment-filtering)      | 
-| `denoiseF` & `denoiseR`   | reads after [error correction](16s-dada2.html#learn-error-rates)                         | 
-| `merged`                  | reads after [merging forward and reverse read](16s-dada2.html#merge-paired-reads)        | 
-| `nochim`                  | final read count after [removing chimeras](16s-dada2.html#remove-chimeras)               | 
-| `Change`                  | percent change from `input` to `nonchim`                                                 | 
+| `Type`                    | the type of source material for the sample (aka the habitat)                             |
+| `Site`                    | the site where the sample was collected                                                  |
+| `input`                   | number of raw reads after [`cutadapt`](16s-dada2.html#remove-primers)                    |
+| `filter`                  | reads remaining after [QC & filtering](16s-dada2.html#quality-assessment-filtering)      |
+| `denoiseF` & `denoiseR`   | reads after [error correction](16s-dada2.html#learn-error-rates)                         |
+| `merged`                  | reads after [merging forward and reverse read](16s-dada2.html#merge-paired-reads)        |
+| `nochim`                  | final read count after [removing chimeras](16s-dada2.html#remove-chimeras)               |
+| `Change`                  | percent change from `input` to `nonchim`                                                 |
 
 <br/>
 
 ```{r sample_table1, echo=FALSE}
 joined_tab <- read.table(
-  "tables/16s-data-prep/combo_read_changes.txt", 
+  "tables/16s-data-prep/combo_read_changes.txt",
   header = TRUE, sep = "\t")
 
 joined_tab_percent <- joined_tab
-percent_change <- 1-(joined_tab$nonchim/joined_tab$input) %>% 
+percent_change <- 1-(joined_tab$nonchim/joined_tab$input) %>%
   round(digits = 3)
 joined_tab_percent$Change <- as.numeric(sprintf("%.3f", percent_change))
-colnames(joined_tab_percent) <- c("Sample<br/>ID", "Type", "Site", 
-                                  "input", "filter", "denoiseF", "denoiseR", 
+colnames(joined_tab_percent) <- c("Sample<br/>ID", "Type", "Site",
+                                  "input", "filter", "denoiseF", "denoiseR",
                                   "merged", "nochim", "Change")
 ```
 
 ```{r samp-summary1, echo=FALSE, layout="l-page"}
 ## NOTE. For some reason this datatable was being given the same
-## elementId as the first table. So I had to add a 20 character 
+## elementId as the first table. So I had to add a 20 character
 ## elementId https://www.random.org/strings/
-datatable(joined_tab_percent, width = "100%", escape = FALSE, 
+datatable(joined_tab_percent, width = "100%", escape = FALSE,
           rownames = FALSE, filter = 'top',
           caption = htmltools::tags$caption(
-            style = 'caption-side: bottom; text-align: left;', 
-            'Table: ', htmltools::em('Tracking read changes 
-            through DADA2 workflow. Use the buttons to navigate through 
+            style = 'caption-side: bottom; text-align: left;',
+            'Table: ', htmltools::em('Tracking read changes
+            through DADA2 workflow. Use the buttons to navigate through
             the table or download a copy. Table scrolls right. ')),
-          elementId = "vwltiu9qj77sfy3a07we", 
+          elementId = "vwltiu9qj77sfy3a07we",
           extensions = 'Buttons', options = list(
             scrollX = TRUE,
             dom = 'Blfrtip',
@@ -87,12 +87,12 @@ datatable(joined_tab_percent, width = "100%", escape = FALSE,
           ) %>%
   DT::formatStyle(columns = colnames(joined_tab_percent), fontSize = '80%')
 cutoff <- 2000
-remove_sam <- joined_tab[joined_tab$nonchim <= cutoff, ] 
+remove_sam <- joined_tab[joined_tab$nonchim <= cutoff, ]
 ```
 
 ## Defining Groups
 
-1. The first thing we want to do is load the data packet produced by the final step of the DADA2 workflow. This packet (`combo_pipeline.rdata`) contains the ASV-by-sample table and the ASV taxonomy table. 
+1. The first thing we want to do is load the data packet produced by the final step of the DADA2 workflow. This packet (`combo_pipeline.rdata`) contains the ASV-by-sample table and the ASV taxonomy table.
 
 2. After we load the data packet we next need to format sample names and define groups. We will use the actual sample names to define the different groups.
 
@@ -109,9 +109,9 @@ num_type <- length(unique(type))
 num_sites <- length(unique(site))
 ```
 
-So  we have a total of **`r length(unique(sample_name))`** samples, from **`r length(unique(site))`** sites, and **`r length(unique(type))`** different types of habitats. 
+So  we have a total of **`r length(unique(sample_name))`** samples, from **`r length(unique(site))`** sites, and **`r length(unique(type))`** different types of habitats.
 
-> Sample abbreviations 
+> Sample abbreviations
 
 The first letter of the sample ID indicates the environment:
 
@@ -123,7 +123,7 @@ CC = Coral Caye, CR = Cayo Roldan
 
 An the number indicates the replicate number.
 
-For example, `WCR3` is a `water`sample from  `Cayo Roldan` replicate `3`. 
+For example, `WCR3` is a `water`sample from  `Cayo Roldan` replicate `3`.
 
 > Sample abbreviations:
 
@@ -135,17 +135,17 @@ For example, `WCR3` is a `water`sample from  `Cayo Roldan` replicate `3`.
 * WCC = *Water sample from Coral Caye*
 * WCR = *Water sample from Cayo Roldan*
 
-4. And finally we define a sample data frame that holds the different groups we extracted from the sample names. 
+4. And finally we define a sample data frame that holds the different groups we extracted from the sample names.
 
 ```{r define_variables}
 #define a sample data frame
-samdf <- data.frame(SamName = sample_name, TYPE = type, SITE = site) 
+samdf <- data.frame(SamName = sample_name, TYPE = type, SITE = site)
 rownames(samdf) <- samples.out
 ```
 
 ## Phyloseq Objects
 
-**A**. The first step is to rename the amplicon sequence variants (ASVs) so the designations are a bit more user friendly. By default, DADA2 names each ASV by its unique sequence so that data can be directly compared across studies (which is great). But this convention can get cumbersome downstream, so we rename the ASVs using a simpler convention---ASV1, ASV2, ASV3, and so on. 
+**A**. The first step is to rename the amplicon sequence variants (ASVs) so the designations are a bit more user friendly. By default, DADA2 names each ASV by its unique sequence so that data can be directly compared across studies (which is great). But this convention can get cumbersome downstream, so we rename the ASVs using a simpler convention---ASV1, ASV2, ASV3, and so on.
 
 <aside>
 A phyloseq object contains ASV table (taxa abundances), sample metadata, and taxonomy table (mapping between ASVs and higher-level taxonomic classifications).
@@ -153,19 +153,19 @@ A phyloseq object contains ASV table (taxa abundances), sample metadata, and tax
 
 ```{r create_ps_object}
 # this create the phyloseq object
-ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE), 
-                   sample_data(samdf), tax_table(tax_silva)) 
-tax_table(ps) <- cbind(tax_table(ps), 
+ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE),
+                   sample_data(samdf), tax_table(tax_silva))
+tax_table(ps) <- cbind(tax_table(ps),
                            rownames(tax_table(ps)))
 
 # adding unique ASV names
 taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
-tax_table(ps) <- cbind(tax_table(ps), 
+tax_table(ps) <- cbind(tax_table(ps),
                            rownames(tax_table(ps)))
 head(taxa_names(ps))
 ```
 
-So the complete data set contains `r ntaxa(ps)` ASVs. We can also use the [microbiome R package](https://github.com/microbiome/microbiome/)[@lahti2017microbiome] to get some additional summary data from the phyloseq object. 
+So the complete data set contains `r ntaxa(ps)` ASVs. We can also use the [microbiome R package](https://github.com/microbiome/microbiome/)[@lahti2017microbiome] to get some additional summary data from the phyloseq object.
 
 
 ```{r calculate_stats_ps, echo=FALSE}
@@ -175,11 +175,11 @@ total_reads_ps <- sum(readcount(ps))
 mean_reads_ps <- round(mean(readcount(ps)), digits = 0)
 median_reads_ps <- median(readcount(ps))
 total_asvs_ps <- ntaxa(ps)
-singleton_ps <- tryCatch(ntaxa(rare(ps, detection = 1, prevalence = 0)), 
-                              error=function(err) NA)  
+singleton_ps <- tryCatch(ntaxa(rare(ps, detection = 1, prevalence = 0)),
+                              error=function(err) NA)
 singleton_ps_perc <- tryCatch(round((100*(ntaxa(rare(ps, detection = 1, prevalence = 0)) /
-                                   ntaxa(ps))), digits = 3), error=function(err) NA) 
-sparsity_ps <- round(length(which(abundances(ps) == 0))/length(abundances(ps)), 
+                                   ntaxa(ps))), digits = 3), error=function(err) NA)
+sparsity_ps <- round(length(which(abundances(ps) == 0))/length(abundances(ps)),
                      digits = 3)
 ```
 
@@ -196,48 +196,48 @@ sparsity_ps <- round(length(which(abundances(ps) == 0))/length(abundances(ps)),
 | Percent of ASVs that are singletons | `r singleton_ps_perc`                              |
 | Number of sample variables are:     | `r length(sample_data(ps))`  (`r colnames(samdf)`) |
 
-**B**. Add two final columns containing the ASV sequences and ASV IDs. This will be useful later when trying to export a fasta file. We can also take a look at the phyloseq object. 
+**B**. Add two final columns containing the ASV sequences and ASV IDs. This will be useful later when trying to export a fasta file. We can also take a look at the phyloseq object.
 
 ```{r add_ASV_coulmn}
-colnames(tax_table(ps)) <- c("Kingdom", "Phylum", "Class", "Order", 
+colnames(tax_table(ps)) <- c("Kingdom", "Phylum", "Class", "Order",
     "Family", "Genus", "ASV_SEQ", "ASV_ID")
 ps
 ```
 
-**C**. Export sequence and taxonomy tables for the unadulterated phyloseq object for later use. We will use the prefix `full` to indicate that these are the *raw* outputs. 
+**C**. Export sequence and taxonomy tables for the unadulterated phyloseq object for later use. We will use the prefix `full` to indicate that these are the *raw* outputs.
 
 ```{r export_seq_tax_tables}
-write.table(tax_table(ps), 
-            "tables/16s-data-prep/full_tax_table.txt", 
+write.table(tax_table(ps),
+            "tables/16s-data-prep/full_tax_table.txt",
             sep="\t", quote = FALSE, col.names=NA)
-write.table(t(otu_table(ps)), 
-            "tables/16s-data-prep/full_seq_table.txt", 
+write.table(t(otu_table(ps)),
+            "tables/16s-data-prep/full_seq_table.txt",
             sep="\t", quote = FALSE, col.names=NA)
 ```
 
 ## Remove Contaminants & Unwanted Taxa
 
-Let's see if we have any potential contaminants. We can use some [inline R code](https://rmarkdown.rstudio.com/lesson-4.html) to see the taxonomy table for any taxa of interest. 
+Let's see if we have any potential contaminants. We can use some [inline R code](https://rmarkdown.rstudio.com/lesson-4.html) to see the taxonomy table for any taxa of interest.
 
 <aside>
 The code (hidden by default) is written as `` `r
 "Chloroplast" %in% tax_table(ps)` ``.
 </aside>
 
-- Are Mitochondria present? `r "Mitochondria" %in% tax_table(ps)`  
-- Are Chloroplast present? `r "Chloroplast" %in% tax_table(ps)`  
-- Are Eukaryota present? `r "Eukaryota" %in% tax_table(ps)`  
+- Are Mitochondria present? `r "Mitochondria" %in% tax_table(ps)`
+- Are Chloroplast present? `r "Chloroplast" %in% tax_table(ps)`
+- Are Eukaryota present? `r "Eukaryota" %in% tax_table(ps)`
 
-Let's remove these taxa---Eukaryota because we used bacterial/archaeal primers, Mitochondria because those are likely from  eukaryotes, and Chloroplast because those are likely from algae. We must do each of these in turn using phyloseq and it gets a little messy. 
+Let's remove these taxa---Eukaryota because we used bacterial/archaeal primers, Mitochondria because those are likely from  eukaryotes, and Chloroplast because those are likely from algae. We must do each of these in turn using phyloseq and it gets a little messy.
 
 Why messy? The `subset_taxa` command removes anything that is `NA` for the specified taxonomic level or above. For example, lets say you run the `subset_taxa` command using `Family != "Mitochondria`". Seems like you should get a phyloseq object with everything except Mitochondria. But actually the command not only gets rid of Mitochondria but everything else that has `NA` for Family and above. In my experience this is not well documented and I had to dig through the files to figure out what was happening.
 
 Anyway, to remove the taxa we do the following:
 
-* Subset the taxa and generate a `ps` object of just the taxa of interest, 
-* Select the ASV column only, turn it into a factor, and use this to remove <INSERT TAXA> from the `ps` object. 
+* Subset the taxa and generate a `ps` object of just the taxa of interest,
+* Select the ASV column only, turn it into a factor, and use this to remove <INSERT TAXA> from the `ps` object.
 
-### Remove  Mitochondria ASVs 
+### Remove  Mitochondria ASVs
 
 Remember the original data set contained `r ntaxa(ps)` ASVs.
 
@@ -252,7 +252,7 @@ ps_no_mito <- prune_taxa(goodTaxa, ps)
 ps_no_mito
 ```
 
-Looks like this removed **`r ntaxa(ps) - ntaxa(ps_no_mito)` Mitochondria ASVs**. We will duplicate the code block to remove other groups.  
+Looks like this removed **`r ntaxa(ps) - ntaxa(ps_no_mito)` Mitochondria ASVs**. We will duplicate the code block to remove other groups.
 
 ### Remove Chloroplast ASVs
 
@@ -284,9 +284,9 @@ ps_no_euk
 
 The code removed an additional **`r ntaxa(ps_no_chloro) - ntaxa(ps_no_euk)` Eukaryota ASVs** from the `ps` object.
 
-### Remove any Kingdom NAs  
+### Remove any Kingdom NAs
 
-Here we can just use the straight up `subset_taxa` command since we do not need to worry about any ranks above Kingdom also being removed. 
+Here we can just use the straight up `subset_taxa` command since we do not need to worry about any ranks above Kingdom also being removed.
 
 ```{r remove_kingdom_na}
 ps_filt <- subset_taxa(ps_no_euk, !is.na(Kingdom))
@@ -297,29 +297,29 @@ The code eliminated an additional **`r ntaxa(ps_no_euk) - ntaxa(ps_filt)` Kingdo
 
 ## Water Samples Phyloseq Object
 
-The next thing to do is select only water samples and make a separate phyloseq object---since our paper is about the water samples. To do this we must select the samples we *wish to keep*. If you want to change the group of samples, modify the script accordingly. 
+The next thing to do is select only water samples and make a separate phyloseq object---since our paper is about the water samples. To do this we must select the samples we *wish to keep*. If you want to change the group of samples, modify the script accordingly.
 
 ```{r select_water_samples}
 ps_water <- prune_samples(
-  c("WCC0", "WCC1", "WCC2", "WCC3", "WCR0", "WCR1", "WCR2", "WCR3"), 
+  c("WCC0", "WCC1", "WCC2", "WCC3", "WCR0", "WCR1", "WCR2", "WCR3"),
   ps_filt)
-ps_water 
+ps_water
 ```
 
-Anytime we remove samples we probably lose some ASVs. So we need to get rid of any ASVs that have a total of **0 reads**. 
+Anytime we remove samples we probably lose some ASVs. So we need to get rid of any ASVs that have a total of **0 reads**.
 
 ```{r remove_ASV_with_zeros_reads}
 ps_water <- prune_taxa(taxa_sums(ps_water) > 0, ps_water)
 ps_water
-write.table(tax_table(ps_water), 
-            "tables/16s-data-prep/water_tax_table.txt", sep="\t", 
+write.table(tax_table(ps_water),
+            "tables/16s-data-prep/water_tax_table.txt", sep="\t",
             quote = FALSE, col.names=NA)
-write.table(t(otu_table(ps_water)), 
-            "tables/16s-data-prep/water_seq_table.txt", sep="\t", 
+write.table(t(otu_table(ps_water)),
+            "tables/16s-data-prep/water_seq_table.txt", sep="\t",
             quote = FALSE, col.names=NA)
 ```
 
-So for water samples only there are `r ntaxa(ps_water)` ASVs and `r nsamples(ps_water)` samples. Now, save the various phyloseq data from the water object. 
+So for water samples only there are `r ntaxa(ps_water)` ASVs and `r nsamples(ps_water)` samples. Now, save the various phyloseq data from the water object.
 
 ```{r save_data_prep_image, echo=TRUE, eval=FALSE}
 save.image("rdata/16s-data-prep/16s-data_prep.rdata")
@@ -328,7 +328,7 @@ saveRDS(sample_data(ps_water), "rdata/16s-water/ps_water-sample.rds")
 saveRDS(tax_table(ps_water), "rdata/16s-water/ps_water-taxtab.rds")
 ```
 
-That's all for this part! In the next section we work through analyzing the diversity of the water samples. 
+That's all for this part! In the next section we work through analyzing the diversity of the water samples.
 
 </br>
 
@@ -347,5 +347,4 @@ That's all for this part! In the next section we work through analyzing the dive
 
 ## Source Code {.appendix}
 
-You can find the source code for this page by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/16s-data-prep.Rmd).
-
+You can find the source code for this page by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-data-prep.Rmd).

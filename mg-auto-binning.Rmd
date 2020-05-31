@@ -1,9 +1,9 @@
 ---
 title: "No 5. Automated Binning"
 description: |
-  In this section of the workflow we use four different tools for automated binning of our assembled contigs. Our goal is to rebuild genomes from the metagenomic assembly. These are called metagenome assembled genomes, or MAGs.  
+  In this section of the workflow we use four different tools for automated binning of our assembled contigs. Our goal is to rebuild genomes from the metagenomic assembly. These are called metagenome assembled genomes, or MAGs.
 author:
-  - name: Jarrod J Scott 
+  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -20,16 +20,16 @@ library(htmltools)
 
 ## Automated Binning Tools
 
-1) [CONCOCT](https://github.com/BinPro/CONCOCT) (Clustering cONtigs with COverage and ComposiTion)[@alneberg2014binning] is a program for unsupervised binning of metagenomic contigs by using nucleotide composition, coverage data in multiple samples and linkage data from paired end reads.  
-2) [MetaBAT2](https://bitbucket.org/berkeleylab/metabat)[@kang2019metabat] is a statistical framework for reconstructing genomes from metagenomic data.  
-3) [MaxBIN2](https://sourceforge.net/projects/maxbin2/)[@wu2016maxbin] is an automatic tool for binning metagenomics sequences.  
+1) [CONCOCT](https://github.com/BinPro/CONCOCT) (Clustering cONtigs with COverage and ComposiTion)[@alneberg2014binning] is a program for unsupervised binning of metagenomic contigs by using nucleotide composition, coverage data in multiple samples and linkage data from paired end reads.
+2) [MetaBAT2](https://bitbucket.org/berkeleylab/metabat)[@kang2019metabat] is a statistical framework for reconstructing genomes from metagenomic data.
+3) [MaxBIN2](https://sourceforge.net/projects/maxbin2/)[@wu2016maxbin] is an automatic tool for binning metagenomics sequences.
 4) [DASTOOL](https://github.com/cmks/DAS_Tool)[@sieber2018recovery] is an automated method that integrates the results of a  number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly.
 
 ## Run Tools
 
-The latest iteration of anvi'o (v6 as of this writing) ports several popular automated binning algorithms into its ecosystem. We will bin the water meatgenomic assembly using  CONCOCT, MetaBAT2, and MaxBIN2. Then we use DASTOOL to integrate the results of the other binning tools. The anvio commands below will a) bin the assembly using the specified tool and b) add the results to a collection in the `PROFILE.db`. For these steps we use the command `anvi-cluster-contigs`. 
+The latest iteration of anvi'o (v6 as of this writing) ports several popular automated binning algorithms into its ecosystem. We will bin the water meatgenomic assembly using  CONCOCT, MetaBAT2, and MaxBIN2. Then we use DASTOOL to integrate the results of the other binning tools. The anvio commands below will a) bin the assembly using the specified tool and b) add the results to a collection in the `PROFILE.db`. For these steps we use the command `anvi-cluster-contigs`.
 
-Here we run CONCOCT in two different ways. The first is using the defaults and the second is where we speciffy the number of bins. To my knowledge CONCOCT is the only one of these tools that allows you to specify the number of clusters. 
+Here we run CONCOCT in two different ways. The first is using the defaults and the second is where we speciffy the number of bins. To my knowledge CONCOCT is the only one of these tools that allows you to specify the number of clusters.
 
 ```bash
 anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  CONCOCT --driver concoct --just-do-it
@@ -45,10 +45,10 @@ anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.d
 And MaxBIN2
 
 ```bash
-anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  MaxBIN2 --driver maxbin2 --just-do-it --min-contig-length 1000	
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  MaxBIN2 --driver maxbin2 --just-do-it --min-contig-length 1000
 ```
 
-Now we can run DASTOOL to aggregate the results. Since we ran two instances of CONCOCT we need to run both in DASTOOL against the results of MaxBIN2 and MetaBAT2. 
+Now we can run DASTOOL to aggregate the results. Since we ran two instances of CONCOCT we need to run both in DASTOOL against the results of MaxBIN2 and MetaBAT2.
 
 ```bash
 anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  DASTOOL --driver dastool --just-do-it --search-engine diamond -S CONCOCT,MaxBIN2,MetaBAT2 --debug
@@ -91,9 +91,9 @@ python --version
 source /home/scottjj/virtual-envs/anvio-master/bin/activate
 which python
 python --version
-which anvi-interactive 
-diamond --version 
-anvi-self-test -v 
+which anvi-interactive
+diamond --version
+anvi-self-test -v
 #
 # ----------------BINNING CONDA------------------- #
 #
@@ -119,7 +119,7 @@ anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.d
 #
 # ----------------MaxBIN2------------------- #
 #
-anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  MaxBIN2 --driver maxbin2 --just-do-it --min-contig-length 1000 --debug	
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  MaxBIN2 --driver maxbin2 --just-do-it --min-contig-length 1000 --debug
 #
 # ----------------DASTOOL------------------- #
 #
@@ -132,13 +132,13 @@ echo = `date` job $JOB_NAME done
 
 ## Inspect Results
 
-Let's take a look at the results of the different binning strategies using the command `anvi-export-collection` with the `--list-collections` flag. Anvio won't do anything here except show us what collections are in the `PROFILE.db`.  
+Let's take a look at the results of the different binning strategies using the command `anvi-export-collection` with the `--list-collections` flag. Anvio won't do anything here except show us what collections are in the `PROFILE.db`.
 
 ```bash
 anvi-export-collection -p 06_MERGED/WATER/PROFILE.db --list-collections
 ```
 
-And here is the output of that command. The VIRSORTER collection was imported during the annotation phase and can be ignored for now. 
+And here is the output of that command. The VIRSORTER collection was imported during the annotation phase and can be ignored for now.
 
 ```bash
 COLLECTIONS FOUND
@@ -153,9 +153,9 @@ COLLECTIONS FOUND
 ```
 
 Here we can see the number of bins and the total number of contigs included in each collection. Remember the original assembly had 23,758 contigs (at a minimum length of 1000bp). We can take a quick look at the estimates of genome completion and redundancy using domain-specific single-copy core
-genes for each collection using `anvi-estimate-genome-completeness`. 
+genes for each collection using `anvi-estimate-genome-completeness`.
 
-One thing to remember is  how each algorithm names bins, or else this can get confusing. CONCOCT adds the prefix `Bin_`, MaxBin adds the prefix `MAXBIN_`, and MetaBAT adds the prefix `METABAT__` (with two underscores). DAS Tool then adds its own `Bin_` prefix to the parent name. For example DAS Tool `Bin_Bin_11` is CONCOCT bin `Bin_11` while DASTOOL `Bin_METABAT__2` is MetaBAT2 bin `METABAT__2`. 
+One thing to remember is  how each algorithm names bins, or else this can get confusing. CONCOCT adds the prefix `Bin_`, MaxBin adds the prefix `MAXBIN_`, and MetaBAT adds the prefix `METABAT__` (with two underscores). DAS Tool then adds its own `Bin_` prefix to the parent name. For example DAS Tool `Bin_Bin_11` is CONCOCT bin `Bin_11` while DASTOOL `Bin_METABAT__2` is MetaBAT2 bin `METABAT__2`.
 
 ### CONCOCT
 
@@ -173,10 +173,10 @@ Here are the results for the 71 CONCOCT bins.
 concoct <- read.table("files/concoct.txt", sep = "\t", header = TRUE)
 
 datatable(
-  concoct, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",  
+  concoct, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",
   colnames = c(
-    "bin name", "domain", "confidence", 
-    "% completion", "% redundancy", 
+    "bin name", "domain", "confidence",
+    "% completion", "% redundancy",
     "num_splits", "total length"),
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -184,7 +184,7 @@ datatable(
   extensions = "Buttons", "FixedColumns",
   options = list(
     columnDefs = list(list(className = "dt-left", targets = 0)),
-    dom = "Brltip", 
+    dom = "Brltip",
     buttons = c("csv", "copy", I('colvis')),
     pageLength = 5, FixedColumns = list(leftColumns = 2, rightColumns =1),
     scrollY=FALSE, scroller=TRUE))
@@ -207,10 +207,10 @@ Here are the results for the 5 CONCOCT bins with the `--clusters` flag equal to 
 concoct5 <- read.table("files/concoct-5.txt", sep = "\t", header = TRUE)
 
 datatable(
-  concoct5, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",  
+  concoct5, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",
   colnames = c(
-    "bin name", "domain", "confidence", 
-    "% completion", "% redundancy", 
+    "bin name", "domain", "confidence",
+    "% completion", "% redundancy",
     "num_splits", "total length"),
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -218,7 +218,7 @@ datatable(
   extensions = "Buttons", "FixedColumns",
   options = list(
     columnDefs = list(list(className = "dt-left", targets = 0)),
-    dom = "Brti", 
+    dom = "Brti",
     buttons = c("csv", "copy", I('colvis')),
     pageLength = 5, FixedColumns = list(leftColumns = 2, rightColumns =1),
     scrollY=FALSE, scroller=TRUE))
@@ -238,10 +238,10 @@ Here are the results for the 5 MetaBAT2 bins.
 metabat2 <- read.table("files/metabat2.txt", sep = "\t", header = TRUE)
 
 datatable(
-  metabat2, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",  
+  metabat2, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",
   colnames = c(
-    "bin name", "domain", "confidence", 
-    "% completion", "% redundancy", 
+    "bin name", "domain", "confidence",
+    "% completion", "% redundancy",
     "num_splits", "total length"),
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -249,7 +249,7 @@ datatable(
   extensions = "Buttons", "FixedColumns",
   options = list(
     columnDefs = list(list(className = "dt-left", targets = 0)),
-    dom = "Brti", 
+    dom = "Brti",
     buttons = c("csv", "copy", I('colvis')),
     pageLength = 5, FixedColumns = list(leftColumns = 2, rightColumns =1),
     scrollY=FALSE, scroller=TRUE))
@@ -267,10 +267,10 @@ Here are the results for the 16 MaxBIN2 bins.
 maxbin2 <- read.table("files/maxbin2.txt", sep = "\t", header = TRUE)
 
 datatable(
-  maxbin2, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",  
+  maxbin2, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",
   colnames = c(
-    "bin name", "domain", "confidence", 
-    "% completion", "% redundancy", 
+    "bin name", "domain", "confidence",
+    "% completion", "% redundancy",
     "num_splits", "total length"),
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -278,7 +278,7 @@ datatable(
   extensions = "Buttons", "FixedColumns",
   options = list(
     columnDefs = list(list(className = "dt-left", targets = 0)),
-    dom = "Brltip", 
+    dom = "Brltip",
     buttons = c("csv", "copy", I('colvis')),
     pageLength = 5, lengthMenu = c(5, 20), FixedColumns = list(leftColumns = 2, rightColumns =1),
     scrollY=FALSE, scroller=TRUE))
@@ -287,9 +287,9 @@ datatable(
 
 ### DASTOOL
 
-And finnally we can see what happens when we let DASTOOL choose bins from the combination of the other three tools. 
+And finnally we can see what happens when we let DASTOOL choose bins from the combination of the other three tools.
 
-First the results using the default CONCOCT settings. 
+First the results using the default CONCOCT settings.
 
 ```bash
 anvi-estimate-genome-completeness -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -C DASTOOL
@@ -299,10 +299,10 @@ anvi-estimate-genome-completeness -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WA
 dastool <- read.table("files/dastool.txt", sep = "\t", header = TRUE)
 
 datatable(
-  dastool, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",  
+  dastool, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",
   colnames = c(
-    "bin name", "domain", "confidence", 
-    "% completion", "% redundancy", 
+    "bin name", "domain", "confidence",
+    "% completion", "% redundancy",
     "num_splits", "total length"),
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -310,7 +310,7 @@ datatable(
   extensions = "Buttons", "FixedColumns",
   options = list(
     columnDefs = list(list(className = "dt-left", targets = 0)),
-    dom = "Brti", 
+    dom = "Brti",
     buttons = c("csv", "copy", I('colvis')),
     pageLength = 7, FixedColumns = list(leftColumns = 2, rightColumns =1),
     scrollY=FALSE, scroller=TRUE))
@@ -318,7 +318,7 @@ datatable(
 
 Here we see that DASTOOL used at least 1 bin from each of the three methods.
 
-And then  the results using the CONCOCT `--clusters` flag equal to 5. 
+And then  the results using the CONCOCT `--clusters` flag equal to 5.
 
 ```bash
 anvi-estimate-genome-completeness -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -C DASTOOL_5
@@ -328,10 +328,10 @@ anvi-estimate-genome-completeness -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WA
 dastool5 <- read.table("files/dastool-5.txt", sep = "\t", header = TRUE)
 
 datatable(
-  dastool5, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",  
+  dastool5, rownames = FALSE, autoHideNavigation = TRUE, width = "100%",
   colnames = c(
-    "bin name", "domain", "confidence", 
-    "% completion", "% redundancy", 
+    "bin name", "domain", "confidence",
+    "% completion", "% redundancy",
     "num_splits", "total length"),
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -339,14 +339,14 @@ datatable(
   extensions = "Buttons", "FixedColumns",
   options = list(
     columnDefs = list(list(className = "dt-left", targets = 0)),
-    dom = "Brti", 
+    dom = "Brti",
     buttons = c("csv", "copy", I('colvis')),
     pageLength = 7, FixedColumns = list(leftColumns = 2, rightColumns =1),
     scrollY=FALSE, scroller=TRUE))
 ```
 
 
-However, here DASTOOL did not choose any of the CONCOCT bins. 
+However, here DASTOOL did not choose any of the CONCOCT bins.
 
 
 
@@ -377,8 +377,6 @@ However, here DASTOOL did not choose any of the CONCOCT bins.
 </div>
 </div>
 
-<p class="edit-page">
-  <a href="https://github.com/hypocolypse/web/blob/master/build/mg-auto-binning.Rmd">
-    <i class="fas fa-pen pr-2"></i> Edit this page
-  </a>
-</p>
+## Source Code {.appendix}
+
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-auto-binning.Rmd).

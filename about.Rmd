@@ -29,9 +29,8 @@ knitr::opts_chunk$set(echo = TRUE)
 9) Run `touch public/.nojekyll`
 
 
-
-10 
-
+git log
+git reset --soft HEAD~1
 
 
 

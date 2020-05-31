@@ -32,7 +32,7 @@ knitr::opts_current$get(c(
 
 ## Workflow Overview
 
-In the paper itself, we only focuses on the water samples, however we include data and analysis from all samples collected. This script will process the data from different runs separately and then combine the results and finish the workflow. Please note that to decrease rendering time of this website, we set code chunks to `eval=FALSE` after the initial processing. Remove this flag to rerun these code chunks. 
+In the paper itself, we only focuses on the water samples, however we include data and analysis from all samples collected. This script will process the data from different runs separately and then combine the results and finish the workflow. Please note that to decrease rendering time of this website, we set code chunks to `eval=FALSE` after the initial processing. Remove this flag to rerun these code chunks.
 
 > In order to run this workflow, you either need the *raw* data, available on the figshare project site, or the *trimmed* data, available from the ENA under project accession number ... See the [Data Availability](data-availability.html) page for complete details.
 
@@ -110,8 +110,8 @@ head(list.files(path_X1))
 ```
 
 ```{r dummy_1X, echo=FALSE}
-c("CCC1_1_R1.trimmed.fastq", "CCC1_1_R2.trimmed.fastq", 
-  "CCC2_1_R1.trimmed.fastq", "CCC2_1_R2.trimmed.fastq", 
+c("CCC1_1_R1.trimmed.fastq", "CCC1_1_R2.trimmed.fastq",
+  "CCC2_1_R1.trimmed.fastq", "CCC2_1_R2.trimmed.fastq",
   "CCC3_1_R1.trimmed.fastq", "CCC3_1_R2.trimmed.fastq")
 ```
 
@@ -123,8 +123,8 @@ head(list.files(path_Y2))
 ```
 
 ```{r dummy_1Y, echo=FALSE}
-c("CCC3_2_R1.trimmed.fastq", "CCC3_2_R2.trimmed.fastq", 
-  "CCC4_2_R1.trimmed.fastq", "CCC4_2_R2.trimmed.fastq", 
+c("CCC3_2_R1.trimmed.fastq", "CCC3_2_R2.trimmed.fastq",
+  "CCC4_2_R1.trimmed.fastq", "CCC4_2_R2.trimmed.fastq",
   "CCC5_2_R1.trimmed.fastq", "CCC5_2_R2.trimmed.fastq")
 ```
 
@@ -144,12 +144,12 @@ And finally we can extract the sample names from the from the fastq files and ha
 sample.names_X1 <- sapply(strsplit(fnFs_X1, "_"), `[`, 1)
 fnFs_X1 <-file.path(path_X1, fnFs_X1)
 fnRs_X1 <-file.path(path_X1, fnRs_X1)
-sample.names_X1 
+sample.names_X1
 ```
 
 ```
- [1] "CCC1" "CCC2" "CCC3" "CCC4" "CCC5" "CCC6" "CCR1" "CCR2" "CCR3" "CCR4" 
- [11] "CCR5" "CCR6" "MCR1" "MCR2" "MCR3" "MCR5" "SCC1" "SCC2" "SCC3" "SCR1" 
+ [1] "CCC1" "CCC2" "CCC3" "CCC4" "CCC5" "CCC6" "CCR1" "CCR2" "CCR3" "CCR4"
+ [11] "CCR5" "CCR6" "MCR1" "MCR2" "MCR3" "MCR5" "SCC1" "SCC2" "SCC3" "SCR1"
  [21] "SCR2" "SCR3" "WCC0" "WCC1" "WCC2" "WCC3" "WCR0" "WCR1" "WCR2" "WCR3"
 ```
 
@@ -164,7 +164,7 @@ sample.names_Y2
 [1] "CCC3" "CCC4" "CCC5" "CCC6" "CCR2" "CCR3" "CCR4" "CCR5"
 ```
 
-As you can see, the Run02 samples are duplicates of some Run01 samples. 
+As you can see, the Run02 samples are duplicates of some Run01 samples.
 
 ## 3. Quality Assessment & Filtering
 
@@ -220,14 +220,14 @@ filtFs_Y2 <- file.path(filt_path_Y2, paste0(sample.names_Y2, "_F_filt.fastq.gz")
 filtRs_Y2 <- file.path(filt_path_Y2, paste0(sample.names_Y2, "_R_filt.fastq.gz"))
 ```
 
-And then we trim the reads. 
+And then we trim the reads.
 
 #### Run 01
 
 ```{r filterX, eval=FALSE}
-out_X1 <- filterAndTrim(fnFs_X1, filtFs_X1, fnRs_X1, filtRs_X1, 
-                        truncLen=c(260,160), maxN=0, maxEE=c(3,5), 
-                        truncQ=2, rm.phix=TRUE, compress=TRUE, 
+out_X1 <- filterAndTrim(fnFs_X1, filtFs_X1, fnRs_X1, filtRs_X1,
+                        truncLen=c(260,160), maxN=0, maxEE=c(3,5),
+                        truncQ=2, rm.phix=TRUE, compress=TRUE,
                         multithread=TRUE)
 head(out_X1)
 ```
@@ -245,9 +245,9 @@ head(out_X1)
 #### Run 02
 
 ```{r filterY, eval=FALSE}
-out_Y2 <- filterAndTrim(fnFs_Y2, filtFs_Y2, fnRs_Y2, filtRs_Y2, 
-                        truncLen=c(260,160), maxN=0, maxEE=c(5,5), 
-                        truncQ=2, rm.phix=TRUE, compress=TRUE, 
+out_Y2 <- filterAndTrim(fnFs_Y2, filtFs_Y2, fnRs_Y2, filtRs_Y2,
+                        truncLen=c(260,160), maxN=0, maxEE=c(5,5),
+                        truncQ=2, rm.phix=TRUE, compress=TRUE,
                         multithread=TRUE)
 head(out_Y2)
 ```
@@ -285,7 +285,7 @@ datatable(out_X1, width = "80%",
 ```
 
 ```{r dummy_4X, echo=FALSE}
-out_X1_T <- read.table("tables/16s-dada2/out_X1_T.txt", 
+out_X1_T <- read.table("tables/16s-dada2/out_X1_T.txt",
                        header = TRUE)
 datatable(out_X1_T, width = "80%",
           extensions = 'Buttons', options = list(
@@ -303,7 +303,7 @@ datatable(out_X1_T, width = "80%",
 #### Run02
 
 ```{r dummy_4Y, echo=FALSE}
-out_Y2_T <- read.table("tables/16s-dada2/out_Y2_T.txt", 
+out_Y2_T <- read.table("tables/16s-dada2/out_Y2_T.txt",
                        header = TRUE)
 datatable(out_Y2_T, width = "80%",
           extensions = 'Buttons', options = list(
@@ -318,7 +318,7 @@ datatable(out_Y2_T, width = "80%",
 
 ## 4. Learn Error Rates
 
-Now it is time to assess the error rate of the data. The DADA2 algorithm uses a parametric error model. Every amplicon data set has a different set of error rates and the `learnErrors` method learns this error model *from the data*. It does this by alternating estimation of the error rates and inference of sample composition until they converge on a jointly consistent solution. The algorithm begins with an initial guess, for which the maximum possible error rates in the data are used. 
+Now it is time to assess the error rate of the data. The DADA2 algorithm uses a parametric error model. Every amplicon data set has a different set of error rates and the `learnErrors` method learns this error model *from the data*. It does this by alternating estimation of the error rates and inference of sample composition until they converge on a jointly consistent solution. The algorithm begins with an initial guess, for which the maximum possible error rates in the data are used.
 
 #### Forward Reads---Run01
 
@@ -412,7 +412,7 @@ Now we can use `derepFastq` to identify the unique sequences in the forward and 
 #### Forward Reads
 
 ```{r dummy_20, echo=FALSE}
-## TO run and cache the derepFastq you must set 
+## TO run and cache the derepFastq you must set
 ## `cache.lazy=FALSE`
 ## For both code blocks
 ```
@@ -437,7 +437,7 @@ names(derepRs_Y2) <- sample.names_Y2
 
 ## 6. Run DADA2 & Infer Sequence Variants
 
-At this point we are ready to apply the core sample inference algorithm (dada) to the filtered and trimmed sequence data. We run the `dada` command first on the forward reads from Run01 and Run02, then the reverse reads. 
+At this point we are ready to apply the core sample inference algorithm (dada) to the filtered and trimmed sequence data. We run the `dada` command first on the forward reads from Run01 and Run02, then the reverse reads.
 
 #### Forward Reads
 
@@ -547,7 +547,7 @@ Sample 7 - 308 reads in 113 unique sequences.
 Sample 8 - 773 reads in 278 unique sequences.
 ```
 
-We can also inspect the returned `dada-class` objects for the forward and reverse reads. Let's have a peek at sample #1 from Run01 as an example. 
+We can also inspect the returned `dada-class` objects for the forward and reverse reads. Let's have a peek at sample #1 from Run01 as an example.
 
 ```{r inspect_f, eval=FALSE}
 dadaFs_X1[[1]]
@@ -555,7 +555,7 @@ dadaFs_X1[[1]]
 
 ```
 dada-class: object describing DADA2 denoising results
-257 sequence variants were inferred from 8258 
+257 sequence variants were inferred from 8258
 input unique sequences.
 Key parameters: OMEGA_A = 1e-40, OMEGA_C = 1e-40, BAND_SIZE = 16
 ```
@@ -566,12 +566,12 @@ dadaRs_X1[[1]]
 
 ```
 dada-class: object describing DADA2 denoising results
-188 sequence variants were inferred from 7614 
+188 sequence variants were inferred from 7614
 input unique sequences.
 Key parameters: OMEGA_A = 1e-40, OMEGA_C = 1e-40, BAND_SIZE = 16
 ```
 
-This output tells us how many true sequence variants the DADA2 algorithm inferred from the unique sequences. In this case, 257 sequence variants were inferred from 8258 unique forward sequences and 188 sequence variants were inferred from 7614 unique reverse sequences. 
+This output tells us how many true sequence variants the DADA2 algorithm inferred from the unique sequences. In this case, 257 sequence variants were inferred from 8258 unique forward sequences and 188 sequence variants were inferred from 7614 unique reverse sequences.
 
 ## 7. Merge Paired Reads
 
@@ -609,11 +609,11 @@ table(nchar(getSequences(seqtab_X1)))
 ```
 
 ```
-  260  318  365  366  367  368  369  370  371  372  373  374  375 
-    4    1   18   19   14   17  161   35  109  294 1185  359 1376 
-  376  377  378  379  380  381  382  383  384  385  386  387  388 
- 2138 4223  382  214  360  141   25   14    5    5    3    4    3 
-  391  392  393  394  395  396  397  398  399  400  403  404  406 
+  260  318  365  366  367  368  369  370  371  372  373  374  375
+    4    1   18   19   14   17  161   35  109  294 1185  359 1376
+  376  377  378  379  380  381  382  383  384  385  386  387  388
+ 2138 4223  382  214  360  141   25   14    5    5    3    4    3
+  391  392  393  394  395  396  397  398  399  400  403  404  406
     4   12   30   67   54    7    2    2    2    4    9    1    2
 ```
 
@@ -634,9 +634,9 @@ table(nchar(getSequences(seqtab_Y2)))
 ```
 
 ```
- 260 282 315 344 353 368 369 370 371 372 373 374 375 376 377 379 
-   1   1   1   1   1   3   4   2   2  13  26   3  46  20  37   1 
- 380 382 383 385 388 400 
+ 260 282 315 344 353 368 369 370 371 372 373 374 375 376 377 379
+   1   1   1   1   1   3   4   2   2  13  26   3  46  20  37   1
+ 380 382 383 385 388 400
    1   1   1   1   1   1
 ```
 
@@ -664,9 +664,9 @@ table(nchar(getSequences(seqtab_X1.2)))
 ```
 
 ```
-  368  369  370  371  372  373  374  375  376  377  378  379  380 
-   17  161   35  109  294 1185  359 1376 2138 4223  382  214  360 
-  381  382  383 
+  368  369  370  371  372  373  374  375  376  377  378  379  380
+   17  161   35  109  294 1185  359 1376 2138 4223  382  214  360
+  381  382  383
   141   25   14
 ```
 
@@ -690,7 +690,7 @@ table(nchar(getSequences(seqtab_Y2.2)))
 ```
 
 ```
- 368 369 370 371 372 373 374 375 376 377 379 380 382 383 
+ 368 369 370 371 372 373 374 375 376 377 379 380 382 383
    3   4   2   2  13  26   3  46  20  37   1   1   1   1
 ```
 
@@ -733,15 +733,15 @@ remove(list = ls())
 st.all <- readRDS("rdata/16s-dada2/combo_run1_run2.rds")
 ```
 
-This may seem redundant (and it probably is) but it lets me work with only the data in the `rds` file instead of everything generated in the pipeline thus far. This becomes important when we save the final `rdata` file from the workflow. If we were to save the whole workflow the final file would be large and clunky. This way it contains only the data we need going forward. The variable `st.all` is the combined sequence tables of Run01 and Run02.  
+This may seem redundant (and it probably is) but it lets me work with only the data in the `rds` file instead of everything generated in the pipeline thus far. This becomes important when we save the final `rdata` file from the workflow. If we were to save the whole workflow the final file would be large and clunky. This way it contains only the data we need going forward. The variable `st.all` is the combined sequence tables of Run01 and Run02.
 
 ## 10. Remove Chimeras
 
 Even though the `dada` method corrects substitution and indel errors,  chimeric sequences remain. According to the DADA2 documentation, the accuracy of sequence variants after denoising makes identifying chimeric ASVs simpler than when dealing with fuzzy OTUs. Chimeric sequences are identified if they can be *exactly reconstructed* by combining a left-segment and a right-segment from two more abundant *parent* sequences.
 
 ```{r chimera_on_ind_runs, eval=FALSE}
-seqtab <- removeBimeraDenovo(st.all, 
-                             method="consensus", 
+seqtab <- removeBimeraDenovo(st.all,
+                             method="consensus",
                              multithread=TRUE)
 dim(seqtab)
 ```
@@ -749,7 +749,7 @@ dim(seqtab)
 ```{r dummy_16, echo=FALSE}
 c(30, 6160)
 ```
- 
+
 
 ```{r chimera_on_ind_runs2, eval=FALSE}
 sum(seqtab)/sum(st.all)
@@ -760,7 +760,7 @@ sum(seqtab)/sum(st.all)
 0.9129203
 ```
 
-When we account for the abundances of each variant, we see chimeras account for  about 9% of the merged sequence reads. Not bad. The variable `seqtab` is the combined sequence tables of Run01 and Run02, screened for chimeras. This is the final sequence table. 
+When we account for the abundances of each variant, we see chimeras account for  about 9% of the merged sequence reads. Not bad. The variable `seqtab` is the combined sequence tables of Run01 and Run02, screened for chimeras. This is the final sequence table.
 
 ## 11. Assign Taxonomy
 
@@ -799,14 +799,14 @@ seqtab_Y2.2.nochim <- readRDS("rdata/16s-dada2/seqtab_Y2.2.nochim.rds")
 
 ### Remove Chimeras for Each Run
 
-First we must identify and remove chimeras from each run. 
+First we must identify and remove chimeras from each run.
 
 #### Run01
 
 ```{r chimera_on_ind_runsX, eval=FALSE}
 #Run01
 seqtab_X1.2.nochim <- removeBimeraDenovo(seqtab_X1.2,
-                                         method="consensus", 
+                                         method="consensus",
                                          multithread=TRUE)
 
 dim(seqtab_X1.2.nochim)
@@ -830,7 +830,7 @@ sum(seqtab_X1.2.nochim)/sum(seqtab_X1.2)
 ```{r chimera_on_ind_runsY, eval=FALSE}
 #Run01
 seqtab_Y2.2.nochim <- removeBimeraDenovo(seqtab_Y2.2,
-                                         method="consensus", 
+                                         method="consensus",
                                          multithread=TRUE)
 
 dim(seqtab_Y2.2.nochim)
@@ -848,7 +848,7 @@ sum(seqtab_Y2.2.nochim)/sum(seqtab_Y2.2)
 0.9971973
 ```
 
-### Build Change Table 
+### Build Change Table
 
 Next, we build a table for each run that contains read counts for each sample from each step of the pipeline.
 
@@ -876,7 +876,7 @@ rownames(track_Y2) <- sample.names_Y2
 #### Run01 Read Changes through Pipeline
 
 ```{r dummy_44X, echo=FALSE, layout="l-body-outset"}
-sum_run1 <- read.table("tables/16s-dada2/RUN01_read_changes.txt", 
+sum_run1 <- read.table("tables/16s-dada2/RUN01_read_changes.txt",
                        header = TRUE)
 datatable(sum_run1, width = "80%",
           extensions = 'Buttons', options = list(
@@ -894,7 +894,7 @@ datatable(sum_run1, width = "80%",
 #### Run02 Read Changes through Pipeline
 
 ```{r dummy_44Y, echo=FALSE, layout="l-body-outset"}
-sum_run2 <- read.table("tables/16s-dada2/RUN02_read_changes.txt", 
+sum_run2 <- read.table("tables/16s-dada2/RUN02_read_changes.txt",
                        header = TRUE)
 datatable(sum_run2, width = "80%",
           extensions = 'Buttons', options = list(
@@ -908,7 +908,7 @@ datatable(sum_run2, width = "80%",
 ```
 
 
-And then save the tables so we can use them later if we want. 
+And then save the tables so we can use them later if we want.
 
 ```{r track_changes, eval=FALSE}
 #Run01
@@ -920,7 +920,7 @@ write.table(track_Y2, "tables/16s-dada2/RUN02_read_changes.txt",
             sep = "\t", quote = FALSE, col.names=NA)
 ```
 
-That's it for this part. Next, we do some data prep ahead of the community analysis portion of the workflow. 
+That's it for this part. Next, we do some data prep ahead of the community analysis portion of the workflow.
 
 </br>
 
@@ -940,6 +940,4 @@ That's it for this part. Next, we do some data prep ahead of the community analy
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/16s-dada2.Rmd). Please note, that in order to process the data *and*  build the website, we needed to run the pipeline and get the results. Then hard code the results and turn off the individual commands. So the raw file for this page is a bit messy---you have been warned. 
-
-
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-dada2.Rmd). Please note, that in order to process the data *and*  build the website, we needed to run the pipeline and get the results. Then hard code the results and turn off the individual commands. So the raw file for this page is a bit messy---you have been warned. 

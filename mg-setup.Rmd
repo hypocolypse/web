@@ -3,24 +3,24 @@ title: "No 1. Working Environment"
 description: |
   In this section we go through our steps to build a working environment for data processing and analysis.
 author:
-  - name: Jarrod J Scott 
+  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
 bibliography: assets/cite.bib
 ---
 
-For the metagenomic analysis we largely leave the R environment. The initial step of our metagenomic workflow is to setup our working environment, which we will do in two steps. 
+For the metagenomic analysis we largely leave the R environment. The initial step of our metagenomic workflow is to setup our working environment, which we will do in two steps.
 
-In the first part we install the backbone of our computational operations---Miniconda and anvi'o. Then we build the annotation databases and install the needed software. 
+In the first part we install the backbone of our computational operations---Miniconda and anvi'o. Then we build the annotation databases and install the needed software.
 
-Metagenomic datasets are often a bit large so you may need to run these workflows on a compute cluster. A personal computer will be insufficiant for many of the steps. We ran our analyses on the Smithsonian cluster (Hydra). For each step in the workflow we include our Hydra job scripts, embeded in a handy dropdown. 
+Metagenomic datasets are often a bit large so you may need to run these workflows on a compute cluster. A personal computer will be insufficiant for many of the steps. We ran our analyses on the Smithsonian cluster (Hydra). For each step in the workflow we include our Hydra job scripts, embeded in a handy dropdown.
 
 By the time you read this, some of these instructions may be out of date.  Consult the source material for programs/databases to ensure up-to-date installations.
 
 For the metagenomic analysis we mainly use [anvi'o](http://merenlab.org/software/anvio/network/)---an innovative (dare I say gnarly) platform for metagenomic analysis and visualization. If you put in the time to learn this platform, you will be rewarded---beautifully rendered interactive graphics, a deeper understanding of metagenomics, and the ability to explore your data in novel ways. As the developers like to say, anvi'o helps you get your hands dirty. More on that in a minute.
 
-We will also use other tools to generate data products that we can port into the anvi'o ecosystem. First though, let's set up a Miniconda environment. We will use Miniconda to install a stable version of anvi'o as well as several other tools as the need arises. 
+We will also use other tools to generate data products that we can port into the anvi'o ecosystem. First though, let's set up a Miniconda environment. We will use Miniconda to install a stable version of anvi'o as well as several other tools as the need arises.
 
 ## Miniconda
 
@@ -319,4 +319,4 @@ As mentioned above, we will use many other tools. Some are installed with anvio,
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/mg-setup.Rmd).
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-setup.Rmd).

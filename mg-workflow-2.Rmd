@@ -3,7 +3,7 @@ title: "No 4. Assembley & Annotation Summary"
 description: |
   In this section of the workflow we summarize: **1**) QC & assemby results. **2**) Kraken short read taxonomy. **3**) Mapping results. **4**) Contig classification.
 author:
-  - name: Jarrod J Scott 
+  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -34,11 +34,11 @@ datatable(
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
     "Table 8.1: QC results"),
-  extensions = c("Buttons", "FixedColumns"), 
+  extensions = c("Buttons", "FixedColumns"),
   options = list(
-    columnDefs = list(list(className = "dt-left", targets = 0)), 
-    dom = "Btir", buttons = c("csv", "copy", I('colvis')), 
-    scrollX = TRUE, scrollCollapse = TRUE, scrollY="300px", paging=FALSE, 
+    columnDefs = list(list(className = "dt-left", targets = 0)),
+    dom = "Btir", buttons = c("csv", "copy", I('colvis')),
+    scrollX = TRUE, scrollCollapse = TRUE, scrollY="300px", paging=FALSE,
     fixedColumns = list(leftColumns = 1, rightColumns = 0)))
 
 ```
@@ -47,7 +47,7 @@ datatable(
 
 Next we can look at the results of the co-assembly, the number  of HMM hits, and the estimated number of genomes. These data not only give us a general idea of assemby quality but will also help us decide parameters for automatic clustering down the road.
 
-We can use anvi'o to generate a simple table of contig stats for this assembly. 
+We can use anvi'o to generate a simple table of contig stats for this assembly.
 
 ```bash
 anvi-display-contigs-stats 03_CONTIGS/WATER-contigs.db -o 03_CONTIGS/WATER-contig-stats -o contig-stats.txt
@@ -58,15 +58,15 @@ anvi-display-contigs-stats 03_CONTIGS/WATER-contigs.db -o 03_CONTIGS/WATER-conti
 contig <- read.table("files/contig-stats.txt", sep = "\t", header = TRUE)
 
 datatable(
-  contig, rownames = FALSE, width = "50%", colnames = c("Stat", "value"), 
+  contig, rownames = FALSE, width = "50%", colnames = c("Stat", "value"),
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
     "Table 8.2: Assembly statistics"),
   extensions = "Buttons",
   options = list(
-    columnDefs = list(list(className = "dt-left", targets = 0)), 
-    dom = "Blrtip", buttons = c("csv", "copy"), 
-    scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE, 
+    columnDefs = list(list(className = "dt-left", targets = 0)),
+    dom = "Blrtip", buttons = c("csv", "copy"),
+    scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE,
     scroller=TRUE, lengthMenu = c(5, 25)))
 
 ```
@@ -139,13 +139,13 @@ datatable(
   class, rownames = FALSE, autoHideNavigation=TRUE, width = "100%",
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
-    "Table 8.3: Number of reads by Class"), 
+    "Table 8.3: Number of reads by Class"),
   extensions = "Buttons",
   options = list(
     columnDefs = list(list(className = "dt-left", targets = 0)),
     dom = "Blfrtip", lengthMenu = c(10, 25, 55),
-    buttons = c("csv", "copy"), 
-    scrollX = TRUE, scrollCollapse = FALSE, scrollY=FALSE, 
+    buttons = c("csv", "copy"),
+    scrollX = TRUE, scrollCollapse = FALSE, scrollY=FALSE,
     scroller=TRUE, colReorder=TRUE))
 ```
 
@@ -169,14 +169,14 @@ What we want is a table with `sample`, `total_reads`, `total_reads_mapped`, and 
 mapping <- read.table("files/mapping-results.txt", sep = "\t", header = TRUE)
 
 datatable(
-  mapping, rownames = FALSE, autoHideNavigation=TRUE, width = "100%", 
+  mapping, rownames = FALSE, autoHideNavigation=TRUE, width = "100%",
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;","Table 8.4: Mapping results "),
-  extensions = "Buttons", 
+  extensions = "Buttons",
   options = list(
     columnDefs = list(list(className = "dt-left", targets = 0)),
-    dom = "Brti", buttons = c("csv", "copy"), 
-    scrollX = TRUE, scrollCollapse = FALSE, scrollY=FALSE, 
+    dom = "Brti", buttons = c("csv", "copy"),
+    scrollX = TRUE, scrollCollapse = FALSE, scrollY=FALSE,
     scroller=TRUE, colReorder=TRUE))
 ```
 
@@ -231,4 +231,4 @@ We will get into much more of the annotation data later, including the various f
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/mg-workflow-2.Rmd).
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-workflow-2.Rmd).

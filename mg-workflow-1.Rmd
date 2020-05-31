@@ -1,15 +1,32 @@
 ---
 title: "No 3. Assembly & Annotations"
 description: |
-  This section describes the steps we took to co-assemble the metagenomic samples, classify taxonomy, and assign functions. 
+  This section describes the steps we took to co-assemble the metagenomic samples, classify taxonomy, and assign functions.
 author:
-  - name: Jarrod J Scott 
+  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
 bibliography: assets/cite.bib
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(019911)
+library(DiagrammeR)
+# library(htmlwidgets)
+library(DiagrammeRsvg)
+library(rsvg)
+
+options(scipen=999)
+knitr::opts_current$get(c(
+  "cache",
+  "cache.path",
+  "cache.rebuild",
+  "dependson",
+  "autodep"
+))
+```
 
 ## The Workflow
 
@@ -18,18 +35,18 @@ In this section of the workflow we begin with raw, paired-end Illumina data. We 
 Specifically we will:
 
   1) Perform adapter trimming.
-  2) Use the anvi'o Snakemake workflow to: 
-      a) quality filter trimmed, raw reads;  
-      b) co-assemble metagenomic sets; 
-      c) recruit reads; 
-      d) profile the mapping results; 
-      e) merge profile dbs; 
-      f) classify reads and genes; 
-      g) annotate genes; 
+  2) Use the anvi'o Snakemake workflow to:
+      a) quality filter trimmed, raw reads;
+      b) co-assemble metagenomic sets;
+      c) recruit reads;
+      d) profile the mapping results;
+      e) merge profile dbs;
+      f) classify reads and genes;
+      g) annotate genes;
       h) run HMM profiles.
   3) Use  external tools for annotation and classification.
 
-The main steps of this workflow are: 
+The main steps of this workflow are:
 
 :::l-body-outset
 | Task                              | Tool/Description                                        | Input                      |
@@ -44,7 +61,7 @@ The main steps of this workflow are:
 | TAXONOMIC ANNOTATION  | KAIJU & CENTRIFUGE for classification of genes.                     |  genes (dna format)     |
 | FUNCTIONAL ANNOTATION | Gene annotations against Pfams, COGS, KEGG, etc.                    |  genes (aa format)      |
 | MERGING               | Create single merged profile db.                                    |  individual profile dbs |
-:::  
+:::
 
 ## Trimming
 
@@ -429,17 +446,8 @@ To see what will  happen with the `config` file we can  visualize the  Snakemake
 > Click on the image to zoom in or download a copy.
 
 <details markdown="1"><summary>Show/hide DAG R Code script</summary>
-
-```{r, setup}
-# For DAG
-library(DiagrammeR)
-# library(htmlwidgets)
-library(DiagrammeRsvg)
-library(rsvg)
-```
-
-
-```{r, workflow, collapse=TRUE}
+<pre><code>
+```{r workflow1, eval=FALSE}
 dag <- grViz ("
 digraph boxes_and_circles {
   graph [layout = dot, align=center]
@@ -577,6 +585,7 @@ export_svg(dag) %>%
   png::writePNG("images/dag.png")
 
 ```
+</code></pre>
 </details>
 
 :::l-body-outset
@@ -652,7 +661,7 @@ echo = `date` job $JOB_NAME don
 
 #### Snakemake Citations
 
-There are many tools used in the workflow that need to be cited. 
+There are many tools used in the workflow that need to be cited.
 
 First there is the workflow engine itself---Snakemake[@koster2012snakemake]. QUALITY-FILTERING of raw reads was performed using Illumina Utils[@eren2013filtering]. CO-ASSEMBLY of metagenomic samples performed using MEGAHIT[@li2015megahit]. GENE CALLING was performed using PRODIGAL[@hyatt2010prodigal]. RECRUITMENT (a.k.a. mapping) of reads to assembly performed using BOWTIE2[@langmead2012fast] and SAMtools[@li2009sequence]. TAXONOMIC CLASSIFICATION of genes using CENTRIFUGE[@kim2016centrifuge].
 
@@ -664,14 +673,14 @@ Also, there are a few tools that we ran outside of the Snakemake workflow. Resul
 
 ## Taxonomic Annotations
 
-In this section we conduct taxonomic classification of short reads, contigs, and gene calls.  
+In this section we conduct taxonomic classification of short reads, contigs, and gene calls.
 
 ### Kaken Annotation
 
 In this section we use KrakenUniq[@breitwieser2018krakenuniq] to classify the **short reads**. Because of the memory demands of KrakenUniq, we could not get this to work in the Snakemake workflow so we ran the analysis separately. For several of these commands we used lists of sample names and  `for` loops to run through each sample.
 
 <aside>
- GitHub repo for [KrakenUniq](https://github.com/fbreitwieser/krakenuniq). 
+ GitHub repo for [KrakenUniq](https://github.com/fbreitwieser/krakenuniq).
 </aside>
 
 Ok, here we run KrakenUniq and several reporting and summary steps against the short read data for each sample using the [list.txt](files/list.txt) file.
@@ -696,7 +705,7 @@ do
 done
 ```
 
-And finally construct Krona[@ondov2011krona] plots. We will come back to Krona plots when we explain what they are and how to use them in the [Assembley & Annotation Summary](mg-workflow-2.html#krona-plots-explained) section of the workflow. 
+And finally construct Krona[@ondov2011krona] plots. We will come back to Krona plots when we explain what they are and how to use them in the [Assembley & Annotation Summary](mg-workflow-2.html#krona-plots-explained) section of the workflow.
 
 
 <aside>
@@ -857,13 +866,13 @@ After this you need to rerun `anvi-merge` so that the short read annotations mak
 
 ### VirSorter Annotation
 
-To classify any viral sequences, we ran Virsorter[@roux2015virsorter] on conigs from the co-assembly using our newly created `contig.db` generated after the co-assembly step. We ran Virsorter with and without the `--virome` flag. See [issue 40](https://github.com/simroux/VirSorter/issues/40) on the Virsorter GitHub site for a discussion of why we did this. We used DIAMOND[@buchfink2015fast] as the local sequence aligner. 
+To classify any viral sequences, we ran Virsorter[@roux2015virsorter] on conigs from the co-assembly using our newly created `contig.db` generated after the co-assembly step. We ran Virsorter with and without the `--virome` flag. See [issue 40](https://github.com/simroux/VirSorter/issues/40) on the Virsorter GitHub site for a discussion of why we did this. We used DIAMOND[@buchfink2015fast] as the local sequence aligner.
 
 <aside>
 [GitHub Repo for VirSorter](https://github.com/simroux/VirSorter). Documentation for [DIAMOND](http://www.diamondsearch.org/index.php).
 </aside>
 
-Here is the VirSorter workflow. 
+Here is the VirSorter workflow.
 
 ```bash
 wrapper_phage_contigs_sorter_iPlant.pl -f 02_FASTA/WATER/WATER-contigs.fa --ncpu $NSLOTS --db 2 --wdir 07_TAXONOMY/VIRSORTER/WATER --data-dir /pool/genomics/stri_istmobiome/dbs/virsorter/virsorter-data --diamond
@@ -1400,7 +1409,7 @@ anvi-import-taxonomy-for-genes -c 03_CONTIGS/MAT-contigs.db -i GhostKOALA/mat-Ke
 #
 echo = `date` job $JOB_NAME don
 </code></pre>
-</details>  
+</details>
 
 ## Merge Profiles & Import VirSorter
 
@@ -1600,7 +1609,7 @@ This section of the workflow is complete. Lets take a look at the what we have s
 | `04_MAPPING/`       | Short read BAM files.                                                                 |
 | `05_ANVIO_PROFILE/` | Individual profile database for each sample.                                          |
 | `06_MERGED/`        | Single merged profile database.                                                       |
-  
+
 <br/>
 
 <div class="post-nav">
@@ -1619,5 +1628,4 @@ This section of the workflow is complete. Lets take a look at the what we have s
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/mg-workflow-1.Rmd).
-
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-workflow-1.Rmd).

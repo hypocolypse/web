@@ -1,7 +1,7 @@
 ---
 title: "Hypocolypse"
 description: |
-  Reproducible workflows for the study *Hypoxia driven coral bleaching & microbial shifts in Caribbean Panama*. 
+  Reproducible workflows for the study *Hypoxia driven coral bleaching & microbial shifts in Caribbean Panama*.
 author:
   - name: "Maggie D Johnson"
     url: https://github.com/jjallaire
@@ -45,9 +45,9 @@ The workflow is mainly written in [R Markdown](https://rmarkdown.rstudio.com/) m
 
 ## Using this Site
 
-The navigation bar at the top contains links to workflows, data/data products, supplementary material from the paper (see SOM), and a variety of other useful information. The site itself has many dynamic components. For example, you can sort and scroll through most of the tables, tabular data can be download in different formats, and several figures expand when clicked. All figures and tables from the final publication are included in the workflow. 
+The navigation bar at the top contains links to workflows, data/data products, supplementary material from the paper (see SOM), and a variety of other useful information. The site itself has many dynamic components. For example, you can sort and scroll through most of the tables, tabular data can be download in different formats, and several figures expand when clicked. All figures and tables from the final publication are included in the workflow.
 
-On the bottom of each page you can find a link to the page's source code or visit the main GitHub repo for the site, also linked at the bottom of each page. Should you find any problems, there is a link to the issue page of the source repository. References are also included as are DOI links to the publications where applicable. 
+On the bottom of each page you can find a link to the page's source code or visit the main GitHub repo for the site, also linked at the bottom of each page. Should you find any problems, there is a link to the issue page of the source repository. References are also included as are DOI links to the publications where applicable.
 
 ## Acknowledgements {.appendix}
 
@@ -55,8 +55,8 @@ MDJ was funded by postdoctoral fellow awards from the Smithsonian Institution Ma
 
 ## Author Contributions {.appendix}
 
-MDJ, JJS, ML, NL, and AA contributed to conception and experimental design. MDJ, NL, LR, and WW conducted surveys and collected field samples. NL, LR, and WW conducted laboratory analyses. JJS and ML performed extractions and sample processing for sequencing. MDJ, JJS, ML, and NL conducted statistical analyses and created figures. MDJ drafted the manuscript and Supplementary Information, and managed revisions with assistance from all co-authors. Website created by JJS with input and material from co-authors. 
+MDJ, JJS, ML, NL, and AA contributed to conception and experimental design. MDJ, NL, LR, and WW conducted surveys and collected field samples. NL, LR, and WW conducted laboratory analyses. JJS and ML performed extractions and sample processing for sequencing. MDJ, JJS, ML, and NL conducted statistical analyses and created figures. MDJ drafted the manuscript and Supplementary Information, and managed revisions with assistance from all co-authors. Website created by JJS with input and material from co-authors.
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/index.Rmd).
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/index.Rmd).
