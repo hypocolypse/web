@@ -1,0 +1,25 @@
+contigs_db	WATER
+Total Length	42664825
+Num Contigs	23758
+Num Contigs > 5 kb	642
+Num Contigs > 10 kb	168
+Num Contigs > 20 kb	44
+Num Contigs > 50 kb	5
+Num Contigs > 100 kb	1
+Longest Contig	102437
+Shortest Contig	1000
+Num Genes (prodigal)	65102
+L50	6759
+L75	14138
+L90	19652
+N50	1718
+N75	1253
+N90	1083
+Ribosomal_RNAs	61
+Transfer_RNAs	827
+Archaea_76	581
+Bacteria_71	997
+Protista_83	69
+bacteria (Bacteria_71)	14
+eukarya (Protista_83)	0
+archaea (Archaea_76)	1

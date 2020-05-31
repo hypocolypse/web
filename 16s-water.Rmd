@@ -1,0 +1,266 @@
+---
+title: "No 3. Water Samples"
+description: |
+  In this section of the workflow we look at the diversity of the water samples collected from Cayo Roldan (hypoxic) and Crawl Caye (normoxic). 
+author:
+  - name: Jarrod J Scott 
+#    url: https://example.com/norajones
+#    affiliation: Spacely Sprockets
+#    affiliation_url: https://example.com/spacelysprokets
+bibliography: assets/cite.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(0199)
+library(phyloseq); packageVersion("phyloseq")
+library(DT)
+library(ggplot2)
+library(Biostrings); packageVersion("Biostrings")
+library(dplyr)
+library(microbiome)  
+library(tidyverse)
+library(data.table)
+library(plyr)
+options(scipen=999)
+knitr::opts_current$get(c(
+  "cache",
+  "cache.path",
+  "cache.rebuild",
+  "dependson",
+  "autodep"
+))
+```
+
+## Summary of Water Samples
+
+Now that we have a phyloseq object containing the water samples only, we can summarize the data in the water phyloseq object. Again, we use the `summarize_phyloseq` from the [microbiome R package](https://github.com/microbiome/microbiome/)[@lahti2017microbiome] as we did before.
+
+First, load the R objects that contain the sample data, sequence table, and taxonomy table (saved at the end of the previous section) and merge them into a single phyloseq object. Doing it this way keeps the memory footprint low. 
+
+```{r load_water}
+remove(list = ls())
+sample_d <- readRDS("rdata/16s-water/ps_water-sample.rds")
+seqtab <- readRDS("rdata/16s-water/ps_water-seqtab.rds")
+taxtab <- readRDS("rdata/16s-water/ps_water-taxtab.rds")
+ps_water <- merge_phyloseq(sample_d, seqtab, taxtab)
+ps_water
+```
+
+Let's go ahead and a sample variable called `oxstate` to the sample data frame of the water phyloseq object so we can compare the taxonomy of normoxic (Coral Caye) vs. hypoxic (Cayo Roldan) samples. Note one of the Cayo Roldan samples (WCR0) was collected after the hypoxic event when oxygen levels had returned to normal. Therefore WCR0 is considered a normoxic sample. 
+
+One last thing to do is to compare diversity across the two sites *before* and *after* the hypoxic event. For this we  add a sample variable called `period` denoting whether the sample was collected during or after the event.
+
+```{r add_var_cats}
+sample_data(ps_water)$oxstate <- 
+  c("normoxic", "normoxic", "normoxic", "normoxic", 
+    "normoxic", "hypoxic", "hypoxic", "hypoxic")
+sample_data(ps_water)$period <- 
+  c("cc_after", "cc_during", "cc_during", "cc_during", 
+    "cr_after", "cr_during", "cr_during", "cr_during")
+```
+
+> The `ps_water` dataset contains `r ntaxa(ps_water)` ASVs, `r sum(otu_table(ps_water))` total reads, `r nsamples(ps_water)` samples, and `r length(sample_data(ps_water))` sample variables.
+
+And here is a summary of just water data set. 
+
+```{r calculate_stats_ps_water, echo=FALSE}
+### Reads
+min_read_ps_water <- min(readcount(ps_water))
+max_read_ps_water <- max(readcount(ps_water))
+total_reads_ps_water <- sum(readcount(ps_water))
+mean_reads_ps_water <- round(mean(readcount(ps_water)), digits = 0)
+median_reads_ps_water <- median(readcount(ps_water))
+
+### ASVs
+total_asvs_ps_water <- ntaxa(ps_water)
+min_asvs_ps_water <- min(estimate_richness(
+  ps_water, measures = "Observed"))
+max_asvs_ps_water <- max(estimate_richness(
+  ps_water, measures = "Observed"))
+mean_asvs_ps_water <- formatC(mean(
+  estimate_richness(ps_water, 
+                    measures = "Observed")$Observed), 
+  digits = 0, format = 'f')
+median_asvs_ps_water <- median(
+  estimate_richness(ps_water, 
+                    measures = "Observed")$Observed)
+singleton_ps_water <- tryCatch(ntaxa(rare(ps_water, 
+                                         detection = 1, 
+                                         prevalence = 0)), 
+                              error=function(err) NA)  
+singleton_ps_water_perc <- tryCatch(round((100*(ntaxa(rare(ps_water, 
+                                                          detection = 1, 
+                                                          prevalence = 0)) /
+                                   ntaxa(ps_water))), digits = 3), 
+                                   error=function(err) NA) 
+sparsity_ps_water <- round(length(which(abundances(ps_water) == 0))/length(abundances(ps_water)), 
+                     digits = 3)
+```
+
+| Metric                              | Results                                                                  |
+|-------------------------------------|--------------------------------------------------------------------------|
+| Min. number of reads                | `r min_read_ps_water`                                                    |
+| Max. number of reads                | `r max_read_ps_water`                                                    |
+| Total number of reads               | `r total_reads_ps_water`                                                 |
+| Average number of reads             | `r mean_reads_ps_water`                                                  |
+| Median number of reads              | `r median_reads_ps_water`                                                |
+| Min. number of ASVs                 | `r min_asvs_ps_water`                                                    |
+| Max. number of ASVs                 | `r max_asvs_ps_water`                                                    |
+| Total number of ASVs                | `r total_asvs_ps_water`                                                  |
+| Average number of ASVs              | `r mean_asvs_ps_water`                                                   |
+| Median number of ASVs               | `r median_asvs_ps_water`                                                 |
+| Sparsity                            | `r sparsity_ps_water`                                                    |
+| Any ASVs sum to 1 or less?          | `r isTRUE(singleton_ps_water >= 1)`                                      |
+| Number of singleton ASVs            | `r singleton_ps_water`                                                   |
+| Percent of ASVs that are singletons | `r singleton_ps_water_perc`                                              |
+| Number of sample variables are:     | `r length(sample_data(ps_water))`  (`r colnames(sample_data(ps_water))`) |
+
+
+We can also generate a summary table of total reads & ASVs for each sample. You can sort the table or download a copy. Here is the code to generate the data for the table. First, we create data frames that hold total reads and ASVs for each sample. We can also do a quick calculation of alpha diversity using the Shannon and InvSimpson indices. 
+
+```{r sample_summary_table}
+total_reads <- sample_sums(ps_water)
+total_reads <- as.data.frame(total_reads, make.names = TRUE)
+total_reads <- total_reads %>% rownames_to_column("Sample_ID")
+
+total_asvs <- estimate_richness(ps_water, 
+                                measures = c(
+                                  "Observed", "Shannon", "InvSimpson"))
+total_asvs <- total_asvs %>% rownames_to_column("Sample_ID")
+total_asvs$Sample_ID <- gsub('\\.', '-', total_asvs$Sample_ID)
+```
+
+And then we merge these two data frames with the sample data frame. We will use the `meta` command from the microbiome package to convert the `sample_data` to a data frame. 
+
+```{r sample_summary_table2}
+sam_details <- meta(sample_data(ps_water))
+rownames(sam_details) <- NULL
+
+colnames(sam_details) <- c("Sample_ID", "Type", "Site", "Oxstate", "Period") 
+
+merge_tab <- merge(sam_details, total_reads, by = "Sample_ID")
+merge_tab2 <- merge(merge_tab, total_asvs, by = "Sample_ID")
+colnames(merge_tab2) <- c("Sample<br/>ID", "Type", "Site", "Oxstate", "Period",
+    "total<br/>reads", "total<br/>ASVs", "Shannon", "InvSimpson")
+```
+
+<br/>
+
+```{r sample_summary_table_display, layout="l-body-outset", echo=FALSE}
+datatable(merge_tab2, width = "100%", escape = FALSE, 
+          rownames = FALSE, 
+          caption = htmltools::tags$caption(
+            style = 'caption-side: bottom; text-align: left;', 
+            'Table: ', htmltools::em('Total reads & ASVs by sample.')),
+          elementId = "mex738zeiysgiy3fysb8", 
+          extensions = 'Buttons', options = list(
+            scrollX = TRUE,
+            dom = 'Brti',
+            buttons = c('copy', 'csv', 'excel'),
+            pageLength = 8,
+            lengthMenu = c(5, 10)
+            )
+          ) %>%
+    formatRound(columns=c("Shannon", "InvSimpson"), digits=2) %>%
+  formatStyle(columns = colnames(merge_tab2), fontSize = '80%')
+```
+
+## Taxonomic Diversity
+
+Lets first take a look at the taxonomic diversity of the dataset. The code to generate this table is a little gross. See the link at the bottom of the page to access the source code. 
+
+```{r}
+topx <- top_taxa(ps_water, n = 20)
+m <- map_levels(topx, "ASV_ID", "Class", tax_table(ps_water))
+print(m)
+rank_names(ps_water)
+length(get_taxa_unique(ps_water, "Phylum"))
+samplenameX <- sample_names(ps_water)[[1]]
+
+# Pick abundances for a particular taxon
+tax.abundances <- abundances(ps_water)[, samplenameX]
+```
+
+```{r diversity_table_w, echo=FALSE}
+# generate the ASV table
+tax_asv <- table(tax_table(ps_water)[, "Class"], exclude = NULL, 
+    dnn = "Taxa")
+tax_asv <- as.data.frame(tax_asv, make.names = TRUE)
+# generate the reads table
+tax_reads <- factor(tax_table(ps_water)[, "Class"])
+tax_reads <- apply(otu_table(ps_water), MARGIN = 1, function(x)
+{
+    tapply(x, INDEX = tax_reads, FUN = sum, na.rm = TRUE, simplify = TRUE)
+})
+tax_reads <- as.data.frame(tax_reads, make.names = TRUE)
+tax_reads <- cbind(tax_reads, reads = rowSums(tax_reads))
+tax_reads <- tax_reads[9]
+tax_reads <- setDT(tax_reads, keep.rownames = TRUE)[]
+# merge the two tables and make everything look pretty
+# in an interactive table
+
+taxa_read_asv_tab <- merge(tax_reads, tax_asv, by.x = "rn", by.y = "Taxa")
+top_reads <- top_n(taxa_read_asv_tab, n = 8, wt = reads)
+top_asvs <- top_n(taxa_read_asv_tab, n = 8, wt = Freq)
+
+names(taxa_read_asv_tab) <- c("Taxa", "total reads", "total ASVs")
+
+write.table(taxa_read_asv_tab, "tables/16s-water/Table_X_reads_ASVs_by_sample.txt", 
+            sep = "\t", row.names = FALSE, quote = FALSE)
+
+datatable(
+  taxa_read_asv_tab, rownames = FALSE, width = "100%", 
+  colnames = c("Taxa", "total reads", "total ASVs"), 
+  caption = htmltools::tags$caption(
+    style = "caption-side: bottom; text-align: left;",
+    "Table 4.1: Total reads & ASVs by Class "), 
+  extensions = "Buttons", 
+  options = list(
+    columnDefs = list(list(className = "dt-left", targets = 0)), 
+    dom = "Blfrtip", 
+    buttons = c("csv", "copy"),
+    scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE, 
+    scroller=TRUE, lengthMenu = c(10, 25, 45)))
+
+top_reads2 <- top_reads[,-1]
+rownames(top_reads2) <- top_reads[,1]
+top_reads2 <- top_reads2[with(top_reads2, order(-reads)),]
+
+top_asvs2 <- top_asvs[,-1]
+rownames(top_asvs2) <- top_asvs[,1]
+top_asvs2 <- top_asvs2[with(top_asvs2, order(-Freq)),]
+```
+
+Here we can see that:
+* `r row.names(top_reads2)` contain the **most reads** and 
+* `r row.names(top_asvs2)` contain the **most ASVs**.
+
+
+
+</br>
+
+<div class="post-nav">
+<div class="post-nav-item">
+<div class="meta-nav">Previous</div>
+<a href="16s-diversity.html" rel="next">N<sup><u>o</u></sup> 3. Composition & Diversity</a>
+</div>
+</div>
+
+<div class="post-nav">
+<div class="post-nav-item">
+<div class="meta-nav">Next</div>PROCEED to METAGENOMIC WORKFLOW<br/>
+<a href="mg-setup.html" rel="prev">N<sup><u>o</u></sup> 5. Setup Working Environment</a>
+</div>
+</div>
+
+<p class="edit-page">
+  <a href="https://github.com/hypocolypse/web/blob/master/build/16s-water.Rmd">
+    <i class="fas fa-pen pr-2"></i> Edit this page
+  </a>
+</p>
+
+## Source Code {.appendix}
+
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/16s-water.Rmd). 
+

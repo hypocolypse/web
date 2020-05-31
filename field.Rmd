@@ -1,0 +1,45 @@
+---
+title: "Field Analyses"
+description: |
+  In this section ...
+author:
+  - name: "Maggie D Johnson"
+#    url: https://github.com/jjallaire
+#    affiliation: STRI
+#    affiliation_url: https://www.rstudio.com
+  - name: "Noelle Lucey"
+#    url: https://github.com/yihui
+#    affiliation: STRI
+#    affiliation_url: https://www.rstudio.com
+bibliography: assets/cite.bib
+---
+
+
+```{r setup, include=FALSE}
+remove(list = ls())
+knitr::opts_chunk$set(echo = FALSE)
+
+sessionInfo()
+set.seed(9191)
+```
+
+👋 Hi Maggie & Noelle!!!! I bet you really, really want to add content to this section ☺️.
+
+
+<div class="post-nav">
+<div class="post-nav-item">
+<div class="meta-nav">Previous</div>
+<a href="intro.html" rel="next">Introduction</a>
+</div>
+</div>
+
+<div class="post-nav">
+<div class="post-nav-item">
+<div class="meta-nav">Next</div>
+PROCEED to 16S rRNA WORKFLOW<br/><a href="16s-dada2.html" rel="prev">N<sup><u>o</u></sup> 1. DADA2 Workflow</a>
+</div>
+</div>
+
+## Source Code {.appendix}
+
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/field.Rmd).

@@ -1,0 +1,47 @@
+---
+title: "Notes About this site"
+description: |
+  Page for Notes on how I did stuff...
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## GitHub Pages Site Deployment
+
+### Initial Setup
+
+*This works for a site setup from an organization*. See [here for an explaination](https://gohugo.io/hosting-and-deployment/hosting-on-github/#github-user-or-organization-pages). Only needs to be done once.
+
+1) Create `hypocolypse` organization on github.
+2) Create `web` repo for source code. Initial repo is public. **MUST initialize repo with a README**. The README creates a master branch.
+3) Create a github.io repo for `hypocolypse.github.io`. Initial repo is public. **MUST initialize repo with a README**---this creates a master branch.
+4) Cloned the source code repo `git clone https://github.com/hypocolypse/web.git`.
+5) `cd web/`
+6) Move or copy source code files to repo directory. If build directory is present, remove it `rm -rf public`.
+7) Creates a git [submodule](https://github.com/blog/2104-working-with-submodules). Now when you  build your site to public, the created public directory will have a different remote origin (i.e. hosted GitHub repository).
+
+* `git submodule add -b master https://github.com/hypocolypse/hypocolypse.github.io.git public`
+
+8) Rebuild the site. **Make sure `public/` is included in the `exclude` of the `_site.yml` file. 
+9) Run `touch public/.nojekyll`
+
+
+
+10 
+
+
+
+
+To setup password protected site I used the method described [here](https://github.com/matteobrusa/Password-protection-for-static-pages).
+
+1) Add  the `index.html` from the GitHub repo and a background image to the `public/` directory.
+2) cd into `public/` and run `git add --all && git commit -m "SOME MESSAGE" && git push origin master`
+3) Load `https://sweltr.github.io/` into a browser and enter a novel password.
+4) It will show "wrong password", never mind. Copy the section of the URL after the # sign.
+5) Create a folder with that name in the `public/` directory.
+6) Change the `output_dir` in the `_site.yml` to `public/HASH_CODE`
+7) Rebuild site.
+8) Rerun git commands and commit site.

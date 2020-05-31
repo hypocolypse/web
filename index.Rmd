@@ -1,0 +1,62 @@
+---
+title: "Hypocolypse"
+description: |
+  Reproducible workflows for the study *Hypoxia driven coral bleaching & microbial shifts in Caribbean Panama*. 
+author:
+  - name: "Maggie D Johnson"
+    url: https://github.com/jjallaire
+    affiliation: STRI
+    affiliation_url: https://www.rstudio.com
+  - name: "Jarrod J Scott"
+    url: https://github.com/rich-iannone
+    affiliation: STRI
+    affiliation_url: https://stri.si.edu/
+  - name: "Matthieu Leray"
+    url: https://github.com/yihui
+    affiliation: STRI
+    affiliation_url: https://stri.si.edu/
+  - name: "Noelle Lucey"
+    url: https://github.com/yihui
+    affiliation: STRI
+    affiliation_url: https://www.rstudio.com
+  - name: "Lucia Rodriguez"
+    url: https://github.com/yihui
+    affiliation: STRI
+    affiliation_url: https://www.rstudio.com
+  - name: "William Wied"
+    url: https://github.com/yihui
+    affiliation: STRI
+    affiliation_url: https://www.rstudio.com
+  - name: "Andrew H Altieri"
+    url: https://github.com/yihui
+    affiliation: STRI
+    affiliation_url: https://www.rstudio.com
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+This website provides reproducible workflows for our study on  the microbial communities of the Bocas del Toro hypoxic event in 2017. We go through the steps  used to process the raw 16S rRNA marker and  metagenomic  data. We describe the various tools used to analyze and interpret the data. We also provide access to all data, data products, and code. With this workflow you can generate the figures and tables from the paper as well as many additional data products.
+
+The workflow is mainly written in [R Markdown](https://rmarkdown.rstudio.com/) meaning that it contains a mixture of Markdown text and R code. Anyone should be able to reproduce our results with just this workflow and the [raw data](data-availability.html).
+
+## Using this Site
+
+The navigation bar at the top contains links to workflows, data/data products, supplementary material from the paper (see SOM), and a variety of other useful information. The site itself has many dynamic components. For example, you can sort and scroll through most of the tables, tabular data can be download in different formats, and several figures expand when clicked. All figures and tables from the final publication are included in the workflow. 
+
+On the bottom of each page you can find a link to the page's source code or visit the main GitHub repo for the site, also linked at the bottom of each page. Should you find any problems, there is a link to the issue page of the source repository. References are also included as are DOI links to the publications where applicable. 
+
+## Acknowledgements {.appendix}
+
+MDJ was funded by postdoctoral fellow awards from the Smithsonian Institution Marine Global Earth Observatory (MarineGEO) and Smithsonian Tropical Research Institute (STRI); ML and NL were funded by postdoctoral support from the STRI Office of Fellowships. JJS was funded by a grant from the Gordon and Betty Moore Foundation to STRI and UC Davis. LR, WW, and AHA were supported by MarineGEO, a private funder, and STRI funds to AHA. Research permits were provided by the Autoridad Nacional del Ambiente de Panamá. We thank R Collin for facilities support at the Bocas del Toro Research Station, P Gondola and the research station staff for logistical support. This is contribution number X from MarineGEO and the Smithsonian’s Tennenbaum Marine Observatories Network.
+
+## Author Contributions {.appendix}
+
+MDJ, JJS, ML, NL, and AA contributed to conception and experimental design. MDJ, NL, LR, and WW conducted surveys and collected field samples. NL, LR, and WW conducted laboratory analyses. JJS and ML performed extractions and sample processing for sequencing. MDJ, JJS, ML, and NL conducted statistical analyses and created figures. MDJ drafted the manuscript and Supplementary Information, and managed revisions with assistance from all co-authors. Website created by JJS with input and material from co-authors. 
+
+## Source Code {.appendix}
+
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/build/index.Rmd).

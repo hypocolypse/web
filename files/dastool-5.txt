@@ -1,0 +1,3 @@
+bin name	domain	confidence	% completion	% redundancy	num_splits	total length
+Bin_METABAT__2	BACTERIA	0.9	85.92	2.82	295	1560594
+Bin_MAXBIN__016	BACTERIA	0.8	83.10	21.13	661	1154935

@@ -1,0 +1,5 @@
+sample	number_of_pairs_analyzed	total_pairs_passed	percent_total_pairs_passed	total_pair_1_trimmed	percent_total_pair_1_trimmed	total_pair_2_trimmed	percent_total_pair_2_trimmed	total_pairs_failed	percent_total_pairs_failed	pairs_failed_due_to_pair_1	percent_pairs_failed_due_to_pair_1	pairs_failed_due_to_pair_2	percent_pairs_failed_due_to_pair_2	pairs_failed_due_to_both	percent_pairs_failed_due_to_both	FAILED_REASON_P	percent_FAILED_REASON_P	FAILED_REASON_N	percent_FAILED_REASON_N	FAILED_REASON_C33	percent_FAILED_REASON_C33
+WCCR_1913	2869358	2703302	94.21	0	0.00	1379	0.05	166056	5.79	18998	11.44	94145	56.69	52913	31.86	0	0	0	0	0	0
+WCCR_1916	4053466	3852213	95.04	0	0.00	1859	0.05	201253	4.96	23813	11.83	120670	59.96	56770	28.21	0	0	0	0	0	0
+WROL_1914	3401120	3229485	94.95	0	0.00	1629	0.05	171635	5.05	20776	12.10	103458	60.28	47401	27.62	0	0	0	0	0	0
+WROL_1915	3568123	3383451	94.82	0	0.00	1761	0.05	184672	5.18	21349	11.56	107716	58.33	55607	30.11	0	0	0	0	0	0
