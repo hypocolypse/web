@@ -35,6 +35,10 @@ In this study, we looked at INSERT DETAIL</span>.
 * Amplicon Sequence Variant (**ASV**): Exact sequence variant---analogous to an OTU---but with single nucleotide resolution.
 * Differentially abundant (**DA**) feature: Taxa, ASV, etc. that is disproportionately abundant in a group of samples and statistically different than other groups.
 
+# Data Availability
+
+For access to all raw data and data products please see the [Data Availability](data-availability.html) page. There you will find more details and links to the figshare project site and European Nucleotide Archive project page. Please also check at the bottom of individual workflow pages for access to related data. 
+
 # Workflow
 
 You can access each step of the workflow by using the navigation bar at the top of the page. Below is a brief description of each step.
@@ -53,32 +57,30 @@ In this part we go through the steps of processing raw 16S rRNA read data includ
 
 ### No 2. Data Preparation
 
-Next we go through the steps of defining sample groups, creating phyloseq objects, removing unwanted samples, and removing contaminant ASVs. Various parts of this section can easily be modified to perform different analyses. For example, if you were only interested in a specific taxa or group of samples, you could change the code here to create new phyloseq objects.
+Next we go through the process of defining sample groups, creating phyloseq objects, removing unwanted samples, and removing contaminant ASVs. Various parts of this section can easily be modified to perform different analyses. For example, if you were only interested in a specific group of samples, you could change the code here to create new phyloseq objects.
 
 ### No 3. Water Sample Diversity
 
-Now we move are attention to just the water samples. We wanted to understand how ASVs partitioned between normoxic and hypoxic conditions. We also wanted to assess the specificity of each ASV to determine habitat preference. To our knowledge there is no quantitative way to do this. The only attempt we are aware of was [MetaMetaDB](http://mmdb.aori.u-tokyo.ac.jp/) but it is based on a 454 database and no longer seems to be in active development. So we used an approach based on the work of [Sullam *et. al.*](https://doi.org/10.1111/j.1365-294X.2012.05552.x), first identifying differentially abundant ASVs, then searching for closest database hits, and finally using phylogenetic analysis and top hit metadata (isolation source, natural host) to infer habitat preference.
+Now we move are attention to just the water samples. We wanted to understand how ASVs partitioned between normoxic and hypoxic conditions. We also wanted to assess the specificity of each ASV to determine habitat preference. To our knowledge there is no quantitative way to do this. The only attempt we are aware of was [MetaMetaDB](http://mmdb.aori.u-tokyo.ac.jp/) but it is based on a 454 database and no longer seems to be in active development. 
 
 ## C. Water Column Metagenomes
 
-We sequenced four samples for metagenomic analysis--two from Crawl Caye and two from Cayo Roldan. The Crawl Caye
+We sequenced four samples for metagenomic analysis---two from Crawl Caye and two from Cayo Roldan. The Crawl Caye
 
 
-### No 5. Setup Working Environment</a>
+### No 1. Setup Working Environment</a>
 For the metagenomic analysis we largely leave the R environment and enter the [anvi'o](http://merenlab.org/software/anvio/) ecosystem. The first major step in our analysis of  metagenomic samples from hypoxic and normoxic conditions is to setup our working environment. We will do this in two steps. The first is to install the backbone of our computational operations, which consists of Miniconda and anvio. Next we build the annotation databases and install the associated tools. We provide complete details of these steps.
 
-
-### No 6. Annotation Databases</a>
+### No 2. Annotation Databases</a>
 
 Next we describe the various database we used to annotate the metagenomes. There are two main types of annotations we are interested in for this metagenomic project—taxonomic and functional—and there are many, many ways to accomplish both of these goals. This next section involves building the databases and installing any additional tools we need for annotation.
 
-
-### No 7. Assembly & Annotations</a>
+### No 3. Assembly & Annotations</a>
 
 Here we move to the processing part of the workflow, which involves the following: adapter trimming of raw data; quality filtering of trimmed reads; co-assembling  QCed reads; mapping reads to the assembly; profiling the mapping results; merging profile dbs; classify reads and genes; annotating genes; and running HMM profiles.
 
 
-### No 8. Assembley & Annotation Summary</a>
+### No 4. Assembley & Annotation Summary</a>
 
 In this section of the workflow we summarize the QC & assemby results, the Kraken short read taxonomy, mapping results. and contig classifications.
 

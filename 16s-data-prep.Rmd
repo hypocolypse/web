@@ -215,6 +215,24 @@ write.table(t(otu_table(ps)),
             sep="\t", quote = FALSE, col.names=NA)
 ```
 
+**D** Export fasta file
+
+```{r export_fasta_full}
+# Create fasta file from tax_table
+table2format <- tax_table(ps)
+#retain only the column with the sequences
+table2format_trim <- table2format[, 7]
+table2format_trim_df <- data.frame(row.names(table2format_trim),
+                                   table2format_trim)
+colnames(table2format_trim_df) <- c("ASV_ID", "ASV_SEQ")
+#format fasta
+table2format_trim_df$ASV_ID <- sub("ASV", ">ASV", table2format_trim_df$ASV_ID)
+
+write.table(table2format_trim_df, "tables/16s-data-prep/full_asv.fasta",
+            sep = "\r", col.names = FALSE, row.names = FALSE,
+            quote = FALSE, fileEncoding = "UTF-8")
+```
+
 ## Remove Contaminants & Unwanted Taxa
 
 Let's see if we have any potential contaminants. We can use some [inline R code](https://rmarkdown.rstudio.com/lesson-4.html) to see the taxonomy table for any taxa of interest.
@@ -294,6 +312,34 @@ ps_filt <- subset_taxa(ps_no_euk, !is.na(Kingdom))
 
 The code eliminated an additional **`r ntaxa(ps_no_euk) - ntaxa(ps_filt)` Kingdom level NA ASVs** from the phyloseq object.
 
+Now that we have a trimmed data set, we can save copies of the sequence and taxonomy tables just in case we want a quick look at these data. 
+
+```{r save_trim_table}
+write.table(tax_table(ps_filt),
+            "tables/16s-data-prep/trim_tax_table.txt", sep="\t",
+            quote = FALSE, col.names=NA)
+write.table(t(otu_table(ps_filt)),
+            "tables/16s-data-prep/trim_seq_table.txt", sep="\t",
+            quote = FALSE, col.names=NA)
+```
+
+And generate a fasta file for all ASVs in the trimmed data set.  
+
+```{r export_fasta_water}
+# Create fasta file from tax_table
+table2format <- tax_table(ps_filt)
+#retain only the column with the sequences
+table2format_trim <- table2format[, 7]
+table2format_trim_df <- data.frame(row.names(table2format_trim),
+                                   table2format_trim)
+colnames(table2format_trim_df) <- c("ASV_ID", "ASV_SEQ")
+#format fasta
+table2format_trim_df$ASV_ID <- sub("ASV", ">ASV", table2format_trim_df$ASV_ID)
+
+write.table(table2format_trim_df, "tables/16s-data-prep/trim_asv.fasta",
+            sep = "\r", col.names = FALSE, row.names = FALSE,
+            quote = FALSE, fileEncoding = "UTF-8")
+```            
 
 ## Water Samples Phyloseq Object
 
@@ -306,17 +352,11 @@ ps_water <- prune_samples(
 ps_water
 ```
 
-Anytime we remove samples we probably lose some ASVs. So we need to get rid of any ASVs that have a total of **0 reads**.
+Anytime we remove samples we probably lose some ASVs. So we need to get rid of any ASVs that have a total of **0 reads**. 
 
 ```{r remove_ASV_with_zeros_reads}
 ps_water <- prune_taxa(taxa_sums(ps_water) > 0, ps_water)
 ps_water
-write.table(tax_table(ps_water),
-            "tables/16s-data-prep/water_tax_table.txt", sep="\t",
-            quote = FALSE, col.names=NA)
-write.table(t(otu_table(ps_water)),
-            "tables/16s-data-prep/water_seq_table.txt", sep="\t",
-            quote = FALSE, col.names=NA)
 ```
 
 So for water samples only there are `r ntaxa(ps_water)` ASVs and `r nsamples(ps_water)` samples. Now, save the various phyloseq data from the water object.
@@ -348,3 +388,6 @@ That's all for this part! In the next section we work through analyzing the dive
 ## Source Code {.appendix}
 
 You can find the source code for this page by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-data-prep.Rmd).
+
+
+## Data Availability {.appendix}

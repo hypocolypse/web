@@ -12,37 +12,33 @@ bibliography: assets/cite.bib
 
 ## Data for 16S rRNA Analysis
 
-If you want to start from the beginning you will need the [DADA2 workflow](16s-dada2.html) and the raw data.
+### Starting from raw data
+
+If you want to start from the beginning, you will need to use the [DADA2 workflow](16s-dada2.html) and grab the fastq files. *The data in the ENA (primers removed) is the input for the DADA2 workflow but if you prefer to remove primers yourself, then please download the raw data instead.*
 
 * [10.25573/data.11819745](https://doi.org/10.25573/data.11819745): Raw data for each sample (before removing primers) plus two tables for ENA submission.
-* [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/data/view/PRJEB36632): Study accession number for trimmed data (primers removed)  deposited at the European Nucleotide Archive. See below for instructions on submitting data to the ENA and the files we used to deposit the data.
+* [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632): Project accession number for trimmed 16S rRNA data (primers removed)  deposited at the European Nucleotide Archive. See below for instructions on submitting data to the ENA and the files we used to deposit the data. Sample assession numbers are [ERS4291994-ERS4292031](https://www.ebi.ac.uk/ena/browser/view/ERS4291994-ERS4292031).
+
+### Starting from processed data
+
+If you prefer to skip sequence processing with DADA2 and jump straight to the analysis, you will need to start at [No 2. Data Preparation](16s-data-prep.html) and grab the final output file of the DADA2  workflow (`combo_pipeline.rdata)`.
+
 * [10.25573/data.11828700](https://doi.org/10.25573/data.11828700): Final output file of the DADA2  workflow (`combo_pipeline.rdata)`. This .RData file is loaded directly into the beginning of the [phyloseq workflow](16s-data-prep.html). In this repo you will also find additional input files needed to run subsequent analyses.
 
-*The data in the ENA (primers removed) is the input for the DADA2 workflow but if you prefer to remove primers yourself, then please download the raw data instead.*
+### Additional data products
 
+Most data outputs can be accessed from the workflow pages but if you are just interested in some quick summary data, you can access those files at the bottom of individual workflow pages.
 
-To run the phyloseq workflow only, download this file:
+## Data for Metagenomic Analysis
 
-[10.6084/m9.figshare.7357178](https://doi.org/10.6084/m9.figshare.7357178){target="_new"}: DOI for the phyloseq workflow. Includes output from the DADA2 workflow, the phyloseq script, and other necessary input files.
+* [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632): Project accession number (same as above) for the metagenomic data from the four water column  samples. Sample assession numbers are  [ERS4578390-ERS4578393](https://www.ebi.ac.uk/ena/browser/view/ERS4578390-ERS4578393).
 
-*The input file for this workflow is the output from the DADA2 workflow (`combo_pipeline.rdata`). There are also some additional files included that are needed for some of the analyses.*
+## Accessing the R Code only
 
-<div style="padding-top: 1em"></div>
-
-Additional data products.
-
-* [10.6084/m9.figshare.7379930](https://doi.org/10.6084/m9.figshare.7379930){target="_new"}: Data products from the workflows including sequence tables, taxonomy tables, and ASV fasta files.
-* [10.6084/m9.figshare.7379936](https://doi.org/10.6084/m9.figshare.7379936){target="_new"}: Fasta files for the 59 DA ASVs and top BLAST results, plus the alignment file (including top BLAST hits).
-* [10.6084/m9.figshare.7379597](https://doi.org/10.6084/m9.figshare.7379597){target="_new"}: Supplementary file from the paper.
-
-
-Accessing the R Code only.
-
-The  R code is available by clicking on the code button in the menu bar or [here](raw_code.txt). Please note that this  R code is pulled from all the `.Rmd` files. This has not been tested independent of the R Markdown workflows so <span class="paper">Use at Your Own Risk</span>. In other words, the code works in the Rmarkdown format but the complete pipeline has not been tested using just this code. I used `knitr::purl()` to pull  the code from the Rmarkdown file. I did this for you just in case you wanted the code and not hear me drone on about colors, zoomable figures, or Keanu Reeves. The first part is the DADA2 workflow and the second part is the phyloseq workflow. Commands that are commented out are things I tried that I could never get to work. Any line that starts like this: `## ----` is the code chuck name and details.
+The  R code is available by clicking on the code button in the menu bar or [here](files/raw_code.txt). Please note that this  R code is pulled from all the `.Rmd` files. This has not been tested independent of the R Markdown workflows so <span class="paper">Use at Your Own Risk</span>. In other words, the code works in the Rmarkdown format but the complete pipeline has not been tested using just this code. I used `knitr::purl()` to pull  the code from the Rmarkdown file. I did this for you just in case you wanted the code and not hear me drone on about colors, zoomable figures, or Keanu Reeves. The first part is the DADA2 workflow and the second part is the phyloseq workflow. Commands that are commented out are things I tried that I could never get to work. Any line that starts like this: `## ----` is the code chuck name and details.
 
 
 ## Submitting sequence data to nucleotide archives
-
 
 We submitted out data to the [European Nucleotide Archive (ENA)](https://www.ebi.ac.uk/ena). The ENA does not like RAW data and prefers to have primers removed. So we submitted the trimmed Fastq files to the ENA. You can find these data under the study accession number **PRJEB36632 (ERP119845)**. The RAW files on our figshare site (see above).
 
@@ -50,9 +46,9 @@ To submit to the ENA you need two data tables (plus your sequence data). One fil
 
 You can download these data tables here:
 
-[Description of sample data](files/ENA_Sample_SUBMISSION_HYPOXIA.txt)
+[Description of sample data](files/data-availability/ENA_Sample_SUBMISSION_HYPOXIA.txt)
 
-[Description of sequence data](files/ENA_PAIRED_FASTQ_SUBMISSION_HYPOXIA.txt)
+[Description of sequence data](files/data-availability/ENA_PAIRED_FASTQ_SUBMISSION_HYPOXIA.txt)
 
 
 Step by step instructions for submitting to the ENA
@@ -75,7 +71,6 @@ Step by step instructions for submitting to the ENA
 16) Upload all the fastq files. You must do this before submitting the experiment spreadsheet. There are different options for this step. I opened a terminal and typed `ftp webin.ebi.ac.uk`. I entered my user name and password. Then typed `mput *.gz`. The problem was that I had to say yes for each file. Should be a way around this. Documentation can be found [here](https://ena-docs.readthedocs.io/en/latest/submit/fileprep/upload.html). Probably need to type `prompt` first.
 17) Fill in the sheet including md5 checksum values.
 18) Upload and submit the sheet.
-
 
 ## Source Code {.appendix}
 

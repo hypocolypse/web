@@ -1,5 +1,5 @@
 ---
-title: "No 2. DADA2 Workflow"
+title: "No 1. DADA2 Workflow"
 description: |
   Complete, reproducible DADA2 workflow for processing the raw **16S rRNA** Illumina data from hypoxic and normoxic samples collected during a 2017 hypoxic event in Bocas del Toro, Panama. Several samples were re-sequenced and processed independently before being merged in the last section of the workflow, prior to analysis. We sequenced 30 samples in the first run (Run01) and then re-sequenced 8 samples because of low  initial yield (Run02).
 
@@ -941,3 +941,7 @@ That's it for this part. Next, we do some data prep ahead of the community analy
 ## Source Code {.appendix}
 
 The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-dada2.Rmd). Please note, that in order to process the data *and*  build the website, we needed to run the pipeline and get the results. Then hard code the results and turn off the individual commands. So the raw file for this page is a bit messy---you have been warned. 
+
+## Data Availability {.appendix}
+
+Raw fastq files available on figshare at [doi:10.25573/data.11819745.v1](https://doi.org/10.25573/data.11819745.v1). Trimmed fastq files (primers removed) available through the ENA under project accession number [PRJEB36632](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). Output files from this workflow available on figshare  at [doi:0.25573/data.12403865](https://doi.org/10.25573/data.12403865). 

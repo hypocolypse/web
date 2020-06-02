@@ -129,7 +129,7 @@ echo = `date` job $JOB_NAME don
 
 Thanks to the anvi'o implementation of Snakemake we can run many commands suquentially and/or simutaneously. There is plenty of good documentation on the anvi'o website about setting up snakemake workflows [here](http://merenlab.org/2018/07/09/anvio-snakemake-workflows/) so we will refrain from any lengthy explainations.
 
-You can see all the settings we used and download our configs file [here](files/default-config.txt) or grab it from  the folded code below. Some commands we chose not to run but they remain in the workflow for posterity.
+You can see all the settings we used and download our configs file [here](files/mg-workflow-1/default-config.txt) or grab it from  the folded code below. Some commands we chose not to run but they remain in the workflow for posterity.
 
 <details markdown="1"><summary>Show/hide JSON-formatted configuration file.</summary>
 <pre><code>
@@ -590,8 +590,8 @@ export_svg(dag) %>%
 
 :::l-body-outset
 <figure>
-<a href="images/dag.png">
-  <img src="images/dag.png" class="thumbnail">
+<a href="figures/mg-workflow-1/dag.png">
+  <img src="figures/mg-workflow-1/dag.png" class="thumbnail">
 </a>
 <figcaption><strong>DAG of the metagenomic workflow</strong>. Colors indicate broad divisions of workflow: sky blue, short-read prep & co-assembly; blueish green, short-read mapping to assembly; orange, taxonomic or functional classification; yellow, automatic binning; reddish purple, databases construction. </figcaption>
 </figure>
@@ -680,10 +680,10 @@ In this section we conduct taxonomic classification of short reads, contigs, and
 In this section we use KrakenUniq[@breitwieser2018krakenuniq] to classify the **short reads**. Because of the memory demands of KrakenUniq, we could not get this to work in the Snakemake workflow so we ran the analysis separately. For several of these commands we used lists of sample names and  `for` loops to run through each sample.
 
 <aside>
- GitHub repo for [KrakenUniq](https://github.com/fbreitwieser/krakenuniq).
+GitHub repo for [KrakenUniq](https://github.com/fbreitwieser/krakenuniq).
 </aside>
 
-Ok, here we run KrakenUniq and several reporting and summary steps against the short read data for each sample using the [list.txt](files/list.txt) file.
+Ok, here we run KrakenUniq and several reporting and summary steps against the short read data for each sample using the [list.txt](files/mg-workflow-1/list.txt) file.
 
 ```bash
 for sample in `cat list.txt`

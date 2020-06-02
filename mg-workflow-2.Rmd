@@ -27,7 +27,7 @@ The first thing we should do is look at the  the results of the initial QC step.
 
 
 ```{r qc_table, echo=FALSE, layout="l-body-outset"}
-qc <- read.table("files/qc-report.txt", sep = "\t", header = TRUE)
+qc <- read.table("tables/mg-workflow-2/qc-report.txt", sep = "\t", header = TRUE)
 
 datatable(
   qc, rownames = FALSE, autoHideNavigation=TRUE, width = "100%",
@@ -55,7 +55,7 @@ anvi-display-contigs-stats 03_CONTIGS/WATER-contigs.db -o 03_CONTIGS/WATER-conti
 <br/>
 
 ```{r contig_table, echo=FALSE}
-contig <- read.table("files/contig-stats.txt", sep = "\t", header = TRUE)
+contig <- read.table("tables/mg-workflow-2/contig-stats.txt", sep = "\t", header = TRUE)
 
 datatable(
   contig, rownames = FALSE, width = "50%", colnames = c("Stat", "value"),
@@ -71,8 +71,7 @@ datatable(
 
 ```
 
-
-You can  download a text version of the table using the buttons or by clicking [here](files/contig-stats.txt).
+You can  download a text version of the table using the table buttons.
 
 ## Krona Plots Explained
 
@@ -82,9 +81,14 @@ Below is an example of a Kraken taxonomy plot. The plot on the left is the *top 
 
 For example, the two most inner rings are *cellular organisms* and *viruses*. Taxonomic ranks decrease towards the outside. When a grup is expanded the inner ring becomes the highest rank. For example in the plot of the right we expanded the *Proteobacteria* (which is a phylum) so the classes form the inner rings.
 
-```{r krona-example, fig.cap="**Example of a Krona plot**. The  **left panel** controls aspects of the plot. Search by taxon name, select a specific sample, control font size, etc. If you were to click once over a taxa on the left plot,  the group is highlighted. Double-click to expand the group as seen on the right. Upper right corner provides a summary of the expanded group.", layout="l-body-outset", echo=FALSE}
-image_read("images/krona-demo.png")
-```
+:::l-body-outset
+<figure>
+<a href="figures/mg-workflow-2/krona-demo.png">
+  <img src="figures/mg-workflow-2/krona-demo.png" class="thumbnail">
+</a>
+<figcaption><strong>Example of a Krona plot</strong>. The  **left panel** controls aspects of the plot. Search by taxon name, select a specific sample, control font size, etc. If you were to click once over a taxa on the left plot,  the group is highlighted. Double-click to expand the group as seen on the right. Upper right corner provides a summary of the expanded group. </figcaption>
+</figure>
+:::
 
 ## Short-read Taxonomy
 
@@ -93,8 +97,8 @@ Since the Kraken classification was performed BEFORE the assembly we can look at
 <div class="row">
 <div class="column">
 <div class="krona" style="max-width:500px;">
-<a href="files/cr-kraken.html" target="_blank">
-<img src="images/cr-kraken.png" alt="HTML tutorial" style="width:90%">
+<a href="figures/mg-workflow-2/cr-kraken.html" target="_blank">
+<img src="figures/mg-workflow-2/cr-kraken.png" alt="HTML tutorial" style="width:90%">
 <div class="container-krona">
 <p>CAYO ROLDAN<br/><small>Hypoxic & Normoxic</small> </p>
 </div>
@@ -104,8 +108,8 @@ Since the Kraken classification was performed BEFORE the assembly we can look at
 
 <div class="column">
 <div class="krona" style="max-width:500px;">
-<a href="files/cc-kraken.html" target="_blank">
-<img src="images/cc-kraken.png" alt="HTML tutorial" style="width:90%">
+<a href="figures/mg-workflow-2/cc-kraken.html" target="_blank">
+<img src="figures/mg-workflow-2/cc-kraken.png" alt="HTML tutorial" style="width:90%">
 <div class="container-krona">
 <p>CRAWL CAYE<br/><small>Normoxic </small> </p>
 </div>
@@ -133,7 +137,7 @@ And then we simply parse out the class data and make a table.
 
 <br/>
 ```{r class_table, echo=FALSE}
-class <- read.table("files/kraken-class.txt", sep = "\t", header = TRUE)
+class <- read.table("tables/mg-workflow-2/kraken-class.txt", sep = "\t", header = TRUE)
 
 datatable(
   class, rownames = FALSE, autoHideNavigation=TRUE, width = "100%",
@@ -149,7 +153,7 @@ datatable(
     scroller=TRUE, colReorder=TRUE))
 ```
 
-You can  download a text version of the table using the buttons or by clicking [here](files/kraken-class.txt).
+You can  download a text version of the table using the table buttons.
 
 ## Mapping Results
 
@@ -166,7 +170,7 @@ What we want is a table with `sample`, `total_reads`, `total_reads_mapped`, and 
 <br/>
 
 ```{r mapping_table, echo=FALSE}
-mapping <- read.table("files/mapping-results.txt", sep = "\t", header = TRUE)
+mapping <- read.table("tables/mg-workflow-2/mapping-results.txt", sep = "\t", header = TRUE)
 
 datatable(
   mapping, rownames = FALSE, autoHideNavigation=TRUE, width = "100%",
@@ -180,7 +184,7 @@ datatable(
     scroller=TRUE, colReorder=TRUE))
 ```
 
-You can  download a text version of the table using the buttons or by clicking [here](files/mapping-results.txt).
+You can  download a text version of the table using the table buttons.
 
 ## Contig Classification
 
@@ -189,8 +193,8 @@ Now we move on to the classification of contigs from the assembly. This means th
 <div class="row">
 <div class="column">
 <div class="krona" style="max-width:500px;">
-<a href="files/water_kaiju_mar.html" target="_blank">
-<img src="images/kaiju-mar.png" alt="HTML tutorial" style="width:90%">
+<a href="figures/mg-workflow-2/water_kaiju_mar.html" target="_blank">
+<img src="figures/mg-workflow-2/kaiju-mar.png" alt="HTML tutorial" style="width:90%">
 <div class="container-krona">
 <p>Kaiju classification<br/><small>mar database</small> </p>
 </div>
@@ -200,8 +204,8 @@ Now we move on to the classification of contigs from the assembly. This means th
 
 <div class="column">
 <div class="krona" style="max-width:500px;">
-<a href="files/water_kaiju_nr.html" target="_blank">
-<img src="images/kaiju-nr.png" alt="HTML tutorial" style="width:90%">
+<a href="figures/mg-workflow-2/water_kaiju_nr.html" target="_blank">
+<img src="figures/mg-workflow-2/kaiju-nr.png" alt="HTML tutorial" style="width:90%">
 <div class="container-krona">
 <p>Kaiju classification<br/><small>nr database</small> </p>
 </div>
@@ -225,7 +229,7 @@ We will get into much more of the annotation data later, including the various f
 <div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Next</div>
-<a href="mg-auto-binning.html" rel="prev">N<sup><u>o</u></sup> 6. Automated Binning</a>
+<a href="mg-auto-binning.html" rel="prev">N<sup><u>o</u></sup> 5. Automated Binning</a>
 </div>
 </div>
 
