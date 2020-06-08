@@ -1,0 +1,49 @@
+parent_taxid	descendent_taxid	descendent_name
+28196	94614	Arcobacter cf. butzleri LCDC13432
+28196	94615	Arcobacter cf. butzleri LCDC13207
+28196	367737	Arcobacter butzleri RM4018
+28196	888827	Arcobacter butzleri JV22
+28196	944546	Arcobacter butzleri ED-1
+28196	1036172	Arcobacter butzleri 7h1h
+28196	1447256	Arcobacter butzleri L348
+28196	1447257	Arcobacter butzleri L349
+28196	1447258	Arcobacter butzleri L350
+28196	1447259	Arcobacter butzleri L351
+28196	1447260	Arcobacter butzleri L352
+28196	1447261	Arcobacter butzleri L353
+28196	1447262	Arcobacter butzleri L354
+28196	1447263	Arcobacter butzleri L355
+28196	1032070	Arcobacter cryaerophilus ATCC 43158
+28196	1032071	Arcobacter cryaerophilus D2610
+28196	572480	Arcobacter nitrofigilis DSM 7299
+28196	1032239	Arcobacter skirrowii CCUG 10374
+28196	98172	uncultured bacterium PENDANT-6
+28196	127789	uncultured Arcobacter kps57f
+28196	165434	uncultured Arcobacter sp.
+28196	350627	uncultured Arcobacter sp. FR049
+28196	696712	Arcobacter sp. enrichment culture clone A1
+28196	696713	Arcobacter sp. enrichment culture clone A5
+28196	696714	Arcobacter sp. enrichment culture clone M4
+28196	2043389	Arcobacter sp. enrichment culture
+28196	197482	Arcobacter halophilus
+28196	1442598	Arcobacter cibarius LMG 21996
+28196	505249	Arcobacter marinus
+28196	1032240	Arcobacter thereius LMG 24486
+28196	1032238	Arcobacter mytili LMG 24559
+28196	663364	Arcobacter bivalviorum
+28196	1032241	Arcobacter trophiarum LMG 25534
+28196	873191	Arcobacter defluvii
+28196	877500	Arcobacter anaerophilus
+28196	913109	Arcobacter ellisii
+28196	870501	Arcobacter molluscorum LMG 25693
+28196	1054033	Arcobacter venerupis
+28196	1054034	Arcobacter cloacae
+28196	1080223	Arcobacter pacificus
+28196	663365	Arcobacter suis CECT 7833
+28196	1315211	Arcobacter aquimarinus
+28196	1355374	Arcobacter lanthieri
+28196	1462615	Arcobacter ebronensis
+28196	1872629	Arcobacter sp.
+28196	1904463	Arcobacter lekithochrous
+28196	1912871	Arcobacter canalis
+28196	2478538	Arcobacter sp. SM1702

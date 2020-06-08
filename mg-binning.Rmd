@@ -1,0 +1,507 @@
+---
+title: "No 5. Binning MAGs"
+description: |
+  In this section of the workflow we reconstruct metagenome assebled genomes (MAGs), first using CONCOCT for automated binning of the assembled contigs followed by manual refinement. 
+author:
+  - name: Jarrod J Scott
+#    url: https://example.com/norajones
+#    affiliation: Spacely Sprockets
+#    affiliation_url: https://example.com/spacelysprokets
+bibliography: assets/cite.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+library(kableExtra)
+library(DT)
+library(htmlwidgets)
+library(htmltools)
+```
+
+
+This workflow is largely based on the [Recovering Microbial Genomes from TARA Oceans Metagenomes](http://merenlab.org/data/tara-oceans-mags/#binning-mags) binning section provided by Delmont and Eren. 
+
+## Automated Binning
+
+The latest iteration of anvi'o (v6 as of this writing) ports several popular automated binning algorithms into its ecosystem. We will bin the water meatgenomic assembly using  [CONCOCT](https://github.com/BinPro/CONCOCT) (Clustering cONtigs with COverage and ComposiTion)[@alneberg2014binning]---a program for unsupervised binning of metagenomic contigs by using nucleotide composition, coverage data in multiple samples and linkage data from paired end reads. But you can also use [MetaBAT2](https://bitbucket.org/berkeleylab/metabat)[@kang2019metabat], [MaxBIN2](https://sourceforge.net/projects/maxbin2/)[@wu2016maxbin] and/or [DASTOOL](https://github.com/cmks/DAS_Tool)[@sieber2018recovery] if you wish.
+
+When we run CONCOCT, we can specify the number of bins the program generates. To my knowledge CONCOCT is the only binning  tools that allows you to specify the number of clusters. The command is pretty straightforward. We will set the number of automated clusters to 5. Why 5? If you remember back to the [Assembly results](mg-workflow-2.html#assembly-results) section, anvi'o estimated the total number of MAGs is the data set was 15 (based on the presence of signle copy genes). In my experience, shoosing a value smaller than this gives you greater control over the manual refinement. 
+
+```bash
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  CONCOCT_5 --driver concoct --just-do-it --clusters 5
+```
+
+If you are interested in using MetaBAT2, MaxBIN2, and/or DASTOOL we include those commands in this Hydra script. Edit the script to suite your needs. 
+
+<details markdown="1"><summary>Show/hide HYDRA CONTIG AUTO BINNING job script</summary>
+<pre><code>
+# /bin/sh
+# ----------------Parameters---------------------- #
+#$ -S /bin/sh
+#$ -pe mthread 5
+#$ -q sThC.q
+#$ -l mres=25G,h_data=5G,h_vmem=5G
+#$ -cwd
+#$ -j y
+#$ -N water_job_11_cluster_contigs
+#$ -o hydra_logs/job_11_cluster_contigs_water.log
+#$ -M scottjj@si.edu
+#
+# ----------------Modules------------------------- #
+module load gcc/4.9.2
+#
+# ----------------Your Commands------------------- #
+#
+echo + `date` job $JOB_NAME started in $QUEUE with jobID=$JOB_ID on $HOSTNAME
+echo + NSLOTS = $NSLOTS
+#
+# ----------------CALLING ANVIO------------------- #
+#
+export PATH=/home/scottjj/miniconda3:$PATH
+export PATH=/home/scottjj/miniconda3/bin:$PATH
+export PATH=/home/scottjj/miniconda3/envs:$PATH
+source activate anvio-master
+#
+# ----------------CHECKING EVERYTHING------------------- #
+#
+which python
+python --version
+source /home/scottjj/virtual-envs/anvio-master/bin/activate
+which python
+python --version
+which anvi-interactive
+diamond --version
+anvi-self-test -v
+#
+# ----------------BINNING CONDA------------------- #
+#
+source activate binning
+conda activate binning
+which run_MaxBin.pl
+which concoct
+#
+# ----------------SETUP TEMP DIRECTORIES------------------- #
+#
+rm -r /pool/genomics/stri_istmobiome/dbs/tmp_data_WATER/
+mkdir -p /pool/genomics/stri_istmobiome/dbs/tmp_data_WATER/
+TMPDIR="/pool/genomics/stri_istmobiome/dbs/tmp_data_WATER/"
+#
+# ----------------CONCOCT------------------- #
+#
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  CONCOCT --driver concoct --just-do-it --debug
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  CONCOCT_5 --driver concoct --just-do-it --clusters 5 --debug
+#
+# ----------------MetaBAT2------------------- #
+#
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  MetaBAT2 --driver metabat2 --just-do-it --debug --minContig 1500
+#
+# ----------------MaxBIN2------------------- #
+#
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  MaxBIN2 --driver maxbin2 --just-do-it --min-contig-length 1000 --debug
+#
+# ----------------DASTOOL------------------- #
+#
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  DASTOOL --driver dastool --just-do-it --search-engine diamond -S CONCOCT,MaxBIN2,MetaBAT2 --debug
+anvi-cluster-contigs -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -T $NSLOTS -C  DASTOOL_5 --driver dastool --just-do-it --search-engine diamond -S CONCOCT_5,MaxBIN2,MetaBAT2 --debug
+#
+echo = `date` job $JOB_NAME done
+</code></pre>
+</details>
+
+### Inspect Results
+
+Let's take a look at the results of automated binning using the command `anvi-export-collection` with the `--list-collections` flag. Anvio won't do anything here except show us what *collections* are in the `PROFILE.db`. 
+
+```bash
+anvi-export-collection -p 06_MERGED/WATER/PROFILE.db --list-collections
+```
+
+A collection is what anvi'o uses to organize contigs into bins. And here is the output of that command. The VIRSORTER collection was imported during the annotation phase and can be ignored for now.
+
+```bash
+COLLECTIONS FOUND
+===============================================
+* VIRSORTER (2840 bins, representing 2857 items).
+* CONCOCT_5 (5 bins, representing 23716 items).
+```
+
+Here we can see the number of bins (which we forced to be 5) and the total number of contigs included in the collection. Remember the original assembly had 23,758 contigs (at a minimum length of 1000bp). We can take a quick look at the estimates of genome completion and redundancy using domain-specific single-copy core genes for each collection using `anvi-estimate-genome-completeness`.
+
+The command `anvi-export-collection` produces two files---one is an items file, which is a two column text file that contains the contig name and the bin it belongs to. The other is a three-column bins info file. These are important files and you will use them a lot to manipulate collections. 
+
+One thing to remember if you use the other tools is  how each algorithm names bins, or else this can get confusing. CONCOCT adds the prefix `Bin_`, MaxBin adds the prefix `MAXBIN_`, and MetaBAT adds the prefix `METABAT__` (with two underscores). DAS Tool then adds its own `Bin_` prefix to the parent name. For example DAS Tool `Bin_Bin_11` is CONCOCT bin `Bin_11` while DASTOOL `Bin_METABAT__2` is MetaBAT2 bin `METABAT__2`.
+
+
+#### Summarize Initial CONCOCT Clusters
+
+Now we can have a look at the results of the initial binning and for that we use `anvi-summarize`. This command is *very* useful, especially during bin refinement. It produces a lot of report files will that will help you assess your  bins. We need to give the command contig and profile databases, a collection name, and an output directory.
+
+```bash
+anvi-summarize -c 03_CONTIGS/WATER-contigs.db \
+               -p 06_MERGED/WATER/PROFILE.db \
+               -C CONCOCT_5 -o CONCOCT_5
+```
+
+The output of this command is a bunch of summary data all tied together in an interactive HTML document making it very easy to explore. You are encouraged to use this tool. Let's just look at the bins summary file. 
+
+```{r concoct5_summ_table, echo=FALSE, layout="l-body-outset"}
+
+concoct5_sum <- read.table("tables/mg-binning/concoct-5-bins_summary.txt", sep = "\t", header = TRUE)
+
+datatable(
+  concoct5_sum, rownames = FALSE, autoHideNavigation = TRUE, 
+  width = "100%", elementId = "pnq0rgqiudam5dqpodrc",
+  colnames = c(
+    "bins", "taxon", "total length", "num contigs", 
+    "N50", "GC content", "% completion", "% redundancy"),
+  caption = htmltools::tags$caption(
+    style = "caption-side: bottom; text-align: left;",
+    "CONCOCT 5 forced cluster binning results"),
+  extensions = "Buttons", "FixedColumns",
+  options = list(
+    columnDefs = list(list(className = "dt-left", targets = 0)),
+    dom = "Brti",
+    buttons = c("csv", "copy"),
+    pageLength = 5, FixedColumns = list(leftColumns = 2, rightColumns =1),
+    scrollY=FALSE, scroller=TRUE))
+```
+
+Messy. 
+
+
+#### Estimate genome completeness
+
+We can also the estimate genome completeness of each. The output of this command is a simple table and can give you quick access to some important details. 
+
+```bash
+anvi-estimate-genome-completeness -c 03_CONTIGS/WATER-contigs.db -p 06_MERGED/WATER/PROFILE.db -C CONCOCT_5
+```
+
+Here are the results for the 5 CONCOCT bins with the `--clusters` flag equal to 5.
+
+```{r, echo=FALSE, layout="l-body-outset"}
+
+concoct5_est <- read.table("tables/mg-binning/concoct-5-gen-comp.txt", sep = "\t", header = TRUE)
+
+datatable(
+  concoct5_est, rownames = FALSE, autoHideNavigation = TRUE, 
+  width = "100%", elementId = "si6nhep817xedxvbqvfj",
+  colnames = c(
+    "bin name", "domain", "confidence",
+    "% completion", "% redundancy",
+    "num_splits", "total length"),
+  caption = htmltools::tags$caption(
+    style = "caption-side: bottom; text-align: left;",
+    "CONCOCT 5 forced cluster completeness esitmates"),
+  extensions = "Buttons", "FixedColumns",
+  options = list(
+    columnDefs = list(list(className = "dt-left", targets = 0)),
+    dom = "Brti",
+    buttons = c("csv", "copy"),
+    pageLength = 5, FixedColumns = list(leftColumns = 2, rightColumns =1),
+    scrollY=FALSE, scroller=TRUE))
+```
+
+In truth, non of this is particularly useful right now since we know are bins are messy. These tell us just how messy the bins are but later on commands like `anvi-summarize` and `anvi-estimate-genome-completeness` will be indespensible. 
+
+## Manual Refinement
+
+DETAILS
+
+Once I have gone through all the bins and am happy with the manual refinement, I make a new collection to have a clean slate. This involves a little text file manipulation but its pretty easy. First I run...
+
+
+```bash
+anvi-export-collection -p 06_MERGED/WATER/PROFILE.db -C CONCOCT_5
+```
+
+And I get the same two output files described above. Since I have a lot of viral bins, I decided to make two new collections, one microbial and the other viral. Since I named all viral bins with the prefix `v_Bin` it was easy to parse out the viral bins. We will use `anvi-import-collection` to get the collections into the PROFILE database. Learn to love this command.
+
+```bash
+anvi-import-collection collection-MICROBIAL.txt \
+                       -p 06_MERGED/WATER/PROFILE.db \
+                       -c 03_CONTIGS/WATER-contigs.db \
+                       -C MICROBIAL_REFINED \
+                       --bins-info collection-MICROBIAL-info.txt/
+                       
+anvi-import-collection collection-VIRAL.txt \
+                       -p 06_MERGED/WATER/PROFILE.db \
+                       -c 03_CONTIGS/WATER-contigs.db \
+                       -C VIRAL_REFINED \
+                       --bins-info collection-VIRAL-info.txt
+```
+
+And running `anvi-export-collection` again
+
+```bash
+anvi-export-collection -p 06_MERGED/WATER/PROFILE.db --list-collections
+```
+
+give us a PROFILE.db with the new collections.  
+
+```bash
+COLLECTIONS FOUND
+===============================================
+* VIRSORTER (2840 bins, representing 2857 items).
+* CONCOCT_5 (5 bins, representing 23716 items).
+* CONCOCT_MANUAL (136 bins, representing 23716 items).
+* VIRAL_REFINED (92 bins, representing 12144 items).
+* MICROBIAL_REFINED (44 bins, representing 11572 items).
+```
+
+## Identification & Curation of MAGs
+
+### Rename Bins
+
+Now that we have gone through the process of refining the bins and modifying the collections it is time to **a** define metagenomic bins with > 70% completion or > 2 Mbp in length *AND* < 10% redundancy^[This redundancy cutoff only works for bacteria or archaea. If you have eukaryotic bins, the redundancy should be set to 100.] as metagenome-assembled genomes (MAGs), and **b**) rename the MAGs and all the remaining bins. 
+
+```bash
+anvi-rename-bins -c 03_CONTIGS/WATER-contigs.db \
+                 -p 06_MERGED/WATER/PROFILE.db \ 
+                 --collection-to-read MICROBIAL_REFINED \ 
+                 --collection-to-write MICROBIAL_FINAL \ 
+                 --call-MAGs --size-for-MAG 2 \ 
+                 --min-completion-for-MAG 70 \
+                 --max-redundancy-for-MAG 10 \
+                 --prefix WATER \
+                 --report-file 08_RENAMED_BINS/MICROBIAL.renaming_bins.txt
+
+anvi-rename-bins -c 03_CONTIGS/WATER-contigs.db 
+                 -p 06_MERGED/WATER/PROFILE.db \
+                 --collection-to-read VIRAL_REFINED \
+                 --collection-to-write VIRAL_FINAL \
+                 --call-MAGs --size-for-MAG 2 \
+                 --min-completion-for-MAG 70 \
+                 --max-redundancy-for-MAG 10 \
+                 --prefix WATER_v -/
+                 -report-file 08_RENAMED_BINS/VIRAL.renaming_bins.txt 
+
+```
+
+As you can see, we use our new collections plus a few criteria to rename all the bins. Anything fitting those critera will have the prefix `WATER_MAG_` and those that do not will be `WATER_BIN_`. Of course, we do not expect any viral bins to meet these criteria and while calling VAGs (viral assembled genomes) can be done (I think), it is beyond the scope of this study. 
+
+### Summarize MAGs
+
+Now, for a little sanity check  we can summarize the MAGs.
+
+```bash
+anvi-summarize -c 03_CONTIGS/WATER-contigs.db 
+               -p 06_MERGED/WATER/PROFILE.db \
+               -C MAGS -o 10_SUMMARY_MAGS/MAGS-SUMMARY
+anvi-estimate-genome-completeness 
+               -c 03_CONTIGS/WATER-contigs.db \
+               -p 06_MERGED/WATER/PROFILE.db \
+               -C MAGS -o 10_SUMMARY_MAGS/MAGS.info               
+```
+
+And combine the `bins_summary.txt` withe the `MAGS.info` table to check out the MAGs.
+
+
+```{r concoct5_table, echo=FALSE, layout="l-body-outset"}
+
+mag_summ <- read.table("tables/mg-binning/mag-summary.txt", sep = "\t", header = TRUE)
+
+datatable(
+  mag_summ, rownames = FALSE, autoHideNavigation = TRUE, 
+  width = "100%", elementId = "w28jrs85gyggqx35xq83",
+  colnames = c(
+    "bins", "domain", "confidence", "taxon", 
+    "total length", "num contigs", "N50", 
+    "GC content", "% completion", "% redundancy"),
+  caption = htmltools::tags$caption(
+    style = "caption-side: bottom; text-align: left;",
+    "MAG summary"),
+  extensions = "Buttons", "FixedColumns",
+  options = list(
+    columnDefs = list(list(className = "dt-left", targets = 0)),
+    dom = "Brti",
+    buttons = c("csv", "copy"),
+    pageLength = 5, FixedColumns = list(leftColumns = 2, rightColumns =1),
+    scrollY=FALSE, scroller=TRUE))
+```
+
+
+As you can see, the genomes are pretty fragmented but you get what you get so let's move on.
+
+### Check for Redundant MAGs
+
+Since we only have one metagenomic assembly, we shouldn't need to worry about having redundant MAGs. But I like to check anyway. 
+
+We need fasta files with proper deflines for each MAG. 
+
+```bash
+mkdir 11_REDUNDANT-MAGs
+# get each MAG name in the set:
+MAGs=`grep MAG 10_SUMMARY_MAGS/MAGS.info | awk '{print $1}'`
+# go through each MAG, in each SUMMARY directory, and store a
+# copy of the FASTA file with proper deflines in the REDUNDANT-MAGs
+# directory:
+for MAG in `echo $MAGs`; 
+do 
+    anvi-script-reformat-fasta 
+    10_SUMMARY_MAGS/MAGS-SUMMARY/bin_by_bin/$MAG/$MAG-contigs.fa 
+    --simplify-names --prefix $MAG 
+    -o 11_REDUNDANT-MAGs/$MAG.fa; 
+done
+```
+
+This step provides a convenient naming scheme for all contigs. For example, a scaffolds in MAG 5 will be named with the prefix `WATER_MAG_00005_`. This gives contigs from all MAGs a unique name. 
+
+Then, we run `anvi-compute-genome-similarity` to calculate the similarity of the MAGs. If you are working with multiple assemblies, it is important to tweak the parameters but since we have a single assembly (and likely no redundant MAGS), we just used the default settings. We do need an additional file that let's anvi'o know the name of the MAG and the location of its fasta file. We call it `mag_fasta.txt` and you can find the file [here](files/mg-binning/mag_fasta.txt). This file is two column, tab delimited.
+
+```bash
+anvi-compute-genome-similarity -f mag_fasta.txt \
+                               -o 12_GENOME-SIMILARITY \
+                               --program pyANI
+```
+
+And then we run `anvi-dereplicate-genomes` to see if we have any redundant MAGs. 
+
+```bash
+anvi-dereplicate-genomes --ani-dir 12_GENOME-SIMILARITY 
+                         -o 13_DERELICATED-GENOMES \
+                         --similarity-threshold 0.90 \
+                         --program pyANI
+```
+
+Insepecting the `CLUSTER_REPORT.txt` file we can see that each MAG is in it's own cluster, meaning no redundancy. 
+
+| cluster	       | size	| representative	  | genomes          |
+|----------------|------|-------------------|------------------|
+| cluster_000001 |	1	  |   WATER_MAG_00002 |	WATER_MAG_00002  |
+| cluster_000002 |	1	  | 	WATER_MAG_00001 |	WATER_MAG_00001  |
+| cluster_000003 |	1	  | 	WATER_MAG_00004 |	WATER_MAG_00004  |
+| cluster_000004 |	1	  | 	WATER_MAG_00003 |	WATER_MAG_00003  |
+| cluster_000005 |	1	  | 	WATER_MAG_00005 |	WATER_MAG_00005  |
+
+### Profile Nonredundant MAGs
+
+After the  binning, curation of the MAGs, and renaming of scaffolds, we can start focusing on the distribution and detection of each MAG across the metagenomes. For this we will need a contigs database of the 5 MAGs. We will add HMM profiles and predict taxonomy. This is very similiar to what we did in the initial assembly part of the [Snakemake Workflow](mg-workflow-1.html#snakemake-workflow).
+
+```bash
+mkdir 14_NON-REDUNDANT-MAGs-CONTIGS
+cat 11_REDUNDANT-MAGs/*.fa > 14_NR-MAGs-CONTIGS/NR-MAGs.fa
+anvi-gen-contigs-database -f 14_NR-MAGs-CONTIGS/NR-MAGs.fa 
+                          -o 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db
+anvi-run-hmms -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db 
+              --num-threads $NSLOTS
+anvi-run-scg-taxonomy -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db
+````
+
+We then use the scaffolds to recruit short reads from all the 4 metagenomes, the program `anvi-profile` to profile the BAM files, and `anvi-merge` to generate a merged anvi’o profile database:
+
+```bash
+mkdir 15_MAPPING_NR_MAGS
+
+# building the Botwie2 database
+bowtie2-build 14_NR-MAGs-CONTIGS/NR-MAGs.fa 15_MAPPING_NR_MAGS/NR-MAGs
+# going through each metagenomic sample, and mapping short reads
+# against the 5 nonredundant MAGs
+for sample in `cat samples_WATER.txt`
+
+do
+    bowtie2 --threads $NSLOTS -x 15_MAPPING_NR_MAGS/NR-MAGs \
+            -1 01_QC/$sample-QUALITY_PASSED_R1.fastq.gz \
+            -2 01_QC/$sample-QUALITY_PASSED_R2.fastq.gz \
+            --no-unal -S 15_MAPPING_NR_MAGS/$sample-in-NRMAGs.sam
+    # covert the resulting SAM file to a BAM file:
+    samtools view -F 4 
+                  -bS 15_MAPPING_NR_MAGS/$sample-in-NRMAGs.sam \
+                  > 15_MAPPING_NR_MAGS/$sample-in-NRMAGs-RAW.bam
+
+    # sort and index the BAM file:
+    samtools sort 15_MAPPING_NR_MAGS/$sample-in-NRMAGs-RAW.bam \
+                  -o 15_MAPPING_NR_MAGS/$sample-in-NRMAGs.bam \
+    samtools index 15_MAPPING_NR_MAGS/$sample-in-NRMAGs.bam
+
+    # remove temporary files:
+    rm 15_MAPPING_NR_MAGS/$sample-in-NRMAGs.sam \
+       15_MAPPING_NR_MAGS/$sample-in-NRMAGs-RAW.bam
+done
+```
+
+Then we profile each BAM file and merge resulting profiles into a single anvi'o merged profile.
+
+```bash
+mkdir 16_NR_MAGS_PROFILES
+
+
+for sample in `cat samples_WATER.txt`
+do
+    anvi-profile -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db \
+                 -i 15_MAPPING_NR_MAGS/$sample-in-NRMAGs.bam \
+                 --write-buffer-size 2000  --profile-SCVs \
+                 --num-threads $NSLOTS \
+                 -o 16_NON_REDUNDANT_MAGS_PROFILES/$sample-in-NRMAGs
+done
+anvi-merge 16_NR_MAGS_PROFILES/*-in-NRMAGs/PROFILE.db \
+           -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db \
+           -o 17_NR-MAGs-MERGED/ 
+```
+
+The anvi’o profile database in `17_NR-MAGs-MERGED` describes the distribution and detection statistics of all scaffolds in all MAGs, however it does not contain a collection that describes the scaffold-bin affiliations. Thanks to our previous naming consistency, here we can implement a simple workaround to generate a text file that describes these connections:
+
+```bash
+for split_name in `sqlite3 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db 'select split from splits_basic_info'`
+
+do
+    # in this loop $split_name goes through names like this: 
+    # WATER_MAG_00001_000000000001_split_00001,
+    # WATER_MAG_00001_000000000001_split_00002, 
+    # WATER_MAG_00001_000000000001_split_00003, ...; so we can extract
+    # the MAG name it belongs to:
+    
+    # This command depends on the name of your MAGs. Adjust accordingly
+    MAG=`echo $split_name | awk 'BEGIN{FS="_"}{print $1"_"$2"_"$3}'`
+    
+    # print it out with a TAB character
+    echo -e "$split_name\t$MAG"
+
+done > 17_NR-MAGs-MERGED/NR-MAGs-COLLECTION.txt
+
+anvi-import-collection 17_NR-MAGs-MERGED/NR-MAGs-COLLECTION.txt 
+                    -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db 
+                    -p 17_NR-MAGs-MERGED/PROFILE.db -C NON_REDUNDANT_MAGs_MAGs
+```                    
+
+A quick check.
+
+```bash
+anvi-export-collection -p 17_NON-REDUNDANT-MAGs-MERGED/PROFILE.db --list-collections
+```
+
+```bash
+COLLECTIONS FOUND
+===============================================
+* NON_REDUNDANT_MAGs (5 bins, representing 3404 items).
+```
+
+### Creating Self-Contained Profiles for MAGs
+
+```bash
+anvi-split -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db \
+                               -p 17_NR-MAGs-MERGED/PROFILE.db \
+                               -C NR_MAGs -o 18_NR-MAGs-SPLIT 
+```
+
+That's it for this section. Next we will perform a phylogenomic analysis on a MAG or two.
+
+
+
+<div class="post-nav">
+<div class="post-nav-item">
+<div class="meta-nav">Previous</div>
+<a href="mg-workflow-2.html" rel="next">N<sup><u>o</u></sup> 4. Assembley & Annotation Summary</a>
+</div>
+</div>
+
+<div class="post-nav">
+<div class="post-nav-item">
+<div class="meta-nav">Next</div>
+<a href="mg-phylogenomics.html" rel="prev">N<sup><u>o</u></sup> 6. Phylogenomics</a>
+</div>
+</div>
+
+## Source Code {.appendix}
+
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-auto-binning.Rmd).

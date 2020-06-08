@@ -907,7 +907,6 @@ datatable(sum_run2, width = "80%",
           )
 ```
 
-
 And then save the tables so we can use them later if we want.
 
 ```{r track_changes, eval=FALSE}

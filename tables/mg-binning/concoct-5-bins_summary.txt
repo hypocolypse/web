@@ -1,0 +1,6 @@
+bins	taxon	total_length	num_contigs	N50	GC_content	percent_completion	percent_redundancy
+Bin_0	Unknown	10394293	6461	1550	35.3	100.0	467.6
+Bin_1	Unknown	7140550	4691	1457	49.5	82.9	110.5
+Bin_2	Unknown_Myoviridae	14323882	6508	2293	41.1	0.0	0.0
+Bin_3	Unknown	3355056	2043	1556	47.9	98.6	160.6
+Bin_4	Synechococcus	7392044	3996	1767	61.1	98.6	263.4

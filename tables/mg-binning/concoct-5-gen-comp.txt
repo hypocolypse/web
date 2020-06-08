@@ -1,4 +1,4 @@
-bin name	domain	confidence	% completion	% redundancy	num_splits	total length
+bin name	domain	confidence	% completion	% redundancy	num_splits	total_length
 Bin_0	BACTERIA	0.9	100.00	467.61	6461	10394293
 Bin_2	BLANK	1.0	0.00	0.00	6525	14323882
 Bin_4	BACTERIA	0.8	98.59	263.38	3996	7392044

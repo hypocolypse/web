@@ -1,0 +1,199 @@
+parent_taxid	descendent_taxid	descendent_name
+2321108	94614	Arcobacter cf. butzleri LCDC13432
+2321108	94615	Arcobacter cf. butzleri LCDC13207
+2321108	367737	Arcobacter butzleri RM4018
+2321108	888827	Arcobacter butzleri JV22
+2321108	944546	Arcobacter butzleri ED-1
+2321108	1036172	Arcobacter butzleri 7h1h
+2321108	1447256	Arcobacter butzleri L348
+2321108	1447257	Arcobacter butzleri L349
+2321108	1447258	Arcobacter butzleri L350
+2321108	1447259	Arcobacter butzleri L351
+2321108	1447260	Arcobacter butzleri L352
+2321108	1447261	Arcobacter butzleri L353
+2321108	1447262	Arcobacter butzleri L354
+2321108	1447263	Arcobacter butzleri L355
+2321108	1032070	Arcobacter cryaerophilus ATCC 43158
+2321108	1032071	Arcobacter cryaerophilus D2610
+2321108	572480	Arcobacter nitrofigilis DSM 7299
+2321108	1032239	Arcobacter skirrowii CCUG 10374
+2321108	98172	uncultured bacterium PENDANT-6
+2321108	127789	uncultured Arcobacter kps57f
+2321108	165434	uncultured Arcobacter sp.
+2321108	350627	uncultured Arcobacter sp. FR049
+2321108	696712	Arcobacter sp. enrichment culture clone A1
+2321108	696713	Arcobacter sp. enrichment culture clone A5
+2321108	696714	Arcobacter sp. enrichment culture clone M4
+2321108	2043389	Arcobacter sp. enrichment culture
+2321108	197482	Arcobacter halophilus
+2321108	1442598	Arcobacter cibarius LMG 21996
+2321108	505249	Arcobacter marinus
+2321108	1032240	Arcobacter thereius LMG 24486
+2321108	1032238	Arcobacter mytili LMG 24559
+2321108	663364	Arcobacter bivalviorum
+2321108	1032241	Arcobacter trophiarum LMG 25534
+2321108	873191	Arcobacter defluvii
+2321108	877500	Arcobacter anaerophilus
+2321108	913109	Arcobacter ellisii
+2321108	870501	Arcobacter molluscorum LMG 25693
+2321108	1054033	Arcobacter venerupis
+2321108	1054034	Arcobacter cloacae
+2321108	1080223	Arcobacter pacificus
+2321108	663365	Arcobacter suis CECT 7833
+2321108	1315211	Arcobacter aquimarinus
+2321108	1355374	Arcobacter lanthieri
+2321108	1462615	Arcobacter ebronensis
+2321108	1872629	Arcobacter sp.
+2321108	1904463	Arcobacter lekithochrous
+2321108	1912871	Arcobacter canalis
+2321108	2478538	Arcobacter sp. SM1702
+2321108	1564137	[Arcobacter] lanthierii
+2321108	1564138	Aliiarcobacter faecis
+2321108	1912878	Aliiarcobacter hispanicus
+2321108	1935204	[Arcobacter] porcinus
+2321108	2011099	Aliiarcobacter vitoriensis
+2321108	1849015	Pseudoarcobacter acticola
+2321108	1912877	Pseudoarcobacter caeni
+2321108	1912869	Malacobacter neptunis
+2321108	1912872	Haloarcobacter salis
+2321108	1912873	Haloarcobacter ponticus
+2321108	2023153	Haloarcobacter mediterraneus
+2321108	2321187	Poseidonibacter
+2321108	1912875	Arcomarinus aquaticus
+2321108	40809	Arcobacter sp. Solar Lake
+2321108	114103	Arcobacter sp. B4b1
+2321108	114104	Arcobacter sp. D1a1
+2321108	114105	Arcobacter sp. A3b2
+2321108	120660	Arcobacter sp. KT0913
+2321108	162154	Candidatus Arcobacter sulfidicus
+2321108	235130	Arcobacter sp. AM70-1
+2321108	303211	Arcobacter sp. NA105
+2321108	303212	Arcobacter sp. NC101
+2321108	343093	Arcobacter sp. R-28313
+2321108	343094	Arcobacter sp. R-28314
+2321108	343096	Arcobacter sp. R-28316
+2321108	343104	Arcobacter sp. R-28214
+2321108	385486	Arcobacter sp. BSs20195
+2321108	481160	Arcobacter sp. TC2
+2321108	483666	Arcobacter sp. AM16
+2321108	551765	Arcobacter sp. F2076
+2321108	603236	Arcobacter sp. D2043
+2321108	650359	Arcobacter sp. CpA_b6
+2321108	650512	Candidatus Arcobacter sp. CpA_a5
+2321108	654509	Arcobacter sp. BBT30
+2321108	663366	Arcobacter sp. F61
+2321108	714529	Arcobacter sp. KTSW-4
+2321108	756295	Arcobacter sp. UDC312
+2321108	756296	Arcobacter sp. UDC313
+2321108	756297	Arcobacter sp. UDC316
+2321108	762480	Arcobacter sp. UDC415
+2321108	861235	Arcobacter sp. MS30
+2321108	861236	Arcobacter sp. MS35
+2321108	867599	Arcobacter sp. HME6609
+2321108	869392	Arcobacter sp. HME6665
+2321108	904486	Arcobacter sp. FE2
+2321108	904487	Arcobacter sp. D5019
+2321108	928460	Arcobacter sp. 4D4(2010)
+2321108	944547	Arcobacter sp. L
+2321108	978022	Arcobacter sp. 78e
+2321108	1001760	Arcobacter sp. SCGC AAA036-D18
+2321108	1001761	Arcobacter sp. SCGC AAA036-F23
+2321108	1035915	Arcobacter sp. AK11
+2321108	1080222	Arcobacter sp. sw026
+2321108	1131408	Arcobacter sp. MDC1641
+2321108	1131409	Arcobacter sp. MDC1744
+2321108	1131410	Arcobacter sp. MDC1745
+2321108	1131411	Arcobacter sp. MDC1746
+2321108	1131412	Arcobacter sp. MDC1747
+2321108	1131413	Arcobacter sp. MDC1765
+2321108	1131414	Arcobacter sp. MDC1766
+2321108	1131415	Arcobacter sp. MDC1767
+2321108	1134853	Arcobacter sp. GCDN6_III
+2321108	1137279	Arcobacter sp. AK19
+2321108	1151537	Arcobacter sp. canine oral taxon 276
+2321108	1162110	Arcobacter sp. STEP_aq_273
+2321108	1173598	Arcobacter sp. Arz-ANA-2
+2321108	1249571	Arcobacter sp. KLS-1
+2321108	1249572	Arcobacter sp. SAS-1
+2321108	1249573	Arcobacter sp. SL-3
+2321108	1249574	Arcobacter sp. Y2S
+2321108	1249575	Arcobacter sp. YAPB-1
+2321108	1249576	Arcobacter sp. YAS-1
+2321108	1269954	Arcobacter sp. JNU-H033
+2321108	1302758	Arcobacter sp. Me13
+2321108	1325921	Arcobacter sp. 0609ALT48R8-KH
+2321108	1335690	Arcobacter sp. OFEM56
+2321108	1355368	Arcobacter sp. AF1028
+2321108	1355369	Arcobacter sp. AF1033
+2321108	1355370	Arcobacter sp. AF1058
+2321108	1355372	Arcobacter sp. AF1429
+2321108	1355375	Arcobacter sp. AF1441
+2321108	1355377	Arcobacter sp. Af1431
+2321108	1420686	Arcobacter sp. ONE-2
+2321108	1432412	Arcobacter sp. 69948
+2321108	1521110	Arcobacter sp. S1E1_1
+2321108	1628763	Arcobacter sp. CAB
+2321108	1632777	Arcobacter sp. 63ED13
+2321108	1665555	Arcobacter sp. EP1
+2321108	1673745	Arcobacter sp. ORW13
+2321108	1673746	Arcobacter sp. ORW14
+2321108	1673747	Arcobacter sp. ORW15
+2321108	1673748	Arcobacter sp. ORW16
+2321108	1673749	Arcobacter sp. ORW17
+2321108	1673750	Arcobacter sp. ORW21
+2321108	1673751	Arcobacter sp. ORW23
+2321108	1673752	Arcobacter sp. ORW24
+2321108	1673753	Arcobacter sp. ORW26
+2321108	1673754	Arcobacter sp. ORW27
+2321108	1673755	Arcobacter sp. ORW31
+2321108	1673756	Arcobacter sp. ORW33
+2321108	1673757	Arcobacter sp. ORW36
+2321108	1673758	Arcobacter sp. ORW40
+2321108	1673759	Arcobacter sp. ORW45
+2321108	1673760	Arcobacter sp. ORW47
+2321108	1673761	Arcobacter sp. ORW49
+2321108	1673762	Arcobacter sp. ORW50
+2321108	1673763	Arcobacter sp. ORW52
+2321108	1673764	Arcobacter sp. ORW53
+2321108	1673765	Arcobacter sp. ORW57
+2321108	1673766	Arcobacter sp. ORW58
+2321108	1751094	Arcobacter sp. GENT4
+2321108	1751098	Arcobacter sp. GENT8
+2321108	1751106	Arcobacter sp. GENT19
+2321108	1775165	Arcobacter sp. H33-23
+2321108	1798179	Arcobacter sp. SCGC AC-213-B06
+2321108	1805500	Arcobacter sp. AAMA1002
+2321108	1805501	Arcobacter sp. ASMA1501
+2321108	1850254	Arcobacter sp. LPB0137
+2321108	1856277	Arcobacter sp. 31_11_sub10_T18
+2321108	1898176	Arcobacter sp. LA11
+2321108	1912870	Arcobacter sp. F151-37
+2321108	1912874	Arcobacter sp. F155-44
+2321108	1912876	Arcobacter sp. RW43-9
+2321108	1912879	Arcobacter sp. FW59
+2321108	1920644	Arcobacter sp. co01
+2321108	1935424	Arcobacter sp. CECT 8985
+2321108	1946044	Arcobacter sp. UBA1348
+2321108	1946045	Arcobacter sp. UBA2431
+2321108	1946046	Arcobacter sp. UBA2434
+2321108	1946047	Arcobacter sp. UBA2438
+2321108	1946048	Arcobacter sp. UBA2443
+2321108	1946049	Arcobacter sp. UBA4038
+2321108	1946050	Arcobacter sp. UBA6788
+2321108	1946051	Arcobacter sp. UBA6789
+2321108	1946052	Arcobacter sp. UBA7394
+2321108	2021861	Arcobacter sp. AHV-9/2010
+2321108	2023154	Arcobacter sp. W129-99
+2321108	2027466	Arcobacter sp. LMG 29976
+2321108	2044504	Arcobacter sp. CECT 8987
+2321108	2044505	Arcobacter sp. CECT 9188
+2321108	2044506	Arcobacter sp. CECT 9299
+2321108	2044507	Arcobacter sp. CECT 8986
+2321108	2044508	Arcobacter sp. CECT 8983
+2321108	2044509	Arcobacter sp. CECT 8989
+2321108	2044510	Arcobacter sp. CECT 9230
+2321108	2044511	Arcobacter sp. F2176
+2321108	2044512	Arcobacter sp. F155
+2321108	2283590	Arcobacter sp. HD9-500m-PIT-SAG02
+2321108	2283591	Arcobacter sp. HD9-500m-PIT-SAG03
+2321108	2320140	Arcobacter sp. PSE-93

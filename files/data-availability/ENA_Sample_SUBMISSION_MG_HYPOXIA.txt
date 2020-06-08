@@ -1,0 +1,9 @@
+#checklist_accession	ERC000024																			
+#unique_name_prefix																				
+sample_alias	tax_id	scientific_name	common_name	sample_title	sample_description	project name	sequencing method	investigation type	collection date	geographic location (country and/or sea)	geographic location (latitude)	geographic location (longitude)	water environmental package	geographic location (depth)	environment (biome)	environment (feature)	environment (material)	sample collection device or method	amount or size of sample collected	sample storage temperature
+#template		uncultured bacterium				Bocas del Toro 2017 Hypoxia	illumina nextseq	metagenomic		Panama			water		ENVO_01000854			0.22uM filtration	3	-80
+#units											DD	DD		m						°C
+WCCR_1913	77133	uncultured bacterium		WCCR_1913	Cayo Roldan Water Sample (normoxic)	Bocas del Toro 2017 Hypoxia	illumina nextseq	metagenomic	9/21/17	Panama	9.254583	-82.125383	water	2	ENVO_01000854	ENVO_00001999	water	0.22uM filtration	3	-80
+WROL_1914	77133	uncultured bacterium		WROL_1914	Cayo Roldan Water Sample (hypoxic)	Bocas del Toro 2017 Hypoxia	illumina nextseq	metagenomic	9/21/17	Panama	9.22023	-82.3231	water	2	ENVO_01000854	ENVO_00001999	water	0.22uM filtration	3	-80
+WROL_1915	77133	uncultured bacterium		WROL_1915	Crawl Caye Water Sample (normoxic)	Bocas del Toro 2017 Hypoxia	illumina nextseq	metagenomic	10/22/17	Panama	9.22023	-82.3231	water	2	ENVO_01000854	ENVO_00001999	water	0.22uM filtration	3	-80
+WCCR_1916	77133	uncultured bacterium		WCCR_1916	Crawl Caye Water Sample (normoxic)	Bocas del Toro 2017 Hypoxia	illumina nextseq	metagenomic	10/22/17	Panama	9.254583	-82.125383	water	2	ENVO_01000854	ENVO_00001999	water	0.22uM filtration	3	-80

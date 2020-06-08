@@ -55,8 +55,12 @@ navbar:
           href: mg-workflow-2.html
         - text: "---------"
         - text: "Binning"
-        - text: "5. Automated Binning"
-          href: mg-auto-binning.html
+        - text: "5. Binning"
+          href: mg-binning.html
+        - text: "---------"
+        - text: "MAGs in Context "
+        - text: "6. MAG02 Phylogenomics"
+          href: mg-phylogenomic.html
     - text: "D. Synthesis"
       href: synthesis.html
 #      icon: fa-dna

@@ -256,7 +256,6 @@ tax_reads <- as.data.frame(tax_reads, make.names = TRUE)
 tax_reads <- cbind(tax_reads, reads = rowSums(tax_reads))
 tax_reads <- tax_reads[9]
 tax_reads <- setDT(tax_reads, keep.rownames = TRUE)[]
-
 ```
 
 #### 2. Merge the two tables 
@@ -367,7 +366,7 @@ datatable(
 
 #### 6. Group taxa into 'Other'
 
-Time to group some of the taxa into an *Other* catagory for the bar graph. Since we cannot possibly display all `r nrow(means_w)` differnt taxa in one figure, we need to collapse some.  
+Time to group low abundance taxa into an *Other* catagory for the bar graph. Since we cannot possibly display all `r nrow(means_w)` differnt taxa in one figure, we need to collapse the low abundance groups.  
 
 ```{r calc_avg6, warning=FALSE}
 TAXAN <- 8
@@ -530,7 +529,7 @@ datatable(
 ```
 
 
-Time to group some of the taxa into an *Other* catagory for the bar graph. Since we cannot possibly display all `r nrow(means_tm)` differnt taxa in one figure, we need to collapse some.  
+Again, Time to group low abundance taxa into an *Other* catagory for the bar graph. Since we cannot possibly display all `r nrow(means_tm)` differnt taxa in one figure, we need to collapse the low abundance groups.  
 
 ```{r calc_avg6B, warning=FALSE, echo=FALSE}
 TAXAN <- 8

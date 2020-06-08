@@ -1,0 +1,90 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "contigs_target_rule", color = "0.48 0.6 0.85", style="rounded"];
+	1[label = "annotate_contigs_database", color = "0.06 0.6 0.85", style="rounded"];
+	2[label = "annotate_contigs_database", color = "0.06 0.6 0.85", style="rounded"];
+	3[label = "annotate_contigs_database", color = "0.06 0.6 0.85", style="rounded"];
+	4[label = "annotate_contigs_database", color = "0.06 0.6 0.85", style="rounded"];
+	5[label = "anvi_gen_contigs_database", color = "0.57 0.6 0.85", style="rounded"];
+	6[label = "anvi_run_hmms", color = "0.10 0.6 0.85", style="rounded"];
+	7[label = "anvi_run_ncbi_cogs", color = "0.13 0.6 0.85", style="rounded"];
+	8[label = "anvi_run_scg_taxonomy", color = "0.51 0.6 0.85", style="rounded"];
+	9[label = "anvi_run_trna_scan", color = "0.32 0.6 0.85", style="rounded"];
+	10[label = "anvi_gen_contigs_database", color = "0.57 0.6 0.85", style="rounded"];
+	11[label = "anvi_run_hmms", color = "0.10 0.6 0.85", style="rounded"];
+	12[label = "anvi_run_ncbi_cogs", color = "0.13 0.6 0.85", style="rounded"];
+	13[label = "anvi_run_scg_taxonomy", color = "0.51 0.6 0.85", style="rounded"];
+	14[label = "anvi_run_trna_scan", color = "0.32 0.6 0.85", style="rounded"];
+	15[label = "anvi_gen_contigs_database", color = "0.57 0.6 0.85", style="rounded"];
+	16[label = "anvi_run_hmms", color = "0.10 0.6 0.85", style="rounded"];
+	17[label = "anvi_run_ncbi_cogs", color = "0.13 0.6 0.85", style="rounded"];
+	18[label = "anvi_run_scg_taxonomy", color = "0.51 0.6 0.85", style="rounded"];
+	19[label = "anvi_run_trna_scan", color = "0.32 0.6 0.85", style="rounded"];
+	20[label = "anvi_gen_contigs_database", color = "0.57 0.6 0.85", style="rounded"];
+	21[label = "anvi_run_hmms", color = "0.10 0.6 0.85", style="rounded"];
+	22[label = "anvi_run_ncbi_cogs", color = "0.13 0.6 0.85", style="rounded"];
+	23[label = "anvi_run_scg_taxonomy", color = "0.51 0.6 0.85", style="rounded"];
+	24[label = "anvi_run_trna_scan", color = "0.32 0.6 0.85", style="rounded"];
+	25[label = "anvi_script_reformat_fasta", color = "0.54 0.6 0.85", style="rounded"];
+	26[label = "anvi_script_reformat_fasta", color = "0.54 0.6 0.85", style="rounded"];
+	27[label = "anvi_script_reformat_fasta", color = "0.54 0.6 0.85", style="rounded"];
+	28[label = "anvi_script_reformat_fasta", color = "0.54 0.6 0.85", style="rounded"];
+	29[label = "anvi_script_reformat_fasta_prefix_only\ngroup: Arcobacter_butzleri_JV22_A", color = "0.19 0.6 0.85", style="rounded"];
+	30[label = "anvi_script_reformat_fasta_prefix_only\ngroup: Arcobacter_marinus_JCM_15502", color = "0.19 0.6 0.85", style="rounded"];
+	31[label = "anvi_script_reformat_fasta_prefix_only\ngroup: Poseidonibacter_sp_SJOD_M_33", color = "0.19 0.6 0.85", style="rounded"];
+	32[label = "anvi_script_reformat_fasta_prefix_only\ngroup: MAG02", color = "0.19 0.6 0.85", style="rounded"];
+	1 -> 0
+	2 -> 0
+	3 -> 0
+	4 -> 0
+	5 -> 1
+	6 -> 1
+	7 -> 1
+	8 -> 1
+	9 -> 1
+	10 -> 2
+	11 -> 2
+	12 -> 2
+	13 -> 2
+	14 -> 2
+	15 -> 3
+	16 -> 3
+	17 -> 3
+	18 -> 3
+	19 -> 3
+	20 -> 4
+	21 -> 4
+	22 -> 4
+	23 -> 4
+	24 -> 4
+	25 -> 5
+	5 -> 6
+	5 -> 7
+	6 -> 8
+	5 -> 8
+	5 -> 9
+	26 -> 10
+	10 -> 11
+	10 -> 12
+	11 -> 13
+	10 -> 13
+	10 -> 14
+	27 -> 15
+	15 -> 16
+	15 -> 17
+	16 -> 18
+	15 -> 18
+	15 -> 19
+	28 -> 20
+	20 -> 21
+	20 -> 22
+	21 -> 23
+	20 -> 23
+	20 -> 24
+	29 -> 25
+	30 -> 26
+	31 -> 27
+	32 -> 28
+}            

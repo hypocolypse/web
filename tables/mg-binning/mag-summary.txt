@@ -1,0 +1,6 @@
+bins	domain	confidence	taxon	total_length	num_contigs	N50	GC_content	percent_completion	percent_redundancy
+WATER_MAG_00001	BACTERIA	1	Synechococcus	1862616	509	5803	62.8	94.4	2.8
+WATER_MAG_00002	BACTERIA	0.9	Arcobacter	1180544	504	2589	29.8	93.0	8.5
+WATER_MAG_00003	BACTERIA	0.9	Synechococcus	1654044	891	1871	62.2	90.1	7.0
+WATER_MAG_00004	BACTERIA	0.7	Aliiroseovarius	1776907	1062	1692	59.9	83.1	4.2
+WATER_MAG_00005	BACTERIA	0.7	Candidatus Pelagibacter	715941	438	1661	31.2	74.6	5.6

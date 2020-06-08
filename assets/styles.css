@@ -33,7 +33,7 @@ d-code {
   background-color: #E8E8E8;
   border-radius: 3px;
   font-size: 0.8em;
-  border-left: 5px solid #FC6464;
+  border-left: 5px solid #006ddb;
   font-family: 'Monaco', 'PT Mono', monospace;
   overflow-x: scroll !important;
   margin-bottom: 20px;
@@ -107,11 +107,6 @@ div.krona img {
 
 img {
   margin: 25px;
-}
-
-blockquote p {
-	font-size: 1.3em;
-	font-family: 'Lato';
 }
 
 /** LIGHTBOX MARKUP **/
