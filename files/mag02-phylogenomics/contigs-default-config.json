@@ -1,0 +1,110 @@
+{
+    "fasta_txt": "Arcobacter-fasta-rename.txt",
+    "anvi_gen_contigs_database": {
+        "--project-name": "{group}",
+        "--description": "",
+        "--skip-gene-calling": "",
+        "--external-gene-calls": "",
+        "--ignore-internal-stop-codons": "",
+        "--skip-mindful-splitting": "",
+        "--contigs-fasta": "",
+        "--split-length": "",
+        "--kmer-size": "",
+        "--skip-predict-frame": "",
+        "--prodigal-translation-table": "",
+        "threads": ""
+    },
+    "centrifuge": {
+        "threads": 2,
+        "run": "",
+        "db": ""
+    },
+    "anvi_run_hmms": {
+        "run": true,
+        "threads": 5,
+        "--installed-hmm-profile": "",
+        "--hmm-profile-dir": "",
+        "--also-scan-trnas": ""
+    },
+    "anvi_run_ncbi_cogs": {
+        "run": true,
+        "threads": 5,
+        "--cog-data-dir": "/pool/genomics/stri_istmobiome/dbs/cog_db/",
+        "--sensitive": "",
+        "--temporary-dir-path": "/pool/genomics/stri_istmobiome/dbs/cog_db/tmp/",
+        "--search-with": ""
+    },
+    "anvi_run_scg_taxonomy": {
+        "run": true,
+        "threads": 6,
+        "--scgs-taxonomy-data-dir": "/pool/genomics/stri_istmobiome/dbs/scgs-taxonomy-data/tmp/"
+    },
+    "anvi_run_trna_scan": {
+        "run": true,
+        "threads": 6,
+        "--trna-cutoff-score": ""
+    },
+    "anvi_script_reformat_fasta": {
+        "run": true,
+        "--prefix": "{group}",
+        "--simplify-names": true,
+        "--keep-ids": "",
+        "--exclude-ids": "",
+        "--min-len": "",
+        "threads": ""
+    },
+    "emapper": {
+        "--database": "bact",
+        "--usemem": true,
+        "--override": true,
+        "path_to_emapper_dir": "",
+        "threads": ""
+    },
+    "anvi_script_run_eggnog_mapper": {
+        "--use-version": "0.12.6",
+        "run": "",
+        "--cog-data-dir": "",
+        "--drop-previous-annotations": "",
+        "threads": ""
+    },
+    "gen_external_genome_file": {
+        "threads": ""
+    },
+    "export_gene_calls_for_centrifuge": {
+        "threads": ""
+    },
+    "anvi_import_taxonomy_for_genes": {
+        "threads": ""
+    },
+    "annotate_contigs_database": {
+        "threads": ""
+    },
+    "anvi_get_sequences_for_gene_calls": {
+        "threads": ""
+    },
+    "gunzip_fasta": {
+        "threads": ""
+    },
+    "reformat_external_gene_calls_table": {
+        "threads": ""
+    },
+    "reformat_external_functions": {
+        "threads": ""
+    },
+    "import_external_functions": {
+        "threads": ""
+    },
+    "anvi_run_pfams": {
+        "run": true,
+        "--pfam-data-dir": "/pool/genomics/stri_istmobiome/dbs/pfam_db/",
+        "threads": ""
+    },
+    "output_dirs": {
+        "FASTA_DIR": "02_FASTA",
+        "CONTIGS_DIR": "03_CONTIGS",
+        "LOGS_DIR": "00_LOGS"
+    },
+    "max_threads": "",
+    "config_version": "1",
+    "workflow_name": "contigs"
+}

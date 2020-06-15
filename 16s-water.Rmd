@@ -1,5 +1,5 @@
 ---
-title: "No 3. Water Samples"
+title: "No 3. Diversity"
 description: |
   In this section of the workflow we look at the diversity of the water samples collected from Cayo Roldan (hypoxic) and Crawl Caye (normoxic).
 author:
@@ -24,6 +24,8 @@ library(data.table)
 library(plyr)
 library(stringr)
 require(gdata)
+library(labdsv)
+
 options(scipen=999)
 knitr::opts_current$get(c(
   "cache",
@@ -34,7 +36,7 @@ knitr::opts_current$get(c(
 ))
 ```
 
-## Summary of Water Samples
+# Summary of Water Samples
 
 Now that we have a phyloseq object containing the water samples only, we can summarize the data in the water phyloseq object. Again, we use the `summarize_phyloseq` from the [microbiome R package](https://github.com/microbiome/microbiome/)[@lahti2017microbiome] as we did before.
 
@@ -196,13 +198,13 @@ datatable(merge_tab2, width = "100%", escape = FALSE,
   formatStyle(columns = colnames(merge_tab2), fontSize = '80%')
 ```
 
-## Taxonomic Diversity
+# Diversity
 
-### Water diversity
+## Taxonomic Diversity
 
 Let's first take a look at the taxonomic diversity of the dataset. The code to generate this table is a little gross. 
 
-#### 0. Rename *NA* txonomic ranks
+#### 0. Rename *NA* taxonomic ranks
 
 Phyloseq has an odd way of dealing with taxonomic ranks that have no value---in other words,  *NA* in the tax table. The first thing we are going to do before moving forward is to change all of the *NA* to have a value of the next highest classified rank. For example, `ASV5` is not classified at the Genus level but is at Family level (Saprospiraceae). So we change the Genus name to *Family_Saprospiraceae*. The code for this is hidden here but comes from these two posts on the phyloseq GitHub, both by [MSMortensen](https://github.com/MSMortensen): issue [#850](https://github.com/joey711/phyloseq/issues/850#issuecomment-394771087) and issue [#990](https://github.com/joey711/phyloseq/issues/990#issuecomment-424618425). If you want to access the code chunk, check out the source code linked at the bottom of this page.
 
@@ -230,7 +232,18 @@ for (i in 1:nrow(tax.clean)){
 }
 tax_table(ps_water) <- as.matrix(tax.clean)
 rank_names(ps_water)
+rm(class, order, phylum, kingdom)
 ```
+
+```{r, echo=FALSE}
+write.table(tax_table(ps_water),
+            "tables/16s-water/water_tax_table-no-na-names.txt", sep="\t",
+            quote = FALSE, col.names=NA)
+write.table(t(otu_table(ps_water)),
+            "tables/16s-water/water_seq_table-no-na-names.txt", sep="\t",
+            quote = FALSE, col.names=NA)
+```
+
 
 #### 1. Choose a rank
 
@@ -240,7 +253,7 @@ To make it easier to change the code later on, we can assign the taxonomic rank 
 TRANK <- "Class"
 ```
 
-#### 1. Generate the ASV & reads table
+#### 2. Generate the ASV & reads table
 
 ```{r diversity_table_w1}
 tax_asv <- table(tax_table(ps_water)[, TRANK], 
@@ -258,7 +271,7 @@ tax_reads <- tax_reads[9]
 tax_reads <- setDT(tax_reads, keep.rownames = TRUE)[]
 ```
 
-#### 2. Merge the two tables 
+#### 3. Merge the two tables 
 
 ```{r diversity_table_w2}
 taxa_read_asv_tab <- merge(tax_reads, tax_asv, by.x = "rn", by.y = "Taxa")
@@ -268,7 +281,7 @@ top_asvs <- top_n(taxa_read_asv_tab, n = 8, wt = Freq)
 names(taxa_read_asv_tab) <- c("Taxa", "total reads", "total ASVs")
 ```
 
-#### 3. Diversity table by `r TRANK` 
+#### 4. Diversity table by `r TRANK` 
 
 ```{r diversity_table_w3, echo=FALSE}
 datatable(
@@ -285,7 +298,7 @@ datatable(
     buttons = c("csv", "copy"),
     scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE,
     pageLength = 5,
-    scroller=TRUE, lengthMenu = c(10, 25, 51)))
+    scroller=TRUE, lengthMenu = c(5, 10, 25, 60)))
 
 top_reads2 <- top_reads[,-1]
 rownames(top_reads2) <- top_reads[,1]
@@ -301,7 +314,7 @@ Here we can see that:
 * `r row.names(top_reads2)` contain the **most reads** and
 * `r row.names(top_asvs2)` contain the **most ASVs**.
 
-### Hypoxic vs. Normoxic 
+## Hypoxic vs. Normoxic 
 
 How does the taxonomic composition of  normoxic compare to hypoxic samples? To look at this, we will combine samples by the `oxstate` variable and then calculate the *relative abundance* for each taxa for both oxygen states. Note one of the Cayo Roldan samples (WCR0) was collected after the hypoxic event when oxygen levels had returned to normal. Therefore WCR0 is considered a normoxic sample.
 
@@ -361,7 +374,7 @@ datatable(
     dom = "Blfrtip", buttons = c("csv", "copy"),
     scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE,
     pageLength = 8,
-    scroller=TRUE, lengthMenu = c(10, 25, 51)))
+    scroller=TRUE, lengthMenu = c(10, 25, 60)))
 ```
 
 #### 6. Group taxa into 'Other'
@@ -386,9 +399,9 @@ samp_names_w <- aggregate(meltd_w$Abundance, by = list(meltd_w$Sample), FUN = su
 meltd_w[, TRANK] <- factor(meltd_w[, TRANK], sort(unique(meltd_w[, TRANK])))
 meltd_w1 <- meltd_w[order(meltd_w[, TRANK]), ]
 
-target <- c("Oxyphotobacteria", "Alphaproteobacteria", 
+target <- c("Cyanobacteriia", "Alphaproteobacteria", 
             "Bacteroidia", "Gammaproteobacteria", 
-            "Thermoplasmata", "Deltaproteobacteria", 
+            "Thermoplasmata", "Phylum_Marinimicrobia_(SAR406_clade)", 
             "Acidimicrobiia", "Campylobacteria", "Other")
 meltd_w1[[TRANK]] <- reorder.factor(meltd_w1[[TRANK]], new.order=target)
 ```
@@ -472,7 +485,7 @@ datatable(hyp_v_norm, width = "100%", escape = FALSE,
 ```
 </br>
 
-### During vs. After the event 
+## During vs. After the event 
 
 What did taxonomic composition look like during and after the event at **each site**? To look at this, we will combine samples by the `period` variable and then calculate the *relative abundance* for each taxa. The code for this analysis is basically the same as the code above where we compared hypoxic to normoxic samples. Therefore, all of the code is hidden. See the link at the bottom of the page for the page source code if you are interested in the code we used here. We go through the same steps:
 
@@ -525,9 +538,8 @@ datatable(
     dom = "Blfrtip", buttons = c("csv", "copy"),
     scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE,
     pageLength = 9,
-    scroller=TRUE, lengthMenu = c(9, 25, 51)))
+    scroller=TRUE, lengthMenu = c(9, 25, 60)))
 ```
-
 
 Again, Time to group low abundance taxa into an *Other* catagory for the bar graph. Since we cannot possibly display all `r nrow(means_tm)` differnt taxa in one figure, we need to collapse the low abundance groups.  
 
@@ -547,10 +559,10 @@ samp_names_tm <- aggregate(meltd_tm$Abundance, by = list(meltd_tm$Sample), FUN =
 meltd_tm[, TRANK] <- factor(meltd_tm[, TRANK], sort(unique(meltd_tm[, TRANK])))
 meltd_tm1 <- meltd_tm[order(meltd_tm[, TRANK]), ]
 
-target <- c("Oxyphotobacteria", "Alphaproteobacteria", 
+target <- c("Cyanobacteriia", "Alphaproteobacteria", 
             "Bacteroidia", "Gammaproteobacteria", 
-            "Thermoplasmata", "Deltaproteobacteria", 
-            "Acidimicrobiia", "Phylum_Marinimicrobia_(SAR406_clade)", "Other")
+            "Thermoplasmata", "Phylum_Marinimicrobia_(SAR406_clade)", 
+            "Acidimicrobiia", "Campylobacteria", "Other")
 meltd_tm1[[TRANK]] <- reorder.factor(meltd_tm1[[TRANK]], new.order=target)
 ```
 
@@ -632,9 +644,122 @@ datatable(before_v_after, width = "100%", escape = FALSE,
 ```
 </br>
 
+# Differentially Abundant ASVs
+
+Time to drill down a little deeper and look at differntially abundant (DA) ASVs between the two oxygen conditions. DETAILS ON METHOD. 
+
+```{r idval_analysis, results='hide'}
+set.seed(119)
+#rm(class, order, phylum, kingdom)
+#ls(all.names = TRUE)
+water_seq_table <- data.frame(otu_table(ps_water))
+# Delete columns when sum == 0 Should not be anuy
+water_seq_table <- water_seq_table[, which(colSums(water_seq_table) != 0)]
+
+water_seq_table <- cbind(oxstate = c("normoxic","normoxic",
+                                     "normoxic","normoxic",
+                                     "normoxic","hypoxic",
+                                     "hypoxic","hypoxic"), 
+                            water_seq_table)
+
+iva <- indval(water_seq_table[,-1], water_seq_table[,1])
+gr <- iva$maxcls[iva$pval <= 0.05]
+iv <- iva$indcls[iva$pval <= 0.05]
+pv <- iva$pval[iva$pval <= 0.05]
+fr <- apply(water_seq_table[,-1] > 0, 2, sum)[iva$pval <= 0.05]
+indvalsummary <- data.frame(group=gr, indval=iv, pvalue=pv, freq=fr)
+indvalsummary <- indvalsummary[order(indvalsummary$group, 
+                                     -indvalsummary$indval),]
+water_tax_table <- data.frame(tax_table(ps_water))
+indvalsummary_tax <- merge(indvalsummary, water_tax_table, 
+                           by = "row.names", 
+                           all = TRUE)
+indvalsummary_tax <- indvalsummary_tax[!(is.na(indvalsummary_tax$group)),]
+
+lapply(indvalsummary_tax, class)
+class(indvalsummary_tax$group) = "character"
+indvalsummary_tax$group <- ifelse(indvalsummary_tax$group == "1", 
+                                  as.character("hypoxic"), 
+                                  as.character("normoxic"))
+```
+
+Now we can save a few files and display the data. 
+
+```{r idval_tables, echo=FALSE}
+water_seq_table_t <- water_seq_table
+water_seq_table_t[,1] <- NULL
+water_seq_table_t <- as.data.frame(t(water_seq_table_t))
+water_seq_table_t$reads <- rowSums(water_seq_table_t)
+water_seq_table_t$norm <- rowSums(water_seq_table_t[1:5])
+water_seq_table_t$hypo <- rowSums(water_seq_table_t[6:8])
+water_seq_table_t[1:8] <- NULL
+water_seq_table_t <- tibble::rownames_to_column(water_seq_table_t, "ASV") 
+
+names(indvalsummary_tax)[1] <- "ASV"
+full_indval_sum <- merge(water_seq_table_t, indvalsummary_tax, 
+                           by = "ASV", 
+                           all = FALSE)
+
+indvalsummary <- tibble::rownames_to_column(indvalsummary, "ASV") 
+write.table(full_indval_sum, "tables/16s-water/indval_tax.txt", 
+            row.names = FALSE, sep = "\t", quote = FALSE)
+write.table(indvalsummary, "tables/16s-water/indval_summary.txt", 
+            row.names = FALSE, sep = "\t", quote = FALSE)
+```
+
+<br/>
+
+```{r scg_tax, echo=FALSE, layout="l-page"}
+full_indval_sum_noseq <- full_indval_sum
+full_indval_sum_noseq[,c(15:16)] <- NULL
+datatable(colnames = c("ASV", "reads", "norm", "hypo", 
+                       "group", "indval", "pval", "freq", 
+                       "Kingdom", "Phylum", "Class", "Order", 
+                       "Family", "Genus"),
+  full_indval_sum_noseq, rownames = FALSE, autoHideNavigation = TRUE, 
+  width = "100%", elementId = "twykw9v4dzmp1lymga92",
+  caption = htmltools::tags$caption(
+    style = "caption-side: bottom; text-align: left;",
+    "Differentially Abundant ASVs assessed by 
+    Indicator Species Analysis (ISA)."),
+  extensions = c("Buttons", "FixedColumns"),
+  options = list(
+    columnDefs = list(list(className = "dt-left", targets = 0)),
+    dom = "Blfrtip",
+    buttons = c("csv", "copy"),
+    pageLength = 10, lengthMenu = c(5, 10, 50, 160), 
+    scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE, paging=TRUE,
+    fixedColumns = list(leftColumns = 1, rightColumns = 0))) %>%
+    formatRound(columns=c("indval", "pvalue"), digits = 3) %>%
+  formatStyle(columns = colnames(full_indval_sum_noseq), fontSize = '80%')
+```
+
+```{r export_da_fasta, echo=FALSE}
+# Create fasta file from tax_table
+table2format2 <- full_indval_sum
+table2format2 <- table2format2[table2format2$reads >= 100 ,]
+#retain only the column with the sequences
+table2format_trim2 <- table2format2[, 16:15]
+#format fasta
+table2format_trim2$ASV_ID <- sub("ASV", ">ASV", table2format_trim2$ASV_ID)
+write.table(table2format_trim2, "files/16s-water/idval_asv.fasta",
+            sep = "\n", col.names = FALSE, row.names = FALSE,
+            quote = FALSE, fileEncoding = "UTF-8")
+```            
+
+```{r, echo=FALSE}
+full_tally <- table(indvalsummary_tax$group)
+trim_tally <- table(table2format2$group)
+```
+
+Now. What do we get from all of this? Well, we started with `r ntaxa(ps_water)` and ran Indicator Species Analysis (ISA) to see if we could identify Differentially Abundant (DA) ASVs between the normoxic and hypoxic conditions. ISA found `r length(indvalsummary_tax[,1])` ASVs that were DA between the two, specifically `r full_tally[["normoxic"]][1]` ASVs enriched in the normoxic samples and `r full_tally[["hypoxic"]][1]` in the hypoxic. If we consider only ASVs with more than 100 total reads we get `r trim_tally[["normoxic"]][1]` normoxic ASVs and `r trim_tally[["hypoxic"]][1]` hypoxic ASVs. 
+
+<br>
+
+> You can download a fasta file of DA ASVs (> 100 total reads) determined using ISA by [clicking on this link](files/16s-water/idval_asv.fasta). 
 
 
-
+<br>
 
 <div class="post-nav">
 <div class="post-nav-item">

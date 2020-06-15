@@ -1,0 +1,11 @@
+genome_or_bin	Archaeal_16S_rRNA	Archaeal_23S_rRNA	Archaeal_5S_rRNA	Archaeal_5_8S_rRNA	Bacterial_16S_rRNA	Bacterial_23S_rRNA	Bacterial_5S_rRNA	Eukaryotic_28S_rRNA	Eukaryotic_5S_rRNA	Eukaryotic_5_8S_rRNA	Mitochondrial_12S_rRNA	Mitochondrial_16S_rRNA
+Sulfurospirillum_barnesii_SES_3	0	2	0	0	2	0	0	0	0	0	0	0
+Sulfurospirillum_deleyianum_DSM_6946	0	3	0	0	3	0	0	0	0	0	0	0
+Sulfurospirillum_halorespirans_DSM_13726	0	2	0	0	2	0	0	0	0	0	0	0
+Sulfurospirillum_multivorans_DSM_12446	0	2	0	0	2	0	0	0	0	0	0	0
+Sulfurospirillum_sp__ACSDCE_GCA	0	3	0	0	3	0	0	0	0	0	0	0
+Sulfurospirillum_sp__ACSTCE_GCA	0	2	0	0	2	0	0	0	0	0	0	0
+Sulfurospirillum_sp__JPD_1_GCA	0	3	0	0	3	0	0	0	0	0	0	0
+Sulfurospirillum_sp__SL2_1_GCA	0	3	0	0	3	0	0	0	0	0	0	0
+Sulfurospirillum_sp__SL2_2_GCA	0	3	0	0	3	0	0	0	0	0	0	0
+Sulfurospirillum_sp__UCH001_GCA	0	4	0	0	4	0	0	0	0	0	0	0

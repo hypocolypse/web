@@ -14,7 +14,7 @@ For the metagenomic analysis we largely leave the R environment. The initial ste
 
 In the first part we install the backbone of our computational operations---Miniconda and anvi'o. Then we build the annotation databases and install the needed software.
 
-Metagenomic datasets are often a bit large so you may need to run these workflows on a compute cluster. A personal computer will be insufficiant for many of the steps. We ran our analyses on the Smithsonian cluster (Hydra). For each step in the workflow we include our Hydra job scripts, embeded in a handy dropdown.
+Metagenomic datasets are often a bit large so you may need to run these workflows on a compute cluster. A personal computer will be insufficient for many of the steps. We ran our analyses on the Smithsonian cluster (Hydra). For each step in the workflow we include our Hydra job scripts, embedded in a handy dropdown.
 
 By the time you read this, some of these instructions may be out of date.  Consult the source material for programs/databases to ensure up-to-date installations.
 
@@ -26,9 +26,9 @@ We will also use other tools to generate data products that we can port into the
 
 I chose to use [conda](https://docs.conda.io/en/latest/) as my package management system and [Miniconda](https://docs.conda.io/en/latest/miniconda.html) as the conda installer. I prefer Miniconda because it is a (free) minimal installer with a small footprint that I can customize to suite my needs. We will use conda to install almost every program in this workflow.
 
-Conda allows you to create environments that are isolated from the rest of your system. This is useful for many reasons. For example, as a user on a server you may not have `sudo` privileges and installing software can be a huge pain for everyone. With conda you basically create a computer within a computer so that what you do does not affect anything outside the Miniconda directory. In addition, every environment is isolated from each other within miniconda. This is important because you can install software packaes that require different versions Python for example.
+Conda allows you to create environments that are isolated from the rest of your system. This is useful for many reasons. For example, as a user on a server you may not have `sudo` privileges and installing software can be a huge pain for everyone. With conda you basically create a computer within a computer so that what you do does not affect anything outside the Miniconda directory. In addition, every environment is isolated from each other within miniconda. This is important because you can install software packages that require different versions Python for example.
 
-So the first step is to install Miniconda (available in multiple flavors).
+The first step is to install Miniconda (available in multiple flavors).
 
 ```bash
 #get the latest version of the installer.
@@ -45,22 +45,22 @@ conda config --env --add channels conda-forge
 conda config --env --add channels bioconda
 ```
 
-If you are not familiar with conda and plan to use it as a package managment system, I strongly encourage you to take some time and learn the ins and outs. I promise it will be worth your time. conda is fairly straightforward to use and you will use it a lot. There are a ton of resources out there accessible using your favorite search engine.
+If you are not familiar with conda and plan to use it as a package management system, I strongly encourage you to take some time and learn the ins and outs. I promise it will be worth your time. conda is fairly straightforward to use and you will use it a lot. There are a ton of resources out there accessible using your favorite search engine.
 
 If you ever want to know if there is a conda package for some program, just search for the program name + conda in your favorite search engine. If there is, the first link should be to the Anaconda Cloud. There you will find details about the package like installation instructions, last update, total downloads, etc.
 
 ## Anvi'o
 
-Now we are ready to install anvi'o[@eren2015anvi]. If you plan to work with anvio I have a few recommendations.
+Now we are ready to install anvi'o[@eren2015anvi]. If you plan to work with anvi’o I have a few recommendations.
 
-1) Take some time to look around the [anvi'o website](http://merenlab.org/software/anvio/). There is a TON of information, not just about the software platorm but about metagenomics in general. For example have a look at the metagenomic [vocabulary](http://merenlab.org/vocabulary/) page.
-2) The anvio developers offer many options for [getting help](http://merenlab.org/2019/10/07/getting-help/). I suggest joining their Slack channel or Google Group. For technical issues check out the [anvio GitHub site](https://github.com/merenlab/anvio).
-3) There are many tutorials built around core anvio functionality. Be sure to work through some of those.
+1) Take some time to look around the [anvi'o website](http://merenlab.org/software/anvio/). There is a TON of information, not just about the software platform but about metagenomics in general. For example, have a look at the metagenomic [vocabulary](http://merenlab.org/vocabulary/) page.
+2) The anvi’o developers offer many options for [getting help](http://merenlab.org/2019/10/07/getting-help/). I suggest joining their Slack channel or Google Group. For technical issues check out the [anvi’o GitHub site](https://github.com/merenlab/anvio).
+3) There are many tutorials built around core anvi’o functionality. Be sure to work through some of those.
 4) The [data page](http://merenlab.org/data/) has data and reproducible bioinformatic workflows for all their publications. This is an invaluable resource that I use all the time.
 5) You can find up-to-date installation [instructions](http://merenlab.org/2016/06/26/installation-v2/) on the anvi'o website.
-6) Another excellent resource if you're just getting started is [Happy Belly Bioinformatics](https://astrobiomike.github.io/). Thats right. Great name, great site.
+6) Another excellent resource if you're just getting started is [Happy Belly Bioinformatics](https://astrobiomike.github.io/). That’s right. Great name, great site.
 
-For posterity, I will describe here exactly how I installed anvio at the time of this analysis.
+For posterity, I will describe here exactly how I installed anvi’o at the time of this analysis.
 
 ### Development anvi'o
 
@@ -68,7 +68,7 @@ I like to run the development version of anvi'o so I can keep up with the `maste
 
 The downside of this is that in the **extremely unlikely** event that the remarkably talented [anvi'o developers](https://github.com/merenlab/anvio/blob/master/AUTHORS.txt) make a mistake, you could break your anvi'o install. So just in case we will also install a stable version of the codebase (see below).
 
-Moving on. At the time of this writing, the miniconda install default Python version was `3.7.3`. Many of the anvi'o dependencies required Python `3.6.x`. So the first step is to create a conda environment running Python `3.6`. This is an example of the power of package management---running different versions of python.
+Moving on. At the time of this writing, the miniconda install default Python version was `3.7.3`. Many of the anvi'o dependencies required Python `3.6.x`. The first step is to create a conda environment running Python `3.6`. This is an example of the power of package management---running different versions of python.
 
 First create the anvi'o environment.
 
@@ -114,14 +114,14 @@ conda install -y -c r r-tidyverse
 conda install -y -c conda-forge r-optparse
 ```
 
-Swell. On to the anvio install. I used `~/github/` as the base directory for the anvio codebase.
+Swell. On to the anvi’o install. I used `~/github/` as the base directory for the anvi’o codebase.
 
 ```bash
 mkdir -p ~/github && cd ~/github/
 git clone --recursive https://github.com/meren/anvio.git
 ```
 
-Now we set-up a Python virtual environment for anvio. For reasons beyond my efforts to understand, this is the best way to install the dev version. Remember we are still in the conda environemnt (anvio-master) so this is a "virtual environment within a virtual environment".
+Now we set-up a Python virtual environment for anvi’o. For reasons beyond my efforts to understand, this is the best way to install the dev version. Remember we are still in the conda environment (anvio-master) so this is a "virtual environment within a virtual environment".
 
 ```bash
 # just in case you've done this before
@@ -133,23 +133,23 @@ virtualenv ~/virtual-envs/anvio-master
 source ~/virtual-envs/anvio-master/bin/activate
 ```
 
-Now anvio is active in a virtual environment, which itself is active in a conda environment. Cool. Before installing anvio we need to install the dependencies for the codebase. These are mostly Python packages like `numpy`, `snakemake`, `pysam`, etc.
+Now anvi'o is active in a virtual environment, which itself is active in a conda environment. Cool. Before installing anvi’o we need to install the dependencies for the codebase. These are mostly Python packages like `numpy`, `snakemake`, `pysam`, etc.
 
 ```bash
 cd ~/github/anvio/
 pip install -r requirements.txt
 ```
 
-You can now deactivate the anvio virtualenv.
+You can now deactivate the anvi’o virtualenv.
 
 ```bash
 deactivate
 ```
 
-If we want to update the codebase from the `master` repository, we need to make a few additions to the activation file in the virtualenv. This will look for changes everytime we activate anvio.
+If we want to update the codebase from the `master` repository, we need to make a few additions to the activation file in the virtualenv. This will look for changes every time we activate anvi’o.
 
 ```bash
-# updating the activation script for the Python virtual environmnet
+# updating the activation script for the Python virtual environment
 # so (1) Python knows where to find anvi'o libraries, (2) BASH knows
 # where to find its programs, and (3) every the environment is activated
 # it downloads the latest code from the `master` repository
@@ -169,9 +169,9 @@ echo "# <<< ANVI'O STUFF <<<" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
-Thats it. Dev version installed. Bam.
+That’s it. Dev version installed. Bam.
 
-Run the self test and make sure it completes without issue
+Run the self-test and make sure it completes without issue
 
 ```bash
 anvi-self-test --suite mini
@@ -193,7 +193,7 @@ First we create a conda environment and activate it. We will name the environmen
 conda create -n anvio-6 python=3.6
 conda activate anvio-6
 ```
-Then we install anvio.
+Then we install anvi’o.
 
 ```bash
 conda install -y anvio=6
@@ -211,9 +211,9 @@ If it says anything other than `diamond version 0.9.14` you need to run:
 conda install -y diamond=0.9.14
 ```
 
-Thats it. Stable version installed. Bam.
+That’s it. Stable version installed. Bam.
 
-Run the self test and make sure it completes without issue
+Run the self-test and make sure it completes without issue
 
 ```bash
 anvi-self-test --suite mini
@@ -236,13 +236,13 @@ Or add an alias to your `.bash_profile` file like so...
 ```bash
 echo 'alias anvi-activate-stable="conda activate anvio-6"' >> ~/.bash_profile
 ```
-### Accessing anvio like a pro
+### Accessing anvi’o like a pro
 
-Meren wrote this little diddy to access the two different anvio installs with just simple alias commands. And he tucked it is a cool dropdown. I present this here exactly as he had it on the anvio website :)
+Meren wrote this little ditty to access the two different anvi’o installs with just simple alias commands. And he tucked it is a cool dropdown. I present this here exactly as he had it on the anvio website :)
 
 <details markdown="1"><summary>Show/hide Meren's BASH profile setup</summary>
 
-This is all personal taste and they may need to change from computer to computer, but I adeed the following lines at the end of my `~/.bash_profile` to easily switch between different versions of anvi'o on my Mac system:
+This is all personal taste and they may need to change from computer to computer, but I added the following lines at the end of my `~/.bash_profile` to easily switch between different versions of anvi'o on my Mac system:
 
 If you are using Anaconda rather than miniconda, or you are using Linux and not Mac, you will have to find corresponding paths for lines that start with `/Users` down below :)
 
@@ -275,7 +275,7 @@ alias a6=init_anvio_6
 alias am=init_anvio_master
 ```
 
-With this steup, in a new terminal window you can type `a6` or `am` to run the stable or master version of anvi'o, or to **switch from one to the other**. Thats rad.
+With this setup, in a new terminal window you can type `a6` or `am` to run the stable or master version of anvi'o, or to **switch from one to the other**. That’s rad.
 
 ```
 (anvio-6) Js-MacBook-Pro:~ rad$ a6
@@ -307,7 +307,7 @@ Structure DB version .........................: 1
 
 ## Other Software
 
-As mentioned above, we will use many other tools. Some are installed with anvio, some we installed while installing anvio, while others need to be installed separately. We will do this as the need arises and document it as we move through the workflow. In the next section for example we  build some databases and install the tools we need at the same time. :)
+As mentioned above, we will use many other tools. Some are installed with anvi’o, some we installed while installing anvi’o, while others need to be installed separately. We will do this as the need arises and document it as we move through the workflow. In the next section for example we  build some databases and install the tools we need at the same time. :)
 
 <div class="post-nav">
 <div class="post-nav-item">

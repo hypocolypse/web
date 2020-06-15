@@ -28,11 +28,11 @@ knitr::opts_current$get(c(
 ))
 ```
 
-## The Workflow
+# The Workflow
 
-In this section of the workflow we begin with raw, paired-end Illumina data. We will use a Snakemake[@koster2012snakemake] workflow in the anvi'o[@eren2015anvi] environment for most of the steps, though we will at time call on additonal tools for specific steps. The overall structure of our workflow was modelled after the one described by Delmont & Eren on [Recovering Microbial Genomes from TARA Oceans Metagenomes](http://merenlab.org/data/tara-oceans-mags/)[@delmont2018nitrogen].
+In this section of the workflow we begin with raw, paired-end Illumina data. We will use a Snakemake[@koster2012snakemake] workflow in the anvi'o[@eren2015anvi] environment for most of the steps, though we will at time call on additional tools for specific steps. The overall structure of our workflow was modelled after the one described by Delmont & Eren on [Recovering Microbial Genomes from TARA Oceans Metagenomes](http://merenlab.org/data/tara-oceans-mags/)[@delmont2018nitrogen].
 
-Specifically we will:
+Specifically, we will:
 
   1) Perform adapter trimming.
   2) Use the anvi'o Snakemake workflow to:
@@ -56,14 +56,14 @@ The main steps of this workflow are:
 | CO-ASSEMBLY           | MEGAHIT to co-assemble metagenomic samples.                         |  QC reads               |
 | GENE CALLING          | PRODIGAL for gene calling. Contig db for results.                   |  assembled contigs      |
 | TAXONOMIC ANNOTATION  | KrakenUniq for short read classification.                           |  QC reads               |
-| RECRUITMENT           | BOWTIE2/SAMtools for mapping short reads to assemly.                |  QC reads, contigs db   |
+| RECRUITMENT           | BOWTIE2/SAMtools for mapping short reads to assembly.               |  QC reads, contigs db   |
 | PROFILING             | Profile mapping results. Store in profile dbs.                      |  BAM file               |
 | TAXONOMIC ANNOTATION  | KAIJU & CENTRIFUGE for classification of genes.                     |  genes (dna format)     |
 | FUNCTIONAL ANNOTATION | Gene annotations against Pfams, COGS, KEGG, etc.                    |  genes (aa format)      |
 | MERGING               | Create single merged profile db.                                    |  individual profile dbs |
 :::
 
-## Trimming
+# Trimming
 
 Before we run the workflow we must trim Illumina adaptors. First we need to make some directories to put the output files.
 
@@ -72,10 +72,10 @@ mkdir 00_TRIMMED
 mkdir 00_TRIMMED_UNPAIRED
 ```
 
-Next we run TRIMMOMATIC[@bolger2014trimmomatic] assuming the raw data is in a directory called `RAW`. Here is an example for a single sample (`WCCR_1913`). Since we ran these samples on a NextSeq, there are 4 files per paired-end. So we have 8 files total. We need to run the command 4 times, one for each pair. Here is the command for the first pair.
+Next we run TRIMMOMATIC[@bolger2014trimmomatic] assuming the raw data is in a directory called `RAW`. Here is an example for a single sample (`WCCR_1913`). Since we ran these samples on a NextSeq, there are 4 files per paired-end. So, we have 8 files total. We need to run the command 4 times, one for each pair. Here is the command for the first pair.
 
 <aside>
-[GitHub Repo for TRIMMOMATIC](https://doi.org/10.1093/bioinformatics/btu170)
+[GitHub Repo for TRIMMOMATIC](https://github.com/timflutre/trimmomatic).
 </aside>
 
 
@@ -125,9 +125,9 @@ echo = `date` job $JOB_NAME don
 </code></pre>
 </details>
 
-## Snakemake Workflow
+# Snakemake Workflow
 
-Thanks to the anvi'o implementation of Snakemake we can run many commands suquentially and/or simutaneously. There is plenty of good documentation on the anvi'o website about setting up snakemake workflows [here](http://merenlab.org/2018/07/09/anvio-snakemake-workflows/) so we will refrain from any lengthy explainations.
+Thanks to the anvi'o implementation of Snakemake we can run many commands sequentially and/or simultaneously. There is plenty of good documentation on the anvi'o website about setting up Snakemake workflows [here](http://merenlab.org/2018/07/09/anvio-snakemake-workflows/) so we will refrain from any lengthy explanations.
 
 You can see all the settings we used and download our configs file [here](files/mg-workflow-1/default-config.txt) or grab it from  the folded code below. Some commands we chose not to run but they remain in the workflow for posterity.
 
@@ -441,7 +441,7 @@ Since we are doing a co-assembly,  we need a separate file called `samples.txt`,
 
 Remember, there are 4 fastq files *per* direction (forward or reverse) *per* sample. So each comma separated list in the `r1` column needs four file names and the same with the `r2` column. And you must include *relative path names*.
 
-To see what will  happen with the `config` file we can  visualize the  Snakemake workflow using a Directed acyclic graph (DAG) where edge connections represent dependencies and nodes represent commands. The workflow begins with trimmed reads and continues up to and including automatic binning of contigs. At the end of this workflow we then proceed with manual binning and MAG generation.  We  added nodes for Virsorter and Kaiju annotations since these are not part of the normal anvi'o workflow.
+To see what will  happen with the `config` file we can  visualize the  Snakemake workflow using a Directed acyclic graph (DAG) where edge connections represent dependencies and nodes represent commands. The workflow begins with trimmed reads and continues up to and including automatic binning of contigs. At the end of this workflow we then proceed with manual binning and MAG generation.  We  added nodes for VirSorter and Kaiju annotations since these are not part of the normal anvi'o workflow.
 
 > Click on the image to zoom in or download a copy.
 
@@ -583,7 +583,6 @@ export_svg(dag) %>%
   charToRaw() %>%
   rsvg() %>%
   png::writePNG("images/dag.png")
-
 ```
 </code></pre>
 </details>
@@ -593,7 +592,7 @@ export_svg(dag) %>%
 <a href="figures/mg-workflow-1/dag.png">
   <img src="figures/mg-workflow-1/dag.png" class="thumbnail">
 </a>
-<figcaption><strong>DAG of the metagenomic workflow</strong>. Colors indicate broad divisions of workflow: sky blue, short-read prep & co-assembly; blueish green, short-read mapping to assembly; orange, taxonomic or functional classification; yellow, automatic binning; reddish purple, databases construction. </figcaption>
+<figcaption><strong>DAG of the metagenomic workflow.</strong> Colors indicate broad divisions of workflow: sky blue, short-read prep & co-assembly; blueish green, short-read mapping to assembly; orange, taxonomic or functional classification; yellow, automatic binning; reddish purple, databases construction. </figcaption>
 </figure>
 :::
 
@@ -604,7 +603,7 @@ anvi-run-workflow -w metagenomics -c default-config.txt --additional-params --jo
 anvi-run-workflow -w metagenomics -c default-config.txt --additional-params --jobs 63 --resources nodes=63 --keep-going --rerun-incomplete
 ```
 
-If a Snakemake job fails the defualt behavior is to lock the workflow and because large jobs can fail for a lot of reasons, we decided to always include an identical command first with the `--unlock` flag. This will  unlock the workflow and then the second command will execute. You can find an explaination of this [here](http://merenlab.org/2018/07/09/anvio-snakemake-workflows/#how-can-i-restart-a-failed-job).
+If a Snakemake job fails the default behavior is to lock the workflow and because large jobs can fail for a lot of reasons, we decided to always include an identical command first with the `--unlock` flag. This will  unlock the workflow and then the second command will execute. You can find an explanation of this [here](http://merenlab.org/2018/07/09/anvio-snakemake-workflows/#how-can-i-restart-a-failed-job).
 
 <details markdown="1"><summary>Show/hide HYDRA SNAKEMAKE job script</summary>
 <pre><code>
@@ -658,12 +657,11 @@ echo = `date` job $JOB_NAME don
 </code></pre>
 </details>
 
-
-#### Snakemake Citations
+## Snakemake Citations
 
 There are many tools used in the workflow that need to be cited.
 
-First there is the workflow engine itself---Snakemake[@koster2012snakemake]. QUALITY-FILTERING of raw reads was performed using Illumina Utils[@eren2013filtering]. CO-ASSEMBLY of metagenomic samples performed using MEGAHIT[@li2015megahit]. GENE CALLING was performed using PRODIGAL[@hyatt2010prodigal]. RECRUITMENT (a.k.a. mapping) of reads to assembly performed using BOWTIE2[@langmead2012fast] and SAMtools[@li2009sequence]. TAXONOMIC CLASSIFICATION of genes using CENTRIFUGE[@kim2016centrifuge].
+First there is the workflow engine itself---Snakemake[@koster2012snakemake]. QUALITY-FILTERING of raw reads was performed using Illumina Utils[@eren2013filtering] implementation of the filter developed by Minoche and collegues[@minoche2011evaluation]. CO-ASSEMBLY of metagenomic samples performed using MEGAHIT[@li2015megahit]. GENE CALLING was performed using PRODIGAL[@hyatt2010prodigal]. RECRUITMENT (a.k.a. mapping) of reads to assembly performed using BOWTIE2[@langmead2012fast] and SAMtools[@li2009sequence]. TAXONOMIC CLASSIFICATION of genes using CENTRIFUGE[@kim2016centrifuge].
 
 <aside>
 Documentation for [Snakemake](https://snakemake.readthedocs.io/en/stable/). GitHub repo for [Illumina Utils](https://github.com/merenlab/illumina-utils). GitHub repo for [MEGAHIT](https://github.com/voutcn/megahit). GitHub repo for [PRODIGAL](https://github.com/hyattpd/Prodigal). GitHub repo for [BOWTIE2](https://github.com/BenLangmead/bowtie2). Documentation for  [SAMtools](http://samtools.sourceforge.net/) GitHub repo for [CENTRIFUGE](https://github.com/DaehwanKimLab/centrifuge).
@@ -671,19 +669,19 @@ Documentation for [Snakemake](https://snakemake.readthedocs.io/en/stable/). GitH
 
 Also, there are a few tools that we ran outside of the Snakemake workflow. Results from these steps need to be added to the individual `PROFILE.db`'s, merged `PROFILE.db`, or `CONTIGS.db`. Therefore, before the `anvi-merge` portion of the Snakemake workflow finished, we killed the job, ran the accessory analyses described below, and then restarted the workflow to finish the missing step. Cumbersome, yes, but it got the job done.
 
-## Taxonomic Annotations
+# Taxonomic Annotations
 
 In this section we conduct taxonomic classification of short reads, contigs, and gene calls.
 
-### Kaken Annotation
+## Kaken Annotation
 
-In this section we use KrakenUniq[@breitwieser2018krakenuniq] to classify the **short reads**. Because of the memory demands of KrakenUniq, we could not get this to work in the Snakemake workflow so we ran the analysis separately. For several of these commands we used lists of sample names and  `for` loops to run through each sample.
+In this section we use KrakenUniq[@breitwieser2018krakenuniq] to classify the **short reads**. Because of the memory demands of KrakenUniq, we could not get this to work in the Snakemake workflow, so we ran the analysis separately. For several of these commands we used lists of sample names and  `for` loops to run through each sample.
 
 <aside>
 GitHub repo for [KrakenUniq](https://github.com/fbreitwieser/krakenuniq).
 </aside>
 
-Ok, here we run KrakenUniq and several reporting and summary steps against the short read data for each sample using the [list.txt](files/mg-workflow-1/list.txt) file.
+Ok, here we run KrakenUniq and several reporting and summary steps against the short-read data for each sample using the [list.txt](files/mg-workflow-1/list.txt) file.
 
 ```bash
 for sample in `cat list.txt`
@@ -705,7 +703,7 @@ do
 done
 ```
 
-And finally construct Krona[@ondov2011krona] plots. We will come back to Krona plots when we explain what they are and how to use them in the [Assembley & Annotation Summary](mg-workflow-2.html#krona-plots-explained) section of the workflow.
+And finally construct Krona[@ondov2011krona] plots. We will come back to Krona plots when we explain what they are and how to use them in the [Assembly & Annotation Summary](mg-workflow-2.html#krona-plots-explained) section of the workflow.
 
 
 <aside>
@@ -801,7 +799,7 @@ echo = `date` job $JOB_NAME don
 </code></pre>
 </details>
 
-####  Kraken Import
+###  Kraken import
 
 At this point we now add the kraken summary annotations to each individual `PROFILE.db` created in the Snakemake workflow. Again we used lists of sample names and  `for` loops to run through each sample.
 
@@ -862,11 +860,11 @@ echo = `date` job $JOB_NAME don
 </details>
 <br/>
 
-After this you need to rerun `anvi-merge` so that the short read annotations make it into the merged `PROFILE.db`. But we will get to that in a minute.
+After this you need to rerun `anvi-merge` so that the short-read annotations make it into the merged `PROFILE.db`. But we will get to that in a minute.
 
-### VirSorter Annotation
+## VirSorter Annotation
 
-To classify any viral sequences, we ran Virsorter[@roux2015virsorter] on conigs from the co-assembly using our newly created `contig.db` generated after the co-assembly step. We ran Virsorter with and without the `--virome` flag. See [issue 40](https://github.com/simroux/VirSorter/issues/40) on the Virsorter GitHub site for a discussion of why we did this. We used DIAMOND[@buchfink2015fast] as the local sequence aligner.
+To classify any viral sequences, we ran VirSorter[@roux2015virsorter] on contigs from the co-assembly using our newly created `contig.db` generated after the co-assembly step. We ran VirSorter with and without the `--virome` flag. See [issue 40](https://github.com/simroux/VirSorter/issues/40) on the VirSorter GitHub site for a discussion of why we did this. We used DIAMOND[@buchfink2015fast] as the local sequence aligner.
 
 <aside>
 [GitHub Repo for VirSorter](https://github.com/simroux/VirSorter). Documentation for [DIAMOND](http://www.diamondsearch.org/index.php).
@@ -922,7 +920,7 @@ echo = `date` job $JOB_NAME don
 </code></pre>
 </details>
 
-### Kaiju Annotation
+## Kaiju Annotation
 
 In addition to the Centrifuge classification we are going to use Kaiju[@menzel2016fast] to classify gene calls. We do this against the [two databases](https://github.com/bioinformatics-centre/kaiju#creating-the-reference-database-and-index) we built on the [Annotation Databases](mg-databases.html/#kaiju) page.
 
@@ -1020,11 +1018,11 @@ echo = `date` job $JOB_NAME don
 </code></pre>
 </details>
 
-#### Kaiju Import
+### Kaiju Import
 
-Now its is time to add the Kaiju annotation to the `contig.db`. We will also use the opportunity to generate some [Krona plots](https://github.com/marbl/Krona/wiki). We will discuss these in more detail in the next chapter.
+Now it is time to add the Kaiju annotation to the `contig.db`. We will also use the opportunity to generate some [Krona plots](https://github.com/marbl/Krona/wiki). We will discuss these in more detail in the next chapter.
 
-First we need to take the Kaiju-formmated output file and format it from Krona. We can do this for the results from both annotations.
+First we need to take the Kaiju-formatted output file and format it from Krona. We can do this for the results from both annotations.
 
 ```bash
 # from nr_euk db
@@ -1050,7 +1048,7 @@ ktImportText -o $KAIJU/WATER_kaiju_nr.out.html $KAIJU/WATER_kaiju_nr.out.krona
 #from mar db
 ktImportText -o $KAIJU/WATER_kaiju_mar.out.html $KAIJU/WATER_kaiju_mar.out.krona
 ```
-Finally, it is time to import the Kaiju taxonomies into the `contig.db` for each assembly. As we will see later, the `mar db` annotations called very few viral sequences, even though we know from Virsorter there are a lot of viruses. Therefore we decided to use the `nr db` annotations.
+Finally, it is time to import the Kaiju taxonomies into the `contig.db` for each assembly. As we will see later, the `mar db` annotations called very few viral sequences, even though we know from Virsorter there are a lot of viruses. Therefore, we decided to use the `nr db` annotations.
 
 ```bash
 anvi-import-taxonomy-for-genes -c 03_CONTIGS/WATER-contigs.db -p kaiju -i $KAIJU/WATER_kaiju_nr.names --just-do-it
@@ -1134,9 +1132,9 @@ echo = `date` job $JOB_NAME don
 </code></pre>
 </details>
 
-## Functional Annotations
+# Functional Annotations
 
-### SCG Taxonomy &  Pfam
+## SCG Taxonomy &  Pfam
 
 Here we run  single-copy core genes in the `contigs.db` with taxonomic names against a local SCG taxonomy database. After this we can run  `anvi-estimate-scg-taxonomy` to estimate taxonomy at genome-, collection-, or metagenome-level. We also needed to rerun the Pfam analysis because the original workflow failed at this step because of an improperly entered db path.
 
@@ -1202,9 +1200,9 @@ echo = `date` job $JOB_NAME done
 </code></pre>
 </details>
 
-### GhostKOALA Annotations
+## GhostKOALA Annotations
 
-The last thing we can do is run KEGG annotations using the [GhostKOALA server](http://www.kegg.jp/ghostkoala/). Running GhostKOALA/KEGG  was pretty easy thanks to this [handy tutorial](http://merenlab.org/2018/01/17/importing-ghostkoala-annotations/).
+The last thing we can do is run KEGG[@kanehisa2000kegg] annotations using the [GhostKOALA server](http://www.kegg.jp/ghostkoala/)[@kanehisa2016blastkoala]. Running GhostKOALA/KEGG  was pretty easy thanks to this [handy tutorial](http://merenlab.org/2018/01/17/importing-ghostkoala-annotations/).
 
 The steps we used to annotate genes with GhostKOALA/KEGG are reproduced from the tutorial.
 
@@ -1221,7 +1219,7 @@ anvi-get-sequences-for-gene-calls -c 03_CONTIGS/WATER-contigs.db --get-aa-sequen
 anvi-get-sequences-for-gene-calls -c 03_CONTIGS/MAT-contigs.db --get-aa-sequences -o GhostKOALA/MAT-protein-sequences.fa
 ```
 
-Because of a peculiarity with the way the server handles fasta files we need to modify the fatsa headers. Anvio gene calls begin with a digit and the server doesn't like that. So we will the prefix `genecall` to every gene call ID.
+Because of a peculiarity with the way the server handles fasta files we need to modify the fasta headers. Anvio gene calls begin with a digit and the server doesn't like that. So, we will the prefix `genecall` to every gene call ID.
 
 ```bash
 sed -i 's/>/>genecall_/' GhostKOALA/WATER-protein-sequences.fa
@@ -1231,7 +1229,7 @@ sed -i 's/>/>genecall_/' GhostKOALA/MAT-protein-sequences.fa
 At this point we can upload our modified amino acid gene call files to the [GhostKOALA](http://www.kegg.jp/ghostkoala/) server.
 
 
-> You can only run one instance of GhostKOALA at a time per email address and the upload limit is 300Mb. You may need to split large fasta files in to smaller chunks.
+> You can only run one instance of GhostKOALA at a time per email address and the upload limit is 300Mb. You may need to split large fasta files into smaller chunks.
 
 
 <details markdown="1"><summary>Show/hide HYDRA GhostKOALA annotation import job script</summary>
@@ -1291,9 +1289,9 @@ echo = `date` job $JOB_NAME don
 </code></pre>
 </details>
 
-#### Import GhostKOALA
+### Import GhostKOALA
 
-Once the jobs have finished we can import the data into our contig databases. In the repository you cloned earlier there is a file called `KO_Orthology_ko00001.txt`. [See this](http://merenlab.org/2018/01/17/importing-ghostkoala-annotations/#generate-the-kegg-orthology-table) section for an explaination of the next step about converting the KEGG Orthology assignments to functions. We need this htext file to match the orthologies with function.
+Once the jobs have finished we can import the data into our contig databases. In the repository you cloned earlier there is a file called `KO_Orthology_ko00001.txt`. [See this](http://merenlab.org/2018/01/17/importing-ghostkoala-annotations/#generate-the-kegg-orthology-table) section for an explanation of the next step about converting the KEGG Orthology assignments to functions. We need this htext file to match the orthologies with function.
 
 ```bash
 mkdir GhostKOALA/GhostKoalaParser
@@ -1411,7 +1409,7 @@ echo = `date` job $JOB_NAME don
 </code></pre>
 </details>
 
-## Merge Profiles & Import VirSorter
+# Merge Profiles & Import VirSorter
 
 Now that everything is added into the `contig.db` for the EP and WA assemblies and layer taxonomy is added to the individual `PROFILE.db`, its now time to merge all `PROFILE.db` into a single database for each assembly.
 
@@ -1463,13 +1461,13 @@ echo = `date` job $JOB_NAME done
 </code></pre>
 </details>
 
-#### Virsorter Import
+### VirSorter Import
 
-Now that we have a merged profile database for each assembly, we can deal with the virsorter data. We did this last for two reasons. First, we wanted to get a better idea of  the total abundance of the viral community by looking at the other taxonomic annotations. Since the viral community is > 10% we decided to use the virome decontamination data from Virsorter. Second, we need to add the VirSorter annotations to the merged `PROFILE.dbs` as a `COLLECTION`.
+Now that we have a merged profile database for each assembly, we can deal with the VirSorter data. We did this last for two reasons. First, we wanted to get a better idea of  the total abundance of the viral community by looking at the other taxonomic annotations. Since the viral community is > 10% we decided to use the virome decontamination data from VirSorter. Second, we need to add the VirSorter annotations to the merged `PROFILE.dbs` as a `COLLECTION`.
 
 This is a multi-step process that is explained in great detail [here](http://merenlab.org/2018/02/08/importing-virsorter-annotations/). But please note that depending on the state of affairs with VirSorter and/or anvi'o, you may need to modify the output of `anvi-export-gene-calls` per VirSorter GitHub [issue 65](https://github.com/simroux/VirSorter/issues/65).
 
-<details markdown="1"><summary>Show/hide  The issue and the fix</summary>
+<details markdown="1"><summary>Show/hide  the issue and the fix</summary>
 <pre><code>
 The tool virsorter_to_anvio.py uses the output of anvi-export-gene-calls (among other files)
 to import virsorter annotation into anvio dbs. The script relies on the output columns to be
@@ -1481,7 +1479,7 @@ gene_callers_id contig start stop direction partial source version
 But it is now:
 gene_callers_id contig direction partial source start stop version aa_sequence
 #
-So the columns need to be rearranged or the script changed.
+So, the columns need to be rearranged or the script changed.
 I wish I could offer I script fix :) but I just used awk.
 #
 awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $2, $6, $7, $3, $4, $5, $8}' all_gene_calls_TEMP.txt > all_gene_calls.txt
@@ -1595,7 +1593,7 @@ echo = `date` job $JOB_NAME done
 </code></pre>
 </details>
 
-## Conclusion
+# Conclusion
 
 This section of the workflow is complete. Lets take a look at the what we have so far.
 

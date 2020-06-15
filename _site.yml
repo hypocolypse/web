@@ -5,7 +5,7 @@ repository_url: https://github.com/hypocolypse/web/
 description: |
   Hypocolypse
 output_dir: "public_build"
-exclude: ["SANDBOX", "rdata", "EXTRA_ANALYSES", "public", "public_build", "tables"]
+exclude: ["rdata", "public", "public_build", "tables", "other_things"]
 creative_commons: CC BY
 favicon: assets/favicon.ico
 navbar:
@@ -34,11 +34,8 @@ navbar:
           href: 16s-data-prep.html
         - text: "---------"
         - text: "16S rRNA Analyses"
-        - text: "3. Water Diversity"
+        - text: "3. Diversity"
           href: 16s-water.html
-        - text: "---------"
-        - text: "Session Info"
-          href: session-info.html
     - text: "C. Metagenomic"
 #      icon: fa-wrench
       menu:
@@ -54,15 +51,13 @@ navbar:
         - text: "4. Assembley & Annotation Summary"
           href: mg-workflow-2.html
         - text: "---------"
-        - text: "Binning"
+        - text: "MAG Analysis"
         - text: "5. Binning"
           href: mg-binning.html
-        - text: "---------"
-        - text: "MAGs in Context "
         - text: "6. MAG02 Phylogenomics"
-          href: mg-phylogenomic.html
-    - text: "D. Synthesis"
-      href: synthesis.html
+          href: mag02-phylogenomics.html
+#    - text: "D. Synthesis"
+#      href: synthesis.html
 #      icon: fa-dna
     - text: "Data"
 #      icon: fa-database
@@ -81,5 +76,5 @@ output:
     distill::distill_article:
       css: assets/styles.css
       toc: true
-      toc_depth: 3
+      toc_depth: 2
 compare_updates_url: https://github.com/hypocolypse/web/compare/pubv1...master

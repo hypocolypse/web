@@ -12,7 +12,7 @@ bibliography: assets/cite.bib
 
 There are two main types of annotations we are interested in for this metagenomic project---**taxonomic** and **functional**---and there are many, many ways to accomplish both of these goals. This next section involves building the databases and installing any additional tools we need for annotation.
 
-Lets start with the tools and databases for **taxonomic** classification.
+Let’s start with the tools and databases for **taxonomic** classification.
 
 ## Taxonomic Classification
 
@@ -40,7 +40,7 @@ That's it.
 
 *[Kaiju](https://github.com/bioinformatics-centre/kaiju)[@menzel2016fast]... finds maximum (in-)exact matches on the protein-level using the Burrows–Wheeler transform.* *Kaiju is a program for the taxonomic classification... of metagenomic DNA. Reads are directly assigned to taxa using the NCBI taxonomy and a reference database of protein sequences from microbial and viral genomes.*
 
-Kaiju pretty much does the same thing as centrifige but uses a different methodological approach. First we need to install Kaiju. Again, I will run kaiju in a separate conda environment. Now I can either install kaiju from the source code or as conda package. The later is easier but often conda packages may lag behind the source code versions. I usually compare the release dates of the [conda package](https://anaconda.org/bioconda/kaiju) with the [source code](https://github.com/bioinformatics-centre/kaiju) and look at the number of downloads. In this case, the conda version of kaiju looks fine.
+Kaiju pretty much does the same thing as Centrifuge but uses a different methodological approach. First we need to install Kaiju. Again, I will run kaiju in a separate conda environment. Now I can either install kaiju from the source code or as conda package. The latter is easier but often conda packages may lag behind the source code versions. I usually compare the release dates of the [conda package](https://anaconda.org/bioconda/kaiju) with the [source code](https://github.com/bioinformatics-centre/kaiju) and look at the number of downloads. In this case, the conda version of kaiju looks fine.
 
 ```bash
 # create generic environment
@@ -172,7 +172,7 @@ echo = `date` job $JOB_NAME done
 
 *[VirSorter](https://github.com/simroux/VirSorter)[@roux2015virsorter], a tool designed to detect viral signal in these different types of microbial sequence data in both a reference-dependent and reference-independent manner, leveraging probabilistic models and extensive virome data to maximize detection of novel viruses.*
 
-I generally followed [this recipe](https://github.com/simroux/VirSorter) for installing virsorter except I separated out the installation of dependencies to individual commands because I like to monitor any conflics between packages.
+I generally followed [this recipe](https://github.com/simroux/VirSorter) for installing VirSorter except I separated out the installation of dependencies to individual commands because I like to monitor any conflicts between packages.
 
 ```bash
 conda create --name virsorter python==3.6
@@ -200,7 +200,7 @@ ln -s /home/scottjj/software/VirSorter/wrapper_phage_contigs_sorter_iPlant.pl /h
 ln -s /home/scottjj/software/VirSorter/Scripts/ /home/scottjj/miniconda3/envs/virsorter/bin/
 ```
 
-You may get a `Bio::Seq` error when you run virsorter. If so you need to install the BioPerl GitHub repo. It is best to check first before moving on.
+You may get a `Bio::Seq` error when you run VirSorter. If so you need to install the BioPerl GitHub repo. It is best to check first before moving on.
 
 ```bash
 perl -e "use Bio::Seq;"`
@@ -208,7 +208,7 @@ perl -e "use Bio::Seq;"`
 
 If you get an error it means that the install failed (for some reason).
 
-So  clone the BioPerl repo and copy the `Bio/` directory to the virsorter environment.
+Now  clone the BioPerl repo and copy the `Bio/` directory to the VirSorter environment.
 
 
 ```bash
@@ -218,7 +218,7 @@ cp -r Path/to/lib/Bio Path/to/miniconda3/envs/virsorter/lib/5.26.2/
 
 Now see if the error persists.
 
-Good to go? Now time to build the virsorter database. Pretty straightfoward actually.
+Good to go? Now time to build the VirSorter database. Pretty straightforward actually.
 
 ```bash
 wget https://zenodo.org/record/1168727/files/virsorter-data-v2.tar.gz
@@ -245,7 +245,7 @@ anvi-setup-pfams  --pfam-data-dir PATH_TO_PFAM_DIR
 
 The COG db is 2.3GB and the PFAM db is 283MB.
 
-And thats it. We can add more databases as we need them.
+And that’s it. We can add more databases as we need them.
 
 ### GhostKOALA/KEGG
 

@@ -1,7 +1,7 @@
 ---
 title: "No 2. Data Preparation"
 description: |
-  Complete, reproducible workflow for preparation  of the **16S rRNA** data set. These steps are needed before analyzing the data. R code for tables & figures are hidden (see the GitHub link at the bottom of the page for the raw `.Rmd` file). R code for everything else is shown.
+  Complete, reproducible workflow for preparation  of the **16S rRNA** data set. These steps are needed before analyzing the data. For aesthetic reasons, the R code for tables & figures are hidden (see the GitHub link at the bottom of the page for the raw `.Rmd` file). R code for everything else is generally shown.
 author:
   - name: Jarrod J Scott
 #    url: https://example.com/norajones
@@ -34,9 +34,9 @@ knitr::opts_current$get(c(
 
 Unless otherwise noted, we primarily use [phyloseq](https://joey711.github.io/phyloseq/)[@mcmurdie2013phyloseq] in this section of the workflow to analyze the 16S rRNA data set. Before we conduct any analyses we first need to *prepare our data set* by curating samples, removing *contaminants*, and creating phyloseq objects.
 
-## Read Counts Assessment
+# Read Counts Assessment
 
-Before we begin, let's create a summary table containing some basic sample metadata and the read count data from the [DADA2 pipeline](16s-dada2.html). We need to inspect how total reads changed through the pipeline. Remember, 8 of the samples were resequenced. Just to get an idea, we combined the results of the [Track Changes](16s-dada2.html#track-read-changes-bonus) analysis for these 8 samples. Table headers are as follows:
+Before we begin, let's create a summary table containing some basic sample metadata and the read count data from the [DADA2 pipeline](16s-dada2.html). We need to inspect how total reads changed through the pipeline. Just to get an idea, we combined the results of the [Track Changes](16s-dada2.html#track-read-changes) analysis for these 8 samples. Table headers are as follows:
 
 | Header                    | Description                                                                              |
 |---------------------------|------------------------------------------------------------------------------------------|
@@ -53,7 +53,7 @@ Before we begin, let's create a summary table containing some basic sample metad
 
 ```{r sample_table1, echo=FALSE}
 joined_tab <- read.table(
-  "tables/16s-data-prep/combo_read_changes.txt",
+  "tables/16s-data-prep/read_changes.txt",
   header = TRUE, sep = "\t")
 
 joined_tab_percent <- joined_tab
@@ -75,14 +75,13 @@ datatable(joined_tab_percent, width = "100%", escape = FALSE,
             style = 'caption-side: bottom; text-align: left;',
             'Table: ', htmltools::em('Tracking read changes
             through DADA2 workflow. Use the buttons to navigate through
-            the table or download a copy. Table scrolls right. ')),
+            the table or download a copy. Table may scroll right. ')),
           elementId = "vwltiu9qj77sfy3a07we",
           extensions = 'Buttons', options = list(
             scrollX = TRUE,
-            dom = 'Blfrtip',
+            dom = 'Brti',
             buttons = c('copy', 'csv', 'excel'),
-            pageLength = 5,
-            lengthMenu = c(5, 15, 30, 45)
+            pageLength = 8
             )
           ) %>%
   DT::formatStyle(columns = colnames(joined_tab_percent), fontSize = '80%')
@@ -90,32 +89,32 @@ cutoff <- 2000
 remove_sam <- joined_tab[joined_tab$nonchim <= cutoff, ]
 ```
 
-## Defining Groups
+# Defining Groups
 
 1. The first thing we want to do is load the data packet produced by the final step of the DADA2 workflow. This packet (`combo_pipeline.rdata`) contains the ASV-by-sample table and the ASV taxonomy table.
 
 2. After we load the data packet we next need to format sample names and define groups. We will use the actual sample names to define the different groups.
 
 ```{r deliniate_sample_types}
-load("rdata/16s-dada2/combo_pipeline.rdata")
+load("rdata/16s-dada2/water_pipeline.rdata")
 samples.out <- rownames(seqtab)
 subject <- sapply(strsplit(samples.out, "[[:digit:]]"), `[`, 1)
 # this splits the string at first instance of a digit
 sample_name <- substr(samples.out, 1, 999)  # use the whole string for individuals
-type <- substr(samples.out, 0, 1)  # use the first two letters for genus
-site <- substr(samples.out, 2, 3)  # use the next three letters for species
+type <- substr(samples.out, 0, 1)  # use the first two letters for sample typle
+site <- substr(samples.out, 2, 3)  # use the next three letters for site
 num_samp <- length(unique(sample_name))
 num_type <- length(unique(type))
 num_sites <- length(unique(site))
 ```
 
-So  we have a total of **`r length(unique(sample_name))`** samples, from **`r length(unique(site))`** sites, and **`r length(unique(type))`** different types of habitats.
+So  we have a total of **`r length(unique(sample_name))`** samples from **`r length(unique(site))`** sites.
 
 > Sample abbreviations
 
 The first letter of the sample ID indicates the environment:
 
-W = Water, S = Sediment, C = Coral, M = Mat
+W = Water
 
 The next two letter indicates the site name:
 
@@ -123,15 +122,10 @@ CC = Coral Caye, CR = Cayo Roldan
 
 An the number indicates the replicate number.
 
-For example, `WCR3` is a `water`sample from  `Cayo Roldan` replicate `3`.
+For example, `WCR3` is a `water` sample from  `Cayo Roldan` replicate `3`.
 
 > Sample abbreviations:
 
-* CCC = *Coral sample from Coral Caye*
-* CCR = *Coral sample from Cayo Roldan*
-* MCR = *Mat sample from Cayo Roldan*
-* SCC = *Sediment sample from Coral Caye*
-* SCR = *Sediment sample from Cayo Roldan*
 * WCC = *Water sample from Coral Caye*
 * WCR = *Water sample from Cayo Roldan*
 
@@ -143,7 +137,7 @@ samdf <- data.frame(SamName = sample_name, TYPE = type, SITE = site)
 rownames(samdf) <- samples.out
 ```
 
-## Phyloseq Objects
+# Phyloseq Objects
 
 **A**. The first step is to rename the amplicon sequence variants (ASVs) so the designations are a bit more user friendly. By default, DADA2 names each ASV by its unique sequence so that data can be directly compared across studies (which is great). But this convention can get cumbersome downstream, so we rename the ASVs using a simpler convention---ASV1, ASV2, ASV3, and so on.
 
@@ -166,7 +160,6 @@ head(taxa_names(ps))
 ```
 
 So the complete data set contains `r ntaxa(ps)` ASVs. We can also use the [microbiome R package](https://github.com/microbiome/microbiome/)[@lahti2017microbiome] to get some additional summary data from the phyloseq object.
-
 
 ```{r calculate_stats_ps, echo=FALSE}
 min_read_ps <- min(readcount(ps))
@@ -215,7 +208,7 @@ write.table(t(otu_table(ps)),
             sep="\t", quote = FALSE, col.names=NA)
 ```
 
-**D** Export fasta file
+**D**. Export fasta file
 
 ```{r export_fasta_full}
 # Create fasta file from tax_table
@@ -233,7 +226,7 @@ write.table(table2format_trim_df, "tables/16s-data-prep/full_asv.fasta",
             quote = FALSE, fileEncoding = "UTF-8")
 ```
 
-## Remove Contaminants & Unwanted Taxa
+# Remove Contaminants & Unwanted Taxa
 
 Let's see if we have any potential contaminants. We can use some [inline R code](https://rmarkdown.rstudio.com/lesson-4.html) to see the taxonomy table for any taxa of interest.
 
@@ -248,14 +241,14 @@ The code (hidden by default) is written as `` `r
 
 Let's remove these taxa---Eukaryota because we used bacterial/archaeal primers, Mitochondria because those are likely from  eukaryotes, and Chloroplast because those are likely from algae. We must do each of these in turn using phyloseq and it gets a little messy.
 
-Why messy? The `subset_taxa` command removes anything that is `NA` for the specified taxonomic level or above. For example, lets say you run the `subset_taxa` command using `Family != "Mitochondria`". Seems like you should get a phyloseq object with everything except Mitochondria. But actually the command not only gets rid of Mitochondria but everything else that has `NA` for Family and above. In my experience this is not well documented and I had to dig through the files to figure out what was happening.
+Why messy? The `subset_taxa` command removes anything that is `NA` for the specified taxonomic level or above. For example, let’s say you run the `subset_taxa` command using `Family != "Mitochondria`". Seems like you should get a phyloseq object with everything except Mitochondria. But actually, the command not only gets rid of Mitochondria but everything else that has `NA` for Family and above. In my experience this is not well documented, and I had to dig through the files to figure out what was happening.
 
 Anyway, to remove the taxa we do the following:
 
 * Subset the taxa and generate a `ps` object of just the taxa of interest,
 * Select the ASV column only, turn it into a factor, and use this to remove <INSERT TAXA> from the `ps` object.
 
-### Remove  Mitochondria ASVs
+## Remove  Mitochondria ASVs
 
 Remember the original data set contained `r ntaxa(ps)` ASVs.
 
@@ -272,7 +265,7 @@ ps_no_mito
 
 Looks like this removed **`r ntaxa(ps) - ntaxa(ps_no_mito)` Mitochondria ASVs**. We will duplicate the code block to remove other groups.
 
-### Remove Chloroplast ASVs
+## Remove Chloroplast ASVs
 
 ```{r remove_specific_taxa2}
 # generate a file with mitochondria ASVs
@@ -287,9 +280,11 @@ ps_no_chloro
 
 The code removed an additional **`r ntaxa(ps_no_mito) - ntaxa(ps_no_chloro)` Chloroplast ASVs**.
 
-### Remove Eukaryotic ASVs
+## Remove Eukaryotic ASVs
 
-```{r remove_specific_taxa3}
+Turns out we had no eukaryotic ASVs but here is the code just in case. 
+
+```{r remove_specific_taxa3, eval=FALSE}
 # generate a file with mitochondria ASVs
 EU1 <- subset_taxa(ps_no_chloro, Kingdom == "Eukaryota")
 EU1 <-  as(tax_table(EU1), "matrix")
@@ -300,17 +295,16 @@ ps_no_euk <- prune_taxa(goodTaxa, ps_no_chloro)
 ps_no_euk
 ```
 
-The code removed an additional **`r ntaxa(ps_no_chloro) - ntaxa(ps_no_euk)` Eukaryota ASVs** from the `ps` object.
 
-### Remove any Kingdom NAs
+## Remove any Kingdom NAs
 
 Here we can just use the straight up `subset_taxa` command since we do not need to worry about any ranks above Kingdom also being removed.
 
 ```{r remove_kingdom_na}
-ps_filt <- subset_taxa(ps_no_euk, !is.na(Kingdom))
+ps_filt <- subset_taxa(ps_no_chloro, !is.na(Kingdom))
 ```
 
-The code eliminated an additional **`r ntaxa(ps_no_euk) - ntaxa(ps_filt)` Kingdom level NA ASVs** from the phyloseq object.
+The code eliminated an additional **`r ntaxa(ps_no_chloro) - ntaxa(ps_filt)` Kingdom level NA ASVs** from the phyloseq object.
 
 Now that we have a trimmed data set, we can save copies of the sequence and taxonomy tables just in case we want a quick look at these data. 
 
@@ -341,27 +335,35 @@ write.table(table2format_trim_df, "tables/16s-data-prep/trim_asv.fasta",
             quote = FALSE, fileEncoding = "UTF-8")
 ```            
 
+
+```{r select_water_samples, echo=FALSE, eval=FALSE}
+###############################################
+## This is legacy code for making a ps object## 
+## for a subset of samples                   ##
+###############################################
+
 ## Water Samples Phyloseq Object
 
-The next thing to do is select only water samples and make a separate phyloseq object---since our paper is about the water samples. To do this we must select the samples we *wish to keep*. If you want to change the group of samples, modify the script accordingly.
+#The next thing to do is select only water samples and make a separate phyloseq object---since our paper is about the water samples. To do this we must select the samples we *wish to keep*. If you want to change the group of samples, modify the script accordingly.
 
-```{r select_water_samples}
 ps_water <- prune_samples(
   c("WCC0", "WCC1", "WCC2", "WCC3", "WCR0", "WCR1", "WCR2", "WCR3"),
   ps_filt)
 ps_water
-```
 
-Anytime we remove samples we probably lose some ASVs. So we need to get rid of any ASVs that have a total of **0 reads**. 
-
-```{r remove_ASV_with_zeros_reads}
+#Anytime we remove samples we probably lose some ASVs. So we need to get rid of any ASVs that have a total of **0 reads**. 
 ps_water <- prune_taxa(taxa_sums(ps_water) > 0, ps_water)
 ps_water
+
+#So for water samples only there are `r ntaxa(ps_water)` ASVs and `r nsamples(ps_water)` samples. Now, save the various phyloseq data from the water object.
 ```
 
-So for water samples only there are `r ntaxa(ps_water)` ASVs and `r nsamples(ps_water)` samples. Now, save the various phyloseq data from the water object.
+# Save Objects
+
+One last thing is to rename the phyloseq object and save some tables and images for the next part. 
 
 ```{r save_data_prep_image, echo=TRUE, eval=FALSE}
+ps_water <- ps_filt
 save.image("rdata/16s-data-prep/16s-data_prep.rdata")
 saveRDS(otu_table(ps_water), "rdata/16s-water/ps_water-seqtab.rds")
 saveRDS(sample_data(ps_water), "rdata/16s-water/ps_water-sample.rds")
