@@ -43,7 +43,7 @@ This website provides reproducible workflows for our study on  the microbial com
 
 The workflow is mainly written in [R Markdown](https://rmarkdown.rstudio.com/) meaning that it contains a mixture of Markdown text and R code. Anyone should be able to reproduce our results with just this workflow and the [raw data](data-availability.html).
 
-## Using this Site
+### Using this Site
 
 The navigation bar at the top contains links to workflows, data/data products, supplementary material from the paper (see SOM), and a variety of other useful information. The site itself has many dynamic components. For example, you can sort and scroll through most of the tables, tabular data can be download in different formats, and several figures expand when clicked. All figures and tables from the final publication are included in the workflow.
 
@@ -60,3 +60,7 @@ MDJ, JJS, ML, NL, and AA contributed to conception and experimental design. MDJ,
 ## Source Code {.appendix}
 
 The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/index.Rmd).
+
+## An Apology from JJS {.appendix}
+
+Unfortunately, some of the publications we cite in this project sit behind paywalls. These papers are inaccessible unless you are at an institution that subscribes to the journal, you pay a crazy amount of money per article, or you obtain the article via "illegal" means. Either way, at the moment this is beyond our control and hence I apologize if you are unable to access some of the article we cite. 

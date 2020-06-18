@@ -1,0 +1,190 @@
+Group	enriched	indval	pvalue	freq	total_reads	Kingdom	Phylum	Class	Order	Family	Genus	ASV_ID
+ASV1	normoxic	0.863780138457866	0.014	8	52810	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Synechococcus_CC9902	ASV1
+ASV10	hypoxic	0.999161542761319	0.024	4	2148	Bacteria	Campilobacterota	Campylobacteria	Campylobacterales	Arcobacteraceae	Family_Arcobacteraceae	ASV10
+ASV100					272	Bacteria	Proteobacteria	Alphaproteobacteria	Parvibaculales	PS1_clade	Family_PS1_clade	ASV100
+ASV101	hypoxic	1	0.017	3	268	Bacteria	Cyanobacteria	Cyanobacteriia	Cyanobacteriales	Phormidiaceae	Trichodesmium_IMS101	ASV101
+ASV102	hypoxic	1	0.02	3	266	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Amphritea	ASV102
+ASV103	hypoxic	0.812660393498717	0.016	7	263	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	Family_Flavobacteriaceae	ASV103
+ASV104	hypoxic	1	0.026	3	259	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	Family_Flavobacteriaceae	ASV104
+ASV105	normoxic	0.846625766871166	0.038	7	255	Bacteria	Planctomycetota	Phycisphaerae	Phycisphaerales	Phycisphaeraceae	Urania-1B-19_marine_sediment_group	ASV105
+ASV106	normoxic	1	0.023	5	253	Bacteria	Proteobacteria	Gammaproteobacteria	SAR86_clade	Order_SAR86_clade	Order_SAR86_clade	ASV106
+ASV107					251	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Family_Rhodobacteraceae	ASV107
+ASV108					248	Bacteria	Proteobacteria	Gammaproteobacteria	HOC36	Order_HOC36	Order_HOC36	ASV108
+ASV109					239	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Synechococcus_CC9902	ASV109
+ASV11	hypoxic	1	0.018	3	2069	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Family_Rhodobacteraceae	ASV11
+ASV110					234	Bacteria	Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	ASV110
+ASV111	normoxic	1	0.015	5	226	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV111
+ASV112					225	Bacteria	Proteobacteria	Gammaproteobacteria	OM182_clade	Order_OM182_clade	Order_OM182_clade	ASV112
+ASV113	normoxic	1	0.024	5	222	Bacteria	Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	ASV113
+ASV114					218	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS9_marine_group	Family_NS9_marine_group	ASV114
+ASV115	hypoxic	1	0.026	3	218	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Marinilabiliaceae	Family_Marinilabiliaceae	ASV115
+ASV116					218	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Pseudooceanicola	ASV116
+ASV117	normoxic	1	0.02	5	214	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_II	Family_Clade_II	ASV117
+ASV118	normoxic	1	0.029	5	213	Bacteria	Proteobacteria	Gammaproteobacteria	Thiotrichales	Thiotrichaceae	Family_Thiotrichaceae	ASV118
+ASV119					212	Bacteria	Proteobacteria	Gammaproteobacteria	Cellvibrionales	Halieaceae	OM60(NOR5)_clade	ASV119
+ASV12	normoxic	0.864479315263909	0.023	8	1989	Bacteria	Actinobacteriota	Acidimicrobiia	Actinomarinales	Actinomarinaceae	Candidatus_Actinomarina	ASV12
+ASV120					208	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV120
+ASV121					207	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS9_marine_group	Family_NS9_marine_group	ASV121
+ASV123					206	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS9_marine_group	Family_NS9_marine_group	ASV123
+ASV124					204	Bacteria	Bacteroidota	Bacteroidia	Cytophagales	Cyclobacteriaceae	Marinoscillum	ASV124
+ASV125					201	Bacteria	Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	ASV125
+ASV126	normoxic	0.983108108108108	0.021	6	196	Bacteria	Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	ASV126
+ASV127	hypoxic	1	0.03	3	193	Bacteria	Planctomycetota	Planctomycetes	Planctomycetales	Rubinisphaeraceae	Family_Rubinisphaeraceae	ASV127
+ASV128	hypoxic	0.927947598253275	0.023	4	192	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Cryomorphaceae	Family_Cryomorphaceae	ASV128
+ASV129					190	Bacteria	Proteobacteria	Gammaproteobacteria	Burkholderiales	Nitrosomonadaceae	mle1-7	ASV129
+ASV13	hypoxic	1	0.02	3	1977	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Family_Rhodobacteraceae	ASV13
+ASV130	hypoxic	1	0.016	3	190	Bacteria	Cloacimonadota	Cloacimonadia	Cloacimonadales	MSBL8	Family_MSBL8	ASV130
+ASV131	normoxic	0.906621392190153	0.018	7	189	Bacteria	Proteobacteria	Gammaproteobacteria	SAR86_clade	Order_SAR86_clade	Order_SAR86_clade	ASV131
+ASV132					189	Bacteria	Planctomycetota	Planctomycetes	Pirellulales	Pirellulaceae	Pirellula	ASV132
+ASV133	normoxic	1	0.021	5	188	Archaea	Thermoplasmatota	Thermoplasmata	Thermoplasmata_or	Thermoplasmata_fa	Marine_Group_III	ASV133
+ASV134	hypoxic	0.821428571428571	0.042	7	188	Bacteria	Planctomycetota	OM190	Class_OM190	Class_OM190	Class_OM190	ASV134
+ASV135					187	Bacteria	Myxococcota	Myxococcia	Myxococcales	Myxococcaceae	P3OB-42	ASV135
+ASV136					186	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_I	Clade_Ib	ASV136
+ASV137					186	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS4_marine_group	ASV137
+ASV138					186	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	Lutibacter	ASV138
+ASV139					185	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV139
+ASV14	normoxic	0.784490532010821	0.026	8	1689	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS5_marine_group	ASV14
+ASV140	normoxic	0.885159010600707	0.017	7	180	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_III	Family_Clade_III	ASV140
+ASV141					180	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Family_Rhodobacteraceae	ASV141
+ASV142					178	Bacteria	Campilobacterota	Campylobacteria	Campylobacterales	Arcobacteraceae	Family_Arcobacteraceae	ASV142
+ASV143					176	Bacteria	SAR324_clade(Marine_group_B)	Phylum_SAR324_clade(Marine_group_B)	Phylum_SAR324_clade(Marine_group_B)	Phylum_SAR324_clade(Marine_group_B)	Phylum_SAR324_clade(Marine_group_B)	ASV143
+ASV144					174	Bacteria	Verrucomicrobiota	Verrucomicrobiae	Verrucomicrobiales	DEV007	Family_DEV007	ASV144
+ASV145					168	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	Order_Puniceispirillales	Order_Puniceispirillales	ASV145
+ASV146					166	Bacteria	Proteobacteria	Gammaproteobacteria	Burkholderiales	MWH-UniP1_aquatic_group	Family_MWH-UniP1_aquatic_group	ASV146
+ASV147	normoxic	1	0.018	5	165	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_I	Clade_Ib	ASV147
+ASV148					165	Bacteria	Planctomycetota	Planctomycetes	Pirellulales	Pirellulaceae	Family_Pirellulaceae	ASV148
+ASV149					165	Bacteria	Desulfobacterota	Desulfobacteria	Desulfobacterales	Desulfolunaceae	Desulfofrigus	ASV149
+ASV15	normoxic	1	0.021	5	1632	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS2b_marine_group	ASV15
+ASV150					163	Bacteria	Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	ASV150
+ASV151	hypoxic	1	0.023	3	162	Bacteria	Planctomycetota	Phycisphaerae	Phycisphaerales	Phycisphaeraceae	CL500-3	ASV151
+ASV152	normoxic	1	0.024	5	159	Bacteria	Proteobacteria	Gammaproteobacteria	SAR86_clade	Order_SAR86_clade	Order_SAR86_clade	ASV152
+ASV153					156	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	SAR116_clade	Family_SAR116_clade	ASV153
+ASV154	normoxic	1	0.017	5	156	Bacteria	Actinobacteriota	Acidimicrobiia	Microtrichales	Microtrichaceae	Sva0996_marine_group	ASV154
+ASV155	hypoxic	0.851063829787234	0.045	4	155	Bacteria	Proteobacteria	Gammaproteobacteria	Cellvibrionales	Halieaceae	OM60(NOR5)_clade	ASV155
+ASV156	hypoxic	1	0.023	3	155	Bacteria	Proteobacteria	Gammaproteobacteria	Alteromonadales	Alteromonadaceae	Family_Alteromonadaceae	ASV156
+ASV157					154	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS9_marine_group	Family_NS9_marine_group	ASV157
+ASV158					150	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS5_marine_group	ASV158
+ASV159					144	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS9_marine_group	Family_NS9_marine_group	ASV159
+ASV16	hypoxic	1	0.014	3	1626	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Family_Nitrincolaceae	ASV16
+ASV160	normoxic	0.835526315789474	0.023	7	142	Bacteria	Dadabacteria	Dadabacteriia	Dadabacteriales	Order_Dadabacteriales	Order_Dadabacteriales	ASV160
+ASV162					136	Bacteria	Verrucomicrobiota	Verrucomicrobiae	Pedosphaerales	Pedosphaeraceae	SCGC_AAA164-E04	ASV162
+ASV163	hypoxic	1	0.02	3	136	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS4_marine_group	ASV163
+ASV164	hypoxic	0.89968152866242	0.048	5	134	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	Family_Flavobacteriaceae	ASV164
+ASV165					134	Bacteria	Bacteroidota	Bacteroidia	Chitinophagales	Order_Chitinophagales	Order_Chitinophagales	ASV165
+ASV166					134	Bacteria	Verrucomicrobiota	Kiritimatiellae	Kiritimatiellales	Kiritimatiellaceae	R76-B128	ASV166
+ASV167					133	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	HIMB11	ASV167
+ASV168					132	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS7_marine_group	Family_NS7_marine_group	ASV168
+ASV169					132	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Halomonadaceae	Halomonas	ASV169
+ASV17	normoxic	0.812450903377848	0.011	8	1570	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	SAR116_clade	Family_SAR116_clade	ASV17
+ASV170					131	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS9_marine_group	Family_NS9_marine_group	ASV170
+ASV171					131	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS2b_marine_group	ASV171
+ASV172					131	Bacteria	Bacteroidota	Bacteroidia	Chitinophagales	Saprospiraceae	Family_Saprospiraceae	ASV172
+ASV173					130	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	SAR116_clade	Family_SAR116_clade	ASV173
+ASV174					129	Bacteria	Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	ASV174
+ASV175	hypoxic	0.823223570190641	0.048	4	129	Bacteria	Proteobacteria	Gammaproteobacteria	Chromatiales	Chromatiaceae	Candidatus_Thiobios	ASV175
+ASV177					129	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_I	Clade_Ib	ASV177
+ASV178					126	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Synechococcus_CC9902	ASV178
+ASV179					125	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV179
+ASV18	normoxic	0.913070800167574	0.011	7	1536	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_I	Clade_Ia	ASV18
+ASV180	normoxic	1	0.015	5	125	Bacteria	Proteobacteria	Alphaproteobacteria	Defluviicoccales	Order_Defluviicoccales	Order_Defluviicoccales	ASV180
+ASV181					124	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	HIMB11	ASV181
+ASV182	normoxic	0.859335038363171	0.018	8	123	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS4_marine_group	ASV182
+ASV183	hypoxic	1	0.018	3	122	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Cryomorphaceae	Family_Cryomorphaceae	ASV183
+ASV184	hypoxic	1	0.027	3	121	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Prolixibacteraceae	Roseimarinus	ASV184
+ASV185					120	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS4_marine_group	ASV185
+ASV186	hypoxic	1	0.018	3	120	Bacteria	Desulfobacterota	Desulfovibrionia	Desulfovibrionales	Desulfovibrionaceae	Desulfovibrio	ASV186
+ASV188	normoxic	1	0.018	5	119	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Family_Rhodobacteraceae	ASV188
+ASV189	normoxic	1	0.01	5	119	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	SAR116_clade	Family_SAR116_clade	ASV189
+ASV19	normoxic	0.909090909090909	0.02	6	1431	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_I	Clade_Ia	ASV19
+ASV191					116	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_II	Family_Clade_II	ASV191
+ASV192					115	Bacteria	Planctomycetota	Planctomycetes	Pirellulales	Pirellulaceae	Pirellula	ASV192
+ASV193					114	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Ascidiaceihabitans	ASV193
+ASV194	hypoxic	1	0.025	3	112	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS4_marine_group	ASV194
+ASV195					111	Bacteria	Planctomycetota	OM190	Class_OM190	Class_OM190	Class_OM190	ASV195
+ASV196					111	Bacteria	Verrucomicrobiota	Kiritimatiellae	Kiritimatiellales	Kiritimatiellaceae	R76-B128	ASV196
+ASV197					110	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV197
+ASV198					109	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Thalassobius	ASV198
+ASV2					4968	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Cyanobium_PCC-6307	ASV2
+ASV20					1422	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Cyanobium_PCC-6307	ASV20
+ASV200	hypoxic	1	0.017	3	104	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Prolixibacteraceae	Draconibacterium	ASV200
+ASV203	normoxic	1	0.015	5	102	Bacteria	Proteobacteria	Gammaproteobacteria	SAR86_clade	Order_SAR86_clade	Order_SAR86_clade	ASV203
+ASV21					1408	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	HIMB11	ASV21
+ASV22	normoxic	0.956316410861865	0.023	6	1387	Bacteria	Bacteroidota	Bacteroidia	Cytophagales	Cyclobacteriaceae	Marinoscillum	ASV22
+ASV23	normoxic	0.922907488986784	0.021	7	1320	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS4_marine_group	ASV23
+ASV24	normoxic	0.883692458374143	0.016	8	1298	Bacteria	Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	ASV24
+ASV25	normoxic	0.891250617894216	0.019	7	1290	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_II	Family_Clade_II	ASV25
+ASV26	hypoxic	1	0.012	3	1279	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Pontibacterium	ASV26
+ASV27	hypoxic	1	0.018	3	1275	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Marinobacterium	ASV27
+ASV28					1274	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS4_marine_group	ASV28
+ASV29	normoxic	0.886363636363636	0.014	7	1246	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Family_Rhodobacteraceae	ASV29
+ASV3	hypoxic	1	0.021	3	4009	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Thalassobius	ASV3
+ASV30	hypoxic	1	0.023	3	1181	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Pontibacterium	ASV30
+ASV31					1173	Bacteria	SAR324_clade(Marine_group_B)	Phylum_SAR324_clade(Marine_group_B)	Phylum_SAR324_clade(Marine_group_B)	Phylum_SAR324_clade(Marine_group_B)	Phylum_SAR324_clade(Marine_group_B)	ASV31
+ASV32					1107	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Synechococcus_CC9902	ASV32
+ASV33	normoxic	0.86819235225956	0.022	7	1090	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	SAR116_clade	Family_SAR116_clade	ASV33
+ASV34	normoxic	0.80736301369863	0.05	8	1078	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV34
+ASV35	normoxic	0.688995215311005	0.039	8	976	Bacteria	Actinobacteriota	Acidimicrobiia	Actinomarinales	Actinomarinaceae	Candidatus_Actinomarina	ASV35
+ASV36	normoxic	1	0.019	5	810	Bacteria	Actinobacteriota	Acidimicrobiia	Actinomarinales	Actinomarinaceae	Candidatus_Actinomarina	ASV36
+ASV37	hypoxic	1	0.015	3	808	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Pontibacterium	ASV37
+ASV38	hypoxic	1	0.018	3	806	Bacteria	Bacteroidota	Rhodothermia	Balneolales	Balneolaceae	Balneola	ASV38
+ASV39	normoxic	0.795918367346939	0.031	8	795	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Family_Rhodobacteraceae	ASV39
+ASV4	normoxic	0.785956777345367	0.014	8	3681	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_I	Clade_Ia	ASV4
+ASV40	hypoxic	0.942568465833555	0.042	5	781	Bacteria	Bacteroidota	Bacteroidia	Chitinophagales	Saprospiraceae	Family_Saprospiraceae	ASV40
+ASV41	hypoxic	1	0.016	3	753	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	Tenacibaculum	ASV41
+ASV42					734	Bacteria	Proteobacteria	Gammaproteobacteria	Cellvibrionales	Halieaceae	OM60(NOR5)_clade	ASV42
+ASV43	hypoxic	0.741998060135791	0.049	8	725	Bacteria	Bacteroidota	Rhodothermia	Balneolales	Balneolaceae	Balneola	ASV43
+ASV44					700	Bacteria	Proteobacteria	Alphaproteobacteria	Rickettsiales	S25-593	Family_S25-593	ASV44
+ASV45	normoxic	1	0.018	5	699	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS2b_marine_group	ASV45
+ASV46	normoxic	1	0.021	5	691	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Synechococcus_CC9902	ASV46
+ASV47	normoxic	1	0.019	5	690	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Family_Rhodobacteraceae	ASV47
+ASV48	normoxic	0.737550471063257	0.028	8	665	Bacteria	Proteobacteria	Gammaproteobacteria	SAR86_clade	Order_SAR86_clade	Order_SAR86_clade	ASV48
+ASV49	normoxic	0.828571428571429	0.019	7	652	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV49
+ASV5	hypoxic	0.997868735996503	0.033	5	3665	Bacteria	Bacteroidota	Bacteroidia	Chitinophagales	Saprospiraceae	Family_Saprospiraceae	ASV5
+ASV50	hypoxic	1	0.019	3	647	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	Formosa	ASV50
+ASV51					638	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Family_Nitrincolaceae	ASV51
+ASV53	hypoxic	0.930232558139535	0.011	7	612	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	Family_Flavobacteriaceae	ASV53
+ASV54	normoxic	1	0.02	5	600	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS9_marine_group	Family_NS9_marine_group	ASV54
+ASV55					585	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Synechococcus_CC9902	ASV55
+ASV57	normoxic	1	0.025	5	559	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS2b_marine_group	ASV57
+ASV58	normoxic	0.749173098125689	0.018	7	544	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_I	Clade_Ib	ASV58
+ASV59	hypoxic	1	0.015	3	542	Bacteria	Proteobacteria	Gammaproteobacteria	Chromatiales	Chromatiaceae	Candidatus_Thiobios	ASV59
+ASV6	normoxic	0.803420985448047	0.022	8	3609	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS2b_marine_group	ASV6
+ASV60	normoxic	0.638903531892462	0.033	8	541	Bacteria	Proteobacteria	Gammaproteobacteria	Cellvibrionales	Halieaceae	OM60(NOR5)_clade	ASV60
+ASV61					540	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Crocinitomicaceae	Fluviicola	ASV61
+ASV62	hypoxic	1	0.016	3	536	Bacteria	Bacteroidota	Bacteroidia	Chitinophagales	Saprospiraceae	Family_Saprospiraceae	ASV62
+ASV63					515	Bacteria	Planctomycetota	Planctomycetes	Pirellulales	Pirellulaceae	Rubripirellula	ASV63
+ASV64	hypoxic	1	0.024	3	509	Bacteria	Proteobacteria	Gammaproteobacteria	Chromatiales	Chromatiaceae	Candidatus_Thiobios	ASV64
+ASV65	normoxic	1	0.022	5	499	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV65
+ASV66	normoxic	0.943820224719101	0.015	6	493	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV66
+ASV67	normoxic	0.902534113060429	0.014	7	493	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Roseovarius	ASV67
+ASV68	normoxic	0.914383561643836	0.016	6	470	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV68
+ASV69	normoxic	0.78646517739816	0.021	7	464	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV69
+ASV7	hypoxic	1	0.013	3	3448	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Marinobacterium	ASV7
+ASV70	normoxic	0.913860610806578	0.02	6	411	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	SAR116_clade	Candidatus_Puniceispirillum	ASV70
+ASV71	normoxic	0.898832684824903	0.02	8	411	Bacteria	Proteobacteria	Alphaproteobacteria	Defluviicoccales	Order_Defluviicoccales	Order_Defluviicoccales	ASV71
+ASV72	hypoxic	1	0.014	3	404	Bacteria	Cyanobacteria	Cyanobacteriia	Limnotrichales	Limnotrichaceae	Limnothrix	ASV72
+ASV73					402	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS7_marine_group	Family_NS7_marine_group	ASV73
+ASV75	normoxic	1	0.017	5	371	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_II	Family_Clade_II	ASV75
+ASV76	hypoxic	0.879351740696278	0.037	5	360	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS4_marine_group	ASV76
+ASV77	normoxic	1	0.014	5	357	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV77
+ASV78	normoxic	1	0.018	5	355	Bacteria	Actinobacteriota	Acidimicrobiia	Actinomarinales	Actinomarinaceae	Candidatus_Actinomarina	ASV78
+ASV79	normoxic	1	0.025	5	344	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Synechococcus_CC9902	ASV79
+ASV80	normoxic	0.956521739130435	0.02	6	339	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Flavobacteriaceae	NS5_marine_group	ASV80
+ASV81	normoxic	0.914285714285714	0.022	6	338	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	SAR116_clade	Family_SAR116_clade	ASV81
+ASV82					337	Bacteria	Firmicutes	Bacilli	Acholeplasmatales	Acholeplasmataceae	Acholeplasma	ASV82
+ASV84					327	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Cryomorphaceae	Family_Cryomorphaceae	ASV84
+ASV85					325	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	NS9_marine_group	Family_NS9_marine_group	ASV85
+ASV86					325	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Prochlorococcus_MIT9313	ASV86
+ASV87	normoxic	0.867617107942973	0.013	7	310	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales	AEGEAN-169_marine_group	Family_AEGEAN-169_marine_group	ASV87
+ASV88	normoxic	0.680150517403575	0.02	8	309	Bacteria	Proteobacteria	Gammaproteobacteria	SAR86_clade	Order_SAR86_clade	Order_SAR86_clade	ASV88
+ASV89	normoxic	0.766401590457257	0.016	7	304	Archaea	Thermoplasmatota	Thermoplasmata	Marine_Group_II	Order_Marine_Group_II	Order_Marine_Group_II	ASV89
+ASV9					2689	Bacteria	Cyanobacteria	Cyanobacteriia	Synechococcales	Cyanobiaceae	Synechococcus_CC9902	ASV9
+ASV90	normoxic	0.920382165605096	0.019	6	304	Bacteria	Proteobacteria	Alphaproteobacteria	Puniceispirillales	SAR116_clade	Family_SAR116_clade	ASV90
+ASV91	normoxic	0.805327868852459	0.019	7	300	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11_clade	Clade_I	Clade_Ib	ASV91
+ASV93	normoxic	0.67065868263473	0.023	8	290	Bacteria	Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	Phylum_Marinimicrobia_(SAR406_clade)	ASV93
+ASV94					289	Bacteria	Proteobacteria	Gammaproteobacteria	Burkholderiales	MWH-UniP1_aquatic_group	Family_MWH-UniP1_aquatic_group	ASV94
+ASV95	normoxic	1	0.021	5	284	Bacteria	Actinobacteriota	Acidimicrobiia	Actinomarinales	Actinomarinaceae	Candidatus_Actinomarina	ASV95
+ASV96	normoxic	0.847457627118644	0.019	6	277	Bacteria	Proteobacteria	Gammaproteobacteria	Cellvibrionales	Halieaceae	OM60(NOR5)_clade	ASV96
+ASV97					277	Bacteria	Proteobacteria	Gammaproteobacteria	Vibrionales	Vibrionaceae	Vibrio	ASV97
+ASV98					274	Bacteria	Bacteroidota	Bacteroidia	Flavobacteriales	Cryomorphaceae	Family_Cryomorphaceae	ASV98
+ASV99	hypoxic	1	0.021	3	274	Bacteria	Proteobacteria	Gammaproteobacteria	Oceanospirillales	Nitrincolaceae	Family_Nitrincolaceae	ASV99

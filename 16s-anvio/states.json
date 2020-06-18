@@ -1,0 +1,1109 @@
+{
+    "version": "3",
+    "tree-type": "phylogram",
+    "order-by": "asv:unknown:unknown",
+    "current-view": "single",
+    "angle-min": "0",
+    "angle-max": "270",
+    "tree-radius": "1434",
+    "tree-height": "550",
+    "tree-width": "3000",
+    "layer-margin": "15",
+    "outer-ring-height": "60",
+    "outer-ring-margin": "30",
+    "edge-normalization": false,
+    "custom-layer-margin": true,
+    "show-grid-for-bins": true,
+    "grid-color": "#000000",
+    "grid-width": "1.5",
+    "samples-order": "wcr0",
+    "max-font-size": "60",
+    "optimize-speed": true,
+    "show-bin-labels": true,
+    "begins-from-branch": false,
+    "bin-labels-font-size": "128",
+    "autorotate-bin-labels": true,
+    "estimate-taxonomy": false,
+    "bin-labels-angle": "0",
+    "background-opacity": "0.3",
+    "max-font-size-label": "120",
+    "draw-guide-lines": "no",
+    "layer-order": [
+        "WCC3",
+        "WCC2",
+        "WCC1",
+        "WCC0",
+        "WCR0",
+        "WCR1",
+        "WCR2",
+        "WCR3",
+        "enriched",
+        "indval",
+        "pvalue",
+        "freq",
+        "total_reads",
+        "ASV_ID",
+        "Kingdom",
+        "Phylum",
+        "Class",
+        "Order",
+        "Family",
+        "Genus",
+        "length",
+        "gc_content"
+    ],
+    "categorical_data_colors": {
+        "enriched": {
+            "normoxic": "#0072b2",
+            "None": "#FFFFFF",
+            "hypoxic": "#d55e00"
+        },
+        "Kingdom": {
+            "Bacteria": "#ce4c77",
+            "Archaea": "#2e1c8c"
+        },
+        "Phylum": {
+            "Cyanobacteria": "#c560ea",
+            "Proteobacteria": "#5ef754",
+            "Bacteroidota": "#c61950",
+            "Campilobacterota": "#f725f7",
+            "Actinobacteriota": "#d1dd71",
+            "Marinimicrobia_(SAR406_clade)": "#350184",
+            "SAR324_clade(Marine_group_B)": "#d85817",
+            "Thermoplasmatota": "#b2d31f",
+            "Planctomycetota": "#e87e61",
+            "Firmicutes": "#55d145",
+            "Cloacimonadota": "#d2f282",
+            "Myxococcota": "#018793",
+            "Verrucomicrobiota": "#481f8e",
+            "Desulfobacterota": "#ef7a7c",
+            "Dadabacteria": "#72a00e"
+        },
+        "Class": {
+            "Cyanobacteriia": "#009e73",
+            "Alphaproteobacteria": "#323232",
+            "Bacteroidia": "#323232",
+            "Gammaproteobacteria": "#323232",
+            "Campylobacteria": "#323232",
+            "Acidimicrobiia": "#323232",
+            "Phylum_Marinimicrobia_(SAR406_clade)": "#323232",
+            "Phylum_SAR324_clade(Marine_group_B)": "#323232",
+            "Thermoplasmata": "#323232",
+            "Rhodothermia": "#323232",
+            "Planctomycetes": "#323232",
+            "Bacilli": "#323232",
+            "Phycisphaerae": "#323232",
+            "Cloacimonadia": "#323232",
+            "OM190": "#323232",
+            "Myxococcia": "#323232",
+            "Verrucomicrobiae": "#323232",
+            "Desulfobacteria": "#323232",
+            "Dadabacteriia": "#323232",
+            "Kiritimatiellae": "#323232",
+            "Desulfovibrionia": "#323232"
+        },
+        "Order": {
+            "Synechococcales": "#FFFFFF",
+            "Rhodobacterales": "#FFFFFF",
+            "SAR11_clade": "#FFFFFF",
+            "Chitinophagales": "#FFFFFF",
+            "Flavobacteriales": "#FFFFFF",
+            "Oceanospirillales": "#FFFFFF",
+            "Campylobacterales": "#FFFFFF",
+            "Actinomarinales": "#FFFFFF",
+            "Puniceispirillales": "#FFFFFF",
+            "Cytophagales": "#FFFFFF",
+            "Phylum_Marinimicrobia_(SAR406_clade)": "#FFFFFF",
+            "Phylum_SAR324_clade(Marine_group_B)": "#FFFFFF",
+            "Marine_Group_II": "#FFFFFF",
+            "Balneolales": "#FFFFFF",
+            "Cellvibrionales": "#FFFFFF",
+            "Rickettsiales": "#FFFFFF",
+            "SAR86_clade": "#FFFFFF",
+            "Chromatiales": "#FFFFFF",
+            "Pirellulales": "#FFFFFF",
+            "Defluviicoccales": "#FFFFFF",
+            "Limnotrichales": "#FFFFFF",
+            "Acholeplasmatales": "#FFFFFF",
+            "Rhodospirillales": "#FFFFFF",
+            "Burkholderiales": "#FFFFFF",
+            "Vibrionales": "#FFFFFF",
+            "Parvibaculales": "#FFFFFF",
+            "Cyanobacteriales": "#FFFFFF",
+            "Phycisphaerales": "#FFFFFF",
+            "HOC36": "#FFFFFF",
+            "OM182_clade": "#FFFFFF",
+            "Bacteroidales": "#FFFFFF",
+            "Thiotrichales": "#FFFFFF",
+            "Planctomycetales": "#FFFFFF",
+            "Cloacimonadales": "#FFFFFF",
+            "Thermoplasmata_or": "#FFFFFF",
+            "Class_OM190": "#FFFFFF",
+            "Myxococcales": "#FFFFFF",
+            "Verrucomicrobiales": "#FFFFFF",
+            "Desulfobacterales": "#FFFFFF",
+            "Microtrichales": "#FFFFFF",
+            "Alteromonadales": "#FFFFFF",
+            "Dadabacteriales": "#FFFFFF",
+            "Pedosphaerales": "#FFFFFF",
+            "Kiritimatiellales": "#FFFFFF",
+            "Desulfovibrionales": "#FFFFFF"
+        },
+        "Family": {
+            "Cyanobiaceae": "#48eacc",
+            "Rhodobacteraceae": "#fc49c9",
+            "Clade_I": "#4f1fa8",
+            "Saprospiraceae": "#fceeba",
+            "Flavobacteriaceae": "#b23d03",
+            "Nitrincolaceae": "#bc22f4",
+            "Arcobacteraceae": "#5cd6ce",
+            "Actinomarinaceae": "#b102fc",
+            "SAR116_clade": "#ba2a4c",
+            "Cyclobacteriaceae": "#bce587",
+            "Phylum_Marinimicrobia_(SAR406_clade)": "#ed55cc",
+            "Clade_II": "#025b84",
+            "Phylum_SAR324_clade(Marine_group_B)": "#a1dd30",
+            "Order_Marine_Group_II": "#f788ad",
+            "Balneolaceae": "#9b61ed",
+            "Halieaceae": "#a2abf2",
+            "S25-593": "#eaa29d",
+            "Order_SAR86_clade": "#f7ddb9",
+            "NS9_marine_group": "#c72ad6",
+            "Chromatiaceae": "#a0f7e8",
+            "Crocinitomicaceae": "#3ae087",
+            "Pirellulaceae": "#aefcf5",
+            "Order_Defluviicoccales": "#42cc10",
+            "Limnotrichaceae": "#0be000",
+            "NS7_marine_group": "#ea62d6",
+            "Acholeplasmataceae": "#6de075",
+            "Cryomorphaceae": "#f2b0c3",
+            "AEGEAN-169_marine_group": "#007a26",
+            "MWH-UniP1_aquatic_group": "#ef567f",
+            "Vibrionaceae": "#acddf9",
+            "PS1_clade": "#23a8ea",
+            "Phormidiaceae": "#89f4b0",
+            "Phycisphaeraceae": "#80fcba",
+            "Order_HOC36": "#12cc94",
+            "Order_OM182_clade": "#72ea86",
+            "Marinilabiliaceae": "#9dbcf2",
+            "Thiotrichaceae": "#e57ded",
+            "Rubinisphaeraceae": "#76e08c",
+            "Nitrosomonadaceae": "#f716bb",
+            "MSBL8": "#b56b0a",
+            "Thermoplasmata_fa": "#9ffcdb",
+            "Class_OM190": "#1b2e99",
+            "Myxococcaceae": "#c9544e",
+            "Clade_III": "#f774b1",
+            "DEV007": "#7cccf9",
+            "Order_Puniceispirillales": "#4c9610",
+            "Desulfolunaceae": "#035460",
+            "Microtrichaceae": "#d2ffaf",
+            "Alteromonadaceae": "#5421c4",
+            "Order_Dadabacteriales": "#8e0919",
+            "Pedosphaeraceae": "#84ba34",
+            "Order_Chitinophagales": "#b6fcab",
+            "Kiritimatiellaceae": "#8c96f2",
+            "Halomonadaceae": "#33ba27",
+            "Prolixibacteraceae": "#94fcfa",
+            "Desulfovibrionaceae": "#fc3a05"
+        },
+        "Genus": {
+            "Synechococcus_CC9902": "#FFFFFF",
+            "Cyanobium_PCC-6307": "#FFFFFF",
+            "Thalassobius": "#FFFFFF",
+            "Clade_Ia": "#FFFFFF",
+            "Family_Saprospiraceae": "#FFFFFF",
+            "NS2b_marine_group": "#FFFFFF",
+            "Marinobacterium": "#FFFFFF",
+            "Family_Arcobacteraceae": "#FFFFFF",
+            "Family_Rhodobacteraceae": "#FFFFFF",
+            "Candidatus_Actinomarina": "#FFFFFF",
+            "NS5_marine_group": "#FFFFFF",
+            "Family_Nitrincolaceae": "#FFFFFF",
+            "Family_SAR116_clade": "#FFFFFF",
+            "HIMB11": "#FFFFFF",
+            "Marinoscillum": "#FFFFFF",
+            "NS4_marine_group": "#FFFFFF",
+            "Phylum_Marinimicrobia_(SAR406_clade)": "#FFFFFF",
+            "Family_Clade_II": "#FFFFFF",
+            "Pontibacterium": "#FFFFFF",
+            "Phylum_SAR324_clade(Marine_group_B)": "#FFFFFF",
+            "Order_Marine_Group_II": "#FFFFFF",
+            "Balneola": "#FFFFFF",
+            "Tenacibaculum": "#FFFFFF",
+            "OM60(NOR5)_clade": "#FFFFFF",
+            "Family_S25-593": "#FFFFFF",
+            "Order_SAR86_clade": "#FFFFFF",
+            "Formosa": "#FFFFFF",
+            "Family_Flavobacteriaceae": "#FFFFFF",
+            "Family_NS9_marine_group": "#FFFFFF",
+            "Clade_Ib": "#FFFFFF",
+            "Candidatus_Thiobios": "#FFFFFF",
+            "Fluviicola": "#FFFFFF",
+            "Rubripirellula": "#FFFFFF",
+            "Roseovarius": "#FFFFFF",
+            "Candidatus_Puniceispirillum": "#FFFFFF",
+            "Order_Defluviicoccales": "#FFFFFF",
+            "Limnothrix": "#FFFFFF",
+            "Family_NS7_marine_group": "#FFFFFF",
+            "Acholeplasma": "#FFFFFF",
+            "Family_Cryomorphaceae": "#FFFFFF",
+            "Prochlorococcus_MIT9313": "#FFFFFF",
+            "Family_AEGEAN-169_marine_group": "#FFFFFF",
+            "Family_MWH-UniP1_aquatic_group": "#FFFFFF",
+            "Vibrio": "#FFFFFF",
+            "Family_PS1_clade": "#FFFFFF",
+            "Trichodesmium_IMS101": "#FFFFFF",
+            "Amphritea": "#FFFFFF",
+            "Urania-1B-19_marine_sediment_group": "#FFFFFF",
+            "Order_HOC36": "#FFFFFF",
+            "Order_OM182_clade": "#FFFFFF",
+            "Family_Marinilabiliaceae": "#FFFFFF",
+            "Pseudooceanicola": "#FFFFFF",
+            "Family_Thiotrichaceae": "#FFFFFF",
+            "Family_Rubinisphaeraceae": "#FFFFFF",
+            "mle1-7": "#FFFFFF",
+            "Family_MSBL8": "#FFFFFF",
+            "Pirellula": "#FFFFFF",
+            "Marine_Group_III": "#FFFFFF",
+            "Class_OM190": "#FFFFFF",
+            "P3OB-42": "#FFFFFF",
+            "Lutibacter": "#FFFFFF",
+            "Family_Clade_III": "#FFFFFF",
+            "Family_DEV007": "#FFFFFF",
+            "Order_Puniceispirillales": "#FFFFFF",
+            "Family_Pirellulaceae": "#FFFFFF",
+            "Desulfofrigus": "#FFFFFF",
+            "CL500-3": "#FFFFFF",
+            "Sva0996_marine_group": "#FFFFFF",
+            "Family_Alteromonadaceae": "#FFFFFF",
+            "Order_Dadabacteriales": "#FFFFFF",
+            "SCGC_AAA164-E04": "#FFFFFF",
+            "Order_Chitinophagales": "#FFFFFF",
+            "R76-B128": "#FFFFFF",
+            "Halomonas": "#FFFFFF",
+            "Roseimarinus": "#FFFFFF",
+            "Desulfovibrio": "#FFFFFF",
+            "Ascidiaceihabitans": "#FFFFFF",
+            "Draconibacterium": "#FFFFFF"
+        },
+        "ASV_ID": {
+            "ASV1": "#FFFFFF",
+            "ASV2": "#FFFFFF",
+            "ASV3": "#FFFFFF",
+            "ASV4": "#FFFFFF",
+            "ASV5": "#FFFFFF",
+            "ASV6": "#FFFFFF",
+            "ASV7": "#FFFFFF",
+            "ASV9": "#FFFFFF",
+            "ASV10": "#FFFFFF",
+            "ASV11": "#FFFFFF",
+            "ASV12": "#FFFFFF",
+            "ASV13": "#FFFFFF",
+            "ASV14": "#FFFFFF",
+            "ASV15": "#FFFFFF",
+            "ASV16": "#FFFFFF",
+            "ASV17": "#FFFFFF",
+            "ASV18": "#FFFFFF",
+            "ASV19": "#FFFFFF",
+            "ASV20": "#FFFFFF",
+            "ASV21": "#FFFFFF",
+            "ASV22": "#FFFFFF",
+            "ASV23": "#FFFFFF",
+            "ASV24": "#FFFFFF",
+            "ASV25": "#FFFFFF",
+            "ASV26": "#FFFFFF",
+            "ASV27": "#FFFFFF",
+            "ASV28": "#FFFFFF",
+            "ASV29": "#FFFFFF",
+            "ASV30": "#FFFFFF",
+            "ASV31": "#FFFFFF",
+            "ASV32": "#FFFFFF",
+            "ASV33": "#FFFFFF",
+            "ASV34": "#FFFFFF",
+            "ASV35": "#FFFFFF",
+            "ASV36": "#FFFFFF",
+            "ASV37": "#FFFFFF",
+            "ASV38": "#FFFFFF",
+            "ASV39": "#FFFFFF",
+            "ASV40": "#FFFFFF",
+            "ASV41": "#FFFFFF",
+            "ASV42": "#FFFFFF",
+            "ASV43": "#FFFFFF",
+            "ASV44": "#FFFFFF",
+            "ASV45": "#FFFFFF",
+            "ASV46": "#FFFFFF",
+            "ASV47": "#FFFFFF",
+            "ASV48": "#FFFFFF",
+            "ASV49": "#FFFFFF",
+            "ASV50": "#FFFFFF",
+            "ASV51": "#FFFFFF",
+            "ASV53": "#FFFFFF",
+            "ASV54": "#FFFFFF",
+            "ASV55": "#FFFFFF",
+            "ASV57": "#FFFFFF",
+            "ASV58": "#FFFFFF",
+            "ASV59": "#FFFFFF",
+            "ASV60": "#FFFFFF",
+            "ASV61": "#FFFFFF",
+            "ASV62": "#FFFFFF",
+            "ASV63": "#FFFFFF",
+            "ASV64": "#FFFFFF",
+            "ASV65": "#FFFFFF",
+            "ASV66": "#FFFFFF",
+            "ASV67": "#FFFFFF",
+            "ASV68": "#FFFFFF",
+            "ASV69": "#FFFFFF",
+            "ASV70": "#FFFFFF",
+            "ASV71": "#FFFFFF",
+            "ASV72": "#FFFFFF",
+            "ASV73": "#FFFFFF",
+            "ASV75": "#FFFFFF",
+            "ASV76": "#FFFFFF",
+            "ASV77": "#FFFFFF",
+            "ASV78": "#FFFFFF",
+            "ASV79": "#FFFFFF",
+            "ASV80": "#FFFFFF",
+            "ASV81": "#FFFFFF",
+            "ASV82": "#FFFFFF",
+            "ASV84": "#FFFFFF",
+            "ASV85": "#FFFFFF",
+            "ASV86": "#FFFFFF",
+            "ASV87": "#FFFFFF",
+            "ASV88": "#FFFFFF",
+            "ASV89": "#FFFFFF",
+            "ASV90": "#FFFFFF",
+            "ASV91": "#FFFFFF",
+            "ASV93": "#FFFFFF",
+            "ASV94": "#FFFFFF",
+            "ASV95": "#FFFFFF",
+            "ASV96": "#FFFFFF",
+            "ASV97": "#FFFFFF",
+            "ASV98": "#FFFFFF",
+            "ASV99": "#FFFFFF",
+            "ASV100": "#FFFFFF",
+            "ASV101": "#FFFFFF",
+            "ASV102": "#FFFFFF",
+            "ASV103": "#FFFFFF",
+            "ASV104": "#FFFFFF",
+            "ASV105": "#FFFFFF",
+            "ASV106": "#FFFFFF",
+            "ASV107": "#FFFFFF",
+            "ASV108": "#FFFFFF",
+            "ASV109": "#FFFFFF",
+            "ASV110": "#FFFFFF",
+            "ASV111": "#FFFFFF",
+            "ASV112": "#FFFFFF",
+            "ASV113": "#FFFFFF",
+            "ASV114": "#FFFFFF",
+            "ASV115": "#FFFFFF",
+            "ASV116": "#FFFFFF",
+            "ASV117": "#FFFFFF",
+            "ASV118": "#FFFFFF",
+            "ASV119": "#FFFFFF",
+            "ASV120": "#FFFFFF",
+            "ASV121": "#FFFFFF",
+            "ASV123": "#FFFFFF",
+            "ASV124": "#FFFFFF",
+            "ASV125": "#FFFFFF",
+            "ASV126": "#FFFFFF",
+            "ASV127": "#FFFFFF",
+            "ASV128": "#FFFFFF",
+            "ASV129": "#FFFFFF",
+            "ASV130": "#FFFFFF",
+            "ASV131": "#FFFFFF",
+            "ASV132": "#FFFFFF",
+            "ASV133": "#FFFFFF",
+            "ASV134": "#FFFFFF",
+            "ASV135": "#FFFFFF",
+            "ASV136": "#FFFFFF",
+            "ASV137": "#FFFFFF",
+            "ASV138": "#FFFFFF",
+            "ASV139": "#FFFFFF",
+            "ASV140": "#FFFFFF",
+            "ASV141": "#FFFFFF",
+            "ASV142": "#FFFFFF",
+            "ASV143": "#FFFFFF",
+            "ASV144": "#FFFFFF",
+            "ASV145": "#FFFFFF",
+            "ASV146": "#FFFFFF",
+            "ASV147": "#FFFFFF",
+            "ASV148": "#FFFFFF",
+            "ASV149": "#FFFFFF",
+            "ASV150": "#FFFFFF",
+            "ASV151": "#FFFFFF",
+            "ASV152": "#FFFFFF",
+            "ASV153": "#FFFFFF",
+            "ASV154": "#FFFFFF",
+            "ASV155": "#FFFFFF",
+            "ASV156": "#FFFFFF",
+            "ASV157": "#FFFFFF",
+            "ASV158": "#FFFFFF",
+            "ASV159": "#FFFFFF",
+            "ASV160": "#FFFFFF",
+            "ASV162": "#FFFFFF",
+            "ASV163": "#FFFFFF",
+            "ASV164": "#FFFFFF",
+            "ASV165": "#FFFFFF",
+            "ASV166": "#FFFFFF",
+            "ASV167": "#FFFFFF",
+            "ASV168": "#FFFFFF",
+            "ASV169": "#FFFFFF",
+            "ASV170": "#FFFFFF",
+            "ASV171": "#FFFFFF",
+            "ASV172": "#FFFFFF",
+            "ASV173": "#FFFFFF",
+            "ASV174": "#FFFFFF",
+            "ASV175": "#FFFFFF",
+            "ASV177": "#FFFFFF",
+            "ASV178": "#FFFFFF",
+            "ASV179": "#FFFFFF",
+            "ASV180": "#FFFFFF",
+            "ASV181": "#FFFFFF",
+            "ASV182": "#FFFFFF",
+            "ASV183": "#FFFFFF",
+            "ASV184": "#FFFFFF",
+            "ASV185": "#FFFFFF",
+            "ASV186": "#FFFFFF",
+            "ASV188": "#FFFFFF",
+            "ASV189": "#FFFFFF",
+            "ASV191": "#FFFFFF",
+            "ASV192": "#FFFFFF",
+            "ASV193": "#FFFFFF",
+            "ASV194": "#FFFFFF",
+            "ASV195": "#FFFFFF",
+            "ASV196": "#FFFFFF",
+            "ASV197": "#FFFFFF",
+            "ASV198": "#FFFFFF",
+            "ASV200": "#FFFFFF",
+            "ASV203": "#FFFFFF"
+        }
+    },
+    "stack_bar_colors": {},
+    "layers": {
+        "length": {
+            "color": "#414141",
+            "height": "0",
+            "margin": "15",
+            "type": "bar",
+            "color-start": "#FFFFFF"
+        },
+        "gc_content": {
+            "color": "#004a0f",
+            "height": "0",
+            "margin": "15",
+            "type": "bar",
+            "color-start": "#FFFFFF"
+        },
+        "WCC0": {
+            "color": "#0072b2",
+            "height": "100",
+            "margin": "15",
+            "type": "intensity",
+            "color-start": "#ebe8eb"
+        },
+        "WCC1": {
+            "color": "#0072b2",
+            "height": "100",
+            "margin": "15",
+            "type": "intensity",
+            "color-start": "#ebe8eb"
+        },
+        "WCC2": {
+            "color": "#0072b2",
+            "height": "100",
+            "margin": "15",
+            "type": "intensity",
+            "color-start": "#ebe8eb"
+        },
+        "WCC3": {
+            "color": "#0072b2",
+            "height": "100",
+            "margin": "15",
+            "type": "intensity",
+            "color-start": "#ebe8eb"
+        },
+        "WCR0": {
+            "color": "#0072b2",
+            "height": "100",
+            "margin": "15",
+            "type": "intensity",
+            "color-start": "#ebe8eb"
+        },
+        "WCR1": {
+            "color": "#d55e00",
+            "height": "100",
+            "margin": "50",
+            "type": "intensity",
+            "color-start": "#ebe8eb"
+        },
+        "WCR2": {
+            "color": "#d55e00",
+            "height": "100",
+            "margin": "15",
+            "type": "intensity",
+            "color-start": "#ebe8eb"
+        },
+        "WCR3": {
+            "color": "#d55e00",
+            "height": "100",
+            "margin": "15",
+            "type": "intensity",
+            "color-start": "#ebe8eb"
+        },
+        "enriched": {
+            "color": "#000000",
+            "height": "90",
+            "margin": "15",
+            "type": "color",
+            "color-start": "#DDDDDD"
+        },
+        "indval": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "15",
+            "type": "bar",
+            "color-start": "#FFFFFF"
+        },
+        "pvalue": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "15",
+            "type": "bar",
+            "color-start": "#FFFFFF"
+        },
+        "freq": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "15",
+            "type": "bar",
+            "color-start": "#FFFFFF"
+        },
+        "total_reads": {
+            "color": "#000000",
+            "height": "180",
+            "margin": "15",
+            "type": "bar",
+            "color-start": "#FFFFFF"
+        },
+        "Kingdom": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "0",
+            "type": "color",
+            "color-start": "#DDDDDD"
+        },
+        "Phylum": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "0",
+            "type": "color",
+            "color-start": "#DDDDDD"
+        },
+        "Class": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "15",
+            "type": "text",
+            "color-start": "#DDDDDD"
+        },
+        "Order": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "0",
+            "type": "color",
+            "color-start": "#DDDDDD"
+        },
+        "Family": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "15",
+            "type": "color",
+            "color-start": "#DDDDDD"
+        },
+        "Genus": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "0",
+            "type": "color",
+            "color-start": "#DDDDDD"
+        },
+        "ASV_ID": {
+            "color": "#000000",
+            "height": "0",
+            "margin": "15",
+            "type": "text",
+            "color-start": "#DDDDDD"
+        }
+    },
+    "views": {
+        "single": {
+            "length": {
+                "normalization": "none",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "377",
+                    "disabled": false
+                }
+            },
+            "gc_content": {
+                "normalization": "none",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "0.6037234042553191",
+                    "disabled": false
+                }
+            },
+            "WCC0": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "3.901458321396112",
+                    "disabled": false
+                }
+            },
+            "WCC1": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "4.010596736206525",
+                    "disabled": false
+                }
+            },
+            "WCC2": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "3.955735842277665",
+                    "disabled": false
+                }
+            },
+            "WCC3": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "3.8683504996479683",
+                    "disabled": false
+                }
+            },
+            "WCR0": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "4.134081437462511",
+                    "disabled": false
+                }
+            },
+            "WCR1": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "3.3565994357249704",
+                    "disabled": false
+                }
+            },
+            "WCR2": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "3.0722498976135144",
+                    "disabled": false
+                }
+            },
+            "WCR3": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "3.5035183127240748",
+                    "disabled": false
+                }
+            },
+            "enriched": {
+                "min": {
+                    "disabled": false
+                },
+                "max": {
+                    "disabled": false
+                }
+            },
+            "indval": {
+                "normalization": "none",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "1",
+                    "disabled": false
+                }
+            },
+            "pvalue": {
+                "normalization": "none",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "0.05",
+                    "disabled": false
+                }
+            },
+            "freq": {
+                "normalization": "none",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "8",
+                    "disabled": false
+                }
+            },
+            "total_reads": {
+                "normalization": "log",
+                "min": {
+                    "value": "0",
+                    "disabled": false
+                },
+                "max": {
+                    "value": "4.72272439112739",
+                    "disabled": false
+                }
+            },
+            "Kingdom": {
+                "min": {
+                    "disabled": false
+                },
+                "max": {
+                    "disabled": false
+                }
+            },
+            "Phylum": {
+                "min": {
+                    "disabled": false
+                },
+                "max": {
+                    "disabled": false
+                }
+            },
+            "Class": {
+                "min": {
+                    "disabled": false
+                },
+                "max": {
+                    "disabled": false
+                }
+            },
+            "Order": {
+                "min": {
+                    "disabled": false
+                },
+                "max": {
+                    "disabled": false
+                }
+            },
+            "Family": {
+                "min": {
+                    "disabled": false
+                },
+                "max": {
+                    "disabled": false
+                }
+            },
+            "Genus": {
+                "min": {
+                    "disabled": false
+                },
+                "max": {
+                    "disabled": false
+                }
+            },
+            "ASV_ID": {
+                "min": {
+                    "disabled": false
+                },
+                "max": {
+                    "disabled": false
+                }
+            }
+        }
+    },
+    "samples-categorical-colors": {
+        "default": {
+            "site": {
+                "CC": "#01b555",
+                "CR": "#f4338a"
+            },
+            "oxstate": {
+                "normoxic": "#68a7c9",
+                "hypoxic": "#cc2ea9"
+            },
+            "period": {
+                "cc_after": "#00539c",
+                "cc_during": "#ffd662",
+                "cr_after": "#00539c",
+                "cr_during": "#ffd662"
+            }
+        }
+    },
+    "samples-stack-bar-colors": {
+        "default": {
+            "t_class!Cyanobacteriia;Alphaproteobacteria;Bacteroidia;Gammaproteobacteria;Thermoplasmata;Phylum_Marinimicrobia_(SAR406_clade);Acidimicrobiia;Campylobacteria;Planctomycetes;Rhodothermia;Phylum_SAR324_clade(Marine_group_B);Verrucomicrobiae;OM190;Phycisphaerae;Bdellovibrionia;Kingdom_Bacteria;Desulfovibrionia;Bacilli;Desulfuromonadia;Desulfobacteria;Kiritimatiellae;Clostridia;Cloacimonadia;Myxococcia;Spirochaetia;Dadabacteriia;Nanoarchaeia;Desulfobulbia;Fusobacteriia;Lentisphaeria;Oligoflexia;Deferribacteres;Polyangia;Pla3_lineage;Phylum_WPS-2;Kapabacteria;Dehalococcoidia;Phylum_Latescibacterota;Phylum_Proteobacteria;Actinobacteria;Ignavibacteria;Vampirivibrionia;Nitrososphaeria;Phylum_Spirochaetota;Phylum_Margulisbacteria;Thermotogae;Holophagae;Anaerolineae;vadinHA49;Phylum_NB1-j;Omnitrophia;Thermoanaerobaculia;Negativicutes;Phylum_Patescibacteria;Phylum_Desulfobacterota;Phylum_Verrucomicrobiota;Subgroup_22;Syntrophobacteria;Synergistia": {
+                "Cyanobacteriia": "#009e73",
+                "Alphaproteobacteria": "#56b4e9",
+                "Bacteroidia": "#cc79a7",
+                "Gammaproteobacteria": "#0072b2",
+                "Thermoplasmata": "#d55e00",
+                "Phylum_Marinimicrobia_(SAR406_clade)": "#b6dbff",
+                "Acidimicrobiia": "#e69f00",
+                "Campylobacteria": "#f0e442",
+                "Planctomycetes": "#323232",
+                "Rhodothermia": "#323232",
+                "Phylum_SAR324_clade(Marine_group_B)": "#323232",
+                "Verrucomicrobiae": "#323232",
+                "OM190": "#323232",
+                "Phycisphaerae": "#323232",
+                "Bdellovibrionia": "#323232",
+                "Kingdom_Bacteria": "#323232",
+                "Desulfovibrionia": "#323232",
+                "Bacilli": "#323232",
+                "Desulfuromonadia": "#323232",
+                "Desulfobacteria": "#323232",
+                "Kiritimatiellae": "#323232",
+                "Clostridia": "#323232",
+                "Cloacimonadia": "#323232",
+                "Myxococcia": "#323232",
+                "Spirochaetia": "#323232",
+                "Dadabacteriia": "#323232",
+                "Nanoarchaeia": "#323232",
+                "Desulfobulbia": "#323232",
+                "Fusobacteriia": "#323232",
+                "Lentisphaeria": "#323232",
+                "Oligoflexia": "#323232",
+                "Deferribacteres": "#323232",
+                "Polyangia": "#323232",
+                "Pla3_lineage": "#323232",
+                "Phylum_WPS-2": "#323232",
+                "Kapabacteria": "#323232",
+                "Dehalococcoidia": "#323232",
+                "Phylum_Latescibacterota": "#323232",
+                "Phylum_Proteobacteria": "#323232",
+                "Actinobacteria": "#323232",
+                "Ignavibacteria": "#323232",
+                "Vampirivibrionia": "#323232",
+                "Nitrososphaeria": "#323232",
+                "Phylum_Spirochaetota": "#323232",
+                "Phylum_Margulisbacteria": "#323232",
+                "Thermotogae": "#323232",
+                "Holophagae": "#323232",
+                "Anaerolineae": "#323232",
+                "vadinHA49": "#323232",
+                "Phylum_NB1-j": "#323232",
+                "Omnitrophia": "#323232",
+                "Thermoanaerobaculia": "#323232",
+                "Negativicutes": "#323232",
+                "Phylum_Patescibacteria": "#323232",
+                "Phylum_Desulfobacterota": "#323232",
+                "Phylum_Verrucomicrobiota": "#323232",
+                "Subgroup_22": "#323232",
+                "Syntrophobacteria": "#323232",
+                "Synergistia": "#323232"
+            }
+        }
+    },
+    "samples-edge-length-normalization": true,
+    "samples-ignore-branch-length": false,
+    "samples-tree-height": "400",
+    "samples-layer-order": [
+        {
+            "layer_name": "site",
+            "group": "default"
+        },
+        {
+            "layer_name": "oxstate",
+            "group": "default"
+        },
+        {
+            "layer_name": "period",
+            "group": "default"
+        },
+        {
+            "layer_name": "no_reads",
+            "group": "default"
+        },
+        {
+            "layer_name": "no_asvs",
+            "group": "default"
+        },
+        {
+            "layer_name": "Shannon",
+            "group": "default"
+        },
+        {
+            "layer_name": "InvSimpson",
+            "group": "default"
+        },
+        {
+            "layer_name": "t_class!Cyanobacteriia;Alphaproteobacteria;Bacteroidia;Gammaproteobacteria;Thermoplasmata;Phylum_Marinimicrobia_(SAR406_clade);Acidimicrobiia;Campylobacteria;Planctomycetes;Rhodothermia;Phylum_SAR324_clade(Marine_group_B);Verrucomicrobiae;OM190;Phycisphaerae;Bdellovibrionia;Kingdom_Bacteria;Desulfovibrionia;Bacilli;Desulfuromonadia;Desulfobacteria;Kiritimatiellae;Clostridia;Cloacimonadia;Myxococcia;Spirochaetia;Dadabacteriia;Nanoarchaeia;Desulfobulbia;Fusobacteriia;Lentisphaeria;Oligoflexia;Deferribacteres;Polyangia;Pla3_lineage;Phylum_WPS-2;Kapabacteria;Dehalococcoidia;Phylum_Latescibacterota;Phylum_Proteobacteria;Actinobacteria;Ignavibacteria;Vampirivibrionia;Nitrososphaeria;Phylum_Spirochaetota;Phylum_Margulisbacteria;Thermotogae;Holophagae;Anaerolineae;vadinHA49;Phylum_NB1-j;Omnitrophia;Thermoanaerobaculia;Negativicutes;Phylum_Patescibacteria;Phylum_Desulfobacterota;Phylum_Verrucomicrobiota;Subgroup_22;Syntrophobacteria;Synergistia",
+            "group": "default"
+        }
+    ],
+    "samples-layers": {
+        "default": {
+            "site": {
+                "data-type": "categorical",
+                "height": 0,
+                "margin": 15,
+                "min": {
+                    "value": null,
+                    "disabled": false
+                },
+                "max": {
+                    "value": null,
+                    "disabled": false
+                }
+            },
+            "oxstate": {
+                "data-type": "categorical",
+                "height": 0,
+                "margin": 15,
+                "min": {
+                    "value": null,
+                    "disabled": false
+                },
+                "max": {
+                    "value": null,
+                    "disabled": false
+                }
+            },
+            "period": {
+                "data-type": "categorical",
+                "height": 80,
+                "margin": 15,
+                "min": {
+                    "value": null,
+                    "disabled": false
+                },
+                "max": {
+                    "value": null,
+                    "disabled": false
+                }
+            },
+            "no_reads": {
+                "data-type": "numeric",
+                "height": 100,
+                "margin": 15,
+                "normalization": "none",
+                "color": "#919191",
+                "min": {
+                    "value": 0,
+                    "disabled": false
+                },
+                "max": {
+                    "value": 35000,
+                    "disabled": false
+                },
+                "type": "bar",
+                "color-start": "#EFEFEF"
+            },
+            "no_asvs": {
+                "data-type": "numeric",
+                "height": 100,
+                "margin": 15,
+                "normalization": "none",
+                "color": "#919191",
+                "min": {
+                    "value": 0,
+                    "disabled": false
+                },
+                "max": {
+                    "value": 575,
+                    "disabled": false
+                },
+                "type": "bar",
+                "color-start": "#EFEFEF"
+            },
+            "Shannon": {
+                "data-type": "numeric",
+                "height": 100,
+                "margin": 15,
+                "normalization": "none",
+                "color": "#919191",
+                "min": {
+                    "value": 0,
+                    "disabled": false
+                },
+                "max": {
+                    "value": 5,
+                    "disabled": false
+                },
+                "type": "bar",
+                "color-start": "#EFEFEF"
+            },
+            "InvSimpson": {
+                "data-type": "numeric",
+                "height": 100,
+                "margin": 15,
+                "normalization": "none",
+                "color": "#919191",
+                "min": {
+                    "value": 0,
+                    "disabled": false
+                },
+                "max": {
+                    "value": 40,
+                    "disabled": false
+                },
+                "type": "bar",
+                "color-start": "#EFEFEF"
+            },
+            "t_class!Cyanobacteriia;Alphaproteobacteria;Bacteroidia;Gammaproteobacteria;Thermoplasmata;Phylum_Marinimicrobia_(SAR406_clade);Acidimicrobiia;Campylobacteria;Planctomycetes;Rhodothermia;Phylum_SAR324_clade(Marine_group_B);Verrucomicrobiae;OM190;Phycisphaerae;Bdellovibrionia;Kingdom_Bacteria;Desulfovibrionia;Bacilli;Desulfuromonadia;Desulfobacteria;Kiritimatiellae;Clostridia;Cloacimonadia;Myxococcia;Spirochaetia;Dadabacteriia;Nanoarchaeia;Desulfobulbia;Fusobacteriia;Lentisphaeria;Oligoflexia;Deferribacteres;Polyangia;Pla3_lineage;Phylum_WPS-2;Kapabacteria;Dehalococcoidia;Phylum_Latescibacterota;Phylum_Proteobacteria;Actinobacteria;Ignavibacteria;Vampirivibrionia;Nitrososphaeria;Phylum_Spirochaetota;Phylum_Margulisbacteria;Thermotogae;Holophagae;Anaerolineae;vadinHA49;Phylum_NB1-j;Omnitrophia;Thermoanaerobaculia;Negativicutes;Phylum_Patescibacteria;Phylum_Desulfobacterota;Phylum_Verrucomicrobiota;Subgroup_22;Syntrophobacteria;Synergistia": {
+                "data-type": "stack-bar",
+                "height": 500,
+                "margin": 15,
+                "normalization": "none",
+                "min": {
+                    "value": null,
+                    "disabled": false
+                },
+                "max": {
+                    "value": null,
+                    "disabled": false
+                }
+            }
+        }
+    },
+    "samples-groups": {
+        "default": true
+    }
+}

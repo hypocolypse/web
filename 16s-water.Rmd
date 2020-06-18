@@ -25,6 +25,8 @@ library(plyr)
 library(stringr)
 require(gdata)
 library(labdsv)
+library(reshape)
+
 
 options(scipen=999)
 knitr::opts_current$get(c(
@@ -48,6 +50,7 @@ sample_d <- readRDS("rdata/16s-water/ps_water-sample.rds")
 seqtab <- readRDS("rdata/16s-water/ps_water-seqtab.rds")
 taxtab <- readRDS("rdata/16s-water/ps_water-taxtab.rds")
 ps_water <- merge_phyloseq(sample_d, seqtab, taxtab)
+ps_water_o <- ps_water
 ps_water
 ```
 
@@ -300,12 +303,10 @@ datatable(
     pageLength = 5,
     scroller=TRUE, lengthMenu = c(5, 10, 25, 60)))
 
-top_reads2 <- top_reads[,-1]
-rownames(top_reads2) <- top_reads[,1]
+top_reads2 <- tibble::column_to_rownames(top_reads, var = "rn")
 top_reads2 <- top_reads2[with(top_reads2, order(-reads)),]
 
-top_asvs2 <- top_asvs[,-1]
-rownames(top_asvs2) <- top_asvs[,1]
+top_asvs2 <- tibble::column_to_rownames(top_asvs, var = "rn")
 top_asvs2 <- top_asvs2[with(top_asvs2, order(-Freq)),]
 ```
 
@@ -723,12 +724,15 @@ datatable(colnames = c("ASV", "reads", "norm", "hypo",
     "Differentially Abundant ASVs assessed by 
     Indicator Species Analysis (ISA)."),
   extensions = c("Buttons", "FixedColumns"),
-  options = list(
+  options = list(autoWidth = TRUE,
     columnDefs = list(list(className = "dt-left", targets = 0)),
     dom = "Blfrtip",
-    buttons = c("csv", "copy"),
+    buttons = list(list(
+        extend = 'collection',
+        buttons = c('csv', 'excel', 'copy'),
+        text = 'Download')),
     pageLength = 10, lengthMenu = c(5, 10, 50, 160), 
-    scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE, paging=TRUE,
+    scrollX = TRUE, scrollCollapse = FALSE, scrollY=FALSE, paging=TRUE,
     fixedColumns = list(leftColumns = 1, rightColumns = 0))) %>%
     formatRound(columns=c("indval", "pvalue"), digits = 3) %>%
   formatStyle(columns = colnames(full_indval_sum_noseq), fontSize = '80%')
@@ -758,6 +762,312 @@ Now. What do we get from all of this? Well, we started with `r ntaxa(ps_water)` 
 
 > You can download a fasta file of DA ASVs (> 100 total reads) determined using ISA by [clicking on this link](files/16s-water/idval_asv.fasta). 
 
+# Visualizing DA ASVs in Anvi'o
+
+Next, we will combine the results of the ISA analysis with the distribution of ASVs across each sample. We are going to do the analysis in anvi'o[@eren2015anvi] using the `anvi-interactive` command. Anvi'o likes database but it also understands that sometimes you don't have a database. So it offers a *manual mode* for all of us slackers out there. If you type this command you can have a look at the relevant pieces we need for the visualiztion, specifically those under the headings `MANUAL INPUTS` and `ADDITIONAL STUFF`. I will go through these out of order so try to keep up ;)
+
+```bash
+anvi-interactive -h
+```
+
+```
+MANUAL INPUTS:
+  Mandatory input parameters to start the interactive interface without
+  anvi'o databases.
+
+--manual-mode           We need this flag to run anvi'o in an ad hoc 
+                        manner, i.e., no database. 
+-f FASTA, --fasta-file FASTA
+                        A FASTA-formatted input file. This is sort of 
+                        optional
+-d VIEW_DATA, --view-data VIEW_DATA
+                        A TAB-delimited file for view data. This is the ASV
+                        by sample matrix. We need this
+-t NEWICK, --tree NEWICK
+                        NEWICK formatted tree structure. How the ASVs are 
+                        ordered in our case. 
+ADDITIONAL STUFF:
+  Parameters to provide additional layers, views, or layer data.
+
+-V ADDITIONAL_VIEW, --additional-view ADDITIONAL_VIEW
+                        A TAB-delimited file for an additional view to be used
+                        in the interface. This file should contain all split
+                        names, and values for each of them in all samples.
+                        Each column in this file must correspond to a sample
+                        name. Content of this file will be called 'user_view',
+                        which will be available as a new item in the 'views'
+                        combo box in the interface
+-A ADDITIONAL_LAYERS, --additional-layers ADDITIONAL_LAYERS
+                        A TAB-delimited file for additional layer info. In
+                        our case this is info about each ASV. The first column 
+                        of the file must be the ASV names, and
+                        the remaining columns should be unique attributes.                       
+```
+
+There are also a few files we generate that cannot be loaded directly.  So in addition to the files that can be *loaded* when running the interactive, we also have files that must be *added* to the database created by anvi'o.
+
+## Creating Input Files
+
+Here is a nice tutorial on [Working with anvi'o additional data tables](http://merenlab.org/2017/12/11/additional-data-tables/). A lot of what we need is covered in this tutorial. To get the most out the visualization we need to create a few files to give anvi'o when we fire up the interactive interface. 
+
+1) View data: in our case, a sample by ASV abundance matrix.
+2) Additional info about each ASV. 
+3) Additional info about each sample.
+4) Taxa abundance data for each sample at some rank.
+5) Dendrograms ordering the ASVs and samples (based on view data).
+
+#### 1. View data
+
+Let's start with the `-d` or `--view-data` file. This file needs to be an ASV by sample matrix of read counts. To simplify the visualization we will use ASVs represented by 100 or more total reads. 
+
+```{r}
+ps_water_100 <- prune_taxa(taxa_sums(ps_water) > 100, ps_water)
+ps_water_100
+```
+
+Looks like this are `r ntaxa(ps_water_100)` total ASVs. We know from the ISA analysis above that `r nrow(table2format2)` ASVs were differentially abundant between the two groups so there will be `r ntaxa(ps_water_100) - nrow(table2format2)` ASVs in our graph that showed no difference. 
+
+```{r, eval=FALSE}
+data_tab <- as.data.frame(t(otu_table(ps_water_100)))
+data_tab <- data_tab %>% rownames_to_column("Group")
+write.table(data_tab, "16s-anvio/data.txt", sep = "\t", 
+            quote = FALSE, row.names = FALSE)
+```
+
+<aside>
+**Loaded** with  `anvi-interactive` command & `--view-data` flag.
+</aside>
+
+### 2. Additional Layers for ASVs
+
+Next, we need some additional data **about the ASVs** to overlay on the visual. This can be anything however what I specifically want are the details of the ISA analysis, total reads, and lineage info. I warn you, this code will get ugly and I urge you to find a better way. 
+
+<aside>
+**Loaded** with `anvi-interactive` command & `--additional-layers` flag.
+</aside>
+
+Start with an ASV + lineage table for the ASVs in the `ps_water_100` phyloseq object. 
+
+```{r, eval=FALSE}
+data_tab2 <- as.data.frame(t(otu_table(ps_water_100)))
+total_reads2 <- cbind(data_tab2, total_reads = rowSums(data_tab2))
+total_reads2[1:8] <- NULL
+tax_tab2 <- as.data.frame(tax_table(ps_water_100))
+tax_tab2[7] <- NULL
+total_reads2 <- tibble::rownames_to_column(total_reads2, "Group") 
+tax_tab2 <- tibble::rownames_to_column(tax_tab2, "Group") 
+
+merge_tabX <- merge(total_reads2, tax_tab2, 
+                           by = "Group", 
+                           all = TRUE)
+drop_c <- c("reads", "norm", "hypo", "Kingdom", 
+            "Phylum", "Class", "Order", "Family", "Genus")
+idval2 <- full_indval_sum_noseq[ , !(names(full_indval_sum_noseq) %in% drop_c)]
+colnames(idval2)[1:2] <- c("Group", "enriched")
+
+additional_layers <- merge(idval2, merge_tabX,  
+                           by = "Group", 
+                           all.y = TRUE)
+write.table(additional_layers, "16s-anvio/additional_layers.txt", 
+            sep = "\t", quote = FALSE, row.names = FALSE, na = "")
+```
+
+
+### 3. Additional Views for Samples
+
+Now I want some general data **about the samples** to overlay on the visual. Again, this can be anything. How about a table of alpha diverity metric. We actually have such a table that was generate a ways back up the road. Just need to fix the column names.
+
+<aside>
+**Added** to  profile.db with  `anvi-import-misc-data` command &  `--target-data-table layers` flag.
+</aside>
+
+```{r, eval=FALSE}
+additional_view <- merge_tab2
+additional_view[2] <- NULL
+colnames(additional_view) <- c("id", "site", "oxstate", "period", "no_reads",
+    "no_asvs", "Shannon", "InvSimpson")
+write.table(additional_view, "16s-anvio/additional_views.txt", 
+            sep = "\t", quote = FALSE, row.names = FALSE, na = "")
+```
+
+#### 4. Taxon rank abundance by sample
+
+Turned out this was a little tricky to figure out, but thanks to this [little nifty block of code](https://github.com/joey711/phyloseq/issues/418#issuecomment-262637034) written by [guoyanzhao](https://github.com/guoyanzhao) on the phyloseq Issues forum, it was a piece of cake. The code can be altered to take any rank. See the post for an explaination. 
+
+Anyway, the goal is to sum each taxa at sum rank and present that as a bar chart for each sample in the visualization. Anvi'o has a specific format it needs where each row is a sample and each column is a taxa. Taxa names need the prefix `t_<RANK>!`. For example, `t_class!` should be added for Class rank. 
+
+<aside>
+**Added** to  profile.db with    `anvi-import-misc-data` command &   `--target-data-table layers` flag.
+</aside>
+
+```{r, eval=FALSE}
+# Make the table
+anvio_taxa <- ps_water
+glom_rank <- tax_glom(anvio_taxa, taxrank = 'Class')
+melt_rank <- psmelt(glom_rank)
+melt_rank$Class <- as.character(melt_rank$Class)
+rank_abundance <- aggregate(Abundance~Sample+Class, melt_rank, FUN = sum)
+rank_abundance <- as.data.frame(cast(rank_abundance, Sample ~ Class))
+#rank_abundance <- as.data.frame(rank_abundance)
+rank_abundance <- tibble::remove_rownames(rank_abundance)
+rank_abundance <- tibble::column_to_rownames(rank_abundance, "Sample")
+
+# Reorder table column by summ
+layers <- rank_abundance[,names(sort(colSums(rank_abundance), decreasing = TRUE))]
+
+# Add the prefix
+layers <- layers %>% dplyr::rename_all(function(x) paste0("t_class!", x))
+layers <- tibble::rownames_to_column (layers, "taxon")
+
+# save the table
+write.table(layers, "16s-anvio/tax_layers.txt", 
+            sep = "\t", quote = FALSE, row.names = FALSE, na = "")
+```
+
+#### 5. Construct Dendrograms
+
+The last piece we need is to generate dedrograms that order the ASVs by their distribution in the samples and the samples by their ASV composition. For this task we will use anvi'o.
+
+```bash
+anvi-matrix-to-newick data.txt --distance euclidean \
+                               --linkage ward \
+                               -o asv.tre 
+anvi-matrix-to-newick data.txt --distance euclidean \
+                               --linkage ward \
+                               -o sample.tre \
+                               --transpose
+```
+
+The first command reads the view data we generated above, and uses Euclidean distance and Ward linkage for hierarchical clustering of the ASVs. The second command transposes the view data table and then does the same for the samples. There are many distance metrics and linkage methods available.  Boom.
+
+<aside>
+The file `asv.tre` is **loaded** with  `anvi-interactive` command & `--tree` flag.
+</aside>
+
+The ASV tree is fine as is, but the sample tree needs a [special format](http://merenlab.org/2017/12/11/additional-data-tables/#layer-orders-additional-data-table). Specifically, the tree needs to be in a three column, tab delimited,  *table*. This way you can add multiple orderings to the same file and view them all in the interactive. The table needs to be in this format:
+
+| item_name	| data_type	| data_value                                          | 
+|-----------|-----------|-----------------------------------------------------|
+| tree_1  	| newick	  | ((WCR0:0.0793043,(WCC0:0.0431881,(WCC1:0.0301642,.. | 
+| tree_2  	| newick	  | (WCR1:0.142825,(WCR2:0.0466953,WCR3:0.0466953),...  |
+| (…)	      | (…)	      | (…)                                                 | 
+
+This is easy to do by hand, but I *really* need the practice so I will do it in R. Anvi'o is very particular about formatting. For example, if this file ends with a blank line, which it will because when anvi'o made the initial dendragram it add a new line. We need to get rid of that or we get an error when trying to import the table.
+
+<aside>
+The file `sample.tre` is **added** to the profile.db with  `anvi-import-misc-data` command &   `--target-data-table layer_orders` flag.
+</aside>
+
+
+```{r, eval=FALSE}
+sam_tree <- read_file("16s-anvio/sample.tre")
+sam_tree <- gsub("[\r\n]", "", sam_tree)
+item_name <- c("euc_ward")
+data_type <- c("newick")
+data_value <- c(sam_tree)
+sam_tre_tab <- data.frame(item_name, data_type, data_value)
+library(janitor)
+sam_tre_tab %>% remove_empty("rows")
+write.table(sam_tre_tab, "16s-anvio/sample_tree_tab.txt", 
+            sep = "\t", quote = FALSE, row.names = FALSE, na = "")
+```
+
+#### 7. Make a fasta file
+
+We don't need to add a fasta file but it is a nice way to keep everything in one place. Plus you can do BLAST searches directly in the interface by right clicking on the ASV of interest, so it is nice to have the sequences. 
+
+<aside>
+**Loaded** with `anvi-interactive` command &  `--fasta-file` flag.
+</aside>
+
+```{r export_fasta_anvio, eval=FALSE}
+# Create fasta file from tax_table
+anvio_tab <- tax_table(ps_water_100)
+#retain only the column with the sequences
+anvio_tab_trim <- anvio_tab[, 7]
+anvio_tab_trim_df <- data.frame(row.names(anvio_tab_trim),
+                                   anvio_tab_trim)
+colnames(anvio_tab_trim_df) <- c("ASV_ID", "ASV_SEQ")
+#format fasta
+anvio_tab_trim_df$ASV_ID <- sub("ASV", ">ASV", anvio_tab_trim_df$ASV_ID)
+
+write.table(anvio_tab_trim_df, "16s-anvio/anvio.fasta",
+            sep = "\r", col.names = FALSE, row.names = FALSE,
+            quote = FALSE, fileEncoding = "UTF-8")
+```            
+
+## Building the Profile Database
+
+Time to put all of these pieces together. This get's a little tricky since we do not have a database to start with becasue some of these files can be loaded directly in the interface but some need to be added to a database. When we fire up the interactive in `--manual` mode, we ***must*** give anvi'o the name of a database and it will *create* that database for us. Then we can shut down the interactive, add the necessary data files, and start back up. 
+
+```bash
+anvi-interactive --view-data data.txt \
+                 --tree asv.tre \
+                 --additional-layers additional_layers.txt \
+                 --profile-db profile.db \
+                 --manual
+```
+
+Now we have a new profile database that we can add the sample metadata (`additional_layers.txt`) and the sample dendrogram (sample.tre) using the command `anvi-import-misc-data`. These commands add the table to the new `profile.db`. First, kill the interactive.
+
+```bash
+anvi-import-misc-data additional_views.txt \
+                      --pan-or-profile-db profile.db \
+                      --target-data-table layers
+anvi-import-misc-data sample_tree_tab.txt \
+                      --pan-or-profile-db profile.db \
+                      --target-data-table layer_orders
+```
+
+One last this is to get the table with the taxonomy total by sample (`tax_layers.txt`) into the profile database. We will run the same command we just used. 
+
+```bash
+anvi-import-misc-data tax_layers.txt \
+                      --pan-or-profile-db profile.db \
+                      --target-data-table layers
+```
+
+In fact, we could just as easily append the taxonomy total data onto the `additional_layers.txt` and import in one command. But we didn't. 
+
+## Interactive Interface
+
+With a poupulated database in hand, we can now begin modifying the visual by running the interactive command again. 
+
+```bash
+anvi-interactive --view-data data.txt \
+                 --tree asv.tre \
+                 --additional-layers additional_layers.txt \
+                 --profile-db profile.db 
+                 --fasta-file anvio.fasta \
+                 --manual
+```
+
+```{r, echo=FALSE, warning=FALSE, fig.height=2}
+knitr::include_graphics("figures/16s-water/before.png")
+```
+
+
+Remember, we added a lot of data so the tree looks crazy when you first open the interactive. This is the interactive part of the process where we select the data we want to display and how we want to display it. 
+
+Now have a look after some changing the way everything looks. It is not possible to go through all the steps here but it didn't take very long.
+
+```{r, echo=FALSE, layout="l-page", warning=FALSE, fig.height=3}
+knitr::include_graphics("figures/16s-water/after.png")
+```
+
+*Hopefully* you agree that this is a near publication quality figure. Obviously some tweaking still left to do but most of it can be done in anvi'o.
+
+One final thing I like to do is save a *state* file. After you set everything the way you want it you can hit the **Save State** button, which will store your settings in the database. That way you have a backup text file should something bad happen to the profile database.
+
+```bash
+anvi-export-state --pan-or-profile-db profile.db 
+                  --state default 
+                  --output-file states.json
+```
+
+All files generated for this analysis [can be found here](16s-anvio/). You should only need to run the command above and the final figure should pop up in your browser.  
+
+And that's it for the 16S rRNA part of the workflow. Next, we get into metagenomics. 
 
 <br>
 
