@@ -815,8 +815,9 @@ Here is a nice tutorial on [Working with anvi'o additional data tables](http://m
 3) Additional info about each sample.
 4) Taxa abundance data for each sample at some rank.
 5) Dendrograms ordering the ASVs and samples (based on view data).
+6) Fasta file of all ASVs in the analysis.
 
-#### 1. View data
+### 1. View data
 
 Let's start with the `-d` or `--view-data` file. This file needs to be an ASV by sample matrix of read counts. To simplify the visualization, we will use ASVs represented by 100 or more total reads. 
 
@@ -890,7 +891,7 @@ write.table(additional_view, "16s-anvio/additional_views.txt",
             sep = "\t", quote = FALSE, row.names = FALSE, na = "")
 ```
 
-#### 4. Taxon rank abundance by sample
+### 4. Taxon rank abundance by sample
 
 Turned out this was a little tricky to figure out, but thanks to this [little nifty block of code](https://github.com/joey711/phyloseq/issues/418#issuecomment-262637034) written by [guoyanzhao](https://github.com/guoyanzhao) on the phyloseq Issues forum, it was a piece of cake. The code can be altered to take any rank. See the post for an explanation. 
 
@@ -924,7 +925,7 @@ write.table(layers, "16s-anvio/tax_layers.txt",
             sep = "\t", quote = FALSE, row.names = FALSE, na = "")
 ```
 
-#### 5. Construct Dendrograms
+### 5. Construct Dendrograms
 
 The last piece we need is to generate dendrograms that order the ASVs by their distribution in the samples and the samples by their ASV composition. For this task we will use anvi'o.
 
@@ -958,7 +959,6 @@ This is easy to do by hand, but I *really* need the practice so I will do it in 
 The file `sample.tre` is **added** to the profile.db with  `anvi-import-misc-data` command &   `--target-data-table layer_orders` flag.
 </aside>
 
-
 ```{r, eval=FALSE}
 sam_tree <- read_file("16s-anvio/sample.tre")
 sam_tree <- gsub("[\r\n]", "", sam_tree)
@@ -972,7 +972,7 @@ write.table(sam_tre_tab, "16s-anvio/sample_tree_tab.txt",
             sep = "\t", quote = FALSE, row.names = FALSE, na = "")
 ```
 
-#### 7. Make a fasta file
+### 6. Make a fasta file
 
 We don't need to add a fasta file, but it is a nice way to keep everything in one place. Plus, you can do BLAST searches directly in the interface by right clicking on the ASV of interest, so it is nice to have the sequences. 
 
