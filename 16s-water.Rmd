@@ -209,7 +209,7 @@ Let's first take a look at the taxonomic diversity of the dataset. The code to g
 
 #### 0. Rename *NA* taxonomic ranks
 
-Phyloseq has an odd way of dealing with taxonomic ranks that have no value---in other words,  *NA* in the tax table. The first thing we are going to do before moving forward is to change all of the *NA* to have a value of the next highest classified rank. For example, `ASV5` is not classified at the Genus level but is at Family level (Saprospiraceae). So we change the Genus name to *Family_Saprospiraceae*. The code for this is hidden here but comes from these two posts on the phyloseq GitHub, both by [MSMortensen](https://github.com/MSMortensen): issue [#850](https://github.com/joey711/phyloseq/issues/850#issuecomment-394771087) and issue [#990](https://github.com/joey711/phyloseq/issues/990#issuecomment-424618425). If you want to access the code chunk, check out the source code linked at the bottom of this page.
+Phyloseq has an odd way of dealing with taxonomic ranks that have no value---in other words,  *NA* in the tax table. The first thing we are going to do before moving forward is to change all of the *NA* to have a value of the next highest classified rank. For example, `ASV5` is not classified at the Genus level but is at Family level (Saprospiraceae). So, we change the Genus name to *Family_Saprospiraceae*. The code for this is hidden here but comes from these two posts on the phyloseq GitHub, both by [MSMortensen](https://github.com/MSMortensen): issue [#850](https://github.com/joey711/phyloseq/issues/850#issuecomment-394771087) and issue [#990](https://github.com/joey711/phyloseq/issues/990#issuecomment-424618425). If you want to access the code chunk, check out the source code linked at the bottom of this page.
 
 ```{r tax_clean, echo=FALSE}
 tax.clean <- data.frame(tax_table(ps_water))
@@ -250,7 +250,7 @@ write.table(t(otu_table(ps_water)),
 
 #### 1. Choose a rank
 
-To make it easier to change the code later on, we can assign the taxonomic rank we are interested in to a variable, in the case `TRANK`. 
+To make it easier to change the code later on, we can assign the taxonomic rank we are interested into a variable, in the case `TRANK`. 
 
 ```{r assign_rank}
 TRANK <- "Class"
@@ -317,7 +317,7 @@ Here we can see that:
 
 ## Hypoxic vs. Normoxic 
 
-How does the taxonomic composition of  normoxic compare to hypoxic samples? To look at this, we will combine samples by the `oxstate` variable and then calculate the *relative abundance* for each taxa for both oxygen states. Note one of the Cayo Roldan samples (WCR0) was collected after the hypoxic event when oxygen levels had returned to normal. Therefore WCR0 is considered a normoxic sample.
+How does the taxonomic composition of  normoxic compare to hypoxic samples? To look at this, we will combine samples by the `oxstate` variable and then calculate the *relative abundance* for each taxon for both oxygen states. Note one of the Cayo Roldan samples (WCR0) was collected after the hypoxic event when oxygen levels had returned to normal. Therefore, WCR0 is considered a normoxic sample.
 
 There are a few steps we need to run for this analysis. 
 
@@ -380,7 +380,7 @@ datatable(
 
 #### 6. Group taxa into 'Other'
 
-Time to group low abundance taxa into an *Other* catagory for the bar graph. Since we cannot possibly display all `r nrow(means_w)` differnt taxa in one figure, we need to collapse the low abundance groups.  
+Time to group low abundance taxa into an *Other* category for the bar graph. Since we cannot possibly display all `r nrow(means_w)` different taxa in one figure, we need to collapse the low abundance groups.  
 
 ```{r calc_avg6, warning=FALSE}
 TAXAN <- 8
@@ -488,7 +488,7 @@ datatable(hyp_v_norm, width = "100%", escape = FALSE,
 
 ## During vs. After the event 
 
-What did taxonomic composition look like during and after the event at **each site**? To look at this, we will combine samples by the `period` variable and then calculate the *relative abundance* for each taxa. The code for this analysis is basically the same as the code above where we compared hypoxic to normoxic samples. Therefore, all of the code is hidden. See the link at the bottom of the page for the page source code if you are interested in the code we used here. We go through the same steps:
+What did taxonomic composition look like during and after the event at **each site**? To look at this, we will combine samples by the `period` variable and then calculate the *relative abundance* for each taxon. The code for this analysis is basically the same as the code above where we compared hypoxic to normoxic samples. Therefore, all of the code is hidden. See the link at the bottom of the page for the page source code if you are interested in the code we used here. We go through the same steps:
 
 ```{r assign_rankB, echo=FALSE}
 TRANK <- "Class"
@@ -542,7 +542,7 @@ datatable(
     scroller=TRUE, lengthMenu = c(9, 25, 60)))
 ```
 
-Again, Time to group low abundance taxa into an *Other* catagory for the bar graph. Since we cannot possibly display all `r nrow(means_tm)` differnt taxa in one figure, we need to collapse the low abundance groups.  
+Again, Time to group low abundance taxa into an *Other* category for the bar graph. Since we cannot possibly display all `r nrow(means_tm)` different taxa in one figure, we need to collapse the low abundance groups.  
 
 ```{r calc_avg6B, warning=FALSE, echo=FALSE}
 TAXAN <- 8
@@ -647,7 +647,7 @@ datatable(before_v_after, width = "100%", escape = FALSE,
 
 # Differentially Abundant ASVs
 
-Time to drill down a little deeper and look at differntially abundant (DA) ASVs between the two oxygen conditions. DETAILS ON METHOD. 
+Time to drill down a little deeper and look at differentially abundant (DA) ASVs between the two oxygen conditions. DETAILS ON METHOD. 
 
 ```{r idval_analysis, results='hide'}
 set.seed(119)
@@ -764,7 +764,7 @@ Now. What do we get from all of this? Well, we started with `r ntaxa(ps_water)` 
 
 # Visualizing DA ASVs in Anvi'o
 
-Next, we will combine the results of the ISA analysis with the distribution of ASVs across each sample. We are going to do the analysis in anvi'o[@eren2015anvi] using the `anvi-interactive` command. Anvi'o likes database but it also understands that sometimes you don't have a database. So it offers a *manual mode* for all of us slackers out there. If you type this command you can have a look at the relevant pieces we need for the visualiztion, specifically those under the headings `MANUAL INPUTS` and `ADDITIONAL STUFF`. I will go through these out of order so try to keep up ;)
+Next, we will combine the results of the ISA analysis with the distribution of ASVs across each sample. We are going to do the analysis in anvi'o[@eren2015anvi] using the `anvi-interactive` command. Anvi'o likes database but it also understands that sometimes you don't have a database. So it offers a *manual mode* for all of us slackers out there. If you type this command you can have a look at the relevant pieces we need for the visualization, specifically those under the headings `MANUAL INPUTS` and `ADDITIONAL STUFF`. I will go through these out of order so try to keep up ;)
 
 ```bash
 anvi-interactive -h
@@ -804,7 +804,7 @@ ADDITIONAL STUFF:
                         the remaining columns should be unique attributes.                       
 ```
 
-There are also a few files we generate that cannot be loaded directly.  So in addition to the files that can be *loaded* when running the interactive, we also have files that must be *added* to the database created by anvi'o.
+There are also a few files we generate that cannot be loaded directly.  So, in addition to the files that can be *loaded* when running the interactive, we also have files that must be *added* to the database created by anvi'o.
 
 ## Creating Input Files
 
@@ -818,7 +818,7 @@ Here is a nice tutorial on [Working with anvi'o additional data tables](http://m
 
 #### 1. View data
 
-Let's start with the `-d` or `--view-data` file. This file needs to be an ASV by sample matrix of read counts. To simplify the visualization we will use ASVs represented by 100 or more total reads. 
+Let's start with the `-d` or `--view-data` file. This file needs to be an ASV by sample matrix of read counts. To simplify the visualization, we will use ASVs represented by 100 or more total reads. 
 
 ```{r}
 ps_water_100 <- prune_taxa(taxa_sums(ps_water) > 100, ps_water)
@@ -840,7 +840,7 @@ write.table(data_tab, "16s-anvio/data.txt", sep = "\t",
 
 ### 2. Additional Layers for ASVs
 
-Next, we need some additional data **about the ASVs** to overlay on the visual. This can be anything however what I specifically want are the details of the ISA analysis, total reads, and lineage info. I warn you, this code will get ugly and I urge you to find a better way. 
+Next, we need some additional data **about the ASVs** to overlay on the visual. This can be anything however what I specifically want are the details of the ISA analysis, total reads, and lineage info. I warn you; this code will get ugly and I urge you to find a better way. 
 
 <aside>
 **Loaded** with `anvi-interactive` command & `--additional-layers` flag.
@@ -875,7 +875,7 @@ write.table(additional_layers, "16s-anvio/additional_layers.txt",
 
 ### 3. Additional Views for Samples
 
-Now I want some general data **about the samples** to overlay on the visual. Again, this can be anything. How about a table of alpha diverity metric. We actually have such a table that was generate a ways back up the road. Just need to fix the column names.
+Now I want some general data **about the samples** to overlay on the visual. Again, this can be anything. How about a table of alpha diversity metrics? We actually have such a table that was generated way back up the road. Just need to fix the column names.
 
 <aside>
 **Added** to  profile.db with  `anvi-import-misc-data` command &  `--target-data-table layers` flag.
@@ -892,9 +892,9 @@ write.table(additional_view, "16s-anvio/additional_views.txt",
 
 #### 4. Taxon rank abundance by sample
 
-Turned out this was a little tricky to figure out, but thanks to this [little nifty block of code](https://github.com/joey711/phyloseq/issues/418#issuecomment-262637034) written by [guoyanzhao](https://github.com/guoyanzhao) on the phyloseq Issues forum, it was a piece of cake. The code can be altered to take any rank. See the post for an explaination. 
+Turned out this was a little tricky to figure out, but thanks to this [little nifty block of code](https://github.com/joey711/phyloseq/issues/418#issuecomment-262637034) written by [guoyanzhao](https://github.com/guoyanzhao) on the phyloseq Issues forum, it was a piece of cake. The code can be altered to take any rank. See the post for an explanation. 
 
-Anyway, the goal is to sum each taxa at sum rank and present that as a bar chart for each sample in the visualization. Anvi'o has a specific format it needs where each row is a sample and each column is a taxa. Taxa names need the prefix `t_<RANK>!`. For example, `t_class!` should be added for Class rank. 
+Anyway, the goal is to sum each taxon at sum rank and present that as a bar chart for each sample in the visualization. Anvi'o has a specific format it needs where each row is a sample and each column is a taxon. Taxa names need the prefix `t_<RANK>!`. For example, `t_class!` should be added for Class rank. 
 
 <aside>
 **Added** to  profile.db with    `anvi-import-misc-data` command &   `--target-data-table layers` flag.
@@ -926,7 +926,7 @@ write.table(layers, "16s-anvio/tax_layers.txt",
 
 #### 5. Construct Dendrograms
 
-The last piece we need is to generate dedrograms that order the ASVs by their distribution in the samples and the samples by their ASV composition. For this task we will use anvi'o.
+The last piece we need is to generate dendrograms that order the ASVs by their distribution in the samples and the samples by their ASV composition. For this task we will use anvi'o.
 
 ```bash
 anvi-matrix-to-newick data.txt --distance euclidean \
@@ -938,7 +938,7 @@ anvi-matrix-to-newick data.txt --distance euclidean \
                                --transpose
 ```
 
-The first command reads the view data we generated above, and uses Euclidean distance and Ward linkage for hierarchical clustering of the ASVs. The second command transposes the view data table and then does the same for the samples. There are many distance metrics and linkage methods available.  Boom.
+The first command reads the view data we generated above and uses Euclidean distance and Ward linkage for hierarchical clustering of the ASVs. The second command transposes the view data table and then does the same for the samples. There are many distance metrics and linkage methods available.  Boom.
 
 <aside>
 The file `asv.tre` is **loaded** with  `anvi-interactive` command & `--tree` flag.
@@ -952,7 +952,7 @@ The ASV tree is fine as is, but the sample tree needs a [special format](http://
 | tree_2  	| newick	  | (WCR1:0.142825,(WCR2:0.0466953,WCR3:0.0466953),...  |
 | (…)	      | (…)	      | (…)                                                 | 
 
-This is easy to do by hand, but I *really* need the practice so I will do it in R. Anvi'o is very particular about formatting. For example, if this file ends with a blank line, which it will because when anvi'o made the initial dendragram it add a new line. We need to get rid of that or we get an error when trying to import the table.
+This is easy to do by hand, but I *really* need the practice so I will do it in R. Anvi'o is very particular about formatting. For example, if this file ends with a blank line, which it will because when anvi'o made the initial dendrogram it add a new line. We need to get rid of that or we get an error when trying to import the table.
 
 <aside>
 The file `sample.tre` is **added** to the profile.db with  `anvi-import-misc-data` command &   `--target-data-table layer_orders` flag.
@@ -974,7 +974,7 @@ write.table(sam_tre_tab, "16s-anvio/sample_tree_tab.txt",
 
 #### 7. Make a fasta file
 
-We don't need to add a fasta file but it is a nice way to keep everything in one place. Plus you can do BLAST searches directly in the interface by right clicking on the ASV of interest, so it is nice to have the sequences. 
+We don't need to add a fasta file, but it is a nice way to keep everything in one place. Plus, you can do BLAST searches directly in the interface by right clicking on the ASV of interest, so it is nice to have the sequences. 
 
 <aside>
 **Loaded** with `anvi-interactive` command &  `--fasta-file` flag.
@@ -998,7 +998,7 @@ write.table(anvio_tab_trim_df, "16s-anvio/anvio.fasta",
 
 ## Building the Profile Database
 
-Time to put all of these pieces together. This get's a little tricky since we do not have a database to start with becasue some of these files can be loaded directly in the interface but some need to be added to a database. When we fire up the interactive in `--manual` mode, we ***must*** give anvi'o the name of a database and it will *create* that database for us. Then we can shut down the interactive, add the necessary data files, and start back up. 
+Time to put all of these pieces together. This gets a little tricky since we do not have a database to start with because some of these files can be loaded directly in the interface but some need to be added to a database. When we fire up the interactive in `--manual` mode, we ***must*** give anvi'o the name of a database and it will *create* that database for us. Then we can shut down the interactive, add the necessary data files, and start back up. 
 
 ```bash
 anvi-interactive --view-data data.txt \
@@ -1031,7 +1031,7 @@ In fact, we could just as easily append the taxonomy total data onto the `additi
 
 ## Interactive Interface
 
-With a poupulated database in hand, we can now begin modifying the visual by running the interactive command again. 
+With a populated database in hand, we can now begin modifying the visual by running the interactive command again. 
 
 ```bash
 anvi-interactive --view-data data.txt \
@@ -1047,9 +1047,9 @@ knitr::include_graphics("figures/16s-water/before.png")
 ```
 
 
-Remember, we added a lot of data so the tree looks crazy when you first open the interactive. This is the interactive part of the process where we select the data we want to display and how we want to display it. 
+Remember, we added a lot of data, so the tree looks crazy when you first open the interactive. This is the interactive part of the process where we select the data we want to display and how we want to display it. 
 
-Now have a look after some changing the way everything looks. It is not possible to go through all the steps here but it didn't take very long.
+Now have a look after some changing the way everything looks. It is not possible to go through all the steps here, but it didn't take very long.
 
 ```{r, echo=FALSE, layout="l-page", warning=FALSE, fig.height=3}
 knitr::include_graphics("figures/16s-water/after.png")
@@ -1088,4 +1088,4 @@ And that's it for the 16S rRNA part of the workflow. Next, we get into metagenom
 ## Source Code {.appendix}
 
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-water.Rmd). 
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-water.Rmd).
