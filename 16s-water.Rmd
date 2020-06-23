@@ -819,7 +819,7 @@ Here is a nice tutorial on [Working with anvi'o additional data tables](http://m
 
 ### 1. View data
 
-Let's start with the `-d` or `--view-data` file. This file needs to be an ASV by sample matrix of read counts. To simplify the visualization, we will use ASVs represented by 100 or more total reads. 
+Let's start with the `-d` or `--view-data` file. This file needs to be an ASV by sample matrix of read counts. To simplify the visualization, we will use ***all*** ASVs represented by 100 or more total reads, including those identified as differentially abundant by the ISA. 
 
 ```{r}
 ps_water_100 <- prune_taxa(taxa_sums(ps_water) > 100, ps_water)

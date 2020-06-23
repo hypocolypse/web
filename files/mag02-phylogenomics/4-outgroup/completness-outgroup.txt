@@ -1,0 +1,4 @@
+genome name	domain	confidence	% completion	% redundancy	num_splits	total length
+Sulfurimonas_autotrophica_DSM_16294	BACTERIA	1.0	98.59	1.41	107	2153198
+Sulfurimonas_denitrificans_DSM_1251	BACTERIA	1.0	98.59	1.41	110	2201561
+Sulfurimonas_gotlandica_GD1	BACTERIA	1.0	97.18	4.23	147	2952682

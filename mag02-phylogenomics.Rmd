@@ -26,7 +26,7 @@ library(plyr)
 
 ```
 
-What we want to do next is compare MAG02^[In the analysis, this MAG is named WATER_MAG_00002. For brevity we refer to it henceforth as MAG02] to publicly available genomes. We know from our binning and binning summary that MAG02 has a lot of hits to *Arcobacter*, an Epsilonproteobacteria. However, when we run `anvi-estimate-scg-taxonomy` we get something a little different
+What we want to do next is compare MAG02^[In the analysis, this MAG is named WATER_MAG_00002. For brevity we refer to it henceforth as MAG02] to publicly available genomes. We know from our binning and binning summary that MAG02 has a lot of hits to *Arcobacter*, an Epsilonproteobacteria. However, when we run `anvi-estimate-scg-taxonomy` we get something a little different.
 
 ```bash
 anvi-estimate-scg-taxonomy -c 18_NR-MAGs-SPLIT/WATER_MAG_00002/CONTIGS.db
@@ -61,7 +61,7 @@ python gimme_taxa.py Arcobacter \
                      -o Arcobacter-for-ngd.txt
 ```
 
-We only got 1 hit for [*Poseidonibacter*](files/mag02-phylogenomics/Poseidonibacter-TaxIDs-for-ngd.txt) but the script returned 48 for [*Arcobacter*](files/mag02-phylogenomics/Arcobacter-TaxIDs-for-ngd.txt).
+We only got 1 hit for [*Poseidonibacter*](files/mag02-phylogenomics/0-get-genomes/Poseidonibacter-TaxIDs-for-ngd.txt) but the script returned 48 for [*Arcobacter*](files/mag02-phylogenomics/0-get-genomes/Arcobacter-TaxIDs-for-ngd.txt).
 
 What about the TaxID?
 
@@ -86,7 +86,7 @@ python gimme_taxa.py 2321108 \
                      -o Arcobacter_Group-TaxIDs-for-ngd.txt
 ```
 
-This time we get [198 hits](files/mag02-phylogenomics/Arcobacter_Group-TaxIDs-for-ngd.txt). Since we only need the TaxIDs, we can rerun the command like so:
+This time we get [198 hits](files/mag02-phylogenomics/0-get-genomes/Arcobacter_Group-TaxIDs-for-ngd.txt). Since we only need the TaxIDs, we can rerun the command like so:
 
 ```bash
 python gimme_taxa.py 2321108 \
@@ -124,7 +124,7 @@ ncbi-genome-download bacteria  \
 
 ## Processing NCBI Genomes
 
-A [metadata file](files/mag02-phylogenomics/Arcobacter-NCBI-METADATA.txt) is also created by `ncbi-genome-download`.
+A [metadata file](files/mag02-phylogenomics/1-process-genomes/Arcobacter-NCBI-METADATA.txt) is also created by `ncbi-genome-download`.
 
 ```bash
 column -t Arcobacter-NCBI-METADATA.txt | head -n 4
@@ -146,7 +146,7 @@ anvi-script-process-genbank-metadata -m Arcobacter-NCBI-METADATA.txt \
                                      --exclude-gene-calls-from-fasta-txt
 ```
 
-This command returns a directory, `01_Arcobacter-NCBI-GENOMES` full of fasta files and the file [`Arcobacter-fasta.txt`](files/mag02-phylogenomics/Arcobacter-fasta.txt), which contains the name and fasta file path for each genome.
+This command returns a directory, `01_Arcobacter-NCBI-GENOMES` full of fasta files and the file [Arcobacter-fasta.txt](files/mag02-phylogenomics/1-process-genomes/Arcobacter-fasta.txt), which contains the name and fasta file path for each genome.
 
 ```
 name	path
@@ -155,7 +155,12 @@ Aliiarcobacter_faecis_GCA_013201705_1	/pool/genomics/stri_istmobiome/data/HYPOXI
 Arcobacter_anaerophilus_GCA_000935065_1	/pool/genomics/stri_istmobiome/data/HYPOXIA_DATA/HYPOXIA/19_COMPARATIVE_GENOMICS/01_Arcobacter-NCBI-GENOMES/Arcobacter_anaerophilus_GCA_000935065_1-contigs.fa
 ```
 
-We need to add our MAG to the fasta directory and its name to the `Arcobacter-fasta.txt` file. We will also change the names produced by `anvi-script-process-genbank-metadata` since they are not very meaningful. We can use the `Arcobacter-NCBI-METADATA.txt` file, specifically the `organism_name`, `infraspecific_name`, and/or `isolate` columns to cobble together new genome names. I wish I could say I had a clever way to do this task, but really it was just some copying and pasting. Sadly, I am not as cool as Alon and Meren. Anyway, here is the final [`Arcobacter-NCBI-METADATA.txt`]() file with our new names added and the [`Arcobacter-fasta-rename`](files/mag02-phylogenomics/Arcobacter-fasta-rename.txt) names file with MAG02 added.
+We need to add our MAG to the fasta directory and its name to the `Arcobacter-fasta.txt` file. We will also change the names produced by `anvi-script-process-genbank-metadata` since they are not very meaningful. We can use the `Arcobacter-NCBI-METADATA.txt` file, specifically the `organism_name`, `infraspecific_name`, and/or `isolate` columns to cobble together new genome names. I wish I could say I had a clever way to do this task, but really it was just some copying and pasting. Sadly, I am not as cool as Alon and Meren. 
+
+
+<aside>
+[Arcobacter-fasta-rename](files/mag02-phylogenomics/1-process-genomes/Arcobacter-fasta-rename.txt) names file with MAG02 added.
+</aside>
 
 > If you change the names they MUST be unique and contain no spaces, periods, dashes, or other weird characters. Letters, numbers, and underscores only.
 
@@ -176,13 +181,15 @@ snakemake (doi:10.1093/bioinformatics/bts480)
 Available workflows ..........................: contigs, metagenomics, pangenomics, phylogenomics
 ```
 
-Next, we need a config file for the **contigs workflow**. This file tells anvi'o what commands to run and how to run them. We run this command to generate a default config file, which can be modified as you see fit.
+Next, we need a config file for the **contigs workflow**. This file tells anvi'o what commands to run and how to run them. We run this command to generate a default config file, which can be modified as you see fit. Some commands we chose not to run but they remain in the workflow for posterity.
+
+<aside>
+[Click here](files/mag02-phylogenomics/2-snakemake-contigs/contigs-default-config.json) to see the file or grab it from the folded code below. 
+<aside>
 
 ```bash
 anvi-run-workflow -w contigs --get-default-config contigs-default-config.json
 ```
-
-[Click here](files/mag02-phylogenomics/contigs-default-config.json) to see the file or grab it from the folded code below. Some commands we chose not to run but they remain in the workflow for posterity.
 
 <details markdown="1"><summary>Show/hide JSON-formatted configuration file.</summary>
 <pre><code>
@@ -549,7 +556,7 @@ datatable(
 Let's start by checking the completeness (and redundancy) of each genome based on the presence of single copy core genes (SCG) using the HMM profiles, which were added to the contig database for each genome during the workflow. We can either run the same command 125 times and concatenate the outputs, or we can create an *external-genomes* file---a two-column TAB-delimited flat text file that lists anvi'o contigs databases. The first item in the header line reads '*name*', and the second reads '*contigs_db_path*'. Each line in the file describes a single entry, where the first column is the name of the genome (or MAG), and the second column is the anvi'o contigs database generated for this genome.  
 
 <aside>
-You can access our original [external-genomes file here](files/mag02-phylogenomics/external-genomes.txt).
+You can access the original [external-genomes file here](files/mag02-phylogenomics/3-curate-genomes/external-genomes.txt).
 </aside>
 
 ```bash
@@ -662,13 +669,12 @@ Genomes with fewer HMM hits than MAG02: `r less_hmm$genome_name`.
 
 > Now we have 114 genomes. 
 
-
 ## Screen for 16S rRNA
 
 Remember, we found an ASV in our 16S rRNA analysis that was 100% identical to a 16S rRNA sequence retrieved from MAG02. So we also want to conduct a 16S rRNA analysis of MAG02 against publicly available genomes. It makes no sense (at least to me) to have a MAG02 16S tree that does not contain the same public genomes as the phylogenomic tree. Of the remaining genomes, which ones have a 16S rRNA sequence? We can go back to our old friend `anvi-script-gen-hmm-hits-matrix-across-genomes` but this time using the setting `--hmm-source Ribosomal_RNAs`. We also use a new `external-genomes` file with the `r length(less_hmm$genome_name)` low HMM hit genomes removed. 
 
 <aside>
-The [external-genomes file](files/mag02-phylogenomics/external-genomes-rrna-screen.txt) to screen for 16S rRNA.
+The [external-genomes file](files/mag02-phylogenomics/3-curate-genomes/external-genomes-rrna-screen.txt) to screen for 16S rRNA.
 </aside>
 
 ```bash 
@@ -709,9 +715,8 @@ There were `r length(no_16s$genome_name)` genomes without 16S rRNA genes. We can
 Using the command `anvi-script-gen-hmm-hits-matrix-across-genomes` allows us to retrieve the 16S rRNA sequences from each genome. Since several genomes have more than one copy, we use the `--return-best-hit` flag to return a single copy only. We add the flag `--align-with muscle` to generate a multiple sequence alignment for our inspection. Incidentally we could have used the flag `--min-num-bins-gene-occurs` and set it to 1 in this command, which would have removed any genomes without a 16S rRNA sequence. I figured that out after the fact.
 
 <aside>
-The [external-genomes file](files/mag02-phylogenomics/external-genomes-rrna.txt) to get 16S rRNA genes.
+The [external-genomes file](files/mag02-phylogenomics/3-curate-genomes/external-genomes-rrna.txt) to get 16S rRNA genes.
 </aside>
-
 
 ```bash
 anvi-get-sequences-for-hmm-hits 
@@ -738,14 +743,14 @@ Up to this point we have a collection consisting of genomes that have high compl
 Note. Arcobacter_sp_NORP14 failed subsequent the composition Chi-squared test in the IQ-TREE analysis below. This genome was removed.
 </aside>
 
-#  Dereplicate Genome Collection
+# Dereplicate Genome Collection
 
 Finally, we can dereplicate the genome collection using the command `anvi-dereplicate-genomes` to assess the number of genome clusters. This command has a lot of options for fine-tuning but since we are interested in a quick and dirty assessment, we'll keep it simple. We can either give anvi'o an `external-genomes` file like we just did or a `fasta-text-file` similar to the one from the [Snakemake workflow](#running-snakemake-contigs-workflow) above. Remember, the `external-genomes` file provides names and paths to *contig.dbs* and the `fasta-text-file`  provides names and paths to *fasta* files. Either way, we first need to remove the `r length(less_hmm$genome_name)` genomes that we are cutting from the analysis. Let's stick with the `external-genomes` file since we will use this downstream anyway. 
 
 Since accuracy is not paramount we use `--program fastANI`[@jain2018high] because, well, it’s fast. We also need to choose a `--similarity-threshold`. We tested the number of clusters for 0.90, 0.95, 0.97, 0.98, and 0.99. Overkill? Maybe, but this will give us a good sense of replication in our genome collection. Here is the command with 0.97. 
 
 <aside>
-The [external-genomes file](files/mag02-phylogenomics/external-genomes-dereplicate.txt) for dereplication.
+The [external-genomes file](files/mag02-phylogenomics/3-curate-genomes/external-genomes-dereplicate.txt) for dereplication.
 </aside>
 
 
@@ -774,37 +779,37 @@ We will use the genomes from the `--similarity-threshold 0.99` to get rid of onl
 
 # Outgroup Workflow
 
-We decided to use [*Sulfurospirillum*](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=57665), a member of the Campylobacteraceae, as an outgroup for our tree. We basically ran the same pipeline as above, with a few minor changes. The code is included here but the discussion will be kept to a minimum. I am sure by this point you are tired of hearing me drone on and on.
+We decided to use [*Sulfurimonas*](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=202746), a member of the Helicobacteraceae (Campylobacterales), as an outgroup for our tree. We basically ran the same pipeline as above, with a few minor changes. The code is included here but the discussion will be kept to a minimum. I am sure by this point you are tired of hearing me drone on and on.
 
 #### 1. Get TaxIDs
 
 ```bash
-python gimme_taxa.py 57665 -o Sulfurospirillum-TaxIDs-for-ngd.txt
+python gimme_taxa.py 202746 -o Sulfurimonas-TaxIDs-for-ngd.txt
 
-python gimme_taxa.py 57665 -o Sulfurospirillum-TaxIDs-for-ngd-just-IDs.txt \
+python gimme_taxa.py 202746 -o Sulfurimonas-TaxIDs-for-ngd-just-IDs.txt \
                            --just-taxids
 ```
 
 #### 2. Download genomes
 
 ```bash
-ncbi-genome-download -t Sulfurospirillum-TaxIDs-for-ngd-just-IDs.txt \
-                      bacteria \
-                      -o 00_Sulfurospirillum_Genbank \
-                      --metadata Sulfurospirillum-NCBI-METADATA.txt \
-                      -s genbank \
-                      -l complete,chromosome
+ncbi-genome-download -t Sulfurimonas-TaxIDs-for-ngd-just-IDs.txt \
+                     bacteria \
+                     -o 00_Sulfurimonas_Genbank \
+                     --metadata Sulfurimonas-NCBI-METADATA.txt \
+                     -s genbank  \
+                     -l complete,chromosome
 ```
 
-We received 10 *Sulfurospirillum* genomes. We used the `-l complete,chromosome` flag so we wouldn't need to sift through a bunch of data. We only need a few genomes for the outgroup.
+We received 3 *Sulfurimonas* genomes. We used the `-l complete,chromosome` flag so we wouldn't need to sift through a bunch of data. We only need a few genomes for the outgroup.
 
 #### 3. Format genomes
 
 ```bash
-anvi-script-process-genbank-metadata -m Sulfurospirillum-NCBI-METADATA.txt \
-                                     -o 01_Sulfurospirillum-NCBI-GENOMES \
-                                     --output-fasta-txt Sulfurospirillum-fasta.txt \
-                                     --exclude-gene-calls-from-fasta-txt
+anvi-script-process-genbank-metadata -m Sulfurimonas-NCBI-METADATA.txt \
+                                     -o 01_Sulfurimonas-NCBI-GENOMES \
+                                     --output-fasta-txt Sulfurimonas-fasta.txt -\
+                                     -exclude-gene-calls-from-fasta-txt                                     
 ```
 
 #### 4. Run Snakemake workflow
@@ -814,12 +819,12 @@ You know the routine. Same steps performed for the *Arcobacter*.
 #### 5. Completeness
 
 ```bash 
-anvi-estimate-genome-completeness -e external-genomes.txt \
+anvi-estimate-genome-completeness -e external-genomes-outgroup.txt \
                                   -o completness-outgroup.txt
 ```
 
 <aside>
-Nice genomes. The lowest [completion estimate](files/mag02-phylogenomics/outgroup-completness.txt) is 95.77%. 
+Nice genomes. The lowest [completion estimate](files/mag02-phylogenomics/4-outgroup/completness-outgroup.txt) was 97.18%. 
 </aside>
 
 #### 6. Screen for 16S rRNA
@@ -832,7 +837,7 @@ anvi-script-gen-hmm-hits-matrix-across-genomes
 ```
 
 <aside>
-And they all have [16S rRNA genes](files/mag02-phylogenomics/Ribosomal_RNAs-HMM_HITS-outgroup.txt). 
+And they all have [16S rRNA genes](files/mag02-phylogenomics/4-outgroup/Ribosomal_RNAs-HMM_HITS-outgroup.txt). 
 </aside>
 
 #### 7. Retrieve 16S rRNA sequences
@@ -852,26 +857,24 @@ Which are full-length.
 
 ```bash
 mkdir 06_DEREPLICATE
-anvi-dereplicate-genomes -e external-genomes-outgroup.txt 
-                         --program fastANI 
-                         --similarity-threshold 0.95 
-                         -o 06_DEREPLICATE/DR_95 -T $NSLOTS
+anvi-dereplicate-genomes -e external-genomes-outgroup.txt \
+                         --program fastANI \
+                         --similarity-threshold 0.95 \
+                         -o 06_DEREPLICATE/DR_95 -T 
 ```                         
 
-Good to go. Let's use *Sulfurospirillum halorespirans* (DSM 13726), *Sulfurospirillum deleyianum* (DSM 6946), *Sulfurospirillum multivorans* (DSM 12446), and *Sulfurospirillum barnesii* (SES 3) as the outgroup since these were all 'unique' at 95% similarity. 
+Good to go, no duplicates. The outgroup consists of  *Sulfurimonas gotlandica* (GD1), *Sulfurimonas denitrificans* (DSM 251), and *Sulfurimonas autotrophica* (DSM 16294).
 
-# Phylogenomics
+# Phylogenomic Analysis of MAG02
 
-Finally, we are ready for phylogenomic analysis. We first need to make a new *external-genomes* file that contains the *Arcobacter* representatives and the *Sulfurospirillum* outgroup. Then we need to setup a phylogenomic Snakemake workflow. Like before, we start by getting a *default config* file for the workflow.
+Finally, we are ready for phylogenomic analysis. One way to do this is to select SCG, make a concatenated alignment, and construct a multi locus tree. This is *not* the way we did it for the paper but it is worth seeing how it is done so you can appreciated the different approaches. 
 
-```bash
-anvi-run-workflow -w phylogenomics 
-                  --get-default-config phylogenomics-default-config.json
-```
+We first need to make a new *external-genomes* file that contains the *Arcobacter* representatives we want to use and the *Sulfurimonas* outgroup. Then we need to setup a phylogenomic Snakemake workflow. 
 
 Remember when ran the contigs workflow above? Most of those steps can actually be run in the phylogenomic workflow itself. The thing  is that it does not really give us the opportunity to curate our collection *before* phylogenomic analysis. Because we ran  the cotigs workflow first, there are many steps in the phylogenomic workflow that we simply do not need. So, we chop out the chunks of the `phylogenomics-default-config.json` that are unnecessary. 
 
-Seems like a good idea to select SCG that are in all of the genomes. Of the 71 genes in the HMM profile, [63 were present in all 77 genomes](files/mag02-phylogenomics/arco-phylo-Bacteria_71-HMM_HITS.txt). We used these for our analysis though we could easily select a subset like all Ribosomal genes. 
+
+It seems like a good idea to select SCG that are in all of the genomes. First we generate a sample by SCG matrix.
 
 ```bash
 anvi-script-gen-hmm-hits-matrix-across-genomes 
@@ -880,9 +883,30 @@ anvi-script-gen-hmm-hits-matrix-across-genomes
                    --hmm-source Bacteria_71
 ```
 
+```{r echo=FALSE}
+hmm_hits <- read.table(t("files/mag02-phylogenomics/5-phylogenomics/arco-phylo-Bacteria_71-HMM_HITS.txt"), 
+                       row.names = 1, header = TRUE)
+genes_list <- as.data.frame(colSums(hmm_hits != 0) == nrow(hmm_hits))
+colnames(genes_list) <- "in_all_genomes"
+genes_list <- subset(genes_list, in_all_genomes==TRUE)
+genes_list <- tibble::rownames_to_column(genes_list, "gene")
+genes_list[,2] <- NULL
+write.table(genes_list, "files/mag02-phylogenomics/5-phylogenomics/gene_names.txt", 
+            col.names = FALSE, quote = FALSE, row.names = FALSE)
+```
+
+Of the `r ncol(hmm_hits)` genes in the HMM profile, `r nrow(genes_list)` were present in all `r nrow(hmm_hits)` genomes. We used these genes for our analysis though we could easily select a subset like all Ribosomal genes. 
+
 <aside>
-Here is the [modified config](files/mag02-phylogenomics/phylogenomics-config.json) file & the [final external genomes](files/mag02-phylogenomics/arco-phylo-external-genomes.txt) file. 
+Here is the [modified config](files/mag02-phylogenomics/5-phylogenomics/phylogenomics-config.json) file, the [final external genomes](files/mag02-phylogenomics/5-phylogenomics/arco-phylo-external-genomes.txt) file, & the [gene list](files/mag02-phylogenomics/5-phylogenomics/gene_names.txt). 
 </aside>
+
+Like before, we start by getting a *default config* file for the workflow. Modify the file how you like but make sure to add the *genes file name* (or a list of genes) to the config file. 
+
+```bash
+anvi-run-workflow -w phylogenomics 
+                  --get-default-config phylogenomics-default-config.json
+```
 
 And now here are the Snakemake commands.
 
@@ -900,9 +924,9 @@ anvi-run-workflow -w phylogenomics
                   --keep-going --rerun-incomplete
 ```
 
-> Phylogenomic analysis of 73 *Arcobacter* and 4  *Sulfurospirillum* genomes. 
+> Phylogenomic analysis of 73 *Arcobacter* and 3  *Sulfurimonas* genomes. 
 
-And away she goes. A straight-up phylogenomic approach using SCG (*picked somewhat at random*) as we just did may not be the best approach for scrutinizing closely related genomes. This is because we are not taking into account the degree of [homogeneity](http://merenlab.org/2016/11/08/pangenomics-v2/#concept-of-homogeneity) within gene clusters. A better approach is to calculate homogeneity indices and use the results to guide our choice of genes clusters for the phylogenomic analysis. For this, we will use anvi'o pangenomic analysis. 
+And away she goes. A straight-up phylogenomic approach using SCG (*picked somewhat at random*) as we just did may not be the best approach for scrutinizing closely related genomes. This is because we are not taking into account the degree of [homogeneity](http://merenlab.org/2016/11/08/pangenomics-v2/#concept-of-homogeneity) within gene clusters. A better approach is to calculate homogeneity indices and use the results to guide the choice of genes clusters for the phylogenomic analysis. For this, we will use anvi'o pangenomic analysis. 
 
 ## Pangenome Analysis
 
@@ -929,13 +953,13 @@ anvi-display-pan -g ARCOBACTER-GENOMES.db -p ARCOBACTER-PAN.db
 
 Once inside the interactive, we performed the following steps:
 
-1) Hit **Draw** and the pangenome will render in the brwoser window. 
+1) Hit **Draw** and the pangenome will render in the browser window. 
 2) Go to the **Search** pane and  click on the *Search gene clusters using filters* dropdown. 
 3) Set the following parameters:
-    * Min number of genomes gene cluster occurs = 77
+    * Min number of genomes gene cluster occurs = 76
     * Min number of genes from each genome = 1 
     * Max number of genes from each genome = 1
-    * Max functional homogeneity index = 0.90
+    * Max functional homogeneity index = 0.95
     * Min geometric homogeneity index = 0.99
 4) Click *Search*. 
 5) Scroll down and hit *Highlight splits on tree*. Zoom into that area on the outside of the tree. The red lines are the highlights. 
@@ -954,7 +978,7 @@ Once inside the interactive, we performed the following steps:
 8) Head back to the button under Highlight and hit *Append splits to the selected bin*. 
 9) Go to the **Bins** tab, rename the bin if you wish, and click *Store bin collection*.
 
-The pangenome database now has a new collection of SCG and a new phylogenomic tree. The new collection has 17 gene clusters and 1309 genes. 1309 divided by 77 (number of genomes) equals 17. Sweet.
+We relaxed the functional homogeneity index to accommodate the outgroup. The pangenome database now has a new collection of SCG and a new phylogenomic tree. The new collection has 36 gene clusters and 2736 genes. 2736 divided by 76 (number of genomes) equals 36. Sweet.
 
 #### Optional, on the fly tree generation.  
 
@@ -986,10 +1010,10 @@ anvi-get-sequences-for-gene-clusters \
                         -g ARCOBACTER-GENOMES.db \
                         -o ARCOBACTER-proteins-better-core_no_interactive.fa \
                         --concatenate-gene-clusters \
-                        --min-num-genomes-gene-cluster-occurs 77  \
+                        --min-num-genomes-gene-cluster-occurs 76  \
                         --min-num-genes-from-each-genome 1 \
                         --max-num-genes-from-each-genome 1 \
-                        --max-functional-homogeneity-index 0.90 \
+                        --max-functional-homogeneity-index 0.95 \
                         --min-geometric-homogeneity-index 0.99
 ```
 
@@ -998,21 +1022,25 @@ And the last part of the output looks like this:
 ```
 INFO
 ===============================================
-Your filters resulted in 17 gene clusters that contain a total of 1309 genes.
+Your filters resulted in 36 gene clusters that contain a total of 2736 genes.
 for downstream analyses. Just so you know.
 
 Sequence type ...............................................: Amino acid
 Output file for phylogenomics ...............................: ARCOBACTER-proteins-better-core_no_interactive.fa
 ```
 
-As expected, 17 gene clusters encompassing a total of 1309 genes. *Note, the order of genes in the concatenate file may differ but the content should be the same.* 
+As expected, 36 gene clusters encompassing a total of 2736 genes. *Note, the order of genes in the concatenate file may differ but the content should be the same.* 
 
-Anyway, regardless of the approach you choose, now we can use your curated SCG fasta file to construct a new phylogenomic tree. You can either do this is anvi'o, which will use [IQ-TREE](http://www.iqtree.org/)[@minh2020iq] or you can run a program outside anvi'o
+Anyway, regardless of the approach you choose, now we can use your curated SCG fasta file to construct a new phylogenomic tree. You can either do this is anvi'o, which will use [IQ-TREE](http://www.iqtree.org/)[@minh2020iq], or you can run a program outside anvi'o. 
+
+The anvi'o way...
 
 ```bash
 anvi-gen-phylogenomic-tree -f ARCOBACTER-proteins-better-core.fa 
                            -o ARCOBACTER-proteins-better-core.tre
 ```
+
+## Generating & Visualizing Tree 
 
 Instead, we will use [IQ-TREE](http://www.iqtree.org/)[@minh2020iq] (v. 2.0.3) natively  with  *ModelFinder Plus*[@kalyaanamoorthy2017modelfinder] to perform extended model selection followed by tree inference. *ModelFinder* computes the log-likelihoods of an initial parsimony tree for many different models then computes Akaike information criterion (AIC), corrected Akaike information criterion (AICc), and the Bayesian information criterion (BIC) to choose the substitution model that minimizes the BIC score.
 
@@ -1026,15 +1054,63 @@ iqtree -s ARCOBACTER-proteins-better-core.fa
                   -m MFP
 ```
 
-*ModelFinder* tested 49 models (it will test up to 546 protein models) and selected LG+F+R4 as the best-fit model based on BIC. We subsequently ran this model with 5000 ultrafast bootstrap approximations[@hoang2017ultrafast].
+*ModelFinder* tested 51 models (it will test up to 546 protein models) and selected LG+F+R6 as the best-fit model based on BIC. We subsequently ran this model with 5000 ultrafast bootstrap approximations[@hoang2017ultrafast].
 
 ```bash
 iqtree -s ARCOBACTER-proteins-better-core.fa 
-       --prefix arcobacterLG+F+R4-5000  
-       -m LG+F+R4 -bb 5000 -T $NSLOTS
+       --prefix arcobacterLG+F+R6-5000  
+       -m LG+F+R6 -bb 5000 -T $NSLOTS
 ```
 
-# 16S rRNA gene analysis from MAG02
+Great, we have a tree but really no other information to decorate it with. So far, we have generated a lot of metric data for  each genome. Luckily, all of that is in the pangenome database. We use the command `anvi-export-misc-data` to get most what we need. 
+
+```bash
+anvi-export-misc-data --pan-or-profile-db ARCOBACTER-PAN.db \
+                      --target-data-table layers \
+                      --output-file genome_stats.txt
+```
+
+This table contains things like total length,	GC content,	percent completion,	percent redundancy, and so on. One piece we do not have by may want is the SCG taxonomy, speciffically the genus prediction. Clearly from what we have seen, these are not all *Arcobacter*, despite most genomes carrying that name. 
+
+We did this way back in the beginning, but let's do it again for our final collection. 
+
+```bash
+for genome in `cat final_genomes.txt`; 
+do 
+       anvi-estimate-scg-taxonomy \
+       -c 03_CONTIGS/$genome-contigs.db \
+       -o 09_SCG_TAXONOMY/$genome-SCG.txt; 
+done
+```
+
+And add these data to our file with genome stats. Most of the lineage data is uninformative and can be eliminated. We also constructed a *metadata file*  after sifting through all of the metadata we retrieved from NCBI about natural host and isolation source. We could combine these files but I like to keep the metadata file separate so I can add info as needed. Time to visualize. 
+
+Since we do not have a database, anvi'o will create a dummy database the first time we run the command `anvi-interactive`. But we still must give a name for the as yet nonexistent dadabase.
+
+```bash
+anvi-interactive --profile-db profile.db 
+                 --tree arcobacterLG+F+R6-5000.treefile  
+                 --manual
+```
+
+Stop the interactive. Now we have a database to populate. Let's add the genome metric data. 
+
+```bash
+anvi-import-misc-data genome_stats.txt 
+                 --pan-or-profile-db profile.db 
+                 --target-data-table items
+```
+
+Now we can restart the interactive with our metadata file of NCBI collection info.
+
+```bash
+anvi-interactive --profile-db profile.db 
+                 --tree arcobacterLG+F+R6-5000.treefile  
+                 --additional-layers metadata.txt
+                 --manual
+```
+
+# 16S rRNA Phylogenetic Analysis of MAG02
 
 Next, we performed the same process for 16S rRNA genes from all the genomes in the phylogenomic analysis. 
 
@@ -1065,7 +1141,7 @@ iqtree -s sequences-for-16s-rrna-hits-rename.fa
                   -m MFP
 ```
 
-*ModelFinder* tested 30 models (it will test up to 286 DNA models) and selected TVM+F+I+G4 as the best-fit model based on BIC. We subsequently ran this model with 5000 ultrafast bootstrap approximations[@hoang2017ultrafast].
+*ModelFinder* tested 29 models (it will test up to 286 DNA models) and selected TVM+F+I+G4 as the best-fit model based on BIC. We subsequently ran this model with 5000 ultrafast bootstrap approximations[@hoang2017ultrafast].
 
 ```bash 
 iqtree -s sequences-for-16s-rrna-hits-rename.fa 
@@ -1077,7 +1153,7 @@ If you are unfamiliar with IQ-TREE, check out the [tutorial](http://www.iqtree.o
 
 # Conclusion
 
-Dandy. Now we have a phylogenomic tree of MAG02 with 72 other *Arcobacter* genomes and 4 from *Sulfurospirillum* as the outgroup. We also have a phylogenetic tree of near-full length 16S rRNA genes from the same genomes. 
+Dandy. Now we have a phylogenomic tree of MAG02 with 72 other *Arcobacter* genomes and 3 from *Sulfurimonas* as the outgroup. We also have a phylogenetic tree of near-full length 16S rRNA genes from the same genomes. 
 
 <div class="post-nav">
 <div class="post-nav-item">

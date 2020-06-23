@@ -1,0 +1,4 @@
+genome_or_bin	Archaeal_16S_rRNA	Archaeal_23S_rRNA	Archaeal_5S_rRNA	Archaeal_5_8S_rRNA	Bacterial_16S_rRNA	Bacterial_23S_rRNA	Bacterial_5S_rRNA	Eukaryotic_28S_rRNA	Eukaryotic_5S_rRNA	Eukaryotic_5_8S_rRNA	Mitochondrial_12S_rRNA	Mitochondrial_16S_rRNA
+Sulfurimonas_autotrophica_DSM_16294	0	4	0	0	4	0	0	0	0	0	0	0
+Sulfurimonas_denitrificans_DSM_1251	0	4	0	0	4	0	0	0	0	0	0	0
+Sulfurimonas_gotlandica_GD1	0	4	0	0	4	0	0	0	0	0	0	0

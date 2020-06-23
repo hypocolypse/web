@@ -63,6 +63,13 @@ The main steps of this workflow are:
 | MERGING               | Create single merged profile db.                                    |  individual profile dbs |
 :::
 
+# Samples
+
+We have a total of four samples from two sites and two time periods---so one sample per site per time. 
+
+* *Cayo Roldan*: the site that went hypoxic.  **WROL 1914** collected during the event and **WROL 1915** collected one month after the event.
+* *Cayo Coral*: the site that was always normoxic. **WCCR 1913**  collected during the event and **WCCR 1916** collected one month after the event.
+
 # Trimming
 
 Before we run the workflow we must trim Illumina adaptors. First we need to make some directories to put the output files.

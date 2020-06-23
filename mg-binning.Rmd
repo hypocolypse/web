@@ -168,7 +168,6 @@ datatable(
 
 Messy.
 
-
 #### Estimate genome completeness
 
 We can also the estimate genome completeness of each. The output of this command is a simple table and can give you quick access to some important details.
@@ -209,7 +208,6 @@ In truth, none of this is particularly useful right now since we know are bins a
 DETAILS
 
 Once I have gone through all the bins and am happy with the manual refinement, I make a new collection to have a clean slate. This involves a little text file manipulation but its pretty easy. First I run...
-
 
 ```bash
 anvi-export-collection -p 06_MERGED/WATER/PROFILE.db -C CONCOCT_5
@@ -264,7 +262,7 @@ anvi-rename-bins -c 03_CONTIGS/WATER-contigs.db \
                  --min-completion-for-MAG 70 \
                  --max-redundancy-for-MAG 10 \
                  --prefix WATER \
-                 --report-file 08_RENAMED_BINS/MICROBIAL.renaming_bins.txt
+                 --report-file MICROBIAL.renaming_bins.txt
 
 anvi-rename-bins -c 03_CONTIGS/WATER-contigs.db
                  -p 06_MERGED/WATER/PROFILE.db \
@@ -274,24 +272,37 @@ anvi-rename-bins -c 03_CONTIGS/WATER-contigs.db
                  --min-completion-for-MAG 70 \
                  --max-redundancy-for-MAG 10 \
                  --prefix WATER_v -/
-                 -report-file 08_RENAMED_BINS/VIRAL.renaming_bins.txt
+                 -report-file VIRAL.renaming_bins.txt
 
 ```
 
 As you can see, we use our new collections plus a few criteria to rename all the bins. Anything fitting those critera will have the prefix `WATER_MAG_` and those that do not will be `WATER_BIN_`. Of course, we do not expect any viral bins to meet these criteria and while calling VAGs (viral assembled genomes) can be done (I think), it is beyond the scope of this study.
 
+And now, generate summaries of the final microbial and viral collections. 
+
+```bash
+anvi-summarize -c 03_CONTIGS/WATER-contigs.db \
+               -p 06_MERGED/WATER/PROFILE.db \
+               -C MICROBIAL_FINAL \
+               -o MICROBIAL_FINAL
+anvi-summarize -c 03_CONTIGS/WATER-contigs.db \
+               -p 06_MERGED/WATER/PROFILE.db \
+               -C VIRAL_FINAL \
+               -o VIRAL_FINAL
+```
+
 ### Summarize MAGs
 
-Now, for a little sanity check  we can summarize the MAGs.
+Now, for a little sanity check  we can summarize the MAGs. We can employ the same trick above to make a collection of just MAGs called, well, `MAGS`. 
 
 ```bash
 anvi-summarize -c 03_CONTIGS/WATER-contigs.db
                -p 06_MERGED/WATER/PROFILE.db \
-               -C MAGS -o 10_SUMMARY_MAGS/MAGS-SUMMARY
+               -C MAGS -o MAGS-SUMMARY
 anvi-estimate-genome-completeness
                -c 03_CONTIGS/WATER-contigs.db \
                -p 06_MERGED/WATER/PROFILE.db \
-               -C MAGS -o 10_SUMMARY_MAGS/MAGS.info
+               -C MAGS -o MAGS.info
 ```
 
 And combine the `bins_summary.txt` with the `MAGS.info` table to check out the MAGs.
@@ -495,6 +506,7 @@ anvi-estimate-scg-taxonomy -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db
                            -p 17_NR-MAGs-MERGED/PROFILE.db
                            -C NR_MAGs
 ```
+
 And here is the output.
 
 ```
@@ -503,7 +515,7 @@ Profile DB ...................................: 17_NON-REDUNDANT-MAGs-MERGED/PRO
 Metagenome mode ..............................: False
 
 * 3,404 split names associated with 5 bins of in collection 'NON_REDUNDANT_MAGs'
-have been successfully recovered 🎊
+have been successfully recovered 
 
 Estimated taxonomy for collection "NON_REDUNDANT_MAGs"
 ===============================================
@@ -522,11 +534,130 @@ Estimated taxonomy for collection "NON_REDUNDANT_MAGs"
 ╘═════════════════╧══════════════╧═══════════════════╧═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╛
 ```
 
+## Estimate Bin Taxonomy
+
+Heck, since we're here we can also estimate the taxonomy of the bins. We wil leave out the MAGs since we just did that. 
+
+```bash
+anvi-estimate-scg-taxonomy -p 06_MERGED/WATER/PROFILE.db \
+                           -c 03_CONTIGS/WATER-contigs.db 
+                           -C MICROBIAL_FINAL 
+                           -o microbial-bins-gtdb.txt
+```
+
+
+```
+Contigs DB ...................................: 03_CONTIGS/WATER-contigs.db
+Profile DB ...................................: 06_MERGED/WATER/PROFILE.db
+Metagenome mode ..............................: False
+
+* 11,572 split names associated with 44 bins of in collection 'MICROBIAL_FINAL'
+have been successfully recovered
+
+Estimated taxonomy for collection "MICROBIAL_FINAL"
+===============================================
+╒═════════════════╤══════════════╤═══════════════════╤═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╕
+│                 │   total_scgs │   supporting_scgs │ taxonomy                                                                                                                              │
+╞═════════════════╪══════════════╪═══════════════════╪═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╡
+│ WATER_MAG_00001 │           22 │                22 │ Bacteria / Cyanobacteria / Cyanobacteriia / Synechococcales / Cyanobiaceae / Synechococcus /                                          │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_MAG_00003 │           22 │                21 │ Bacteria / Cyanobacteria / Cyanobacteriia / Synechococcales / Cyanobiaceae / RCC307 / RCC307 sp000063525                              │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_MAG_00002 │           20 │                 9 │ Bacteria / Campylobacterota / Campylobacteria / Campylobacterales / Arcobacteraceae / Poseidonibacter /                               │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00013 │           20 │                 6 │ Bacteria / Proteobacteria / Gammaproteobacteria / Pseudomonadales / Nitrincolaceae / ASP10-02a / ASP10-02a sp002686055                │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_MAG_00004 │           18 │                10 │ Bacteria / Proteobacteria / Alphaproteobacteria / Rhodobacterales / Rhodobacteraceae / Aliiroseovarius / Aliiroseovarius pelagivivens │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_MAG_00005 │           16 │                16 │ Bacteria / Proteobacteria / Alphaproteobacteria / Pelagibacterales / Pelagibacteraceae / Pelagibacter /                               │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00007 │           12 │                12 │ Bacteria / Proteobacteria / Alphaproteobacteria / Puniceispirillales / Puniceispirillaceae / UBA8309 /                                │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00012 │           10 │                 3 │ Bacteria / Proteobacteria / Gammaproteobacteria / Pseudomonadales / Nitrincolaceae / ASP10-02a / ASP10-02a sp002312935                │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00006 │            9 │                 8 │ Bacteria / Actinobacteriota / Acidimicrobiia / TMED189 / TMED189 / TMED189 /                                                          │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00015 │            9 │                 7 │ Bacteria / SAR324 / SAR324 / SAR324 / NAC60-12 / UBA1014 / UBA1014 sp001469005                                                        │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00010 │            8 │                 8 │ Bacteria /  /  /  /  /  /                                                                                                             │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00023 │            7 │                 4 │ Bacteria / Proteobacteria / Alphaproteobacteria / Rhodobacterales / Rhodobacteraceae / HIMB11 /                                       │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00008 │            6 │                 6 │ Bacteria / Actinobacteriota / Acidimicrobiia / TMED189 / TMED189 / TMED189 /                                                          │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00016 │            6 │                 6 │ Bacteria / Bacteroidota / Bacteroidia / Flavobacteriales / Flavobacteriaceae / MED-G13 /                                              │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00022 │            6 │                 6 │ Bacteria /  /  /  /  /  /                                                                                                             │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00021 │            5 │                 5 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00029 │            5 │                 3 │ Bacteria / Proteobacteria / Alphaproteobacteria / Rhodobacterales / Rhodobacteraceae / HIMB11 / HIMB11 sp000472185                    │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00011 │            4 │                 4 │ Bacteria / Proteobacteria /  /  /  /  /                                                                                               │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00019 │            4 │                 4 │ Bacteria /  /  /  /  /  /                                                                                                             │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00017 │            4 │                 3 │ Bacteria / Bacteroidota / Bacteroidia / Flavobacteriales / Flavobacteriaceae / UBA724 / UBA724 sp002723075                            │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00009 │            2 │                 2 │ Bacteria / Proteobacteria / Gammaproteobacteria / Chromatiales / Sedimenticolaceae /  /                                               │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00027 │            2 │                 2 │ Archaea / Thermoplasmatota / Poseidoniia / Poseidoniales /  /  /                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00031 │            2 │                 2 │ Bacteria / Bacteroidota / Bacteroidia / Flavobacteriales / Flavobacteriaceae / UBA3478 / UBA3478 sp003045935                          │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00014 │            1 │                 1 │ Archaea / Thermoplasmatota / Poseidoniia / Poseidoniales / Thalassoarchaeaceae / MGIIb-N1 / MGIIb-N1 sp002505695                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00018 │            1 │                 1 │ Archaea / Thermoplasmatota / Poseidoniia / Poseidoniales / Thalassoarchaeaceae / MGIIb-N1 /                                           │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00020 │            1 │                 1 │ Bacteria / Proteobacteria / Alphaproteobacteria / Rhodobacterales / Rhodobacteraceae / GCA-002705045 / GCA-002705045 sp002703515      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00025 │            1 │                 1 │ Archaea / Thermoplasmatota / Poseidoniia / Poseidoniales / Poseidoniaceae / MGIIa-L2 / MGIIa-L2 sp002719815                           │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00026 │            1 │                 1 │ Bacteria / SAR324 / SAR324 / SAR324 / NAC60-12 / UBA1014 / UBA1014 sp001469005                                                        │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00028 │            1 │                 1 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00032 │            1 │                 1 │ Bacteria / Cyanobacteria / Cyanobacteriia / Synechococcales / Cyanobiaceae / Synechococcus /                                          │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00033 │            1 │                 1 │ Bacteria / Proteobacteria / Alphaproteobacteria / Rhodobacterales / Rhodobacteraceae /  /                                             │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00024 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00030 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00034 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00035 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00036 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00037 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00038 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00039 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00040 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00041 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00042 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00043 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+├─────────────────┼──────────────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ WATER_Bin_00044 │            0 │                 0 │ /  /  /  /  /  /                                                                                                                      │
+╘═════════════════╧══════════════╧═══════════════════╧═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╛
+
+Output file ..................................: microbial-bins-gtdb.txt
+```
+
+
+
 In the next section we explore WATER_MAG_00002 in a phylogenomic context. That's all for this page.
 
 <br/>
 
-div class="post-nav">
+<div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Previous</div>
 <a href="mg-workflow-2.html" rel="next">N<sup><u>o</u></sup> 4. Assembley & Annotation Summary</a>
@@ -540,6 +671,7 @@ div class="post-nav">
 </div>
 </div>
 
+
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-auto-binning.Rmd).
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-binning.Rmd).
