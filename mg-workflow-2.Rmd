@@ -229,7 +229,7 @@ We will get into much more of the annotation data later, including the various f
 <div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Next</div>
-<a href="mg-auto-binning.html" rel="prev">N<sup><u>o</u></sup> 5. Automated Binning</a>
+<a href="mg-binning.html" rel="prev">N<sup><u>o</u></sup> 5. Automated Binning</a>
 </div>
 </div>
 

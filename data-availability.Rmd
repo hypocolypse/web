@@ -25,19 +25,21 @@ If you prefer to skip sequence processing with DADA2 and jump straight to the an
 
 * [10.25573/data.11828700](https://doi.org/10.25573/data.11828700): Final output file of the DADA2  workflow (`combo_pipeline.rdata)`. This .RData file is loaded directly into the beginning of the [phyloseq workflow](16s-data-prep.html). In this repo you will also find additional input files needed to run subsequent analyses.
 
-## Additional Data Products
-
-Most data outputs can be accessed from the workflow pages. For example, many tables can be downloaded straight from the page. Information for additional data products  can be found at the bottom of individual workflow pages.
-
 # Data for Metagenomic Analysis
 
 * [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632): Project accession number (same as above) for the metagenomic data from the four water column  samples. Sample accession numbers are  [ERS4578390-ERS4578393](https://www.ebi.ac.uk/ena/browser/view/ERS4578390-ERS4578393).
 
-# Accessing the R Code only
+```{r, echo=FALSE, eval=FALSE}
+## Accessing the R Code only
 
-The  R code is available by clicking [here](files/data-availability/r-code). There you can find code for each step of the 16S rRNA pipeline. Please note that this  R code is pulled from the `.Rmd` files. The code has not been tested independent of the R Markdown workflows so *Use at Your Own Risk* please. In other words, the code works when run in the site build, but the complete pipeline has not been tested using just this code. I used `knitr::purl()` to pull  the code from the R Markdown file. I did this for you just in case you wanted the code and not hear me drone on about colors, zoomable figures, or Keanu Reeves. Commands that are commented out are things I tried that I could never get to work. Any line that starts like this: `## ----` is the code chuck name .
+#The  R code is available by clicking [here](files/data-availability/r-code). There you can find code for each step of the 16S rRNA pipeline. Please note that this  R code is pulled from the `.Rmd` files. The code has not been tested independent of the R Markdown workflows so *Use at Your Own Risk* please. In other words, the code works when run in the site build, but the complete pipeline has not been tested using just this code. I used `knitr::purl()` to pull  the code from the R Markdown file. I did this for you just in case you wanted the code and not hear me drone on about colors, zoomable figures, or Keanu Reeves. Commands that are commented out are things I tried that I could never get to work. Any line that starts like this: `## ----` is the code chuck name.
+```
 
-# Submitting Sequence Data to Nucleotide Archives
+# Additional Data Products
+
+Most data outputs can be accessed from the workflow pages. For example, many tables can be downloaded straight from the page. Information for additional data products  can be found at the bottom of individual workflow pages in the Appendix.
+
+# Submitting Sequence Data
 
 We submitted out data to the [European Nucleotide Archive (ENA)](https://www.ebi.ac.uk/ena). The ENA does not like RAW data and prefers to have primers removed. So we submitted the trimmed Fastq files to the ENA. You can find these data under the study accession number **PRJEB36632 (ERP119845)**. The RAW files on our figshare site (see above).
 

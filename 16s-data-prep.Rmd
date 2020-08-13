@@ -30,6 +30,16 @@ knitr::opts_current$get(c(
 ))
 ```
 
+```{r, echo=FALSE}
+### NOTE: this should only be run AFTER the workflow is finished. 
+### This image is created at the END of this workflow and now read back in.
+### Basically, this locks everything in place so nothing changes. Only code
+### chunkc to display figures and tables are evaluated. Everything else is
+### turned off. To actually run this you need to set this chunk to
+### eval=FALSE and the rest to eval=TRUE
+load("rdata/16s-data-prep/16s-data_prep.rdata")
+```
+
 > You will either need to run the [DADA2 workflow](16s-dada2.html) or the grab output file `combo_pipeline.rdata` from the workflow. This file contains the sequence and taxonomy tables. See the [Data Availability](data-availability.html) page for complete details.
 
 Unless otherwise noted, we primarily use [phyloseq](https://joey711.github.io/phyloseq/)[@mcmurdie2013phyloseq] in this section of the workflow to analyze the 16S rRNA data set. Before we conduct any analyses we first need to *prepare our data set* by curating samples, removing *contaminants*, and creating phyloseq objects.
@@ -51,7 +61,7 @@ Before we begin, let's create a summary table containing some basic sample metad
 
 <br/>
 
-```{r sample_table1, echo=FALSE}
+```{r sample_table1, echo=FALSE, eval=FALSE}
 joined_tab <- read.table(
   "tables/16s-data-prep/read_changes.txt",
   header = TRUE, sep = "\t")
@@ -95,7 +105,7 @@ remove_sam <- joined_tab[joined_tab$nonchim <= cutoff, ]
 
 2. After we load the data packet we next need to format sample names and define groups. We will use the actual sample names to define the different groups.
 
-```{r deliniate_sample_types}
+```{r deliniate_sample_types, eval=FALSE}
 load("rdata/16s-dada2/water_pipeline.rdata")
 samples.out <- rownames(seqtab)
 subject <- sapply(strsplit(samples.out, "[[:digit:]]"), `[`, 1)
@@ -145,7 +155,7 @@ rownames(samdf) <- samples.out
 A phyloseq object contains ASV table (taxa abundances), sample metadata, and taxonomy table (mapping between ASVs and higher-level taxonomic classifications).
 </aside>
 
-```{r create_ps_object}
+```{r create_ps_object, eval=FALSE}
 # this create the phyloseq object
 ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE),
                    sample_data(samdf), tax_table(tax_silva))
@@ -159,9 +169,13 @@ tax_table(ps) <- cbind(tax_table(ps),
 head(taxa_names(ps))
 ```
 
+```{r, echo=FALSE}
+head(taxa_names(ps))
+```
+
 So the complete data set contains `r ntaxa(ps)` ASVs. We can also use the [microbiome R package](https://github.com/microbiome/microbiome/)[@lahti2017microbiome] to get some additional summary data from the phyloseq object.
 
-```{r calculate_stats_ps, echo=FALSE}
+```{r calculate_stats_ps, echo=FALSE, eval=FALSE}
 min_read_ps <- min(readcount(ps))
 max_read_ps <- max(readcount(ps))
 total_reads_ps <- sum(readcount(ps))
@@ -191,15 +205,19 @@ sparsity_ps <- round(length(which(abundances(ps) == 0))/length(abundances(ps)),
 
 **B**. Add two final columns containing the ASV sequences and ASV IDs. This will be useful later when trying to export a fasta file. We can also take a look at the phyloseq object.
 
-```{r add_ASV_coulmn}
+```{r add_ASV_coulmn, eval=FALSE}
 colnames(tax_table(ps)) <- c("Kingdom", "Phylum", "Class", "Order",
     "Family", "Genus", "ASV_SEQ", "ASV_ID")
 ps
 ```
 
+```{r, echo=FALSE}
+ps
+```
+
 **C**. Export sequence and taxonomy tables for the unadulterated phyloseq object for later use. We will use the prefix `full` to indicate that these are the *raw* outputs.
 
-```{r export_seq_tax_tables}
+```{r export_seq_tax_tables, eval=FALSE}
 write.table(tax_table(ps),
             "tables/16s-data-prep/full_tax_table.txt",
             sep="\t", quote = FALSE, col.names=NA)
@@ -210,7 +228,7 @@ write.table(t(otu_table(ps)),
 
 **D**. Export fasta file
 
-```{r export_fasta_full}
+```{r export_fasta_full, eval=FALSE}
 # Create fasta file from tax_table
 table2format <- tax_table(ps)
 #retain only the column with the sequences
@@ -226,7 +244,7 @@ write.table(table2format_trim_df, "tables/16s-data-prep/full_asv.fasta",
             quote = FALSE, fileEncoding = "UTF-8")
 ```
 
-# Remove Contaminants & Unwanted Taxa
+# Curation
 
 Let's see if we have any potential contaminants. We can use some [inline R code](https://rmarkdown.rstudio.com/lesson-4.html) to see the taxonomy table for any taxa of interest.
 
@@ -252,7 +270,7 @@ Anyway, to remove the taxa we do the following:
 
 Remember the original data set contained `r ntaxa(ps)` ASVs.
 
-```{r remove_specific_taxa}
+```{r remove_specific_taxa, eval=FALSE}
 # generate a file with mitochondria ASVs
 MT1 <- subset_taxa(ps, Family == "Mitochondria")
 MT1 <-  as(tax_table(MT1), "matrix")
@@ -263,11 +281,15 @@ ps_no_mito <- prune_taxa(goodTaxa, ps)
 ps_no_mito
 ```
 
+```{r, echo=FALSE}
+ps_no_mito
+```
+
 Looks like this removed **`r ntaxa(ps) - ntaxa(ps_no_mito)` Mitochondria ASVs**. We will duplicate the code block to remove other groups.
 
 ## Remove Chloroplast ASVs
 
-```{r remove_specific_taxa2}
+```{r remove_specific_taxa2, eval=FALSE}
 # generate a file with mitochondria ASVs
 CH1 <- subset_taxa(ps_no_mito, Order == "Chloroplast")
 CH1 <-  as(tax_table(CH1), "matrix")
@@ -278,13 +300,17 @@ ps_no_chloro <- prune_taxa(goodTaxa, ps_no_mito)
 ps_no_chloro
 ```
 
+```{r, echo=FALSE}
+ps_no_chloro
+```
+
 The code removed an additional **`r ntaxa(ps_no_mito) - ntaxa(ps_no_chloro)` Chloroplast ASVs**.
 
 ## Remove Eukaryotic ASVs
 
 Turns out we had no eukaryotic ASVs but here is the code just in case. 
 
-```{r remove_specific_taxa3, eval=FALSE}
+```{r remove_specific_taxa3, eval=FALSE, eval=FALSE}
 # generate a file with mitochondria ASVs
 EU1 <- subset_taxa(ps_no_chloro, Kingdom == "Eukaryota")
 EU1 <-  as(tax_table(EU1), "matrix")
@@ -295,31 +321,38 @@ ps_no_euk <- prune_taxa(goodTaxa, ps_no_chloro)
 ps_no_euk
 ```
 
-
 ## Remove any Kingdom NAs
 
 Here we can just use the straight up `subset_taxa` command since we do not need to worry about any ranks above Kingdom also being removed.
 
-```{r remove_kingdom_na}
+```{r remove_kingdom_na, eval=FALSE}
 ps_filt <- subset_taxa(ps_no_chloro, !is.na(Kingdom))
+ps_filt
+```
+
+```{r, echo=FALSE}
+ps_filt
 ```
 
 The code eliminated an additional **`r ntaxa(ps_no_chloro) - ntaxa(ps_filt)` Kingdom level NA ASVs** from the phyloseq object.
 
 Now that we have a trimmed data set, we can save copies of the sequence and taxonomy tables just in case we want a quick look at these data. 
 
-```{r save_trim_table}
+```{r save_trim_table, eval=FALSE}
 write.table(tax_table(ps_filt),
             "tables/16s-data-prep/trim_tax_table.txt", sep="\t",
             quote = FALSE, col.names=NA)
 write.table(t(otu_table(ps_filt)),
             "tables/16s-data-prep/trim_seq_table.txt", sep="\t",
             quote = FALSE, col.names=NA)
+write.table(sample_data(ps_filt),
+            "tables/16s-data-prep/sample_table.txt",
+            sep="\t", quote = FALSE, col.names=NA)
 ```
 
 And generate a fasta file for all ASVs in the trimmed data set.  
 
-```{r export_fasta_water}
+```{r export_fasta_water, eval=FALSE}
 # Create fasta file from tax_table
 table2format <- tax_table(ps_filt)
 #retain only the column with the sequences
@@ -365,9 +398,9 @@ One last thing is to rename the phyloseq object and save some tables and images 
 ```{r save_data_prep_image, echo=TRUE, eval=FALSE}
 ps_water <- ps_filt
 save.image("rdata/16s-data-prep/16s-data_prep.rdata")
-saveRDS(otu_table(ps_water), "rdata/16s-water/ps_water-seqtab.rds")
-saveRDS(sample_data(ps_water), "rdata/16s-water/ps_water-sample.rds")
-saveRDS(tax_table(ps_water), "rdata/16s-water/ps_water-taxtab.rds")
+saveRDS(otu_table(ps_water), "rdata/16s-data-prep/ps_water-seqtab.rds")
+saveRDS(sample_data(ps_water), "rdata/16s-data-prep/ps_water-sample.rds")
+saveRDS(tax_table(ps_water), "rdata/16s-data-prep/ps_water-taxtab.rds")
 ```
 
 That's all for this part! In the next section we work through analyzing the diversity of the water samples.
@@ -393,3 +426,6 @@ You can find the source code for this page by [clicking this link](https://githu
 
 
 ## Data Availability {.appendix}
+
+Output files from this workflow available on figshare at [doi:10.25573/data.12403925](https://doi.org/10.25573/data.12403925). Here you will find the sample metadata table, sequence tables, taxonomy tables, and ASV fasta files from the full phyloseq object (before removing contaminants) and the trimmed data set (after removing contaminants). The *16s-data_prep.rdata* file contains all variables and phyloseq objects from this pipeline and is needed for the next workflow (as are the .rds files). 
+

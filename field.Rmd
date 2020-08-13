@@ -1,44 +1,932 @@
 ---
 title: "Field Analyses"
 description: |
-  In this section ...
+ In this section we discuss the various field analyses conducted in this study.
 author:
-  - name: "Maggie D Johnson"
-#    url: https://github.com/jjallaire
-#    affiliation: STRI
-#    affiliation_url: https://www.rstudio.com
-  - name: "Noelle Lucey"
-#    url: https://github.com/yihui
-#    affiliation: STRI
-#    affiliation_url: https://www.rstudio.com
+ - name: "Maggie D Johnson"
+# url: https://github.com/jjallaire
+# affiliation: STRI
+# affiliation_url: https://www.rstudio.com
+# - name: "Noelle Lucey"
+# url: https://github.com/yihui
+# affiliation: STRI
+# affiliation_url: https://www.rstudio.com
 bibliography: assets/cite.bib
+output:
+    distill::distill_article:
+      css: assets/styles.css
+      toc: true
+      toc_depth: 3
 ---
 
 
-```{r setup, include=FALSE}
-remove(list = ls())
-knitr::opts_chunk$set(echo = FALSE)
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list = ls())
+library(lme4)
+library(lmerTest)
+library(car)
+library(rcompanion)
+library(MASS)
+library(emmeans)
+library(nlme)
+library(ggplot2)
+library(plyr)
+library(RColorBrewer)
+library(wesanderson)
+library(reshape2) # restructuring the data
+library(cowplot)
+library(scales)
+library(tidyr)
+library(dplyr)
+library(patchwork)
 
-sessionInfo()
-set.seed(9191)
 ```
 
-👋 Hi Maggie & Noelle!!!! I bet you really, really want to add content to this section ☺️.
+
+## Hypoxic Reef Conditions
+
+Conditions characteristic of a hypoxic event were first detected on Sept. 20, 2017 in Bahia Almirante on the Caribbean coast of Panama. To evaluate the environmental conditions associated with the event we conducted a series of depth profiles with a YSI multiparameter sonde, measuring dissolved oxygen (DO), temperature, chlorophyll, salinity, and pH. Measurements were taken at 83 sites across Bahía Almirante on Sept. 25, 2017. We selected two focal sites across a gradient of DO concentrations, from extremely hypoxic to normoxic (ambient DO concentrations). Cayo Roldan (hypoxic site) lies at the inner reaches of Bahia Almirante where water exchange with the open ocean is restricted, experience extreme hypoxia on the benthos during the event. Cayo Coral (normoxic site) is well-flushed with open ocean water and was used as a control site because oxygenated conditions persisted during the event. 
+
+## Coral Bleaching
+
+The common lettuce coral, *Agaricia tenuifolia*, was collected from each site during the hypoxic event and evaluated for bleaching through measurements of symbiont densities, pigment content, and pulse amplitude modulated (PAM) fluorometry. Three fragments from each of six colonies were collected from each site and returned to the laboratory facilities at the Smithsonian Tropical Research Institute's Bocas del Toro Research Station. Differences in each response variable were evaluated with a linear mixed effects model, with colony as a random effect and size as a fixed effect. 
+
+## Coral Community Structure
+
+The hypoxic and normoxic sites are the location of permanent benthic monitoring. We evaluated changes in benthic community structure from four months before, during, and one year after the hypoxic event using permanent photoquadrats. At each site, permanent quadrats were photographed every 5m along one 50m permanent transect, and community structure was determined from 50 randomly overlaid points using the online platform [CoralNet](https://coralnet.ucsd.edu/). Taxa were identified to the finest resolution possible, and then grouped into different functional groups for subsequent analyses. 
+
+We used nonmetric multidimensional scaling (nMDS) to visually represent benthic community structure at each time point, and evaluated changes over time with a permutational analysis of variance (PERMANOVA), with pairwise contrasts. The benthic community did not change significantly over time at the normoxic site, so changes in the coral community over time were evaluated only at the hypoxic site. 
+
+# Analysis Workflow 
+
+Next, we present the workflows we used to analyze coral response variables specifically the Pulse Amplitude Modulated (PAM) Fluorometry, Zooxanthellae, Chlorophyll a (Chla), and Chlorophyll C (Chlc) data. For each data set, we visually assess residuals, test for normality (Shapiro-Wilk Test), and test for equality of variances (Levene’s Test). In some cases, data are subsequently transformed. 
+
+```{r}
+data <- read.table("tables/field/coralhypoxia.csv", 
+                   header = T, sep = ",")
+attach(data)
+class(site)
+levels(site)
+class(colony)
+```
+
+## Pulse Amplitude Modulated (PAM) Fluorometry
+
+First, we test all data for assumptions of normality and homogeneity of variances based on raw data (i.e., not transformed) and residuals. Data are normal, variances hetergeneous (transform doesn't improve). Look at distribution of data with histogram.
+
+### Non-Transformed Data
+
+#### Visual Assessment
+
+```{r}
+plotNormalHistogram(yield)
+```
+
+First run the model to generate the residuals, then look at residuals to see if they are normally distributed; mixed model with fragment nested in colony, site as fixed effect.
+
+```{r}
+lmepam <- lmer(yield ~ site + (1|colony), 
+               REML = FALSE, na.action = na.exclude)
+res1 <- resid(lmepam)
+```
+
+Produce a histogram of the residuals.
+
+```{r}
+hist(res1, main = "Yield", xlab = "Residuals")
+plotNormalHistogram(res1)
+```
+
+#### Shapiro-Wilk Normality Test 
+
+```{r}
+pam.shapiro <- shapiro.test(res1) #runs a normality test on residuals
+print(pam.shapiro) # null = normally distrubuted P<0.05 = non-normal
+```
+
+QQ plots of residuals from lme model
+
+```{r}
+qqnorm(res1, ylab = "Sample Quantiles for PAM")
+qqline(res1, col = "red")
+```
+
+#### Levene’s Test
+
+```{r}
+leveneTest(yield ~ as.factor(site), data = data)
+bartlett.test(x = yield, g = site)
+```
+
+Data is normal but not homogenous---log transform does not improve.
+
+#### Mixed Effects Models
+
+Site is the fixed effect, colony is random, fragment is random nested in colony. Compared full model with fragment dropped. Best fit model (with lowest AIC) was the model with colony dropped. But using model that includes fragment because it's necessary random effect.
+
+When comparing models with different random effects like here---use `REML = FALSE`. But when not comparing use `REML = TRUE` (default). The full model includes site, colony, and fragment nested in colony. Colony/frag includes a term for colony alone and nests fragment in colony.
+
+```{r}
+pam1 <- lmer(yield ~ site + (1|colony/frag), data = data, 
+             REML = FALSE, na.action = na.exclude)
+ranova(pam1)
+```
+
+Frag nested in colony dropped---I think colony accounts for fragment nested inherently?
+
+```{r}
+pam2 <- lmer(yield ~ site + (1|colony), data = data, 
+             REML = FALSE, na.action = na.exclude)
+ranova(pam2)
+```
+Use the full model to account for nesting fragments
+
+```{r}
+mod.AIC <- AIC(pam1, pam2) 
+mod.AIC 
+```
+
+Final models uses REML---not comparing models with different random effects.
+
+```{r}
+finalpam <- lmer(yield ~ site + (1|colony), 
+                 data = data, 
+                 REML = TRUE, na.action = na.exclude)
+```
+
+p values for random effects.
+
+```{r}
+finalrandpam <- ranova(finalpam)
+pam.table <- anova(finalpam, type = 2)
+pam.table
+finalrandpam
+```
+
+## Zooxanthellae  
+
+First testing all data for assumptions of normality and homogeneity of variances. Based on raw data and residuals, CR6B is an outlier and removed---log-transform data makes data normal and homogenous.
+
+### Non-Transformed Data
+
+#### Visual Assessment
+
+Look at distribution of the raw data with histogram.
+
+```{r}
+attach(data)
+plotNormalHistogram(zoox)
+```
+
+First run the model to generate the residuals, then look at residuals to see if normally distributed. Mixed model with fragment nested in colony, site as fixed effect. Yield is normally distributed, but variances not homogenous.
+
+```{r}
+lmezoox <- lmer(zoox ~ site + (1|colony), REML = FALSE, na.action = na.exclude)
+res2 <- resid(lmezoox)
+```
+
+Produce a histogram of the residuals.
+
+```{r}
+hist(res2, main = "Zoox", xlab = "Residuals")
+plotNormalHistogram(res2)
+```
+
+#### Shapiro-Wilk Normality Test 
+
+```{r}
+zoox.shapiro <- shapiro.test(res2) #runs a normality test on residuals
+print(zoox.shapiro) # null = normally distrubuted (P<0.05 = non-normal
+```
+
+QQ plots of residuals from lme model.
+
+```{r}
+qqnorm(res2, ylab = "Sample Quantiles for Zoox")
+qqline(res2, col = "red")
+```
+
+#### Levene’s Test
+
+```{r}
+leveneTest(zoox~ as.factor(site),data = data) # p = 0.0007486
+```
+
+### Transformed Data
+
+Log transform improves normality---data are homogenous. Add a new column to dataframe for log transformation.  Check that log transformed data is added as a new column.
+
+```{r}
+data$zoox_log = log(zoox)
+head(data)
+attach(data)
+```
+
+#### Visual Assessment
+
+Check normality of log-transformed data
+
+```{r}
+plotNormalHistogram(zoox_log)
+```
+
+Check normality of log-transformed residuals
+
+```{r}
+lmezoox_log <- lmer(zoox_log ~ site + (1|colony), 
+                    REML = FALSE, 
+                    na.action = na.exclude)
+res3 <- resid(lmezoox_log)
+```
+
+Produce a histogram of the residuals.
+
+```{r}
+hist(res3, main = "zoox log", xlab = "Residuals")
+plotNormalHistogram(res3)
+```
+
+#### Shapiro-Wilk Normality Test 
+
+```{r}
+zooxlog.shapiro <- shapiro.test(res3) #runs a normality test on residuals
+print(zooxlog.shapiro) # null = normally distrubuted (P<0.05 = non-normal
+```
+
+QQ plots of residuals from lme model
+
+```{r}
+qqnorm(res3, ylab = "Sample Quantiles for Zooxlog")
+qqline(res3, col = "red")
+```
+
+#### Levene's Test
+
+```{r}
+leveneTest(zoox_log ~ as.factor(site), data = data) # p = 0.7968
+```
+
+#### Mixed Effects Models
+
+Site is fixed effect, colony is random, fragment is random nested in colony. Use log-transformed data. Ccolony/frag includes a term for colony alone and nests fragment in colony.
+
+```{r}
+zoox1 <- lmer(zoox_log ~ site + (1|colony/frag), 
+              data = data, 
+              REML = FALSE, 
+              na.action = na.exclude) #AIC 72.8756
+ranova(zoox1)
+```
+
+frag nested in colony dropped---I think colony accounts for fragment nested inherently?
+
+```{r}
+zoox2 <- lmer(zoox_log ~ site + (1|colony), 
+              data = data, 
+              REML = FALSE, 
+              na.action = na.exclude) #AIC 70.8756
+ranova(zoox2)
+mod.AIC <- AIC(zoox1, zoox2) 
+mod.AIC ### use the full model to account for nesting fragments
+```
+
+Final models uses REML---not comparing models with different random effects.
+
+```{r}
+finalzoox <- lmer(zoox_log ~ site + (1|colony), 
+                  data = data, 
+                  REML = TRUE, 
+                  na.action = na.exclude)
+```
+
+P values for random effects
+
+```{r}
+finalrandzoox <- ranova(finalzoox)
+zoox.table <- anova(finalzoox, type = 2) #ANOVA table
+zoox.table
+finalrandzoox
+```
+
+## Chlorophyll a (Chla)
+
+First testing all data for assumptions of normality and homogeneity of variances. Based on raw data and residuals 
+
+### Non-Transformed Data
+
+#### Visual Assessment
+
+Look at distribution of the raw data with histogram.
+
+```{r}
+plotNormalHistogram(chla)
+```
+
+First run the model to generate the residuals, then look at residuals to see if normally distributed. Mixed model with fragment nested in colony, site as fixed effect. Raw data are normal but variances not homogenous---log-transformed improves homogeneity.
+
+```{r}
+lmechla <- lmer(chla ~ site + (1|colony), 
+                REML = FALSE, 
+                na.action = na.exclude)
+res4 <- resid(lmechla)
+```
+
+Produce a histogram of the residuals.
+
+```{r}
+hist(res4, main = "Chla", xlab = "Residuals")
+plotNormalHistogram(res4)
+```
+
+#### Shapiro-Wilk Normality Test 
+
+```{r}
+chla.shapiro <- shapiro.test(res4)
+print(chla.shapiro) 
+```
+
+QQ plots of residuals from lme model
+
+```{r}
+qqnorm(res4, ylab = "Sample Quantiles for Zoox")
+qqline(res4, col = "red")
+```
+
+#### Levene's Test
+
+```{r}
+leveneTest(chla ~ as.factor(site), data = data) # p = 0.01606
+```
+
+Data are normal but variances are not homogenous.
+
+### Transformed Data
+
+Add a new column to dataframe for log transformation.
+
+```{r}
+data$chla_log = log(chla)
+```
+
+Check that log transformed data is added as a new column
+
+```{r}
+head(data)
+attach(data)
+```
+
+#### Visual Assessment
+
+Check normality of log-transformed data.
+
+```{r}
+plotNormalHistogram(chla_log)
+```
+
+Check normality of log-transformed residuals.
+
+```{r}
+lmechla_log <- lmer(chla_log ~ site + (1|colony), 
+                    REML = FALSE, 
+                    na.action = na.exclude)
+res7 <- resid(lmechla_log)
+```
+
+Produce a histogram of the residuals.
+
+```{r}
+hist(res7, main = "chla log", xlab = "Residuals")
+plotNormalHistogram(res7)
+```
+
+#### Shapiro-Wilk Normality Test 
+
+```{r}
+chlalog.shapiro <- shapiro.test(res7) #runs a normality test on residuals
+print(chlalog.shapiro) # null = normally distrubuted (P<0.05 = non-normal
+```
+
+QQ plots of residuals from lme model
+
+```{r}
+qqnorm(res7, ylab = "Sample Quantiles for chlalog")
+qqline(res7, col = "red")
+```
+
+#### Levene's Test
+
+```{r}
+leveneTest(chla_log ~ as.factor(site), data = data) # p = 0.7487
+```
+
+#### Mixed Model Effects
+
+Site is fixed effect, colony is random, fragment is random nested in colony on log transformed data. Colony/frag includes a term for colony alone and nests fragment in colony. 
+
+```{r}
+chla_log1 <- lmer(chla_log ~ site+(1|colony/frag), 
+                  data = data,
+                  REML = FALSE, 
+                  na.action = na.exclude) #AIC 55.11567
+ranova(chla_log1)
+```
+
+Frag nested in colony dropped---I think colony accounts for fragment nested inherently?
+
+```{r}
+chla_log2 <- lmer(chla_log ~ site + (1|colony), 
+                  data = data, 
+                  REML = FALSE, 
+                  na.action = na.exclude) #AIC 53.11567
+ranova(chla_log2)
+
+mod.AIC <- AIC(chla_log1, chla_log2) 
+mod.AIC ### use the full model to account for nesting fragments
+```
+
+Final models uses REML---not comparing models with different random effects.
+
+```{r}
+finalchla_log <- lmer(chla_log ~ site + (1|colony), 
+                      data = data, 
+                      REML = TRUE, 
+                      na.action = na.exclude)
+```
+
+p values for random effects.
+
+```{r}
+finalchla_logrand <- ranova(finalchla_log)
+chla_log.table <- anova(finalchla_log, type = 2) #ANOVA table
+chla_log.table
+finalchla_logrand
+```
+
+## Chlorophyll c (Chlc)
+
+First testing all data for assumptions of normality and homogeneity of variances. Based on raw data and residuals. Data need to be log transformed for normality and variances
+
+### Non-Transformed Data
+
+#### Visual Assessment
+
+Look at distribution of the raw data with histogram.
+
+```{r}
+plotNormalHistogram(chlc)
+```
+
+First run the model to generate the residuals then look at residuals to see if normally distributed mixed model with fragment nested in colony, site as fixed effect yield is normally distributed, but variances not homogenous
+
+```{r}
+lmechlc <- lmer(chlc ~ site + (1|colony), 
+                REML = FALSE, 
+                na.action = na.exclude)
+res5 <- resid(lmechlc)
+```
+
+Produce a histogram of the residuals.
+
+```{r}
+hist(res5,main = "chlc", xlab = "Residuals")
+plotNormalHistogram(res5)
+```
+
+#### Shapiro-Wilk Normality Test 
+
+```{r}
+chlc.shapiro <- shapiro.test(res5)
+print(chlc.shapiro)
+```
+
+QQ plots of residuals from lme model
+
+```{r}
+qqnorm(res5, ylab = "Sample Quantiles for Zoox")
+qqline(res5, col = "red")
+```
+
+#### Levene's Test
+
+```{r}
+leveneTest(chlc ~ as.factor(site), data = data) # p = 0.01316
+```
+
+Data not normally distributed or homogenous
+
+### Transformed Data
+
+Log transform improves normality and homogeneity. Add a new column to dataframe for log transformation. Check that log transformed data is added as a new column
+
+```{r}
+data$chlc_log = log(chlc)
+head(data)
+attach(data)
+```
+
+#### Visual Assessment
+
+Check normality of log-transformed data
+
+```{r}
+plotNormalHistogram(chlc_log)
+```
+
+Check normality of log-transformed residuals
+
+```{r}
+lmechlc_log <- lmer(chlc_log ~ site + (1|colony), 
+                    REML = FALSE, 
+                    na.action = na.exclude)
+res6 <- resid(lmechlc_log)
+```
+
+Produce a histogram of the residuals.
+
+```{r}
+hist(res6, main = "chlc log",xlab = "Residuals")
+plotNormalHistogram(res6)
+```
+
+#### Shapiro-Wilk Normality Test 
+
+```{r}
+chlclog.shapiro <- shapiro.test(res6)
+print(chlclog.shapiro)
+```
+
+QQ plots of residuals from lme model
+
+```{r}
+qqnorm(res6, ylab = "Sample Quantiles for chlclog")
+qqline(res6, col = "red")
+```
+
+#### Levene's Test
+
+```{r}
+leveneTest(chlc_log ~ as.factor(site), data = data) # p = 0.884
+```
+
+#### Mixed Model Effects
+
+Site is fixed effect, colony is random, fragment is random nested in colony. On log-transformed data. Colony/frag includes a term for colony alone and nests fragment in colony.
+
+```{r}
+chlc_log1 <- lmer(chlc_log ~ site + (1|colony/frag), 
+                  data = data, 
+                  REML = FALSE, 
+                  na.action = na.exclude) #AIC 64.52399
+ranova(chlc_log1)
+```
+
+frag nested in colony dropped- I think colony accounts for fragment nested inherently?
+
+```{r}
+chlc_log2 <- lmer(chlc_log ~ site+(1|colony), 
+                  data = data, 
+                  REML = FALSE, 
+                  na.action = na.exclude) #AIC 62.52399
+ranova(chlc_log2)
+
+mod.AIC <- AIC(chlc_log1, chlc_log2) 
+mod.AIC ### use the full model to account for nesting fragments
+```
+
+Final models uses REML- not comparing models with different random effects
+
+```{r}
+finalchlc_log <- lmer(chlc_log ~ site + (1|colony), 
+                      data = data, 
+                      REML = TRUE, 
+                      na.action = na.exclude)
+```
+
+p values for random effects
+
+```{r}
+finalchlc_logrand <- ranova(finalchlc_log)
+chlc_log.table <- anova(finalchlc_log, type = 2) #ANOVA table
+chlc_log.table
+finalchlc_logrand
+```
+
+# Figures
+
+```{r}
+all <- read.table("tables/field/coralhypoxia.csv", header = T, sep = ",")
+attach(all)
+```
+
+```{r}
+ggplot(all,aes(x=site, y=yield))+ #group tells line what to connect
+  geom_boxplot()+ #make box
+  labs(x="Site",y='Maximum Quantum Yield')+ 
+  theme_classic()+ #makes look normal
+  #scale_fill_manual(values = c("steelblue","darkred"))+
+  theme(text = element_text(size=14))+ #change text size
+  theme(axis.text.x = element_text(colour="black", angle=0, hjust=1), #make all text black ## to put x axis label at angle: angle=45, hjust=1), 
+        axis.text.y = element_text(colour="black"))+
+  scale_y_continuous(expand = c(0,0),
+                     limits = c(0.4,0.75)) #set y axis
+```
+
+```{r}
+ggplot(all,aes(x=site, y=yield, color=colony))+ #colors the dots by colony
+  geom_point(size=3)+ 
+  labs(x="Site",y='Maximum Quantum Yield')+ 
+  theme_classic()+ #makes look normal
+  #scale_fill_manual(values = c("steelblue","darkred"))+
+  theme(text = element_text(size=14))+ #change text size
+  theme(axis.text.x = element_text(colour="black", angle=0, hjust=1), #make all text black ## to put x axis label at angle: angle=45, hjust=1), 
+        axis.text.y = element_text(colour="black"))+
+  scale_y_continuous(expand = c(0,0),
+                     limits = c(0.4,0.75)) #set y axis
+```
+
+Calculate Means for Figures 
+
+```{r}
+means.all<-ddply(all,c("site","colony"),summarise,
+                 N    = sum(!is.na(yield)),
+                 yield_mean = mean(yield, na.rm=TRUE),
+                 zoox_mean = mean(zoox, na.rm=TRUE),
+                 chla_mean = mean(chla, na.rm=TRUE),
+                 chlc_mean = mean(chlc, na.rm=TRUE),
+                 sd_yield = sd(yield),
+                 sd_zoox = sd(zoox),
+                 sd_chla = sd(chla),
+                 sd_chlc = sd(chlc),
+                 yield_se = (sd(yield)/sqrt(N)),
+                 zoox_se = (sd(zoox)/sqrt(N)),
+                 chla_se = (sd(chla)/sqrt(N)),
+                 chlc_se = (sd(chlc)/sqrt(N)))
+                
+head(means.all)
+write.csv(means.all, file = "tables/field/allcoralmeans.csv", row.names=FALSE)
+```
+
+#### Colony Means
+
+```{r}
+ggplot(means.all,aes(x=site, y=yield_mean,fill=site)) +
+  geom_boxplot() +
+  labs(x = "Site", y = 'Maximum Quantum Yield') + 
+  theme_classic()+ #makes look normal
+  scale_fill_manual(values = c("steelblue","darkred"))+
+  theme(text = element_text(size=14))+ #change text size
+  theme(axis.text.x = element_text(colour="black", angle=0, hjust=1),
+        axis.text.y = element_text(colour="black"))+
+  scale_y_continuous(expand = c(0,0),
+                     limits = c(0.4,0.75)) #set y axis
+```
+
+set a jitter object to offset points and assign data to ggplot
+
+```{r}
+jitter <- position_jitter(width = 0.1)  
+yield_plot <- ggplot(means.all, aes(x = site, y = yield_mean))
+```
+
+make it the kind of plot you want- this makes a box plot colored by site, then overlays a scatterplot of all the data (in this case the colony means) Close to publication quality :)
+
+#### Maximum Quantum Yield by site with colony means
+
+```{r}
+yp <- yield_plot+
+  geom_boxplot(color="black",
+               aes(fill=site),
+               width=0.4)+
+  scale_fill_manual(values=c("skyblue3","coral3"), name= NULL, labels=c("Normoxic","Hypoxic"))+
+  geom_point(size=2, position=jitter)+ #aes(color=colony))+
+  labs(x="Site",y="Maximum Quantum Yield")+
+  theme_classic()+
+  theme(legend.position = c(0.85,0.85),
+        legend.title= element_text(color="transparent"),
+        axis.text.x = element_text(colour="black"), #make all text black ## to put x axis label at angle: angle=45, hjust=1), 
+        axis.text.y = element_text(colour="black"),
+        axis.title.y = element_text(margin = margin(t=0, r=10,b=0,l=0)),
+        panel.border = element_rect(colour = "black", fill=NA, size=.5))+
+   # modifies the legend titletheme(text = element_text(size=14),     panel.background = element_rect(fill = "transparent"))+ # bg of the panel
+  theme(text = element_text(size=12))+
+  scale_x_discrete(labels=c("Coral" = "Coral Cay","Roldan" = "Cayo Roldan"))+
+  scale_y_continuous(expand = c(0,0), limits = c(0.5,0.7))
+```
 
 
-<div class="post-nav">
-<div class="post-nav-item">
-<div class="meta-nav">Previous</div>
-<a href="intro.html" rel="next">Introduction</a>
-</div>
-</div>
+#### Zooxanthellae Counts by site with colony means
 
-<div class="post-nav">
-<div class="post-nav-item">
-<div class="meta-nav">Next</div>
-PROCEED to 16S rRNA WORKFLOW<br/><a href="16s-dada2.html" rel="prev">N<sup><u>o</u></sup> 1. DADA2 Workflow</a>
-</div>
-</div>
+assign data to ggplot
+
+```{r}
+yield_zoox <- ggplot(means.all, aes(x=site, y=zoox_mean))
+
+zp <- yield_zoox+
+  geom_boxplot(color="black",
+               aes(fill=site),
+               width=0.4)+
+  scale_fill_manual(values=c("skyblue3","coral3"), name= NULL, labels=c("Normoxic","Hypoxic"))+
+  geom_point(size=2, position=jitter)+ #aes(color=colony))+
+  labs(x="Site",
+       y=("Endosymbiont Density (cells cm^-2)"))+
+  theme_classic()+
+  theme(legend.position = "none", #
+        #c(0.8,0.875),
+        #legend.title= element_text(color="transparent"),
+        axis.text.x = element_text(colour="black"), #make all text black ## to put x axis label at angle: angle=45, hjust=1), 
+        axis.text.y = element_text(colour="black"),
+        axis.title.y = element_text(margin = margin(t=0, r=10,b=0,l=0)),
+        panel.border = element_rect(colour = "black", fill=NA, size=.5))+
+  # modifies the legend titletheme(text = element_text(size=14),     panel.background = element_rect(fill = "transparent"))+ # bg of the panel
+  theme(text = element_text(size=12))+
+  scale_x_discrete(labels=c("Coral" = "Coral Cay","Roldan" = "Cayo Roldan"))+
+  scale_y_continuous(labels = scientific,
+                     breaks=seq(0,1.5E6, 4.5E5),
+                      expand = c(0,0), 
+                     limits = c(0,1.5E6))
+zp  
+```
+
+#### Pigment Data 
+
+Convert Pigment data to long format with Chla and Chlc Stacked, so can put in same figures
+
+```{r}
+pigs <- tidyr::gather(means.all, pigment, concentration,chla_mean, chlc_mean)
+head(pigs)
+
+pigments <- dplyr::select(pigs,site,colony,pigment,concentration)
+head(pigments)
+```
+
+
+assign data to ggplot data frame "pigments"
+
+```{r}
+pig_plot <- ggplot(pigments,
+                     aes(x=pigment, y=concentration, fill=site))
+```
+
+
+Shows chl a and chl c on the x axis with site color coded
+
+```{r}
+pig_plot+
+  geom_boxplot(color="black")+
+  scale_fill_manual(values=c("skyblue3","coral3"), name= NULL, labels=c("Normoxic","Hypoxic"))
+```
+
+#### Chlorophyll a (Chla) Plots only
+
+assign data to ggplot set a jitter object to offset points
+
+```{r}
+jitter2 <- position_jitter(width=0.05)  
+
+chla_plot <- ggplot(means.all,
+                     aes(x=site, y=chla_mean))
+```
+
+```{r}
+cp <- chla_plot+
+  geom_boxplot(color="black",
+               aes(fill=site),
+               width=0.4)+
+  scale_fill_manual(values=c("skyblue3","coral3"), name= NULL, labels=c("Normoxic","Hypoxic"))+
+  geom_point(size=2, position=jitter)+ #aes(color=colony))+
+  labs(x="Site",
+       y=("Chl a Concentration (ug cm^-2)"))+
+  theme_classic()+
+  theme(legend.position = "none",
+        #c(0.8,0.875),
+        #legend.title= element_text(color="transparent"),
+        axis.text.x = element_text(colour="black"), #make all text black ## to put x axis label at angle: angle=45, hjust=1), 
+        axis.text.y = element_text(colour="black"),
+        axis.title.y = element_text(margin = margin(t=0, r=10,b=0,l=0)),
+        panel.border = element_rect(colour = "black", fill=NA, size=.5))+
+  # modifies the legend titletheme(text = element_text(size=14),     panel.background = element_rect(fill = "transparent"))+ # bg of the panel
+  theme(text = element_text(size=12))+
+  scale_x_discrete(labels=c("Coral" = "Coral Cay","Roldan" = "Cayo Roldan"))+
+  scale_y_continuous(expand = c(0,0), 
+                     limits = c(0,6))
+
+```
+
+```{r, echo=FALSE, fig.height=4, layout='l-body-outset', eval=FALSE}
+bar_plots <-  yp + zp + cp
+bar_plots + plot_annotation(tag_levels = 'A',
+  title = 'Heatmaps of taxa distribution',
+  #subtitle = 'Top 30 taxa of non-rarefied data',
+  caption = 'A) DETAILS,
+  B) DETAILS,
+  C) DETAILS'
+)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+plot_grid(yp, cp,zp, labels="AUTO", ncol=3, align="v")
+```
+
+Fine tuning figures for the panel plot
+
+#### Maximum Quantum Yield by site with colony means
+
+```{r}
+ypp <- yield_plot +
+  geom_boxplot(color = "black", aes(fill = site), width = 0.4) +
+  scale_fill_manual(values = c("skyblue3", "coral3"), name = NULL, 
+                    labels = c("Normoxic", "Hypoxic")) +
+  geom_point(size = 1, position = jitter) + #aes(color=colony))+
+  labs(x = "Site", y = ("Maximum Quantum Yield")) +
+  theme_classic() +
+  theme(legend.position = "top", legend.direction = "vertical", #
+        legend.title= element_text(color = "transparent"),
+        #axis.text.x = element_blank(),
+        axis.text.x = element_text(size = 7, colour="black"), 
+        axis.text.y = element_text(size = 8, colour = "black"),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(size = 9, margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        panel.border = element_rect(colour = "black", fill = NA, size = 0.5)) +
+  theme(text = element_text(size = 12)) +
+  scale_x_discrete(labels=c("Coral" = "Coral Cay", "Roldan" = "Cayo Roldan")) +
+  scale_y_continuous(expand = c(0,0), limits = c(0.5,0.7))
+```
+
+#### Zooxanthellae Counts by site with colony means
+
+```{r}
+yzield_zoox <- ggplot(means.all, aes(x = site, y = zoox_mean))
+
+zpp <- yield_zoox+
+  geom_boxplot(color="black",
+               aes(fill=site),
+               width=0.4)+
+  scale_fill_manual(values=c("skyblue3","coral3"), name= NULL, labels=c("Normoxic","Hypoxic"))+
+  geom_point(size=1, position=jitter)+ #aes(color=colony))+
+  labs(x = "Site", y=("Endosymbiont Density (cells cm^-2)"))+
+  theme_classic() +
+  theme(legend.position = "none", #
+        #c(0.8,0.875),
+        #legend.title= element_text(color="transparent"),
+        axis.text.x = element_text(size = 7, colour="black"), 
+        axis.title.x = element_text(size = 12),
+        #axis.title.x = element_blank(),
+        #axis.text.x = element_blank(), 
+        axis.text.y = element_text(size = 8, colour="black"),
+        axis.title.y = element_text(size = 9, margin = margin(t=0, r=10,b=0,l=0)),
+        panel.border = element_rect(colour = "black", fill=NA, size=.5)) +
+  theme(text = element_text(size=12))+
+  scale_x_discrete(labels=c("Coral" = "Coral Cay","Roldan" = "Cayo Roldan"))+
+  scale_y_continuous(labels = scientific,
+                     breaks=seq(0,1.5E6, 4.5E5),
+                     expand = c(0,0), 
+                     limits = c(0,1.5E6))
+```
+
+#### Chlorophyll a (Chla)
+
+```{r}
+chla_plot <- ggplot(means.all, aes(x = site, y = chla_mean))
+
+cpp <- chla_plot +
+  geom_boxplot(color="black", aes(fill=site), width=0.4)+
+  scale_fill_manual(values = c("skyblue3","coral3"), 
+                    name = NULL, labels = c("Normoxic", "Hypoxic")) +
+  geom_point(size=1, position=jitter) + 
+  labs(x = "Site", y = ("Chl a Concentration (ug cm^-2)")) +
+  theme_classic() +
+  theme(legend.position = "none",
+        #legend.title= element_text(color="transparent"),
+        axis.text.x = element_text(size = 7, colour="black"), 
+        axis.text.y = element_text(size = 8, colour="black"),
+        axis.title.y = element_text(size = 9, margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.title.x = element_blank(),
+        #axis.title.x = element_text(size = 12),
+        panel.border = element_rect(colour = "black", fill=NA, size=.5)) +
+  theme(text = element_text(size=12))+
+  scale_x_discrete(labels=c("Coral" = "Coral Cay","Roldan" = "Cayo Roldan"))+
+  scale_y_continuous(expand = c(0,0), 
+                     limits = c(0,6))
+```
+
+```{r, echo=FALSE, fig.height=5, layout='l-body-outset'}
+bar_plots_ft <-  ypp + zpp + cpp
+bar_plots_ft + plot_annotation(tag_levels = 'A',
+  title = 'Coral response variables ',
+  #subtitle = 'Top 30 taxa of non-rarefied data',
+  caption = 'A) Pulse Amplitude Modulated (PAM),
+  B) Zooxanthellae,
+  C) Chlorophyll a (Chla)'
+)
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+panel <- plot_grid(ypp, zpp,cpp, labels="AUTO", ncol=1, align="v")
+panel
+```
+
 
 ## Source Code {.appendix}
 

@@ -22,7 +22,7 @@ For the metagenomic analysis we mainly use [anvi'o](http://merenlab.org/software
 
 We will also use other tools to generate data products that we can port into the anvi'o ecosystem. First though, let's set up a Miniconda environment. We will use Miniconda to install a stable version of anvi'o as well as several other tools as the need arises.
 
-## Miniconda
+# Miniconda
 
 I chose to use [conda](https://docs.conda.io/en/latest/) as my package management system and [Miniconda](https://docs.conda.io/en/latest/miniconda.html) as the conda installer. I prefer Miniconda because it is a (free) minimal installer with a small footprint that I can customize to suite my needs. We will use conda to install almost every program in this workflow.
 
@@ -49,7 +49,7 @@ If you are not familiar with conda and plan to use it as a package management sy
 
 If you ever want to know if there is a conda package for some program, just search for the program name + conda in your favorite search engine. If there is, the first link should be to the Anaconda Cloud. There you will find details about the package like installation instructions, last update, total downloads, etc.
 
-## Anvi'o
+# Anvi'o
 
 Now we are ready to install anvi'o[@eren2015anvi]. If you plan to work with anvi’o I have a few recommendations.
 
@@ -62,7 +62,7 @@ Now we are ready to install anvi'o[@eren2015anvi]. If you plan to work with anvi
 
 For posterity, I will describe here exactly how I installed anvi’o at the time of this analysis.
 
-### Development anvi'o
+## Development anvi'o
 
 I like to run the development version of anvi'o so I can keep up with the `master` branch. This allows me to access new features and bug fixes as they are released. The way this  is done is that any time we fire up anvi'o, a set of instructions will compare our version of anvi'o with the `master` repository. If any differences are detected, the script will replace the out-of-date local files with the updated files from the repository.
 
@@ -183,7 +183,7 @@ I also like to run the `full` version of the test. It takes longer but it makes 
 anvi-self-test --suite full
 ```
 
-### Stable anvi'o
+## Stable anvi'o
 
 Next we install a `stable` version just in case we break something in the `master`, want to test the behavior of a code change, etc. It's probably a good idea to check the anvio  [release page](https://github.com/merenlab/anvio/releases)  from time to time for new releases and update this install accordingly. The easiest thing to do is remove the environment and reinstall or start a completely new environment. I find trying to update an install to be a pain. More on that below...
 
@@ -236,7 +236,7 @@ Or add an alias to your `.bash_profile` file like so...
 ```bash
 echo 'alias anvi-activate-stable="conda activate anvio-6"' >> ~/.bash_profile
 ```
-### Accessing anvi’o like a pro
+## Accessing anvi’o like a pro
 
 Meren wrote this little ditty to access the two different anvi’o installs with just simple alias commands. And he tucked it is a cool dropdown. I present this here exactly as he had it on the anvio website :)
 
@@ -305,7 +305,7 @@ Structure DB version .........................: 1
 
 </details>
 
-## Other Software
+# Other Software
 
 As mentioned above, we will use many other tools. Some are installed with anvi’o, some we installed while installing anvi’o, while others need to be installed separately. We will do this as the need arises and document it as we move through the workflow. In the next section for example we  build some databases and install the tools we need at the same time. :)
 

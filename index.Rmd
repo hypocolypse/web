@@ -1,7 +1,7 @@
 ---
 title: "Hypocolypse"
 description: |
-  Reproducible workflows for the study *Hypoxia driven coral bleaching & microbial shifts in Caribbean Panama*.
+  Reproducible workflows for the study *Rapid ecosystem-scale consequences of rapid acute deoxygenation on a Caribbean reef*.
 author:
   - name: "Maggie D Johnson"
     url: https://github.com/jjallaire
@@ -36,18 +36,93 @@ site: distill::distill_website
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("wordcloud2")
+library("webshot")
+library("htmlwidgets")
+library(dplyr)
 ```
 
-This website provides reproducible workflows for our study on  the microbial communities of the Bocas del Toro hypoxic event in 2017. We go through the steps  used to process the raw 16S rRNA marker and  metagenomic  data. We describe the various tools used to analyze and interpret the data. We also provide access to all data, data products, and code. With this workflow you can generate the figures and tables from the paper as well as many additional data products.
+```{r, echo=FALSE, warning=FALSE, layout='l-screen'}
+knitr::include_graphics("figures/index/banner.png")
+```
 
-The workflow is mainly written in [R Markdown](https://rmarkdown.rstudio.com/) meaning that it contains a mixture of Markdown text and R code. Anyone should be able to reproduce our results with just this workflow and the [raw data](data-availability.html).
+# Synopsis 
 
-### Using this Site
+Dissolved oxygen (DO) concentrations in the ocean are declining at an unprecedented rate due eutrophication and climate change. The corresponding increase in the occurrence of coastal hypoxic events, and resulting mass mortality of marine life, is threatening the persistence of ecologically and economically valuable ecosystems. Though hypoxic events have long been recognized to cause ecosystem collapse in temperate environments, similar consequences have only recently been identified in the tropics, where the effects on coral reef ecosystems remain poorly understood. Emerging evidence indicates that hypoxic events can decimate coral reefs, but the progress of a coral reef hypoxia event has yet to be captured in real-time. 
 
-The navigation bar at the top contains links to workflows, data/data products, supplementary material from the paper (see SOM), and a variety of other useful information. The site itself has many dynamic components. For example, you can sort and scroll through most of the tables, tabular data can be download in different formats, and several figures expand when clicked. All figures and tables from the final publication are included in the workflow.
+Here we present the first account of an unfolding hypoxia event on a Caribbean coral reef, documenting the environmental parameters associated with the event that occurred in September 2017 and subsequent impacts on the ecosystem. We provide the first quantitative evidence that hypoxic events can precipitate coral bleaching and lead to dramatic shifts in reef benthic community structure that persist over time. We also describe how the microbial community overlying the reef benthos (~1 m above the seafloor) had a unique taxonomic fingerprint in hypoxic waters that dissipated with the return of oxygenated water. 
 
-On the bottom of each page you can find a link to the page's source code or visit the main GitHub repo for the site, also linked at the bottom of each page. Should you find any problems, there is a link to the issue page of the source repository. References are also included as are DOI links to the publications where applicable.
+Together our study demonstrates the catastrophic implications of a hypoxic event on multiple aspects of the coral reef ecosystems, from coral physiology to microbial community structure. Our results have alarming implications for coral reefs in an age where deoxygenation is accelerating rapidly. In order to truly understand how local and global environmental changes will affect the persistence of coral reefs into the future, ocean deoxygenation must be accounted for and incorporated into monitoring and managements frameworks.
+
+# Goals of the study
+
+1)	Characterize the environmental conditions the occur during an in-progress, acute hypoxic event on a shallow Caribbean coral reef,  
+2)	Quantify the observed effect of the hypoxic event on coral bleaching and subsequent mortality using a representative coral species, *Agaricia tenuifolia*,  
+3)	Evaluate the effects of the hypoxic event on the benthic community through long-term benthic monitoring surveys before, during, and after the event,  
+4)	Assess the effects of the hypoxic event on the microbial community overlying the coral reef benthos, ~1 m above the seafloor.   
+
+# Science to Words
+
+Curious how we translated our study into the written language? Here is a word cloud of our manuscript. 
+
+```{r, echo=FALSE, eval=FALSE}
+filePath <- "files/main.txt"
+text <- readLines(filePath)
+docs <- Corpus(VectorSource(text))
+inspect(docs)
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+```
+
+```{r, echo=FALSE, eval=FALSE}
+# Convert the text to lower case
+docs <- tm_map(docs, content_transformer(tolower))
+# Remove numbers
+docs <- tm_map(docs, removeNumbers)
+# Remove english common stopwords
+docs <- tm_map(docs, removeWords, stopwords("english"))
+# Remove your own stop word
+# specify your stopwords as a character vector
+docs <- tm_map(docs, removeWords, c("used", "based", "samples", 
+                                    "using", "sample", "one", 
+                                    "two", "site", "within", "fig")) 
+# Remove punctuations
+docs <- tm_map(docs, removePunctuation)
+# Eliminate extra white spaces
+docs <- tm_map(docs, stripWhitespace)
+# Text stemming
+# docs <- tm_map(docs, stemDocument)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m), decreasing=TRUE)
+d <- data.frame(word = names(v),freq = v)
+head(d, 200)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+set.seed(1234)
+d1 <- d %>% filter(freq > 1)
+
+#wordcloud(words = d$word, freq = d$freq, min.freq = 1, scale=c(2,.5),
+#          max.words=200, random.order=FALSE, rot.per=0.35, 
+#          colors=brewer.pal(8, "Dark2"))
+wc <- wordcloud2(data = d1, size = 1.1, color = 'random-dark', fontFamily = "serif", gridSize = 0)
+saveWidget(wc, "tmp.html", selfcontained = F)
+webshot("tmp.html", "wordcloud.png", delay = 10, vwidth = 1080, vheight = 480)
+```
+
+```{r, echo=FALSE, warning=FALSE, fig.height=1.5, layout='l-screen'}
+knitr::include_graphics("figures/index/wordcloud.png")
+```
 
 ## Acknowledgements {.appendix}
 
@@ -63,4 +138,4 @@ The source code for this page can be accessed on GitHub by [clicking this link](
 
 ## An Apology from JJS {.appendix}
 
-Unfortunately, some of the publications we cite in this project sit behind paywalls. These papers are inaccessible unless you are at an institution that subscribes to the journal, you pay a crazy amount of money per article, or you obtain the article via "illegal" means. Either way, at the moment this is beyond our control and hence I apologize if you are unable to access some of the article we cite. 
+Unfortunately, some of the publications we cite in this project sit behind paywalls. These papers are inaccessible unless you are at an institution that subscribes to the journal, you pay a crazy amount of money per article, or you obtain the article via "illegal" means. Either way, at the moment this is beyond our control, and hence I apologize if you are unable to access some of the articles we cite. 

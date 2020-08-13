@@ -1,21 +1,29 @@
 /* Whole document: */
-@import url('https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Lato:300|Roboto:300|Nunito+Sans:300|Inconsolata|Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Lato:300|Roboto:300|Nunito+Sans:300|Inconsolata|Source+Sans+Pro|Work+Sans:200,300,400,500');
 /* controls general properties of site*/
 body {
   color: #414141;
 /*  line-height: 1.7;
   font-size: 17px; */
-  background-color: #FAFAFA;
+  background-color: #FEFEFE;
 }
 
 d-title h1{
-font-size: 2.5em;
-font-family: Roboto;
-font-weight: 500;
+font-size: 2.1em;
+font-family: 'Work Sans';
+font-weight: 300;
 }
 
-d-article h1, h2 {
-  font-family: Roboto;
+d-article h1 {
+  font-size: 2.2em;
+  font-family: 'Work Sans', 'Source Sans Pro', 'PT Sans';
+  font-weight: 300;
+}
+
+d-article h2 {
+  font-size: 1.65em;
+  font-family: 'Work Sans', 'Source Sans Pro', 'PT Sans';
+  font-weight: 500;
 }
 
 d-article h3 {

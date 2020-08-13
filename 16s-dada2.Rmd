@@ -682,7 +682,7 @@ The source code for this page can be accessed on GitHub by [clicking this link](
 
 ## Data Availability {.appendix}
 
-Raw fastq files available on figshare at [doi:10.25573/data.11819745.v1](https://doi.org/10.25573/data.11819745.v1). Trimmed fastq files (primers removed) available through the ENA under project accession number [PRJEB36632](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). Output files from this workflow available on figshare  at [doi:0.25573/data.12403865](https://doi.org/10.25573/data.12403865). 
+Raw fastq files available on figshare at [doi:10.25573/data.11819745](https://doi.org/10.25573/data.11819745). Trimmed fastq files (primers removed) available through the ENA under project accession number [PRJEB36632](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). Output files from this workflow available on figshare  at [doi:0.25573/data.12403865](https://doi.org/10.25573/data.12403865). 
 
 ## Addendum {.appendix}
 

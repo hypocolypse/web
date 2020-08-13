@@ -14,11 +14,11 @@ There are two main types of annotations we are interested in for this metagenomi
 
 Let’s start with the tools and databases for **taxonomic** classification.
 
-## Taxonomic Classification
+# Taxonomic Classification
 
 There are many algorithms and databases for taxonomic classification. We will use [KrakenUniq](https://github.com/fbreitwieser/krakenuniq) to classify short reads. We will also use [Centrifuge](https://ccb.jhu.edu/software/centrifuge/), [Kaiju](https://github.com/bioinformatics-centre/kaiju), and [VirSorter](https://github.com/simroux/VirSorter) for contigs. Anvio has methods of importing data from each of these approaches but if you have a have a favorite tool/database there are workarounds to get most results into the appropriate anvio database.
 
-### Centrifuge
+## Centrifuge
 
 *[Centrifuge](https://ccb.jhu.edu/software/centrifuge/)[@kim2016centrifuge] is a very rapid and memory-efficient system for the classification of DNA sequences from microbial samples...uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index, optimized specifically for the metagenomic classification problem...*
 
@@ -36,7 +36,7 @@ Extracted, these files use roughly 12GB of disk space.
 
 That's it.
 
-### Kaiju
+## Kaiju
 
 *[Kaiju](https://github.com/bioinformatics-centre/kaiju)[@menzel2016fast]... finds maximum (in-)exact matches on the protein-level using the Burrows–Wheeler transform.* *Kaiju is a program for the taxonomic classification... of metagenomic DNA. Reads are directly assigned to taxa using the NCBI taxonomy and a reference database of protein sequences from microbial and viral genomes.*
 
@@ -168,7 +168,7 @@ echo = `date` job $JOB_NAME done
 </code></pre>
 </details>
 
-### VirSorter
+## VirSorter
 
 *[VirSorter](https://github.com/simroux/VirSorter)[@roux2015virsorter], a tool designed to detect viral signal in these different types of microbial sequence data in both a reference-dependent and reference-independent manner, leveraging probabilistic models and extensive virome data to maximize detection of novel viruses.*
 
@@ -230,9 +230,9 @@ rm virsorter-data-v2.tar.gz
 
 The uncompressed database is a little over 13GB.
 
-## Functional Annotations
+# Functional Annotations
 
-### Pfam and COG
+## Pfam and COG
 
 Now we can install databases for **functional** annotation. Anvi'o has native support for building [Pfam](https://pfam.xfam.org/) and [COG](https://www.ncbi.nlm.nih.gov/COG/) databases.
 
@@ -247,11 +247,11 @@ The COG db is 2.3GB and the PFAM db is 283MB.
 
 And that’s it. We can add more databases as we need them.
 
-### GhostKOALA/KEGG
+## GhostKOALA/KEGG
 
 Running GhostKOALA/KEGG  was pretty easy thanks to this [handy tutorial](http://merenlab.org/2018/01/17/importing-ghostkoala-annotations/). But since we run the analysis on the GhostKOALA webserver, there is no database to set up here. We provide more details when it comes time to actually set up for the analysis and parse the data.
 
-### Concluding remarks
+# Concluding remarks
 
 At this point we should be good to go with the main setup. We may need to install other tools along the way---we can add those instructions here. Or you may decide to use other tools instead. For example, we are using [megahit](https://github.com/voutcn/megahit) for the assemblies but you may want to use [metaspades](https://github.com/ablab/spades) or [idba_ud](https://github.com/loneknightpy/idba). These packages need to be installed separately.
 

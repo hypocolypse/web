@@ -1,0 +1,9 @@
+	SamName	TYPE	SITE	oxstate	period
+WCC0	WCC0	W	CC	normoxic	cc_after
+WCC1	WCC1	W	CC	normoxic	cc_during
+WCC2	WCC2	W	CC	normoxic	cc_during
+WCC3	WCC3	W	CC	normoxic	cc_during
+WCR0	WCR0	W	CR	normoxic	cr_after
+WCR1	WCR1	W	CR	hypoxic	cr_during
+WCR2	WCR2	W	CR	hypoxic	cr_during
+WCR3	WCR3	W	CR	hypoxic	cr_during

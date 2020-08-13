@@ -22,8 +22,6 @@ library(rsvg)
 library(readr)
 library(tidyverse)
 library(plyr)
-
-
 ```
 
 What we want to do next is compare MAG02^[In the analysis, this MAG is named WATER_MAG_00002. For brevity we refer to it henceforth as MAG02] to publicly available genomes. We know from our binning and binning summary that MAG02 has a lot of hits to *Arcobacter*, an Epsilonproteobacteria. However, when we run `anvi-estimate-scg-taxonomy` we get something a little different.
@@ -185,7 +183,7 @@ Next, we need a config file for the **contigs workflow**. This file tells anvi'o
 
 <aside>
 [Click here](files/mag02-phylogenomics/2-snakemake-contigs/contigs-default-config.json) to see the file or grab it from the folded code below. 
-<aside>
+</aside>
 
 ```bash
 anvi-run-workflow -w contigs --get-default-config contigs-default-config.json
@@ -635,7 +633,7 @@ arc_hmm <- read_tsv("tables/mag02-phylogenomics/Bacteria_71-HMM_HITS.txt")
 
 total_hits <- rowSums(arc_hmm[2:72] > 0)
 arc_hmm$total_hits <- total_hits
-arc_hmm <- arc_hmm %>% select(genome_name, total_hits, everything()) 
+arc_hmm <- arc_hmm %>% dplyr::select(genome_name, total_hits, everything()) 
 
 datatable(
   arc_hmm, rownames = FALSE, autoHideNavigation = TRUE, 
@@ -1110,9 +1108,9 @@ anvi-interactive --profile-db profile.db
                  --manual
 ```
 
-# 16S rRNA Phylogenetic Analysis of MAG02
+# Phylogenetic Analysis of MAG02
 
-Next, we performed the same process for 16S rRNA genes from all the genomes in the phylogenomic analysis. 
+Next, we performed the same process for **16S rRNA genes** from all the genomes in the phylogenomic analysis. 
 
 ```bash
 anvi-get-sequences-for-hmm-hits 
@@ -1165,7 +1163,7 @@ Dandy. Now we have a phylogenomic tree of MAG02 with 72 other *Arcobacter* genom
 <div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Next</div>
-<a href="mag02-phylogenomics.html" rel="prev">N<sup><u>o</u></sup> 7. SOMETHING</a>
+<a href="mg-function.html" rel="prev">N<sup><u>o</u></sup> 7. KEGG/KOFam Analysis</a>
 </div>
 </div>
 

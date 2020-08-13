@@ -82,19 +82,18 @@ mkdir 00_TRIMMED_UNPAIRED
 Next we run TRIMMOMATIC[@bolger2014trimmomatic] assuming the raw data is in a directory called `RAW`. Here is an example for a single sample (`WCCR_1913`). Since we ran these samples on a NextSeq, there are 4 files per paired-end. So, we have 8 files total. We need to run the command 4 times, one for each pair. Here is the command for the first pair.
 
 <aside>
-[GitHub Repo for TRIMMOMATIC](https://github.com/timflutre/trimmomatic).
+[GitHub Repo for TRIMMOMATIC](https://github.com/timflutre/trimmomatic). You will need [this file](https://github.com/timflutre/trimmomatic/blob/master/adapters/NexteraPE-PE.fa) for trimming.
 </aside>
 
-
 ```bash
-runtrimmomatic PE -threads $NSLOTS RAW/WCCR_1913_S74_L001_R1_001.fastq.gz /
-                                   RAW/WCCR_1913_S74_L001_R2_001.fastq.gz /
-                                   00_TRIMMED/WCCR_1913_S74_L001_R1_001_trim.fastq.gz /
-                                   00_TRIMMED_UNPAIRED/WCCR_1913_S74_L001_R1_001_trim_unpaired.fastq.gz /
-                                   00_TRIMMED/WCCR_1913_S74_L001_R2_001_trim.fastq.gz /
-                                   00_TRIMMED_UNPAIRED/WCCR_1913_S74_L001_R2_001_trim_unpaired.fastq.gz /
-          ILLUMINACLIP:/share/apps/bioinformatics/trimmomatic/0.33/adapters/NexteraPE-PE.fa:2:30:10 /
-          MINLEN:40
+trimmomatic PE -threads $NSLOTS RAW/WCCR_1913_S74_L001_R1_001.fastq.gz /
+                                RAW/WCCR_1913_S74_L001_R2_001.fastq.gz /
+                                00_TRIMMED/WCCR_1913_S74_L001_R1_001_trim.fastq.gz /
+                                00_TRIMMED_UNPAIRED/WCCR_1913_S74_L001_R1_001_trim_unpaired.fastq.gz /
+                                00_TRIMMED/WCCR_1913_S74_L001_R2_001_trim.fastq.gz /
+                                00_TRIMMED_UNPAIRED/WCCR_1913_S74_L001_R2_001_trim_unpaired.fastq.gz / 
+                                ILLUMINACLIP:NexteraPE-PE.fa:2:30:10 / 
+                                MINLEN:40
 ```
 
 Now we can run the command for the other 3 pairs,

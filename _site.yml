@@ -18,7 +18,7 @@ navbar:
 #    - text: "Home"
     - icon: fa-home
       href: index.html
-    - text: "Introduction"
+    - text: "Site Overview"
 #      icon: fa-info
       href: intro.html
     - text: "A. Field Analyses"
@@ -36,6 +36,8 @@ navbar:
         - text: "16S rRNA Analyses"
         - text: "3. Diversity"
           href: 16s-water.html
+        - text: "4. Differentially Abundant ASVs"
+          href: 16s-da-asvs.html
     - text: "C. Metagenomic"
 #      icon: fa-wrench
       menu:
@@ -56,6 +58,8 @@ navbar:
           href: mg-binning.html
         - text: "6. MAG02 Phylogenomics"
           href: mag02-phylogenomics.html
+        - text: "7. KEGG/KOFam Analysis"
+          href: mg-function.html
 #    - text: "D. Synthesis"
 #      href: synthesis.html
 #      icon: fa-dna

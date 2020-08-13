@@ -21,7 +21,7 @@ library(htmltools)
 
 This workflow is largely based on the [Recovering Microbial Genomes from TARA Oceans Metagenomes](http://merenlab.org/data/tara-oceans-mags/#binning-mags) binning section provided by Delmont and Eren.
 
-## Automated Binning
+# Automated Binning
 
 The latest iteration of anvi'o (v6 as of this writing) ports several popular automated binning algorithms into its ecosystem. We will bin the water meatgenomic assembly using  [CONCOCT](https://github.com/BinPro/CONCOCT) (Clustering cONtigs with COverage and ComposiTion)[@alneberg2014binning]---a program for unsupervised binning of metagenomic contigs by using nucleotide composition, coverage data in multiple samples and linkage data from paired end reads. But you can also use [MetaBAT2](https://bitbucket.org/berkeleylab/metabat)[@kang2019metabat], [MaxBIN2](https://sourceforge.net/projects/maxbin2/)[@wu2016maxbin] and/or [DASTOOL](https://github.com/cmks/DAS_Tool)[@sieber2018recovery] if you wish.
 
@@ -108,7 +108,7 @@ echo = `date` job $JOB_NAME done
 </code></pre>
 </details>
 
-### Inspect Results
+## Inspect Results
 
 Let's take a look at the results of automated binning using the command `anvi-export-collection` with the `--list-collections` flag. Anvio won't do anything here except show us what *collections* are in the `PROFILE.db`.
 
@@ -132,7 +132,7 @@ The command `anvi-export-collection` produces two files---one is an items file, 
 One thing to remember if you use the other tools is  how each algorithm names bins, or else this can get confusing. CONCOCT adds the prefix `Bin_`, MaxBin adds the prefix `MAXBIN_`, and MetaBAT adds the prefix `METABAT__` (with two underscores). DAS Tool then adds its own `Bin_` prefix to the parent name. For example, DAS Tool `Bin_Bin_11` is CONCOCT bin `Bin_11` while DASTOOL `Bin_METABAT__2` is MetaBAT2 bin `METABAT__2`.
 
 
-#### Summarize Initial CONCOCT Clusters
+### Summarize Initial CONCOCT Clusters
 
 Now we can have a look at the results of the initial binning and for that we use `anvi-summarize`. This command is *very* useful, especially during bin refinement. It produces a lot of report files will that will help you assess your  bins. We need to give the command contig and profile databases, a collection name, and an output directory.
 
@@ -168,7 +168,7 @@ datatable(
 
 Messy.
 
-#### Estimate genome completeness
+## Estimate genome completeness
 
 We can also the estimate genome completeness of each. The output of this command is a simple table and can give you quick access to some important details.
 
@@ -203,9 +203,7 @@ datatable(
 
 In truth, none of this is particularly useful right now since we know are bins are messy. These tell us just how messy the bins are but later on commands like `anvi-summarize` and `anvi-estimate-genome-completeness` will be indispensable.
 
-## Manual Refinement
-
-DETAILS
+# Manual Refinement
 
 Once I have gone through all the bins and am happy with the manual refinement, I make a new collection to have a clean slate. This involves a little text file manipulation but its pretty easy. First I run...
 
@@ -247,9 +245,9 @@ COLLECTIONS FOUND
 * MICROBIAL_REFINED (44 bins, representing 11572 items).
 ```
 
-## Identification & Curation of MAGs
+# Identification & Curation of MAGs
 
-### Rename Bins
+## Rename Bins
 
 Now that we have gone through the process of refining the bins and modifying the collections it is time to **a** define metagenomic bins with > 70% completion or > 2 Mbp in length *AND* < 10% redundancy^[This redundancy cutoff only works for bacteria or archaea. If you have eukaryotic bins, the redundancy should be set to 100.] as metagenome-assembled genomes (MAGs), and **b**) rename the MAGs and all the remaining bins.
 
@@ -291,7 +289,7 @@ anvi-summarize -c 03_CONTIGS/WATER-contigs.db \
                -o VIRAL_FINAL
 ```
 
-### Summarize MAGs
+## Summarize MAGs
 
 Now, for a little sanity check  we can summarize the MAGs. We can employ the same trick above to make a collection of just MAGs called, well, `MAGS`. 
 
@@ -334,7 +332,7 @@ datatable(
 
 As you can see, the genomes are pretty fragmented, but you get what you get so let's move on.
 
-### Check for Redundant MAGs
+## Check for Redundant MAGs
 
 Since we only have one metagenomic assembly, we shouldn't need to worry about having redundant MAGs. But I like to check anyway.
 
@@ -385,7 +383,7 @@ Inspecting the `CLUSTER_REPORT.txt` file we can see that each MAG is in it's own
 | cluster_000004 |	1	  | 	WATER_MAG_00003 |	WATER_MAG_00003  |
 | cluster_000005 |	1	  | 	WATER_MAG_00005 |	WATER_MAG_00005  |
 
-### Profile Nonredundant MAGs
+## Profile Nonredundant MAGs
 
 After the  binning, curation of the MAGs, and renaming of scaffolds, we can start focusing on the distribution and detection of each MAG across the metagenomes. For this we will need a contigs database of the 5 MAGs. We will add HMM profiles and predict taxonomy. This is very similar to what we did in the initial assembly part of the [Snakemake Workflow](mg-workflow-1.html#snakemake-workflow).
 
@@ -487,7 +485,7 @@ COLLECTIONS FOUND
 * NON_REDUNDANT_MAGs (5 bins, representing 3404 items).
 ```
 
-### Creating Self-Contained Profiles for MAGs
+## Creating Self-Contained Profiles for MAGs
 
 ```bash
 anvi-split -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db \
