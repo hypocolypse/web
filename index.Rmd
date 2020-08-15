@@ -1,14 +1,14 @@
 ---
 title: "Hypocolypse"
 description: |
-  Reproducible workflows for the study *Rapid ecosystem-scale consequences of rapid acute deoxygenation on a Caribbean reef*.
+  Reproducible workflows for the study ***Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean reef***.
 author:
   - name: "Maggie D Johnson"
-    url: https://github.com/jjallaire
+    url: https://www.maggiedjohnson.com/
     affiliation: Woods Hole Oceanographic Institution
     affiliation_url: https://www.whoi.edu/
   - name: "Jarrod J Scott"
-    url: https://github.com/rich-iannone
+    url: https://github.com/jarrodscott
     affiliation: Smithsonian Tropical Research Institute
     affiliation_url: https://stri.si.edu/
   - name: "Matthieu Leray"
@@ -16,21 +16,23 @@ author:
     affiliation: Smithsonian Tropical Research Institute
     affiliation_url: https://stri.si.edu/
   - name: "Noelle Lucey"
-    url: https://github.com/yihui
+    #url: https://github.com/yihui
     affiliation: Smithsonian Tropical Research Institute
     affiliation_url: https://stri.si.edu/
   - name: "Lucia Rodriguez"
-    url: https://github.com/yihui
+    #url: https://github.com/yihui
     affiliation: Universidad Autónoma de Baja California
     affiliation_url: http://www.uabc.mx/
   - name: "William Wied"
-    url: https://github.com/yihui
+    #url: https://github.com/yihui
     affiliation: Florida International University
     affiliation_url: https://www.fiu.edu/
   - name: "Andrew H Altieri"
     url: www.altierilab.orgi
     affiliation: University of Florida
     affiliation_url: https://www.essie.ufl.edu/environmental-engineering-sciences/
+#date: September 10, 2018
+#citation_url: https://rstudio.github.io/distill
 site: distill::distill_website
 ---
 
@@ -44,6 +46,8 @@ library("wordcloud2")
 library("webshot")
 library("htmlwidgets")
 library(dplyr)
+library(leaflet)
+library(htmlwidgets)
 ```
 
 ```{r, echo=FALSE, warning=FALSE, layout='l-screen'}
@@ -65,9 +69,55 @@ Together our study demonstrates the catastrophic implications of a hypoxic event
 3)	Evaluate the effects of the hypoxic event on the benthic community through long-term benthic monitoring surveys before, during, and after the event,  
 4)	Assess the effects of the hypoxic event on the microbial community overlying the coral reef benthos, ~1 m above the seafloor.   
 
+# Field Sites
+
+Conditions characteristic of a low-oxygen event were detected in Bahía Almirante (Bocas del Toro, Panama) on September 20, 2017. Sampling was conducted inside the bay at the **impacted site** (Cayo Roldan, vermilion) and outside the bay at the **control site** (Coral Caye, blue).
+
+<br/>
+
+```{r, layout='l-screen-inset shaded', fig.height=5.5}
+
+#stri_icon <- makeIcon(
+#  iconUrl = "assets/stri_logo.png",
+#  iconWidth = 38, iconHeight = 38
+#  iconAnchorX = 22, iconAnchorY = 94,
+#)
+
+leaflet() %>%
+  setView(-82.235052, 9.277137, zoom = 12) %>%
+  addTiles() %>% 
+  addScaleBar(position = "topright") %>% 
+#  addMiniMap(position = "topright", zoomLevelOffset = -5) %>%
+  addCircleMarkers(lng = c(-82.334720, -82.131119), 
+             lat = c(9.219640, 9.248433), radius = 22.5,
+             label = c("Cayo Roldan (impacted)", "Coral Caye (control)"),
+             labelOptions = labelOptions(textOnly = TRUE, 
+                                         noHide = TRUE, 
+                                         direction = "bottom", offset = c(6, 12), 
+                                         style = list("font-size" = "14px" , 
+                                                      "font-style" = "bold")),
+             color = c("#141414", "#141414"), 
+             fillColor = c("#D55E00", "#0072B2"), 
+             stroke = TRUE, fillOpacity = 0.9, weight = 10) %>%
+  addCircleMarkers(lng = -82.256463, 
+             lat = 9.352402, 
+             label = "STRI",
+             labelOptions = labelOptions(textOnly = TRUE, 
+                                         noHide = TRUE, 
+                                         direction = "left", offset = c(-20, 1), 
+                                         style = list("font-size" = "20px" , 
+                                                      "font-style" = "bold")),
+             color = "#0072B2", 
+             fillColor = "#F0E442", 
+             stroke = TRUE, fillOpacity = 0.95, weight = 5,
+             opacity = 0.95) 
+```
+
+<br/>
+
 # Science to Words
 
-Curious how we translated our study into the written language? Here is a word cloud of our manuscript. 
+Curious how our study translated into the written language? Here is a word cloud of our manuscript. 
 
 ```{r, echo=FALSE, eval=FALSE}
 filePath <- "files/main.txt"
@@ -131,6 +181,10 @@ MDJ was funded by postdoctoral fellow awards from the Smithsonian Institution Ma
 ## Author Contributions {.appendix}
 
 MDJ, JJS, ML, NL, and AA contributed to conception and experimental design. MDJ, NL, LR, and WW conducted surveys and collected field samples. NL, LR, and WW conducted laboratory analyses. JJS and ML performed extractions and sample processing for sequencing. MDJ, JJS, ML, and NL conducted statistical analyses and created figures. MDJ drafted the manuscript and Supplementary Information, and managed revisions with assistance from all co-authors. Website created by JJS with input and material from co-authors.
+
+## Data Availability {.appendix}
+
+See the [Data Availability](data-availability.html) for complete details on obtaining all data and data products for this study.
 
 ## Source Code {.appendix}
 

@@ -3,7 +3,7 @@ title: "Field Analyses"
 description: |
  In this section we discuss the various field analyses conducted in this study.
 author:
- - name: "Maggie D Johnson"
+# - name: "Maggie D Johnson"
 # url: https://github.com/jjallaire
 # affiliation: STRI
 # affiliation_url: https://www.rstudio.com

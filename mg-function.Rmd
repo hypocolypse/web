@@ -3,7 +3,7 @@ title: "No 7. KEGG/KOFam Analysis"
 description: |
   Diving deeper into funtional annotation. This is a work in progress and is not complete.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets

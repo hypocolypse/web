@@ -3,7 +3,7 @@ title: "No 3. Diversity"
 description: |
   In this section of the workflow we look at the diversity of the water samples collected from Cayo Roldan (hypoxic) and Cayo Coral (normoxic).
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -701,4 +701,4 @@ The source code for this page can be accessed on GitHub by [clicking this link](
 
 ## Data Availability {.appendix}
 
-Output files from this workflow available on figshare at [XXX](YYY). The *16s-water.rdata* file contains all variables and phyloseq objects from this pipeline and is needed for the next workflow (as are the .rds files). 
+Output files from this workflow available on figshare at [doi:10.25573/data.12794258](https://doi.org/10.25573/data.12794258). The *16s-water.rdata* file contains all variables and phyloseq objects from this pipeline and is needed for the next workflow (as are the .rds files). 

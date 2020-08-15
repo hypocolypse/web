@@ -5,7 +5,7 @@ repository_url: https://github.com/hypocolypse/web/
 description: |
   Hypocolypse
 output_dir: "public_build"
-exclude: ["rdata", "public", "public_build", "tables", "other_things", "external_analyses"]
+exclude: ["rdata", "public", "public_build", "tables", "metabolism", "16s-anvio"]
 creative_commons: CC BY
 favicon: assets/favicon.ico
 navbar:

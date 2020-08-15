@@ -2,20 +2,16 @@
 title: "Site Overview"
 description: |
   A brief description of the Website and the various workflows. 
-#author:
-#  - name: "Maggie D Johnson"
+author:
+#  - name: "Jarrod J Scott"
 #    url: https://github.com/jjallaire
-#    affiliation: STRI
-#    affiliation_url: https://www.rstudio.com
-#  - name: "Noelle Lucey"
-#    url: https://github.com/yihui
 #    affiliation: STRI
 #    affiliation_url: https://www.rstudio.com
 bibliography: assets/cite.bib
 ---
 
 ```{r setup, include=FALSE}
-remove(list = ls())
+knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(DT)
 library(ggplot2)
@@ -23,6 +19,7 @@ library(scales)
 library(magick)
 library(gridExtra)
 library(grid)
+options(scipen=999)
 ```
 
 This website provides reproducible workflows for our study on the Bocas del Toro hypoxic event in 2017. We go through the steps  used to process the raw 16S rRNA marker and  metagenomic  data. We describe the various tools used to analyze and interpret the data. We also provide access to all data, data products, and code. With this workflow you can generate the figures and tables from the paper as well as many additional data products.
@@ -83,7 +80,6 @@ Next we describe the various database we used to annotate the metagenomes. There
 
 Here we move to the processing part of the workflow, which involves the following: adapter trimming of raw data; quality filtering of trimmed reads; co-assembling  QCed reads; mapping reads to the assembly; profiling the mapping results; merging profile dbs; classify reads and genes; annotating genes; and running HMM profiles. You can access the workflow from the navbar above or [this link](mg-workflow-1.html).
 
-
 ### No 4. Assembley & Annotation Summary
 
 In this section of the workflow, we assess the QC & assembly results, Kraken short read taxonomy, mapping results, and contig classifications. You can access the workflow from the navbar above or [this link](mg-workflow-2.html).
@@ -110,8 +106,9 @@ Here are a few color palette examples. A light grey  (`#7F7F7F`) was added to th
 
 If you are interested in the R code used to make these palettes, click the arrow to expand the code block.
 
-<details markdown="1"><summary>Show/hide code to make palette figures</summary>
-<pre><code>
+
+<details markdown="1"><summary>Show/hide code to make palette figures</summary>  
+
 ```
 # Wong palette
 wong_pal <- c("#009E73", "#D55E00", "#F0E442",
@@ -140,12 +137,12 @@ gs2 <- grid.arrange(grobs = gs2, ncol = 4,
                top = "12-COLOR PALETTE", left = "")
 grid.arrange(gs1, gs2, ncol = 2)
 ```
-</code></pre>
 </details>
 
 <br/>
+<br/>
 
-```{r color_121,  layout="l-body-outset", comment='', echo=FALSE, include=FALSE}
+```{r color_121,  layout="l-body-outset", comment='', include=FALSE}
 # Wong palette
 wong_pal <- c("#009E73", "#D55E00", "#F0E442",
                 "#CC79A7", "#56B4E9", "#E69F00",
@@ -184,7 +181,7 @@ There is a great article on [Coloring for Colorblindness](https://davidmathlogic
 <div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Next</div>
-<a href="pc.html" rel="next">A. Field Analyses</a>
+<a href="field.html" rel="next">A. Field Analyses</a>
 </div>
 </div>
 

@@ -3,7 +3,7 @@ title: "No 5. Binning MAGs"
 description: |
   In this section of the workflow we reconstruct metagenome assembled genomes (MAGs), first using CONCOCT for automated binning of the assembled contigs followed by manual refinement.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -658,7 +658,7 @@ In the next section we explore WATER_MAG_00002 in a phylogenomic context. That's
 <div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Previous</div>
-<a href="mg-workflow-2.html" rel="next">N<sup><u>o</u></sup> 4. Assembley & Annotation Summary</a>
+<a href="mg-workflow-2.html" rel="next">N<sup><u>o</u></sup> 4. Assembly & Annotation Summary</a>
 </div>
 </div>
 
@@ -673,3 +673,7 @@ In the next section we explore WATER_MAG_00002 in a phylogenomic context. That's
 ## Source Code {.appendix}
 
 The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-binning.Rmd).
+
+## Data Availability {.appendix}
+
+Binning summary data can be downloaded directly from  figshare at [doi:10.25573/data.12809069](https://doi.org/10.25573/data.12809069). Summary data is included for four collections: 1) `CONCOCT_5`, the automatic binning, 2) `VIRAL_FINAL`, the bins after manual refinement deemed to be viral, 3) `MICROBIAL_FINAL`, the bins after manual refinement deemed to be microbial, 4) `MAGS` the 5 MAG bins only. Within each directory is an `index.html` that can be opened in a browser for closer inspection. Individual summary files are also provided. Self-Contained profile and contigs databases for each MAG are also available for download. 

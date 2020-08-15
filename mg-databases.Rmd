@@ -3,7 +3,7 @@ title: "No 2. Annotation Databases"
 description: |
   Constructing taxonomic & functional annotation databases.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets

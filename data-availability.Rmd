@@ -3,41 +3,30 @@ title: "Data Availability"
 description: |
   In this section you can find information on obtaining raw sequencing data, data products, and processing scripts. Of course, all the code is also embedded in the workflows on the website as well.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
 bibliography: assets/cite.bib
 ---
 
-#  Data for 16S rRNA Analysis
+# Archived Sequence Data
 
-## Raw Sequence Data
+All sequence data is deposited at the European Nucleotide Archive (ENA). See below for instructions on submitting data to the ENA and the files we used to deposit the data. 
 
-If you want to start from the beginning, you will need to use the [DADA2 workflow](16s-dada2.html) and grab the fastq files. *The data in the ENA (primers removed) is the input for the DADA2 workflow but if you prefer to remove primers yourself, then please download the raw data instead.*
+The trimmed **16S rRNA** data (primers removed) are deposited under Project Accession number [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632),  sample accession numbers [ERS4291994-ERS4292031](https://www.ebi.ac.uk/ena/browser/view/ERS4291994-ERS4292031).
 
-* [10.25573/data.11819745](https://doi.org/10.25573/data.11819745): Raw data for each sample (before removing primers) plus two tables for ENA submission.
-* [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632): Project accession number for trimmed 16S rRNA data (primers removed)  deposited at the European Nucleotide Archive. See below for instructions on submitting data to the ENA and the files we used to deposit the data. Sample accession numbers are [ERS4291994-ERS4292031](https://www.ebi.ac.uk/ena/browser/view/ERS4291994-ERS4292031).
+The **metagenomic** data from the four water column samples are also deposited under Project Accession number [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). The individual sample accession numbers for these data are [ERS4578390-ERS4578393](https://www.ebi.ac.uk/ena/browser/view/ERS4578390-ERS4578393).
 
-## Trimmed Sequence Data
+# Pipeline Data
 
-If you prefer to skip sequence processing with DADA2 and jump straight to the analysis, you will need to start at [No 2. Data Preparation](16s-data-prep.html) and grab the final output file of the DADA2  workflow (`combo_pipeline.rdata)`.
-
-* [10.25573/data.11828700](https://doi.org/10.25573/data.11828700): Final output file of the DADA2  workflow (`combo_pipeline.rdata)`. This .RData file is loaded directly into the beginning of the [phyloseq workflow](16s-data-prep.html). In this repo you will also find additional input files needed to run subsequent analyses.
-
-# Data for Metagenomic Analysis
-
-* [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632): Project accession number (same as above) for the metagenomic data from the four water column  samples. Sample accession numbers are  [ERS4578390-ERS4578393](https://www.ebi.ac.uk/ena/browser/view/ERS4578390-ERS4578393).
+Data for each individual pipeline are available through the Smithsonian figshare under a single collection at [doi:10.25573/data.c.5025362](https://doi.org/10.25573/data.c.5025362). In addition, data from each pipeline are available for download from figshare using the links at the bottom of each page (where applicable).
 
 ```{r, echo=FALSE, eval=FALSE}
 ## Accessing the R Code only
 
 #The  R code is available by clicking [here](files/data-availability/r-code). There you can find code for each step of the 16S rRNA pipeline. Please note that this  R code is pulled from the `.Rmd` files. The code has not been tested independent of the R Markdown workflows so *Use at Your Own Risk* please. In other words, the code works when run in the site build, but the complete pipeline has not been tested using just this code. I used `knitr::purl()` to pull  the code from the R Markdown file. I did this for you just in case you wanted the code and not hear me drone on about colors, zoomable figures, or Keanu Reeves. Commands that are commented out are things I tried that I could never get to work. Any line that starts like this: `## ----` is the code chuck name.
 ```
-
-# Additional Data Products
-
-Most data outputs can be accessed from the workflow pages. For example, many tables can be downloaded straight from the page. Information for additional data products  can be found at the bottom of individual workflow pages in the Appendix.
 
 # Submitting Sequence Data
 

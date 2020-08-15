@@ -3,7 +3,7 @@ title: "No 3. Assembly & Annotations"
 description: |
   This section describes the steps we took to co-assemble the metagenomic samples, classify taxonomy, and assign functions.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -1605,6 +1605,7 @@ This section of the workflow is complete. Lets take a look at the what we have s
 
 | Directory           | Description                                                                           |
 |---------------------|---------------------------------------------------------------------------------------|
+| `00_RAW/`           | Raw fastq files before trimming.                                                      |
 | `00_LOGS/`          | Individual log files for each step of the snakemake workflow.                         |
 | `00_TRIMMED/`       | Eight trimmed, compressed fastq files for each sample.                                |
 | `01_QC/`            | Merged forward (R1) & reverse (R2) QC'ed fastq files. QC STATS file for each sample. `qc-report.txt` file, a summary table of all QC results.                                             |
@@ -1633,3 +1634,7 @@ This section of the workflow is complete. Lets take a look at the what we have s
 ## Source Code {.appendix}
 
 The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-workflow-1.Rmd).
+
+## Data Availability {.appendix}
+
+All files generated from this workflow and described in the final table  can be downloaded from  figshare at [doi:10.25573/data.12808601](https://doi.org/10.25573/data.12808601). The contigs db contains all taxonomic and functional annotations. The profile db contains information on coverage, detection, etc. as well as COLLECTION information for automatic binning and manual refinement ([see step 5](https://hypocolypse.github.io/mg-binning.html)). 

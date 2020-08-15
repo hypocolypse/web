@@ -4,7 +4,7 @@ description: |
   Complete, reproducible DADA2 workflow for processing the raw **16S rRNA** Illumina data from hypoxic and normoxic water samples collected during a 2017 hypoxic event in Bocas del Toro, Panama. 
 
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -665,7 +665,7 @@ That's it for this part. Next, we do some data prep ahead of the community analy
 <div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Previous</div>
-<a href="pc.html" rel="next">Field Analyses</a>
+<a href="field.html" rel="next">Field Analyses</a>
 </div>
 </div>
 

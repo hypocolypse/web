@@ -3,7 +3,7 @@ title: "No 2. Data Preparation"
 description: |
   Complete, reproducible workflow for preparation  of the **16S rRNA** data set. These steps are needed before analyzing the data. For aesthetic reasons, the R code for tables & figures are hidden (see the GitHub link at the bottom of the page for the raw `.Rmd` file). R code for everything else is generally shown.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets

@@ -3,7 +3,7 @@ title: "No 6. MAG02 Phylogenomic Analysis"
 description: |
   In this section, we create a workflow to compare MAG02 with publicly available genomes. MAG02 was only found in the hypoxic sample.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -22,6 +22,7 @@ library(rsvg)
 library(readr)
 library(tidyverse)
 library(plyr)
+library(data.table)
 ```
 
 What we want to do next is compare MAG02^[In the analysis, this MAG is named WATER_MAG_00002. For brevity we refer to it henceforth as MAG02] to publicly available genomes. We know from our binning and binning summary that MAG02 has a lot of hits to *Arcobacter*, an Epsilonproteobacteria. However, when we run `anvi-estimate-scg-taxonomy` we get something a little different.
@@ -533,7 +534,7 @@ done
 scg_tax <- read.table("tables/mag02-phylogenomics/arco-scg-tax.txt", 
                            sep = "\t", header = TRUE)
 datatable(
-  scg_tax, rownames = FALSE, autoHideNavigation = TRUE, 
+  scg_tax, rownames = FALSE, autoHideNavigation = TRUE, filter = 'top', 
   width = "100%", elementId = "rlmoheh55qr4vfp52n7o",
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -543,7 +544,7 @@ datatable(
     columnDefs = list(list(className = "dt-left", targets = 0)),
     dom = "Blfrtip",
     buttons = c("csv", "copy"),
-    pageLength = 5, lengthMenu = c(5, 10, 50, 125), 
+    pageLength = 5, lengthMenu = list(c(5, 10, 50, -1), c("5", "10", "50", "All")),
     scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE, paging=TRUE,
     fixedColumns = list(leftColumns = 1, rightColumns = 0)))
 
@@ -571,7 +572,7 @@ Just like that, a table of basic  stats for every genome in the collection. Firs
 arc_comp <- read_tsv("tables/mag02-phylogenomics/completness.txt")
 
 datatable(
-  arc_comp, rownames = FALSE, autoHideNavigation = TRUE, 
+  arc_comp, rownames = FALSE, autoHideNavigation = TRUE, filter = 'top', 
   width = "100%", elementId = "15f785tpvzzud9tgdwd7",
   colnames = c(
     "genome", "domain", "confidence", "%_completion", 
@@ -584,7 +585,7 @@ datatable(
     columnDefs = list(list(className = "dt-left", targets = 0)),
     dom = "Blfrtip",
     buttons = c("csv", "copy"),
-    pageLength = 5, lengthMenu = c(5, 10, 50, 125), 
+    pageLength = 5, lengthMenu = list(c(5, 10, 50, -1), c("5", "10", "50", "All")),
     scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE, paging=TRUE,
     fixedColumns = list(leftColumns = 1, rightColumns = 0)))
 ```
@@ -636,7 +637,7 @@ arc_hmm$total_hits <- total_hits
 arc_hmm <- arc_hmm %>% dplyr::select(genome_name, total_hits, everything()) 
 
 datatable(
-  arc_hmm, rownames = FALSE, autoHideNavigation = TRUE, 
+  arc_hmm, rownames = FALSE, autoHideNavigation = TRUE, filter = 'top', 
   width = "100%", elementId = "tdy2xm8lh2st5qbsvcr6",
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -646,7 +647,7 @@ datatable(
     columnDefs = list(list(className = "dt-left", targets = 0)),
     dom = "Blfrtip",
     buttons = c("csv", "copy"),
-    pageLength = 5, lengthMenu = c(5, 10, 50, 125), 
+    pageLength = 5, lengthMenu = list(c(5, 10, 50, -1), c("5", "10", "50", "All")), 
     scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE, paging=TRUE,
     fixedColumns = list(leftColumns = 1, rightColumns = 0)))
 ```
@@ -689,7 +690,7 @@ arc_rrna <- read_tsv("tables/mag02-phylogenomics/Ribosomal_RNAs-HMM_HITS.txt")
 no_16s <- filter(arc_rrna, Bacterial_16S_rRNA == 0)
 
 datatable(
-  arc_rrna, rownames = FALSE, autoHideNavigation = TRUE, 
+  arc_rrna, rownames = FALSE, autoHideNavigation = TRUE, filter = 'top', 
   width = "100%", elementId = "bgzodib9iiz72hfrwvln",
   caption = htmltools::tags$caption(
     style = "caption-side: bottom; text-align: left;",
@@ -699,7 +700,7 @@ datatable(
     columnDefs = list(list(className = "dt-left", targets = 0)),
     dom = "Blfrtip",
     buttons = c("csv", "copy"),
-    pageLength = 5, lengthMenu = c(5, 10, 50, 115), 
+    pageLength = 5, lengthMenu = list(c(5, 10, 50, -1), c("5", "10", "50", "All")), 
     scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE, paging=TRUE,
     fixedColumns = list(leftColumns = 1, rightColumns = 0)))
 ```
@@ -1149,6 +1150,49 @@ iqtree -s sequences-for-16s-rrna-hits-rename.fa
 
 If you are unfamiliar with IQ-TREE, check out the [tutorial](http://www.iqtree.org/doc/Tutorial). It's a really nice program. 
 
+## Genome Metadata 
+
+Here is the metadata for record of all genomes used in phylogenomic analysis of MAG02. Table contains information for each of the 72 Arcobacter-like genomes (plus 3 outgroup genomes). Description of table headers are as follows. 
+
+**genome_id**: Name of genome in phylogenomic tree.  
+**isolation_category**: Broad category based on *host/isolation source* information retrieved from the BioSample record.   
+**organism**: Organism name retrieved from the BioSample record.  
+**strain_or_isolate**: Genome stain or isolate designation.  
+**sample_information**: Host/isolation source information retrieved from the BioSample record.  
+**bioproject**: [NCBI BioProject ID](https://www.ncbi.nlm.nih.gov/bioproject).  
+**biosample**: [NCBI BioSample ID](https://www.ncbi.nlm.nih.gov/biosample).  
+**assembly_accession**: [NCBI Assembly ID](https://www.ncbi.nlm.nih.gov/assembly).  
+**taxid**: [NCBI Taxonomy ID](https://www.ncbi.nlm.nih.gov/taxonomy).  
+**species_taxid**: [NCBI Species Taxonomy ID](https://www.ncbi.nlm.nih.gov/taxonomy).  
+**doi_publication**: DOI link for related publication.  
+**assembly_level**: Assembly level.  
+**seq_rel_date**: Genome release data.   
+**ftp_path**: FTP link to download genome.  
+**submitter**: Submitting Institution.  
+
+<br/>
+
+```{r suppl_table_6, echo=FALSE, , layout="l-page"}
+table_s1 <- read.table("tables/mag02-phylogenomics/Supplementary_Table_1_links.txt",
+                      sep = "\t", header = TRUE)#,
+                      #colClasses=c("X..identity" = "numeric"))
+
+datatable(table_s1, escape = 15, rownames = FALSE, width = "100%", filter = 'top',
+    caption = htmltools::tags$caption(
+      style = "caption-side: bottom; text-align: left;",
+            "Supplementary Table 1: ",
+    htmltools::em("NCBI metadata for genomes in phylogenomic analysis.")),
+    options = list(columnDefs = list(list(className = "dt-center",
+                                          targets = "_all")),
+                   dom = "Blfrtip", pageLength = 10,
+                   lengthMenu = list(c(10, 25, -1), c("10", "25", "All")),
+                   scrollX = TRUE, scrollCollapse = TRUE))
+```
+
+<br/>
+
+> A plain text version of this table (without HTML tags) <a href="files/mag02-phylogenomics/Supplementary_Table_1.txt" download="Supplementary_Table_1.txt"> can be downloaded here.</a> 
+
 # Conclusion
 
 Dandy. Now we have a phylogenomic tree of MAG02 with 72 other *Arcobacter* genomes and 3 from *Sulfurimonas* as the outgroup. We also have a phylogenetic tree of near-full length 16S rRNA genes from the same genomes. 
@@ -1170,3 +1214,8 @@ Dandy. Now we have a phylogenomic tree of MAG02 with 72 other *Arcobacter* genom
 ## Source Code {.appendix}
 
 The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mag02-phylogenomics.Rmd).
+
+
+## Data Availability {.appendix}
+
+Files generated from the pangenomic (`01_MAG02_PAN/`), phylogenomic (`02_MAG02_PHYLOGENOMICS`), and 16S rRNA phylogenetic (`03_MAG02_16S_rRNA_PHYLOGENETICS`) analyses of MAG02 can be downloaded from figshare at [doi:10.25573/data.12809561](https://doi.org/10.25573/data.12809561). You can use the anvi'o commands described above to visualize the data.

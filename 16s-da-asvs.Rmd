@@ -3,7 +3,7 @@ title: "No 4. Differentially Abundant ASVs"
 description: |
   In this section of the workflow we look at the diversity of the water samples collected from Cayo Roldan (hypoxic) and Cayo Coral (normoxic).
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -789,3 +789,8 @@ transform_sample_counts(ps_water_ox, function(x) x/sum(x))
 
 
 The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-da-asvs.Rmd).
+
+## Data Availability {.appendix}
+
+Output files from this workflow available on figshare at [doi:10.25573/data.12808427](https://doi.org/10.25573/data.12808427). The `da_asvs_pipeline.rdata` file contains all variables and  objects from this pipeline. The directory within `da_asv_anvio.zip` contains all the files needed to visualize the DA ASVs in anvi’o. 
+

@@ -3,7 +3,7 @@ title: "No 4. Assembly & Annotation Summary"
 description: |
   In this section of the workflow we summarize: **1**) QC & assembly results. **2**) Kraken short read taxonomy. **3**) Mapping results. **4**) Contig classification.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
@@ -236,3 +236,7 @@ We will get into much more of the annotation data later, including the various f
 ## Source Code {.appendix}
 
 The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/mg-workflow-2.Rmd).
+
+## Data Availability {.appendix}
+
+Full versions of the Krona plots linked above can be downloaded directly from  figshare at [doi:10.25573/data.12808502](https://doi.org/10.25573/data.12808502). Files are in html format and can be opened directly in a web browser. 

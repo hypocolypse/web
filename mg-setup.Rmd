@@ -3,7 +3,7 @@ title: "No 1. Working Environment"
 description: |
   In this section we go through our steps to build a working environment for data processing and analysis.
 author:
-  - name: Jarrod J Scott
+#  - name: Jarrod J Scott
 #    url: https://example.com/norajones
 #    affiliation: Spacely Sprockets
 #    affiliation_url: https://example.com/spacelysprokets
