@@ -204,3 +204,16 @@ img {
     font-weight: 300;
   }
 }
+
+.article-banner {
+  width: auto;
+  height: auto;
+  border: 0;
+}
+
+img[src="assets/banner.png"] {
+  border: 0;
+  padding: 0;
+  width: 100%;
+  margin: 100px 50px 0px 25px;
+}

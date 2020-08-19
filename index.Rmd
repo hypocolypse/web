@@ -28,12 +28,16 @@ author:
     affiliation: Florida International University
     affiliation_url: https://www.fiu.edu/
   - name: "Andrew H Altieri"
-    url: www.altierilab.orgi
+    url: https://www.altierilab.org
     affiliation: University of Florida
     affiliation_url: https://www.essie.ufl.edu/environmental-engineering-sciences/
 #date: September 10, 2018
 #citation_url: https://rstudio.github.io/distill
-site: distill::distill_website
+#site: distill::distill_website
+output:
+    distill::distill_article:
+      includes:
+        in_header: assets/header.html
 ---
 
 ```{r setup, include=FALSE}
@@ -50,10 +54,6 @@ library(leaflet)
 library(htmlwidgets)
 ```
 
-```{r, echo=FALSE, warning=FALSE, layout='l-screen'}
-knitr::include_graphics("figures/index/banner.png")
-```
-
 # Synopsis 
 
 Dissolved oxygen (DO) concentrations in the ocean are declining at an unprecedented rate due eutrophication and climate change. The corresponding increase in the occurrence of coastal hypoxic events, and resulting mass mortality of marine life, is threatening the persistence of ecologically and economically valuable ecosystems. Though hypoxic events have long been recognized to cause ecosystem collapse in temperate environments, similar consequences have only recently been identified in the tropics, where the effects on coral reef ecosystems remain poorly understood. Emerging evidence indicates that hypoxic events can decimate coral reefs, but the progress of a coral reef hypoxia event has yet to be captured in real-time. 
@@ -63,6 +63,10 @@ Here we present the first account of an unfolding hypoxia event on a Caribbean c
 Together our study demonstrates the catastrophic implications of a hypoxic event on multiple aspects of the coral reef ecosystems, from coral physiology to microbial community structure. Our results have alarming implications for coral reefs in an age where deoxygenation is accelerating rapidly. In order to truly understand how local and global environmental changes will affect the persistence of coral reefs into the future, ocean deoxygenation must be accounted for and incorporated into monitoring and managements frameworks.
 
 # Goals of the study
+
+```{r, echo=FALSE, warning=FALSE, layout='l-screen'}
+knitr::include_graphics("figures/index/banner.png")
+```
 
 1)	Characterize the environmental conditions the occur during an in-progress, acute hypoxic event on a shallow Caribbean coral reef,  
 2)	Quantify the observed effect of the hypoxic event on coral bleaching and subsequent mortality using a representative coral species, *Agaricia tenuifolia*,  
