@@ -10,7 +10,7 @@ author:
 bibliography: assets/cite.bib
 ---
 
-# Archived Sequence Data
+## Archived Sequence Data
 
 All sequence data is deposited at the European Nucleotide Archive (ENA). See below for instructions on submitting data to the ENA and the files we used to deposit the data. 
 
@@ -18,7 +18,7 @@ The trimmed **16S rRNA** data (primers removed) are deposited under Project Acce
 
 The **metagenomic** data from the four water column samples are also deposited under Project Accession number [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). The individual sample accession numbers for these data are [ERS4578390-ERS4578393](https://www.ebi.ac.uk/ena/browser/view/ERS4578390-ERS4578393).
 
-# Pipeline Data
+## Pipeline Data
 
 Data for each individual pipeline are available through the Smithsonian figshare under a single collection at [doi:10.25573/data.c.5025362](https://doi.org/10.25573/data.c.5025362). In addition, data from each pipeline are available for download from figshare using the links at the bottom of each page (where applicable).
 
@@ -28,7 +28,7 @@ Data for each individual pipeline are available through the Smithsonian figshare
 #The  R code is available by clicking [here](files/data-availability/r-code). There you can find code for each step of the 16S rRNA pipeline. Please note that this  R code is pulled from the `.Rmd` files. The code has not been tested independent of the R Markdown workflows so *Use at Your Own Risk* please. In other words, the code works when run in the site build, but the complete pipeline has not been tested using just this code. I used `knitr::purl()` to pull  the code from the R Markdown file. I did this for you just in case you wanted the code and not hear me drone on about colors, zoomable figures, or Keanu Reeves. Commands that are commented out are things I tried that I could never get to work. Any line that starts like this: `## ----` is the code chuck name.
 ```
 
-# Submitting Sequence Data
+## Submitting Sequence Data
 
 We submitted out data to the [European Nucleotide Archive (ENA)](https://www.ebi.ac.uk/ena). The ENA does not like RAW data and prefers to have primers removed. So we submitted the trimmed Fastq files to the ENA. You can find these data under the study accession number **PRJEB36632 (ERP119845)**. The RAW files on our figshare site (see above).
 
@@ -36,17 +36,17 @@ To submit to the ENA you need two data tables (plus your sequence data). One fil
 
 You can download these data tables here:
 
-## 16S rRNA
+### 16S rRNA
 
 * [Description of sample data](files/data-availability/ENA_Sample_SUBMISSION_HYPOXIA-16S.txt)
 * [Description of sequence data](files/data-availability/ENA_PAIRED_FASTQ_SUBMISSION_HYPOXIA-16S.txt)
 
-## Metagenomic
+### Metagenomic
 
 * [Description of sample data](files/data-availability/ENA_Sample_SUBMISSION_HYPOXIA-MG.txt)
 * [Description of sequence data](files/data-availability/ENA_PAIRED_FASTQ_SUBMISSION_HYPOXIA-MG.txt)
 
-## Instructions for Submitting to the ENA
+### Instructions for Submitting to the ENA
 
 1) go to https://www.ebi.ac.uk/ena/submit and select **Submit to ENA**.
 2) Login or Register.

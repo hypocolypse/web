@@ -62,11 +62,11 @@ Here we present the first account of an unfolding hypoxia event on a Caribbean c
 
 Together our study demonstrates the catastrophic implications of a hypoxic event on multiple aspects of the coral reef ecosystems, from coral physiology to microbial community structure. Our results have alarming implications for coral reefs in an age where deoxygenation is accelerating rapidly. In order to truly understand how local and global environmental changes will affect the persistence of coral reefs into the future, ocean deoxygenation must be accounted for and incorporated into monitoring and managements frameworks.
 
-# Goals of the study
-
 ```{r, echo=FALSE, warning=FALSE, layout='l-screen'}
 knitr::include_graphics("figures/index/banner.png")
 ```
+
+# Goals of the study
 
 1)	Characterize the environmental conditions the occur during an in-progress, acute hypoxic event on a shallow Caribbean coral reef,  
 2)	Quantify the observed effect of the hypoxic event on coral bleaching and subsequent mortality using a representative coral species, *Agaricia tenuifolia*,  
@@ -121,7 +121,7 @@ leaflet() %>%
 
 # Science to Words
 
-Curious how our study translated into the written language? Here is a word cloud of our manuscript. 
+Curious how the study translates to words? Here is a tag cloud of the manuscript. 
 
 ```{r, echo=FALSE, eval=FALSE}
 filePath <- "files/main.txt"
@@ -188,12 +188,12 @@ MDJ, JJS, ML, NL, and AA contributed to conception and experimental design. MDJ,
 
 ## Data Availability {.appendix}
 
-See the [Data Availability](data-availability.html) for complete details on obtaining all data and data products for this study.
+See the [Data Availability](data-availability.html) for complete details on obtaining all data and data products for this study. Sequence data is deposited in the European Nucleotide Archive (ENA) under the project accession number [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). Additional data are available through the Smithsonian figshare under the collection [doi:10.25573/data.c.5025362](https://doi.org/10.25573/data.c.5025362).
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/index.Rmd).
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/index.Rmd). Source code for the complete site can be accessed [here](https://github.com/hypocolypse/web/) or by clicking  the icon on the far right of the navigation bar. 
 
-## An Apology from JJS {.appendix}
+## Disclaimer {.appendix}
 
-Unfortunately, some of the publications we cite in this project sit behind paywalls. These papers are inaccessible unless you are at an institution that subscribes to the journal, you pay a crazy amount of money per article, or you obtain the article via "illegal" means. Either way, at the moment this is beyond our control, and hence I apologize if you are unable to access some of the articles we cite. 
+Unfortunately, some of the publications we cite in this project sit behind paywalls and are inaccessible unless you are either at an institution that subscribes to the journal, you pay for each article, or you obtain the article via "illegal" means. Either way, at the moment this is beyond our control, and hence apologize if you are unable to access some of the articles we cite. 

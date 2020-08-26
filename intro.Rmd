@@ -24,24 +24,25 @@ options(scipen=999)
 
 This website provides reproducible workflows for our study on the Bocas del Toro hypoxic event in 2017. We go through the steps  used to process the raw 16S rRNA marker and  metagenomic  data. We describe the various tools used to analyze and interpret the data. We also provide access to all data, data products, and code. With this workflow you can generate the figures and tables from the paper as well as many additional data products.
 
-The workflows are mainly written in [R Markdown](https://rmarkdown.rstudio.com/) meaning that they contain a mixture of Markdown text and R code. Anyone should be able to reproduce our results with just this workflow and the [raw data](data-availability.html).
+The workflows are mainly written in [R Markdown](https://rmarkdown.rstudio.com/), meaning that they contain a mixture of [Markdown](https://www.markdownguide.org/) text and R code. Anyone should be able to reproduce our results with just this workflow and the [raw data](data-availability.html).
 
-# Using this Site
+## Using this Site
 
 The navigation bar at the top contains links to workflows, data/data products, and a variety of other useful information. The site itself has many dynamic components. For example, you can sort and scroll through most of the tables, tabular data can be download in different formats, and several figures expand when clicked. 
 
 On the bottom of each page you can find a link to the page's source code or visit the main GitHub repo for the site, also linked at the bottom of each page. Should you find any problems, there is a link to the issue page of the source repository. References are also included as are DOI links to the publications where applicable. Data pertaining to individual workflows are also linked on the bottom of each page.
 
-# Data Availability
+## Data Availability
 
 For access to all raw data and data products please see the [Data Availability](data-availability.html) page. There you will find more details and links to the figshare project site and European Nucleotide Archive project page. Please also check at the bottom of individual workflow pages for access to related data. 
 
-# Workflow
+## Workflows
 
 You can access each step of the workflow by using the navigation bar at the top of the page. Below is a brief description of each step.
 
 ## A. Field Analyses
 
+This section contains information on the various field analyses conducted in the study.  You can access the workflow from the navbar above or [this link](field.html). Please note, as of 22 August, 2020, this section is a work in progress and will be updated with haste. 
 
 ## B. 16S rRNA Analysis
 
@@ -92,7 +93,11 @@ In this section of the workflow we reconstruct metagenome assembled genomes (MAG
 
 In this section, we create a workflow to compare MAG02 with publicly available genomes. MAG02 was only found in the hypoxic sample. You can access the workflow from the navbar above or [this link](mag02-phylogenomics.html).
 
-# Color & Graphics
+### No 7. KEGG/KOFam Analysis
+
+The objective of this section is to visualize all of the genes that have KEGG-KOfam annotations and assess their distribution across metagenomes. You can access the workflow from the navbar above or [this link](mg-function.html).
+
+## Color & Graphics
 
 We will rely on color a lot to display information about diversity, distinguish between sample types, etc. Many of us have different abilities to perceive color and/or differences in color. [Color blindness](http://mkweb.bcgsc.ca/colorblind/index.mhtml#page-container), also known as color vision deficiency, is a decreased ability to see color or differences in color. It is important that we use **a**) a relatively small color palette and **b**) a palette that is friendly to a variety of people.
 
@@ -100,7 +105,7 @@ Bang Wong has a paper in Nature Methods paper called [Points of view: Color blin
 
 Wong’s scheme is conservative—--there are only 8 colors.  Martin Krzywinsk has a marvelous post on [designing color friendly palettes](http://mkweb.bcgsc.ca/colorblind/palettes.mhtml#page-container) that includes additional [12, 15, and 24](http://mkweb.bcgsc.ca/colorblind/img/colorblindness.palettes.v11.pdf) color palette schemes, which offer more options than Wong’s 8-color palette. We just need to be careful—–figures with too many colors can inhibit our ability to discern patterns. Limited color palettes like these force us to be more selective when deciding what information to target or how many groups to display.
 
-## Creating Color Palletes
+### Creating Color Palletes
 
 Here are a few color palette examples. A light grey  (`#7F7F7F`) was added to the 8-color palette. Shown here are the hex codes for these palettes but if you want the color names and [sRGB](https://en.wikipedia.org/wiki/RGB_color_model) codes you can download plain text versions of the palettes from Martin's website [here](http://mkweb.bcgsc.ca/colorblind/palettes/color.blindness.palettes.v11.tgz).
 
@@ -184,7 +189,6 @@ There is a great article on [Coloring for Colorblindness](https://davidmathlogic
 <a href="field.html" rel="next">A. Field Analyses</a>
 </div>
 </div>
-
 
 
 ## Source Code {.appendix}
