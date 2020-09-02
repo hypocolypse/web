@@ -377,7 +377,7 @@ taxa_means_w <- format(taxa_means_w, scientific = FALSE)  # ditch the sci notati
 
 ### 5. Relative abundance by `r TRANK` 
 
-```{r calc_avg5, warning=FALSE}
+```{r calc_avg5, warning=FALSE, echo=FALSE}
 datatable(
   taxa_means_w, rownames = FALSE, width = "100%",
   colnames = c(TRANK, "mean"),
@@ -390,7 +390,7 @@ datatable(
     className = "dt-left", targets = "_all")),
     dom = "Blfrtip", buttons = c("csv", "copy"),
     scrollX = TRUE, scrollCollapse = TRUE, scrollY=TRUE,
-    pageLength = 8,
+    pageLength = 10,
     scroller=TRUE, lengthMenu = c(10, 25, 60)))
 ```
 

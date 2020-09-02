@@ -20,7 +20,11 @@ library(plyr)
 library(dplyr)
 library(pathview)
 library(heatmaply)
+```
 
+```{r master_load, include=FALSE}
+remove(list = ls())
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 The objective of this section is to visualize all of the *genes* that have KEGG-KOfam annotations and assess their distribution across metagenomes. Our goal is to create a contig.db that contains only genes annotated by KEGG-KOfams and a corresponding profile.db that contains coverage and detection of genes across each metagenome. We also will generate files that have other important information about each gene such as taxonomy, KOfam functions(s), and KEGG modules (if any).  
