@@ -38,11 +38,11 @@ For access to all raw data and data products please see the [Data Availability](
 
 ## Workflows
 
-You can access each step of the workflow by using the navigation bar at the top of the page. Below is a brief description of each step.
+You can access each step of the workflows by using the navigation bar at the top of the page. Below is a brief description of each step.
 
 ## A. Field Analyses
 
-This section contains information on the various field analyses conducted in the study.  You can access the workflow from the navbar above or [this link](field.html). Please note, as of 22 August, 2020, this section is a work in progress and will be updated with haste. 
+This section contains information on the various field analyses conducted in the study.  You can access the workflow from the navbar above or [this link](field.html). Please note, this section is a work in progress and will be updated with haste. 
 
 ## B. 16S rRNA Analysis
 
@@ -101,7 +101,7 @@ The objective of this section is to visualize all of the genes that have KEGG-KO
 
 We will rely on color a lot to display information about diversity, distinguish between sample types, etc. Many of us have different abilities to perceive color and/or differences in color. [Color blindness](http://mkweb.bcgsc.ca/colorblind/index.mhtml#page-container), also known as color vision deficiency, is a decreased ability to see color or differences in color. It is important that we use **a**) a relatively small color palette and **b**) a palette that is friendly to a variety of people.
 
-Bang Wong has a paper in Nature Methods paper called [Points of view: Color blindness](http://dx.doi.org/10.1038/nmeth.1618)[@wong2011points] where proposes a color-blind friendly color palette that uses contrasting colors that can be distinguished by a range of people. Consider that roughly 8% of people (mostly males) are color blind. So what do you think? Do you want Keanu Reeves to understand your figures or not?
+Bang Wong has a paper in Nature Methods paper called [Points of view: Color blindness](http://dx.doi.org/10.1038/nmeth.1618) [@wong2011points] where proposes a color-blind friendly color palette that uses contrasting colors that can be distinguished by a range of people. Consider that roughly 8% of people (mostly males) are color blind. So what do you think? Do you want Keanu Reeves to understand your figures or not?
 
 Wong’s scheme is conservative—--there are only 8 colors.  Martin Krzywinsk has a marvelous post on [designing color friendly palettes](http://mkweb.bcgsc.ca/colorblind/palettes.mhtml#page-container) that includes additional [12, 15, and 24](http://mkweb.bcgsc.ca/colorblind/img/colorblindness.palettes.v11.pdf) color palette schemes, which offer more options than Wong’s 8-color palette. We just need to be careful—–figures with too many colors can inhibit our ability to discern patterns. Limited color palettes like these force us to be more selective when deciding what information to target or how many groups to display.
 

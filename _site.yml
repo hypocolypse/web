@@ -78,7 +78,11 @@ navbar:
       href: https://github.com/hypocolypse/web/
 output:
     distill::distill_article:
+      highlight_downlit: false
+      highlight: haddock      
       css: assets/styles.css
       toc: true
       toc_depth: 2
 compare_updates_url: https://github.com/hypocolypse/web/compare/pubv1...master
+
+#  HIGHLIGHT "default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn", "breezedark", and  "haddock"

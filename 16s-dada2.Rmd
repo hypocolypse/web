@@ -115,7 +115,6 @@ And finally, we can extract the sample names from the from the fastq files and h
 sample.names <- sapply(strsplit(fnFs, "_"), `[`, 1)
 fnFs <-file.path(path, fnFs)
 fnRs <-file.path(path, fnRs)
-
 ```
 
 ```

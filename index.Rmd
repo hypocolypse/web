@@ -8,6 +8,7 @@ author:
     affiliation: Woods Hole Oceanographic Institution
     affiliation_url: https://www.whoi.edu/
   - name: "Jarrod J Scott"
+    orcid_id: 0000-0001-9863-1318
     url: https://github.com/jarrodscott
     affiliation: Smithsonian Tropical Research Institute
     affiliation_url: https://stri.si.edu/
