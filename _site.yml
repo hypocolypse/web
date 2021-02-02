@@ -13,6 +13,7 @@ navbar:
     image: assets/icon.png
     href: index.html
   source_url: true
+  search: true
   right:
 #    - text: "Home"
     - icon: fa-home
