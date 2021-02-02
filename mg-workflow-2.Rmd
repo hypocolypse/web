@@ -2,12 +2,7 @@
 title: "No 4. Assembly & Annotation Summary"
 description: |
   In this section of the workflow we summarize: **1**) QC & assembly results. **2**) Kraken short read taxonomy. **3**) Mapping results. **4**) Contig classification.
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 ```{r setup, include=FALSE}
@@ -75,7 +70,7 @@ You can  download a text version of the table using the table buttons.
 
 # Krona Plots Explained
 
-Next let’s take a look at the taxonomic breakdown from the KrakenUniq classification of short reads. There is a lot of data here, so we decided to present these as standalone HTML pages that contain separate [Krona](https://github.com/marbl/Krona/wiki)[@ondov2011krona] plots for each sample. In brief, a Krona plot allow hierarchical data to be explored with multi-layered pie charts. These charts are interactive. We will use these on a few occasions, so it is worth explaining in a little more  detail.
+Next let’s take a look at the taxonomic breakdown from the KrakenUniq classification of short reads. There is a lot of data here, so we decided to present these as standalone HTML pages that contain separate [Krona](https://github.com/marbl/Krona/wiki) [@ondov2011krona] plots for each sample. In brief, a Krona plot allow hierarchical data to be explored with multi-layered pie charts. These charts are interactive. We will use these on a few occasions, so it is worth explaining in a little more  detail.
 
 Below is an example of a Kraken taxonomy plot. The plot on the left is the *top level* view and the plot on the right is the *expanded* view. Inner rings represent higher taxonomic ranks.
 
@@ -239,4 +234,4 @@ The source code for this page can be accessed on GitHub by [clicking this link](
 
 ## Data Availability {.appendix}
 
-Full versions of the Krona plots linked above can be downloaded directly from  figshare at [doi:10.25573/data.12808502](https://doi.org/10.25573/data.12808502). Files are in html format and can be opened directly in a web browser. 
+Full versions of the Krona plots linked above can be downloaded directly from  figshare at [doi:10.25573/data.12808502](https://doi.org/10.25573/data.12808502). Files are in html format and can be opened directly in a web browser.

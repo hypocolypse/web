@@ -1,45 +1,40 @@
 name: "distil"
 title: ""
+favicon: assets/favicon.ico
 base_url: https://hypocolypse.github.io
 repository_url: https://github.com/hypocolypse/web/
-description: |
-  Hypocolypse
-output_dir: "public_build"
-exclude: ["rdata", "public", "public_build", "tables", "metabolism", "16s-anvio"]
 creative_commons: CC BY
-favicon: assets/favicon.ico
+output_dir: "public_build"
+exclude: ["rdata", "public", "public_build", "tables", "metabolism", "16s-anvio", "README.md"]
+#description: |
+#  Hypocolypse
 navbar:
   logo:
     image: assets/icon.png
-    text: "Hypocolypse"
     href: index.html
-#  title: "Hypocolypse"
+  source_url: true
   right:
 #    - text: "Home"
     - icon: fa-home
       href: index.html
-    - text: "Site Overview"
-#      icon: fa-info
+    - text: "OVERVIEW"
       href: intro.html
-    - text: "A. Field Analyses"
-#      icon: fa-flask
+    - text: "FIELD"
       href: field.html
-    - text: "B. 16S rRNA"
-#      icon: fa-wrench
+    - text: "16S rRNA"
       menu:
-        - text: "16S rRNA Processing"
+        - text: "Processing"
         - text: "1. DADA2"
           href: 16s-dada2.html
         - text: "2. Data Prep"
           href: 16s-data-prep.html
         - text: "---------"
-        - text: "16S rRNA Analyses"
+        - text: "Analyses"
         - text: "3. Diversity"
           href: 16s-water.html
         - text: "4. Differentially Abundant ASVs"
           href: 16s-da-asvs.html
-    - text: "C. Metagenomic"
-#      icon: fa-wrench
+    - text: "METAGENOMIC"
       menu:
         - text: "Setup"
         - text: "1. Working Envrionment"
@@ -60,26 +55,14 @@ navbar:
           href: mag02-phylogenomics.html
         - text: "7. KEGG/KOFam Analysis"
           href: mg-function.html
-#    - text: "D. Synthesis"
-#      href: synthesis.html
-#      icon: fa-dna
-    - text: "Data"
-#      icon: fa-database
+    - text: "DATA"
       href: data-availability.html
-#    - text: "SOM"
-#      icon:
-#      href: supplemental-material.html
-#    - icon: fa-code fa-lg
-#      href: raw_code.txt
-#    - text: "People"
-#      icon: fa-user-friends
-#      href: people.html
-    - icon: fa-github fa-lg
-      href: https://github.com/hypocolypse/web/
+#    - icon: fa-github fa-lg
+#      href: https://github.com/hypocolypse/web/
 output:
     distill::distill_article:
       highlight_downlit: false
-      highlight: haddock      
+      highlight: haddock
       css: assets/styles.css
       toc: true
       toc_depth: 2

@@ -34,11 +34,14 @@ author:
     affiliation_url: https://www.essie.ufl.edu/environmental-engineering-sciences/
 #date: September 10, 2018
 #citation_url: https://rstudio.github.io/distill
-#site: distill::distill_website
+bibliography: assets/cite.bib
+link-citations: true
 output:
-    distill::distill_article:
-      includes:
+  distill::distill_article:
+    includes:
         in_header: assets/header.html
+    toc: true
+site: distill::distill_website
 ---
 
 ```{r setup, include=FALSE}

@@ -2,12 +2,7 @@
 title: "No 3. Assembly & Annotations"
 description: |
   This section describes the steps we took to co-assemble the metagenomic samples, classify taxonomy, and assign functions.
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 ```{r setup, include=FALSE}
@@ -30,7 +25,7 @@ knitr::opts_current$get(c(
 
 # The Workflow
 
-In this section of the workflow we begin with raw, paired-end Illumina data. We will use a Snakemake[@koster2012snakemake] workflow in the anvi'o[@eren2015anvi] environment for most of the steps, though we will at time call on additional tools for specific steps. The overall structure of our workflow was modelled after the one described by Delmont & Eren on [Recovering Microbial Genomes from TARA Oceans Metagenomes](http://merenlab.org/data/tara-oceans-mags/)[@delmont2018nitrogen].
+In this section of the workflow we begin with raw, paired-end Illumina data. We will use a Snakemake [@koster2012snakemake] workflow in the anvi'o [@eren2015anvi] environment for most of the steps, though we will at time call on additional tools for specific steps. The overall structure of our workflow was modelled after the one described by Delmont & Eren on [Recovering Microbial Genomes from TARA Oceans Metagenomes](http://merenlab.org/data/tara-oceans-mags/) [@delmont2018nitrogen].
 
 Specifically, we will:
 
@@ -65,7 +60,7 @@ The main steps of this workflow are:
 
 # Samples
 
-We have a total of four samples from two sites and two time periods---so one sample per site per time. 
+We have a total of four samples from two sites and two time periods---so one sample per site per time.
 
 * *Cayo Roldan*: the site that went hypoxic.  **WROL 1914** collected during the event and **WROL 1915** collected one month after the event.
 * *Cayo Coral*: the site that was always normoxic. **WCCR 1913**  collected during the event and **WCCR 1916** collected one month after the event.
@@ -79,7 +74,7 @@ mkdir 00_TRIMMED
 mkdir 00_TRIMMED_UNPAIRED
 ```
 
-Next we run TRIMMOMATIC[@bolger2014trimmomatic] assuming the raw data is in a directory called `RAW`. Here is an example for a single sample (`WCCR_1913`). Since we ran these samples on a NextSeq, there are 4 files per paired-end. So, we have 8 files total. We need to run the command 4 times, one for each pair. Here is the command for the first pair.
+Next we run TRIMMOMATIC [@bolger2014trimmomatic] assuming the raw data is in a directory called `RAW`. Here is an example for a single sample (`WCCR_1913`). Since we ran these samples on a NextSeq, there are 4 files per paired-end. So, we have 8 files total. We need to run the command 4 times, one for each pair. Here is the command for the first pair.
 
 <aside>
 [GitHub Repo for TRIMMOMATIC](https://github.com/timflutre/trimmomatic). You will need [this file](https://github.com/timflutre/trimmomatic/blob/master/adapters/NexteraPE-PE.fa) for trimming.
@@ -91,8 +86,8 @@ trimmomatic PE -threads $NSLOTS RAW/WCCR_1913_S74_L001_R1_001.fastq.gz /
                                 00_TRIMMED/WCCR_1913_S74_L001_R1_001_trim.fastq.gz /
                                 00_TRIMMED_UNPAIRED/WCCR_1913_S74_L001_R1_001_trim_unpaired.fastq.gz /
                                 00_TRIMMED/WCCR_1913_S74_L001_R2_001_trim.fastq.gz /
-                                00_TRIMMED_UNPAIRED/WCCR_1913_S74_L001_R2_001_trim_unpaired.fastq.gz / 
-                                ILLUMINACLIP:NexteraPE-PE.fa:2:30:10 / 
+                                00_TRIMMED_UNPAIRED/WCCR_1913_S74_L001_R2_001_trim_unpaired.fastq.gz /
+                                ILLUMINACLIP:NexteraPE-PE.fa:2:30:10 /
                                 MINLEN:40
 ```
 
@@ -667,7 +662,7 @@ echo = `date` job $JOB_NAME don
 
 There are many tools used in the workflow that need to be cited.
 
-First there is the workflow engine itself---Snakemake[@koster2012snakemake]. QUALITY-FILTERING of raw reads was performed using Illumina Utils[@eren2013filtering] implementation of the filter developed by Minoche and collegues[@minoche2011evaluation]. CO-ASSEMBLY of metagenomic samples performed using MEGAHIT[@li2015megahit]. GENE CALLING was performed using PRODIGAL[@hyatt2010prodigal]. RECRUITMENT (a.k.a. mapping) of reads to assembly performed using BOWTIE2[@langmead2012fast] and SAMtools[@li2009sequence]. TAXONOMIC CLASSIFICATION of genes using CENTRIFUGE[@kim2016centrifuge].
+First there is the workflow engine itself---Snakemake [@koster2012snakemake]. QUALITY-FILTERING of raw reads was performed using Illumina Utils [@eren2013filtering] implementation of the filter developed by Minoche and collegues [@minoche2011evaluation]. CO-ASSEMBLY of metagenomic samples performed using MEGAHIT [@li2015megahit]. GENE CALLING was performed using PRODIGAL [@hyatt2010prodigal]. RECRUITMENT (a.k.a. mapping) of reads to assembly performed using BOWTIE2 [@langmead2012fast] and SAMtools [@li2009sequence]. TAXONOMIC CLASSIFICATION of genes using CENTRIFUGE [@kim2016centrifuge].
 
 <aside>
 Documentation for [Snakemake](https://snakemake.readthedocs.io/en/stable/). GitHub repo for [Illumina Utils](https://github.com/merenlab/illumina-utils). GitHub repo for [MEGAHIT](https://github.com/voutcn/megahit). GitHub repo for [PRODIGAL](https://github.com/hyattpd/Prodigal). GitHub repo for [BOWTIE2](https://github.com/BenLangmead/bowtie2). Documentation for  [SAMtools](http://samtools.sourceforge.net/) GitHub repo for [CENTRIFUGE](https://github.com/DaehwanKimLab/centrifuge).
@@ -681,7 +676,7 @@ In this section we conduct taxonomic classification of short reads, contigs, and
 
 ## Kaken Annotation
 
-In this section we use KrakenUniq[@breitwieser2018krakenuniq] to classify the **short reads**. Because of the memory demands of KrakenUniq, we could not get this to work in the Snakemake workflow, so we ran the analysis separately. For several of these commands we used lists of sample names and  `for` loops to run through each sample.
+In this section we use KrakenUniq [@breitwieser2018krakenuniq] to classify the **short reads**. Because of the memory demands of KrakenUniq, we could not get this to work in the Snakemake workflow, so we ran the analysis separately. For several of these commands we used lists of sample names and  `for` loops to run through each sample.
 
 <aside>
 GitHub repo for [KrakenUniq](https://github.com/fbreitwieser/krakenuniq).
@@ -709,7 +704,7 @@ do
 done
 ```
 
-And finally construct Krona[@ondov2011krona] plots. We will come back to Krona plots when we explain what they are and how to use them in the [Assembly & Annotation Summary](mg-workflow-2.html#krona-plots-explained) section of the workflow.
+And finally construct Krona [@ondov2011krona] plots. We will come back to Krona plots when we explain what they are and how to use them in the [Assembly & Annotation Summary](mg-workflow-2.html#krona-plots-explained) section of the workflow.
 
 
 <aside>
@@ -870,7 +865,7 @@ After this you need to rerun `anvi-merge` so that the short-read annotations mak
 
 ## VirSorter Annotation
 
-To classify any viral sequences, we ran VirSorter[@roux2015virsorter] on contigs from the co-assembly using our newly created `contig.db` generated after the co-assembly step. We ran VirSorter with and without the `--virome` flag. See [issue 40](https://github.com/simroux/VirSorter/issues/40) on the VirSorter GitHub site for a discussion of why we did this. We used DIAMOND[@buchfink2015fast] as the local sequence aligner.
+To classify any viral sequences, we ran VirSorter [@roux2015virsorter] on contigs from the co-assembly using our newly created `contig.db` generated after the co-assembly step. We ran VirSorter with and without the `--virome` flag. See [issue 40](https://github.com/simroux/VirSorter/issues/40) on the VirSorter GitHub site for a discussion of why we did this. We used DIAMOND [@buchfink2015fast] as the local sequence aligner.
 
 <aside>
 [GitHub Repo for VirSorter](https://github.com/simroux/VirSorter). Documentation for [DIAMOND](http://www.diamondsearch.org/index.php).
@@ -928,7 +923,7 @@ echo = `date` job $JOB_NAME don
 
 ## Kaiju Annotation
 
-In addition to the Centrifuge classification we are going to use Kaiju[@menzel2016fast] to classify gene calls. We do this against the [two databases](https://github.com/bioinformatics-centre/kaiju#creating-the-reference-database-and-index) we built on the [Annotation Databases](mg-databases.html/#kaiju) page.
+In addition to the Centrifuge classification we are going to use Kaiju [@menzel2016fast] to classify gene calls. We do this against the [two databases](https://github.com/bioinformatics-centre/kaiju#creating-the-reference-database-and-index) we built on the [Annotation Databases](mg-databases.html/#kaiju) page.
 
 <aside>
 GitHub repo for [Kaiju](https://github.com/bioinformatics-centre/kaiju).
@@ -1208,7 +1203,7 @@ echo = `date` job $JOB_NAME done
 
 ## GhostKOALA Annotations
 
-The last thing we can do is run KEGG[@kanehisa2000kegg] annotations using the [GhostKOALA server](http://www.kegg.jp/ghostkoala/)[@kanehisa2016blastkoala]. Running GhostKOALA/KEGG  was pretty easy thanks to this [handy tutorial](http://merenlab.org/2018/01/17/importing-ghostkoala-annotations/).
+The last thing we can do is run KEGG [@kanehisa2000kegg] annotations using the [GhostKOALA server](http://www.kegg.jp/ghostkoala/) [@kanehisa2016blastkoala]. Running GhostKOALA/KEGG  was pretty easy thanks to this [handy tutorial](http://merenlab.org/2018/01/17/importing-ghostkoala-annotations/).
 
 The steps we used to annotate genes with GhostKOALA/KEGG are reproduced from the tutorial.
 
@@ -1637,4 +1632,4 @@ The source code for this page can be accessed on GitHub by [clicking this link](
 
 ## Data Availability {.appendix}
 
-All files generated from this workflow and described in the final table  can be downloaded from  figshare at [doi:10.25573/data.12808601](https://doi.org/10.25573/data.12808601). The contigs db contains all taxonomic and functional annotations. The profile db contains information on coverage, detection, etc. as well as COLLECTION information for automatic binning and manual refinement ([see step 5](https://hypocolypse.github.io/mg-binning.html)). 
+All files generated from this workflow and described in the final table  can be downloaded from  figshare at [doi:10.25573/data.12808601](https://doi.org/10.25573/data.12808601). The contigs db contains all taxonomic and functional annotations. The profile db contains information on coverage, detection, etc. as well as COLLECTION information for automatic binning and manual refinement ([see step 5](https://hypocolypse.github.io/mg-binning.html)).

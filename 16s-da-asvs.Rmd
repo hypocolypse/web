@@ -2,12 +2,7 @@
 title: "No 4. Differentially Abundant ASVs"
 description: |
   In this section of the workflow we look at the diversity of the water samples collected from Cayo Roldan (hypoxic) and Cayo Coral (normoxic).
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 ```{r setup, include=FALSE}
@@ -60,7 +55,7 @@ load("rdata/16s-water/16s-water.rdata")
 
 # Differentially Abundant ASVs
 
-Time to drill down a little deeper and look at differentially abundant (DA) ASVs between the two oxygen conditions. ASVs that were enriched and more frequent in hypoxic and normoxic samples were identified using the Indicator Species Analysis (ISA)[@dufrene1997species], computed with the R package labdsv[@roberts2007labdsv].
+Time to drill down a little deeper and look at differentially abundant (DA) ASVs between the two oxygen conditions. ASVs that were enriched and more frequent in hypoxic and normoxic samples were identified using the Indicator Species Analysis (ISA) [@dufrene1997species], computed with the R package labdsv [@roberts2007labdsv].
 
 ```{r idval_analysis, results='hide', eval=FALSE}
 set.seed(119)
@@ -182,7 +177,7 @@ Now. What do we get from all of this? Well, we started with `r ntaxa(ps_water)` 
 
 # Visualizing DA ASVs in Anvi'o
 
-Next, we will combine the results of the ISA analysis with the distribution of ASVs across each sample. We are going to do the analysis in anvi'o[@eren2015anvi] using the `anvi-interactive` command. Anvi'o likes database but it also understands that sometimes you don't have a database. So it offers a *manual mode* for all of us slackers out there. If you type this command you can have a look at the relevant pieces we need for the visualization, specifically those under the headings `MANUAL INPUTS` and `ADDITIONAL STUFF`. I will go through these out of order so try to keep up ;)
+Next, we will combine the results of the ISA analysis with the distribution of ASVs across each sample. We are going to do the analysis in anvi'o [@eren2015anvi] using the `anvi-interactive` command. Anvi'o likes database but it also understands that sometimes you don't have a database. So it offers a *manual mode* for all of us slackers out there. If you type this command you can have a look at the relevant pieces we need for the visualization, specifically those under the headings `MANUAL INPUTS` and `ADDITIONAL STUFF`. I will go through these out of order so try to keep up ;)
 
 ```bash
 anvi-interactive -h
@@ -492,7 +487,7 @@ anvi-export-state --pan-or-profile-db profile.db
 # Heat Tree
 
 Time for something a little different. We have been using some pretty standard graphical constructs to display diversity data from these samples. Especially when looking at taxonomic diversity, we are pigeonholing the data by selecting and isolating specific ranks to look at---Class, Family, ASV, etc. But we are not really considering these pieces *together*. For example, when we asked what the differences between normoxic and hypoxic samples were, we looked at which ASVs were differentially abundant. Nice. But what about higher taxonomic ranks? Two treatments may differ at the ASV level but not say the Family level. This is important becuase it can tell us where, on a *lineage map*, sample type start to diverge from one another. And this of course has important ecological consequences.
-In fact, we can perform this analysis and actually visualize the lineage map and significant results as a *heat tree* using the R package [metacoder](https://grunwaldlab.github.io/metacoder_documentation/)[@foster2017metacoder]. Let's take a look at a simple example using the Phylum Cyanobacteria.
+In fact, we can perform this analysis and actually visualize the lineage map and significant results as a *heat tree* using the R package [metacoder](https://grunwaldlab.github.io/metacoder_documentation/) [@foster2017metacoder]. Let's take a look at a simple example using the Phylum Cyanobacteria.
 
 ## Example
 
@@ -792,5 +787,4 @@ The source code for this page can be accessed on GitHub by [clicking this link](
 
 ## Data Availability {.appendix}
 
-Output files from this workflow available on figshare at [doi:10.25573/data.12808427](https://doi.org/10.25573/data.12808427). The `da_asvs_pipeline.rdata` file contains all variables and  objects from this pipeline. The directory within `da_asv_anvio.zip` contains all the files needed to visualize the DA ASVs in anvi’o. 
-
+Output files from this workflow available on figshare at [doi:10.25573/data.12808427](https://doi.org/10.25573/data.12808427). The `da_asvs_pipeline.rdata` file contains all variables and  objects from this pipeline. The directory within `da_asv_anvio.zip` contains all the files needed to visualize the DA ASVs in anvi’o.

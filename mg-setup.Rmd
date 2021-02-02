@@ -2,12 +2,7 @@
 title: "No 1. Working Environment"
 description: |
   In this section we go through our steps to build a working environment for data processing and analysis.
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 For the metagenomic analysis we largely leave the R environment. The initial step of our metagenomic workflow is to setup our working environment, which we will do in two steps.
@@ -51,7 +46,7 @@ If you ever want to know if there is a conda package for some program, just sear
 
 # Anvi'o
 
-Now we are ready to install anvi'o[@eren2015anvi]. If you plan to work with anvi’o I have a few recommendations.
+Now we are ready to install anvi'o [@eren2015anvi]. If you plan to work with anvi’o I have a few recommendations.
 
 1) Take some time to look around the [anvi'o website](http://merenlab.org/software/anvio/). There is a TON of information, not just about the software platform but about metagenomics in general. For example, have a look at the metagenomic [vocabulary](http://merenlab.org/vocabulary/) page.
 2) The anvi’o developers offer many options for [getting help](http://merenlab.org/2019/10/07/getting-help/). I suggest joining their Slack channel or Google Group. For technical issues check out the [anvi’o GitHub site](https://github.com/merenlab/anvio).

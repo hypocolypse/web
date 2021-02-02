@@ -2,12 +2,7 @@
 title: "No 2. Data Preparation"
 description: |
   Complete, reproducible workflow for preparation  of the **16S rRNA** data set. These steps are needed before analyzing the data. For aesthetic reasons, the R code for tables & figures are hidden (see the GitHub link at the bottom of the page for the raw `.Rmd` file). R code for everything else is generally shown.
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 ```{r setup, include=FALSE}
@@ -31,7 +26,7 @@ knitr::opts_current$get(c(
 ```
 
 ```{r, echo=FALSE}
-### NOTE: this should only be run AFTER the workflow is finished. 
+### NOTE: this should only be run AFTER the workflow is finished.
 ### This image is created at the END of this workflow and now read back in.
 ### Basically, this locks everything in place so nothing changes. Only code
 ### chunkc to display figures and tables are evaluated. Everything else is
@@ -42,7 +37,7 @@ load("rdata/16s-data-prep/16s-data_prep.rdata")
 
 > You will either need to run the [DADA2 workflow](16s-dada2.html) or the grab output file `combo_pipeline.rdata` from the workflow. This file contains the sequence and taxonomy tables. See the [Data Availability](data-availability.html) page for complete details.
 
-Unless otherwise noted, we primarily use [phyloseq](https://joey711.github.io/phyloseq/)[@mcmurdie2013phyloseq] in this section of the workflow to analyze the 16S rRNA data set. Before we conduct any analyses we first need to *prepare our data set* by curating samples, removing *contaminants*, and creating phyloseq objects.
+Unless otherwise noted, we primarily use [phyloseq](https://joey711.github.io/phyloseq/) [@mcmurdie2013phyloseq] in this section of the workflow to analyze the 16S rRNA data set. Before we conduct any analyses we first need to *prepare our data set* by curating samples, removing *contaminants*, and creating phyloseq objects.
 
 # Read Counts Assessment
 
@@ -173,7 +168,7 @@ head(taxa_names(ps))
 head(taxa_names(ps))
 ```
 
-So the complete data set contains `r ntaxa(ps)` ASVs. We can also use the [microbiome R package](https://github.com/microbiome/microbiome/)[@lahti2017microbiome] to get some additional summary data from the phyloseq object.
+So the complete data set contains `r ntaxa(ps)` ASVs. We can also use the [microbiome R package](https://github.com/microbiome/microbiome/) [@lahti2017microbiome] to get some additional summary data from the phyloseq object.
 
 ```{r calculate_stats_ps, echo=FALSE, eval=FALSE}
 min_read_ps <- min(readcount(ps))
@@ -308,7 +303,7 @@ The code removed an additional **`r ntaxa(ps_no_mito) - ntaxa(ps_no_chloro)` Chl
 
 ## Remove Eukaryotic ASVs
 
-Turns out we had no eukaryotic ASVs but here is the code just in case. 
+Turns out we had no eukaryotic ASVs but here is the code just in case.
 
 ```{r remove_specific_taxa3, eval=FALSE, eval=FALSE}
 # generate a file with mitochondria ASVs
@@ -336,7 +331,7 @@ ps_filt
 
 The code eliminated an additional **`r ntaxa(ps_no_chloro) - ntaxa(ps_filt)` Kingdom level NA ASVs** from the phyloseq object.
 
-Now that we have a trimmed data set, we can save copies of the sequence and taxonomy tables just in case we want a quick look at these data. 
+Now that we have a trimmed data set, we can save copies of the sequence and taxonomy tables just in case we want a quick look at these data.
 
 ```{r save_trim_table, eval=FALSE}
 write.table(tax_table(ps_filt),
@@ -350,7 +345,7 @@ write.table(sample_data(ps_filt),
             sep="\t", quote = FALSE, col.names=NA)
 ```
 
-And generate a fasta file for all ASVs in the trimmed data set.  
+And generate a fasta file for all ASVs in the trimmed data set.
 
 ```{r export_fasta_water, eval=FALSE}
 # Create fasta file from tax_table
@@ -366,12 +361,12 @@ table2format_trim_df$ASV_ID <- sub("ASV", ">ASV", table2format_trim_df$ASV_ID)
 write.table(table2format_trim_df, "tables/16s-data-prep/trim_asv.fasta",
             sep = "\r", col.names = FALSE, row.names = FALSE,
             quote = FALSE, fileEncoding = "UTF-8")
-```            
+```
 
 
 ```{r select_water_samples, echo=FALSE, eval=FALSE}
 ###############################################
-## This is legacy code for making a ps object## 
+## This is legacy code for making a ps object##
 ## for a subset of samples                   ##
 ###############################################
 
@@ -384,7 +379,7 @@ ps_water <- prune_samples(
   ps_filt)
 ps_water
 
-#Anytime we remove samples we probably lose some ASVs. So we need to get rid of any ASVs that have a total of **0 reads**. 
+#Anytime we remove samples we probably lose some ASVs. So we need to get rid of any ASVs that have a total of **0 reads**.
 ps_water <- prune_taxa(taxa_sums(ps_water) > 0, ps_water)
 ps_water
 
@@ -393,7 +388,7 @@ ps_water
 
 # Save Objects
 
-One last thing is to rename the phyloseq object and save some tables and images for the next part. 
+One last thing is to rename the phyloseq object and save some tables and images for the next part.
 
 ```{r save_data_prep_image, echo=TRUE, eval=FALSE}
 ps_water <- ps_filt
@@ -427,5 +422,4 @@ You can find the source code for this page by [clicking this link](https://githu
 
 ## Data Availability {.appendix}
 
-Output files from this workflow available on figshare at [doi:10.25573/data.12403925](https://doi.org/10.25573/data.12403925). Here you will find the sample metadata table, sequence tables, taxonomy tables, and ASV fasta files from the full phyloseq object (before removing contaminants) and the trimmed data set (after removing contaminants). The *16s-data_prep.rdata* file contains all variables and phyloseq objects from this pipeline and is needed for the next workflow (as are the .rds files). 
-
+Output files from this workflow available on figshare at [doi:10.25573/data.12403925](https://doi.org/10.25573/data.12403925). Here you will find the sample metadata table, sequence tables, taxonomy tables, and ASV fasta files from the full phyloseq object (before removing contaminants) and the trimmed data set (after removing contaminants). The *16s-data_prep.rdata* file contains all variables and phyloseq objects from this pipeline and is needed for the next workflow (as are the .rds files).

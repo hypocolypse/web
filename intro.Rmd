@@ -2,12 +2,7 @@
 title: "Site Overview"
 description: |
   A brief description of the Website and the various workflows. 
-author:
-#  - name: "Jarrod J Scott"
-#    url: https://github.com/jjallaire
-#    affiliation: STRI
-#    affiliation_url: https://www.rstudio.com
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 ```{r setup, include=FALSE}

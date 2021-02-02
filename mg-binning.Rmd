@@ -2,12 +2,7 @@
 title: "No 5. Binning MAGs"
 description: |
   In this section of the workflow we reconstruct metagenome assembled genomes (MAGs), first using CONCOCT for automated binning of the assembled contigs followed by manual refinement.
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 ```{r setup, include=FALSE}
@@ -23,7 +18,7 @@ This workflow is largely based on the [Recovering Microbial Genomes from TARA Oc
 
 # Automated Binning
 
-The latest iteration of anvi'o (v6 as of this writing) ports several popular automated binning algorithms into its ecosystem. We will bin the water meatgenomic assembly using  [CONCOCT](https://github.com/BinPro/CONCOCT) (Clustering cONtigs with COverage and ComposiTion)[@alneberg2014binning]---a program for unsupervised binning of metagenomic contigs by using nucleotide composition, coverage data in multiple samples and linkage data from paired end reads. But you can also use [MetaBAT2](https://bitbucket.org/berkeleylab/metabat)[@kang2019metabat], [MaxBIN2](https://sourceforge.net/projects/maxbin2/)[@wu2016maxbin] and/or [DASTOOL](https://github.com/cmks/DAS_Tool)[@sieber2018recovery] if you wish.
+The latest iteration of anvi'o (v6 as of this writing) ports several popular automated binning algorithms into its ecosystem. We will bin the water meatgenomic assembly using  [CONCOCT](https://github.com/BinPro/CONCOCT) (Clustering cONtigs with COverage and ComposiTion) [@alneberg2014binning]---a program for unsupervised binning of metagenomic contigs by using nucleotide composition, coverage data in multiple samples and linkage data from paired end reads. But you can also use [MetaBAT2](https://bitbucket.org/berkeleylab/metabat) [@kang2019metabat], [MaxBIN2](https://sourceforge.net/projects/maxbin2/) [@wu2016maxbin] and/or [DASTOOL](https://github.com/cmks/DAS_Tool) [@sieber2018recovery] if you wish.
 
 When we run CONCOCT, we can specify the number of bins the program generates. To my knowledge CONCOCT is the only binning  tools that allows you to specify the number of clusters. The command is pretty straightforward. We will set the number of automated clusters to 5. Why 5? If you remember back to the [Assembly results](mg-workflow-2.html#assembly-results) section, anvi'o estimated the total number of MAGs is the data set was 15 (based on the presence of signle copy genes). In my experience, shoosing a value smaller than this gives you greater control over the manual refinement.
 
@@ -276,7 +271,7 @@ anvi-rename-bins -c 03_CONTIGS/WATER-contigs.db
 
 As you can see, we use our new collections plus a few criteria to rename all the bins. Anything fitting those critera will have the prefix `WATER_MAG_` and those that do not will be `WATER_BIN_`. Of course, we do not expect any viral bins to meet these criteria and while calling VAGs (viral assembled genomes) can be done (I think), it is beyond the scope of this study.
 
-And now, generate summaries of the final microbial and viral collections. 
+And now, generate summaries of the final microbial and viral collections.
 
 ```bash
 anvi-summarize -c 03_CONTIGS/WATER-contigs.db \
@@ -291,7 +286,7 @@ anvi-summarize -c 03_CONTIGS/WATER-contigs.db \
 
 ## Summarize MAGs
 
-Now, for a little sanity check  we can summarize the MAGs. We can employ the same trick above to make a collection of just MAGs called, well, `MAGS`. 
+Now, for a little sanity check  we can summarize the MAGs. We can employ the same trick above to make a collection of just MAGs called, well, `MAGS`.
 
 ```bash
 anvi-summarize -c 03_CONTIGS/WATER-contigs.db
@@ -497,7 +492,7 @@ That's it for this section. Next we will perform a phylogenomic analysis on a MA
 
 ## Estimate MAG Taxonomy
 
-One last thing to do is look at the predicted taxonomy for each MAG. To do this we will run the command `anvi-estimate-scg-taxonomy`, which uses 22 ribosomal genes[@parks2018gtgb] from the [Genome Taxonomy Database (GTDB)](https://gtdb.ecogenomic.org/) to estimate taxonomy. We added these classifications earlier when we ran `anvi-run-scg-taxonomy`. We can either run `anvi-estimate-scg-taxonomy` on the self-contained profile and contig databases we just create OR just use the combined databases. We will do the latter, so we only need to run a single command. You can add the `--debug` flag to see a more verbose output. We will keep it simple for now.  
+One last thing to do is look at the predicted taxonomy for each MAG. To do this we will run the command `anvi-estimate-scg-taxonomy`, which uses 22 ribosomal genes [@parks2018gtgb] from the [Genome Taxonomy Database (GTDB)](https://gtdb.ecogenomic.org/) to estimate taxonomy. We added these classifications earlier when we ran `anvi-run-scg-taxonomy`. We can either run `anvi-estimate-scg-taxonomy` on the self-contained profile and contig databases we just create OR just use the combined databases. We will do the latter, so we only need to run a single command. You can add the `--debug` flag to see a more verbose output. We will keep it simple for now.
 
 ```bash
 anvi-estimate-scg-taxonomy -c 14_NR-MAGs-CONTIGS/NR-MAGs-CONTIGS.db
@@ -513,7 +508,7 @@ Profile DB ...................................: 17_NON-REDUNDANT-MAGs-MERGED/PRO
 Metagenome mode ..............................: False
 
 * 3,404 split names associated with 5 bins of in collection 'NON_REDUNDANT_MAGs'
-have been successfully recovered 
+have been successfully recovered
 
 Estimated taxonomy for collection "NON_REDUNDANT_MAGs"
 ===============================================
@@ -534,12 +529,12 @@ Estimated taxonomy for collection "NON_REDUNDANT_MAGs"
 
 ## Estimate Bin Taxonomy
 
-Heck, since we're here we can also estimate the taxonomy of the bins. We wil leave out the MAGs since we just did that. 
+Heck, since we're here we can also estimate the taxonomy of the bins. We wil leave out the MAGs since we just did that.
 
 ```bash
 anvi-estimate-scg-taxonomy -p 06_MERGED/WATER/PROFILE.db \
-                           -c 03_CONTIGS/WATER-contigs.db 
-                           -C MICROBIAL_FINAL 
+                           -c 03_CONTIGS/WATER-contigs.db
+                           -C MICROBIAL_FINAL
                            -o microbial-bins-gtdb.txt
 ```
 
@@ -676,4 +671,4 @@ The source code for this page can be accessed on GitHub by [clicking this link](
 
 ## Data Availability {.appendix}
 
-Binning summary data can be downloaded directly from  figshare at [doi:10.25573/data.12809069](https://doi.org/10.25573/data.12809069). Summary data is included for four collections: 1) `CONCOCT_5`, the automatic binning, 2) `VIRAL_FINAL`, the bins after manual refinement deemed to be viral, 3) `MICROBIAL_FINAL`, the bins after manual refinement deemed to be microbial, 4) `MAGS` the 5 MAG bins only. Within each directory is an `index.html` that can be opened in a browser for closer inspection. Individual summary files are also provided. Self-Contained profile and contigs databases for each MAG are also available for download. 
+Binning summary data can be downloaded directly from  figshare at [doi:10.25573/data.12809069](https://doi.org/10.25573/data.12809069). Summary data is included for four collections: 1) `CONCOCT_5`, the automatic binning, 2) `VIRAL_FINAL`, the bins after manual refinement deemed to be viral, 3) `MICROBIAL_FINAL`, the bins after manual refinement deemed to be microbial, 4) `MAGS` the 5 MAG bins only. Within each directory is an `index.html` that can be opened in a browser for closer inspection. Individual summary files are also provided. Self-Contained profile and contigs databases for each MAG are also available for download.

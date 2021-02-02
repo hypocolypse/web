@@ -2,16 +2,6 @@
 title: "Sandbox"
 description: |
   A place to test
-#author:
-#  - name: "Maggie D Johnson"
-#    url: https://github.com/jjallaire
-#    affiliation: STRI
-#    affiliation_url: https://www.rstudio.com
-#  - name: "Noelle Lucey"
-#    url: https://github.com/yihui
-#    affiliation: STRI
-#    affiliation_url: https://www.rstudio.com
-bibliography: assets/cite.bib
 ---
 
 

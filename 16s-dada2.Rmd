@@ -1,14 +1,8 @@
 ---
 title: "No 1. DADA2 Workflow"
 description: |
-  Complete, reproducible DADA2 workflow for processing the raw **16S rRNA** Illumina data from hypoxic and normoxic water samples collected during a 2017 hypoxic event in Bocas del Toro, Panama. 
-
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+  Complete, reproducible DADA2 workflow for processing the raw **16S rRNA** Illumina data from hypoxic and normoxic water samples collected during a 2017 hypoxic event in Bocas del Toro, Panama.
+bibliography: assets/cite.bib  
 ---
 
 ```{r setup, include=FALSE}
@@ -36,7 +30,7 @@ This script will process the raw data from the water samples. Please note that t
 
 > In order to run this workflow, you either need the *raw* data---available on the figshare project site---or the *trimmed* data, available from the ENA under project accession number ... See the [Data Availability](data-availability.html) page for complete details.
 
-This pipeline below is exactly how we processed our 16S rRNA data using [DADA2](https://benjjneb.github.io/dada2/)[@callahan2016dada2]. This is not meant to be a tutorial and we only provide minimal annotation. There are many great tutorials and explanations out there on amplicon processing that you can dive into.
+This pipeline below is exactly how we processed our 16S rRNA data using [DADA2](https://benjjneb.github.io/dada2/) [@callahan2016dada2]. This is not meant to be a tutorial and we only provide minimal annotation. There are many great tutorials and explanations out there on amplicon processing that you can dive into.
 
 Depending on the DADA2 version you have installed, you may get [slightly different results](https://github.com/benjjneb/dada2/issues/532) due to fundamental changes in the code base. This is unavoidable at times and the developers do the best they can to maintain fidelity across versions. To see the package versions of tools used in this workflow, please see the [Session Info](#r-session-information) at the end of this page. We set random number seeds to ensure full reproducibility.
 
@@ -74,7 +68,7 @@ datatable(seq_table, width = "100%",
 
 # 1.  Remove Primers
 
-Before we start the DADA2 pipeline we need to run [catadapt](https://github.com/marcelm/cutadapt)[@martin2011cutadapt] on all `fastq.gz` files to trim the primers. We will set the  error rate (`-e`) to 0.12 (= 12%).
+Before we start the DADA2 pipeline we need to run [catadapt](https://github.com/marcelm/cutadapt) [@martin2011cutadapt] on all `fastq.gz` files to trim the primers. We will set the  error rate (`-e`) to 0.12 (= 12%).
 
 ```{bash cutadapt, eval=FALSE, echo=TRUE}
 cutadapt -g {F-ADAPTER} -G {R-ADAPTER} /
@@ -84,7 +78,7 @@ cutadapt -g {F-ADAPTER} -G {R-ADAPTER} /
                         --discard-untrimmed -e 0.12
 ```
 
-Where `-g` is GTGYCAGCMGCCGCGGTAA (the 515F primer) `-G` is CCGYCAATTYMTTTRAGTTT (the 926R primer)[@parada2016every] and `R1` and `R2` are the forward and reverse reads, respectively. More information can be found on the [16S Illumina Amplicon Protocol](https://earthmicrobiome.org/protocols-and-standards/16s/) page of the Earth Microbiome Project. 
+Where `-g` is GTGYCAGCMGCCGCGGTAA (the 515F primer) `-G` is CCGYCAATTYMTTTRAGTTT (the 926R primer) [@parada2016every] and `R1` and `R2` are the forward and reverse reads, respectively. More information can be found on the [16S Illumina Amplicon Protocol](https://earthmicrobiome.org/protocols-and-standards/16s/) page of the Earth Microbiome Project.
 
 This will yield a ~370 bp amplicon. The input files for cutadapt are in the `RAW/` directory and the output files from cutadapt are in the `INPUT_FILES` directory. The output files are input for the DADA2 portion of the workflow.
 
@@ -98,7 +92,7 @@ head(list.files(path))
 ```
 
 ```{r dummy_1X, echo=FALSE}
-c("WCC0_R1.trimmed.fastq", "WCC0_R2.trimmed.fastq", "WCC1_R1.trimmed.fastq", 
+c("WCC0_R1.trimmed.fastq", "WCC0_R2.trimmed.fastq", "WCC1_R1.trimmed.fastq",
    "WCC1_R2.trimmed.fastq", "WCC2_R1.trimmed.fastq", "WCC2_R2.trimmed.fastq")
 ```
 
@@ -153,7 +147,7 @@ filtFs <- file.path(filt_path, paste0(sample.names, "_F_filt.fastq.gz"))
 filtRs <- file.path(filt_path, paste0(sample.names, "_R_filt.fastq.gz"))
 ```
 
-And then we trim the reads. The `truncLen` values we use should give a roughly 35bp overlap. 
+And then we trim the reads. The `truncLen` values we use should give a roughly 35bp overlap.
 
 <aside>
 These parameters should be set based on the anticipated length of the amplicon and the read quality.
@@ -161,10 +155,10 @@ These parameters should be set based on the anticipated length of the amplicon a
 
 
 ```{r filterX, eval=FALSE}
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, 
-                     truncLen=c(260,150), maxN=0, 
-                     maxEE=c(3,3), truncQ=2, 
-                     rm.phix=TRUE, compress=TRUE, 
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs,
+                     truncLen=c(260,150), maxN=0,
+                     maxEE=c(3,3), truncQ=2,
+                     rm.phix=TRUE, compress=TRUE,
                      multithread = 20)
 ```
 
@@ -359,7 +353,7 @@ The `mergers_` objects are lists of `data.frames` from each sample. Each `data.f
 
 # 8. Construct Sequence Table
 
-Now we construct amplicon sequence variant (ASV) table. The sequence table is a matrix with rows corresponding to (and named by) the samples, and columns corresponding to (and named by) the sequence variants. 
+Now we construct amplicon sequence variant (ASV) table. The sequence table is a matrix with rows corresponding to (and named by) the samples, and columns corresponding to (and named by) the sequence variants.
 
 ```{r seq_tableX, eval=FALSE}
 seqtab <- makeSequenceTable(mergers)
@@ -370,20 +364,20 @@ dim(seqtab)
 c(8, 4132)
 ```
 
-We have 4132 sequence variants. 
+We have 4132 sequence variants.
 
 ```{r seq_table2X, eval=FALSE}
 table(nchar(getSequences(seqtab)))
 ```
 
 ```
-362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380 381 
-  2   1   4   7 134   8  84 161 499 198 589 960 953 109 169 230   8   1   2   2 
-382 383 384 385 388 393 
-  2   1   2   1   1   4 
+362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380 381
+  2   1   4   7 134   8  84 161 499 198 589 960 953 109 169 230   8   1   2   2
+382 383 384 385 388 393
+  2   1   2   1   1   4
 ```
 
-But there is also a range of sequence lengths. 
+But there is also a range of sequence lengths.
 
 ## Trim Sequence Tables
 
@@ -402,14 +396,14 @@ The values selected should be based on the sequence table generated above.
 c(8, 4119)
 ```
 
-Trimming the table eliminated 13 ASVs. 
+Trimming the table eliminated 13 ASVs.
 
 ```{r trim_length2X,  eval=FALSE}
 table(nchar(getSequences(seqtab.2)))
 ```
 
 ```
-362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380 
+362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380
   2   1   4   7 134   8  84 161 499 198 589 960 953 109 169 230   8   1   2
 ```
 
@@ -418,8 +412,8 @@ table(nchar(getSequences(seqtab.2)))
 Even though the `dada` method corrects substitution and indel errors,  chimeric sequences remain. According to the DADA2 documentation, the accuracy of sequence variants after denoising makes identifying chimeric ASVs simpler than when dealing with fuzzy OTUs. Chimeric sequences are identified if they can be *exactly reconstructed* by combining a left-segment and a right-segment from two more abundant *parent* sequences.
 
 ```{r chimera_on_ind_runs, eval=FALSE}
-seqtab.2.nochim <- removeBimeraDenovo(seqtab.2, 
-                                      method="consensus", 
+seqtab.2.nochim <- removeBimeraDenovo(seqtab.2,
+                                      method="consensus",
                                       multithread = 20)
 dim(seqtab.2.nochim)
 ```
@@ -438,20 +432,20 @@ sum(seqtab.2.nochim)/sum(seqtab.2)
 0.874367
 ```
 
-But when we account for the abundances of each variant, we see chimeras account for  only about 12.5% of the merged sequence reads. Not great, not terrible either. 
+But when we account for the abundances of each variant, we see chimeras account for  only about 12.5% of the merged sequence reads. Not great, not terrible either.
 
 # 10. Track Read Changes
 
-One more task we can do is look at the number of reads that made it through each step of the pipeline for every sample to gauge the overall performance of the run and how read totals changed through the pipeline, 
+One more task we can do is look at the number of reads that made it through each step of the pipeline for every sample to gauge the overall performance of the run and how read totals changed through the pipeline,
 
 ```{r build_table_to_track_reads, eval=FALSE}
 getN <- function(x) sum(getUniques(x))
-track <- cbind(out, 
-               sapply(dadaFs, getN), 
-               sapply(dadaRs, getN), 
-               sapply(mergers, getN), 
+track <- cbind(out,
+               sapply(dadaFs, getN),
+               sapply(dadaRs, getN),
+               sapply(mergers, getN),
                rowSums(seqtab.2.nochim))
-colnames(track) <- c("input", "filtered", "denoisedF", 
+colnames(track) <- c("input", "filtered", "denoisedF",
                      "denoisedR", "merged", "nonchim")
 rownames(track) <- sample.names
 ```
@@ -473,7 +467,7 @@ datatable(sum_run, width = "80%",
 
 
 ```{r track_changes, eval=FALSE, echo=FALSE}
-write.table(track, "tables/16s-dada2/read_changes.txt", 
+write.table(track, "tables/16s-dada2/read_changes.txt",
             sep = "\t", quote = FALSE, col.names=NA)
 ```
 
@@ -492,7 +486,7 @@ This may seem redundant (and it probably is) but it lets us work with only the d
 
 # 11. Assign Taxonomy
 
-The `assignTaxonomy` command implements the naive Bayesian classifier[@wang2007naive], so for reproducible results you need to set a random number seed (see issue [#538](https://github.com/benjjneb/dada2/issues/538)). We did this at the beginning of the workflow. For taxonomic assignment, we are using the Silva version 132[@quast2012silva]. The developers of DADA2 maintain a [formatted version of the database](https://zenodo.org/record/3731176). As of the time of this writing, version 138 was just released. 
+The `assignTaxonomy` command implements the naive Bayesian classifier [@wang2007naive], so for reproducible results you need to set a random number seed (see issue [#538](https://github.com/benjjneb/dada2/issues/538)). We did this at the beginning of the workflow. For taxonomic assignment, we are using the Silva version 132 [@quast2012silva]. The developers of DADA2 maintain a [formatted version of the database](https://zenodo.org/record/3731176). As of the time of this writing, version 138 was just released.
 
 And then native Baysian classifier against the Silva database.
 
@@ -677,11 +671,11 @@ That's it for this part. Next, we do some data prep ahead of the community analy
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-dada2.Rmd). Please note, that in order to process the data *and*  build the website, we needed to run the pipeline and get the results. Then hard code the results and turn off the individual commands. So the raw file for this page is a bit messy---you have been warned. 
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/16s-dada2.Rmd). Please note, that in order to process the data *and*  build the website, we needed to run the pipeline and get the results. Then hard code the results and turn off the individual commands. So the raw file for this page is a bit messy---you have been warned.
 
 ## Data Availability {.appendix}
 
-Raw fastq files available on figshare at [doi:10.25573/data.11819745](https://doi.org/10.25573/data.11819745). Trimmed fastq files (primers removed) available through the ENA under project accession number [PRJEB36632](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). Output files from this workflow available on figshare  at [doi:0.25573/data.12403865](https://doi.org/10.25573/data.12403865). 
+Raw fastq files available on figshare at [doi:10.25573/data.11819745](https://doi.org/10.25573/data.11819745). Trimmed fastq files (primers removed) available through the ENA under project accession number [PRJEB36632](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). Output files from this workflow available on figshare  at [doi:0.25573/data.12403865](https://doi.org/10.25573/data.12403865).
 
 ## Addendum {.appendix}
 

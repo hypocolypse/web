@@ -2,12 +2,7 @@
 title: "Data Availability"
 description: |
   In this section you can find information on obtaining raw sequencing data, data products, and processing scripts. Of course, all the code is also embedded in the workflows on the website as well.
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 ## Archived Sequence Data

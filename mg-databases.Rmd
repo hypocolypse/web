@@ -2,12 +2,7 @@
 title: "No 2. Annotation Databases"
 description: |
   Constructing taxonomic & functional annotation databases.
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 There are two main types of annotations we are interested in for this metagenomic project---**taxonomic** and **functional**---and there are many, many ways to accomplish both of these goals. This next section involves building the databases and installing any additional tools we need for annotation.
@@ -20,7 +15,7 @@ There are many algorithms and databases for taxonomic classification. We will us
 
 ## Centrifuge
 
-*[Centrifuge](https://ccb.jhu.edu/software/centrifuge/)[@kim2016centrifuge] is a very rapid and memory-efficient system for the classification of DNA sequences from microbial samples...uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index, optimized specifically for the metagenomic classification problem...*
+*[Centrifuge](https://ccb.jhu.edu/software/centrifuge/) [@kim2016centrifuge] is a very rapid and memory-efficient system for the classification of DNA sequences from microbial samples...uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index, optimized specifically for the metagenomic classification problem...*
 
 We will use centrifuge to classify assembled reads, or contigs. Centrifuge was installed with anvi'o above so all we need to do here is build the database.
 
@@ -38,7 +33,7 @@ That's it.
 
 ## Kaiju
 
-*[Kaiju](https://github.com/bioinformatics-centre/kaiju)[@menzel2016fast]... finds maximum (in-)exact matches on the protein-level using the Burrows–Wheeler transform.* *Kaiju is a program for the taxonomic classification... of metagenomic DNA. Reads are directly assigned to taxa using the NCBI taxonomy and a reference database of protein sequences from microbial and viral genomes.*
+*[Kaiju](https://github.com/bioinformatics-centre/kaiju) [@menzel2016fast]... finds maximum (in-)exact matches on the protein-level using the Burrows–Wheeler transform.* *Kaiju is a program for the taxonomic classification... of metagenomic DNA. Reads are directly assigned to taxa using the NCBI taxonomy and a reference database of protein sequences from microbial and viral genomes.*
 
 Kaiju pretty much does the same thing as Centrifuge but uses a different methodological approach. First we need to install Kaiju. Again, I will run kaiju in a separate conda environment. Now I can either install kaiju from the source code or as conda package. The latter is easier but often conda packages may lag behind the source code versions. I usually compare the release dates of the [conda package](https://anaconda.org/bioconda/kaiju) with the [source code](https://github.com/bioinformatics-centre/kaiju) and look at the number of downloads. In this case, the conda version of kaiju looks fine.
 
@@ -101,7 +96,7 @@ echo = `date` job $JOB_NAME done
 
 ### KrakenUniq
 
-*[KrakenUniq](https://github.com/fbreitwieser/krakenuniq) (formerly KrakenHLL)[@breitwieser2018krakenuniq] is a novel metagenomics classifier that combines the fast k-mer-based classification of Kraken with an efficient algorithm for assessing the coverage of unique k-mers found in each species in a dataset.*
+*[KrakenUniq](https://github.com/fbreitwieser/krakenuniq) (formerly KrakenHLL) [@breitwieser2018krakenuniq] is a novel metagenomics classifier that combines the fast k-mer-based classification of Kraken with an efficient algorithm for assessing the coverage of unique k-mers found in each species in a dataset.*
 
 Installed in separate conda environment
 
@@ -170,7 +165,7 @@ echo = `date` job $JOB_NAME done
 
 ## VirSorter
 
-*[VirSorter](https://github.com/simroux/VirSorter)[@roux2015virsorter], a tool designed to detect viral signal in these different types of microbial sequence data in both a reference-dependent and reference-independent manner, leveraging probabilistic models and extensive virome data to maximize detection of novel viruses.*
+*[VirSorter](https://github.com/simroux/VirSorter) [@roux2015virsorter], a tool designed to detect viral signal in these different types of microbial sequence data in both a reference-dependent and reference-independent manner, leveraging probabilistic models and extensive virome data to maximize detection of novel viruses.*
 
 I generally followed [this recipe](https://github.com/simroux/VirSorter) for installing VirSorter except I separated out the installation of dependencies to individual commands because I like to monitor any conflicts between packages.
 

@@ -2,21 +2,12 @@
 title: "Field Analyses"
 description: |
  In this section we discuss the various field analyses conducted in this study.
-author:
-# - name: "Maggie D Johnson"
-# url: https://github.com/jjallaire
-# affiliation: STRI
-# affiliation_url: https://www.rstudio.com
-# - name: "Noelle Lucey"
-# url: https://github.com/yihui
-# affiliation: STRI
-# affiliation_url: https://www.rstudio.com
-#bibliography: assets/cite.bib
 output:
     distill::distill_article:
       css: assets/styles.css
       toc: true
       toc_depth: 3
+bibliography: assets/cite.bib  
 ---
 
 

@@ -2,12 +2,7 @@
 title: "No 3. Diversity"
 description: |
   In this section of the workflow we look at the diversity of the water samples collected from Cayo Roldan (hypoxic) and Cayo Coral (normoxic).
-author:
-#  - name: Jarrod J Scott
-#    url: https://example.com/norajones
-#    affiliation: Spacely Sprockets
-#    affiliation_url: https://example.com/spacelysprokets
-bibliography: assets/cite.bib
+bibliography: assets/cite.bib  
 ---
 
 ```{r setup, include=FALSE}
@@ -38,7 +33,7 @@ knitr::opts_current$get(c(
 ```
 
 ```{r load_water_2, echo=FALSE}
-### NOTE: this should only be run AFTER the workflow is finished. 
+### NOTE: this should only be run AFTER the workflow is finished.
 ### This image is created at the END of this workflow and now read back in.
 ### Basically, this locks everything in place so nothing changes. Only code
 ### chunk to display figures and tables are evaluated. Everything else is
@@ -49,7 +44,7 @@ load("rdata/16s-water/16s-water.rdata")
 
 # Summary of Water Samples
 
-Now that we have a phyloseq object containing the water samples only, we can summarize the data in the water phyloseq object. Again, we use the `summarize_phyloseq` from the [microbiome R package](https://github.com/microbiome/microbiome/)[@lahti2017microbiome] as we did before.
+Now that we have a phyloseq object containing the water samples only, we can summarize the data in the water phyloseq object. Again, we use the `summarize_phyloseq` from the [microbiome R package](https://github.com/microbiome/microbiome/) [@lahti2017microbiome] as we did before.
 
 First, load the R objects that contain the sample data, sequence table, and taxonomy table (saved at the end of the previous section) and merge them into a single phyloseq object. Doing it this way keeps the memory footprint low.
 
@@ -67,7 +62,7 @@ ps_water
 ps_water
 ```
 
-Notice we made a copy of the `ps_water` phyloseq object called `ps_water_o`. This is because we are going to change the names of `NA` taxa below and we want a copy of the original object before making changes. Next, we can save copies of the sequence and taxonomy tables just in case we want a quick look at these data. 
+Notice we made a copy of the `ps_water` phyloseq object called `ps_water_o`. This is because we are going to change the names of `NA` taxa below and we want a copy of the original object before making changes. Next, we can save copies of the sequence and taxonomy tables just in case we want a quick look at these data.
 
 ```{r save_water_table, eval=FALSE}
 write.table(tax_table(ps_water),
@@ -78,7 +73,7 @@ write.table(t(otu_table(ps_water)),
             quote = FALSE, col.names=NA)
 ```
 
-And generate a fasta file for all ASVs in the water samples. 
+And generate a fasta file for all ASVs in the water samples.
 
 ```{r export_fasta_water, eval=FALSE}
 # Create fasta file from tax_table
@@ -94,7 +89,7 @@ table2format_trim_df$ASV_ID <- sub("ASV", ">ASV", table2format_trim_df$ASV_ID)
 write.table(table2format_trim_df, "tables/16s-water/water_asv.fasta",
             sep = "\r", col.names = FALSE, row.names = FALSE,
             quote = FALSE, fileEncoding = "UTF-8")
-```            
+```
 
 Let's go ahead and a sample variable called `oxstate` to the sample data frame of the water phyloseq object so we can compare the taxonomy of normoxic (Coral Caye) vs. hypoxic (Cayo Roldan) samples. Note one of the Cayo Roldan samples (WCR0) was collected after the hypoxic event when oxygen levels had returned to normal. Therefore WCR0 is considered a normoxic sample.
 
@@ -218,7 +213,7 @@ datatable(merge_tab2, width = "100%", escape = FALSE,
 
 ## Taxonomic Diversity
 
-Let's first take a look at the taxonomic diversity of the dataset. The code to generate this table is a little gross. 
+Let's first take a look at the taxonomic diversity of the dataset. The code to generate this table is a little gross.
 
 ### 0. Rename *NA* taxonomic ranks
 
@@ -266,7 +261,7 @@ write.table(t(otu_table(ps_water)),
 
 ### 1. Choose a rank
 
-To make it easier to change the code later on, we can assign the taxonomic rank we are interested into a variable, in the case `TRANK`. 
+To make it easier to change the code later on, we can assign the taxonomic rank we are interested into a variable, in the case `TRANK`.
 
 ```{r assign_rank, eval=FALSE}
 TRANK <- "Class"
@@ -275,7 +270,7 @@ TRANK <- "Class"
 ### 2. Generate the ASV & reads table
 
 ```{r diversity_table_w1, eval=FALSE}
-tax_asv <- table(tax_table(ps_water)[, TRANK], 
+tax_asv <- table(tax_table(ps_water)[, TRANK],
                  exclude = NULL, dnn = "Taxa")
 tax_asv <- as.data.frame(tax_asv, make.names = TRUE, stringsAsFactors=FALSE)
 
@@ -290,7 +285,7 @@ tax_reads <- tax_reads[9]
 tax_reads <- setDT(tax_reads, keep.rownames = TRUE)[]
 ```
 
-### 3. Merge the two tables 
+### 3. Merge the two tables
 
 ```{r diversity_table_w2, eval=FALSE}
 taxa_read_asv_tab <- merge(tax_reads, tax_asv, by.x = "rn", by.y = "Taxa")
@@ -300,7 +295,7 @@ top_asvs <- top_n(taxa_read_asv_tab, n = 8, wt = Freq)
 names(taxa_read_asv_tab) <- c("Taxa", "total reads", "total ASVs")
 ```
 
-### 4. Diversity table by `r TRANK` 
+### 4. Diversity table by `r TRANK`
 
 ```{r diversity_table_w3, echo=FALSE}
 datatable(
@@ -326,16 +321,16 @@ top_asvs2 <- tibble::column_to_rownames(top_asvs, var = "rn")
 top_asvs2 <- top_asvs2[with(top_asvs2, order(-Freq)),]
 ```
 
-Here we can see that: 
+Here we can see that:
 
 * `r row.names(top_reads2)` contain the **most reads** and
 * `r row.names(top_asvs2)` contain the **most ASVs**.
 
-## Hypoxic vs. Normoxic 
+## Hypoxic vs. Normoxic
 
 How does the taxonomic composition of  normoxic compare to hypoxic samples? To look at this, we will combine samples by the `oxstate` variable and then calculate the *relative abundance* for each taxon for both oxygen states. Note one of the Cayo Roldan samples (WCR0) was collected after the hypoxic event when oxygen levels had returned to normal. Therefore, WCR0 is considered a normoxic sample.
 
-There are a few steps we need to run for this analysis. 
+There are a few steps we need to run for this analysis.
 
 ### 1. Choose a rank
 
@@ -375,7 +370,7 @@ taxa_means_w <- means_w[order(-means_w$mean), ]  # this orders in decending fash
 taxa_means_w <- format(taxa_means_w, scientific = FALSE)  # ditch the sci notation
 ```
 
-### 5. Relative abundance by `r TRANK` 
+### 5. Relative abundance by `r TRANK`
 
 ```{r calc_avg5, warning=FALSE, echo=FALSE}
 datatable(
@@ -398,7 +393,7 @@ datatable(
 
 ### 6. Group taxa into 'Other'
 
-Time to group low abundance taxa into an *Other* category for the bar graph. Since we cannot possibly display all `r nrow(means_w)` different taxa in one figure, we need to collapse the low abundance groups.  
+Time to group low abundance taxa into an *Other* category for the bar graph. Since we cannot possibly display all `r nrow(means_w)` different taxa in one figure, we need to collapse the low abundance groups.
 
 ```{r calc_avg6, warning=FALSE, eval=FALSE}
 TAXAN <- 8
@@ -418,9 +413,9 @@ samp_names_w <- aggregate(meltd_w$Abundance, by = list(meltd_w$Sample), FUN = su
 meltd_w[, TRANK] <- factor(meltd_w[, TRANK], sort(unique(meltd_w[, TRANK])))
 meltd_w1 <- meltd_w[order(meltd_w[, TRANK]), ]
 
-target <- c("Cyanobacteriia", "Alphaproteobacteria", 
-            "Bacteroidia", "Gammaproteobacteria", 
-            "Thermoplasmata", "Phylum_Marinimicrobia_(SAR406_clade)", 
+target <- c("Cyanobacteriia", "Alphaproteobacteria",
+            "Bacteroidia", "Gammaproteobacteria",
+            "Thermoplasmata", "Phylum_Marinimicrobia_(SAR406_clade)",
             "Acidimicrobiia", "Campylobacteria", "Other")
 meltd_w1[[TRANK]] <- reorder.factor(meltd_w1[[TRANK]], new.order = target)
 ```
@@ -441,8 +436,8 @@ family_pal <- c("#009E73", #1
                 "#323232", #9
                 "#7F7F7F")
 
-fig_w <- ggplot(meltd_w1, 
-         aes_string(x = "Sample", y = "Abundance", 
+fig_w <- ggplot(meltd_w1,
+         aes_string(x = "Sample", y = "Abundance",
                     fill = TRANK, show.legend = FALSE),
          ordered = TRUE, xlab = "x-axis label", ylab = "y-axis label")
 
@@ -451,24 +446,24 @@ fig_w <- fig_w + geom_bar(stat = "identity",
                  width = 0.95) + coord_flip() +
                  theme(aspect.ratio = 1/4) + theme(legend.position = "bottom")
 fig_w <- fig_w + scale_fill_manual(values = family_pal)
-fig_w <- fig_w + labs(x = "Environment", 
+fig_w <- fig_w + labs(x = "Environment",
                       y = "Relative abundance (% total reads)")
 
-fig_w <- fig_w + theme(plot.margin = margin(0, 0.1, 0, 0.1, unit = "cm")) + 
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.45, vjust = 1)) + 
+fig_w <- fig_w + theme(plot.margin = margin(0, 0.1, 0, 0.1, unit = "cm")) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.45, vjust = 1)) +
   theme(legend.key = element_rect(colour = "black"))
 
 fig_w <- fig_w + guides(
-  fill = guide_legend(override.aes = list(colour = NULL), 
-                      reverse = FALSE, 
+  fill = guide_legend(override.aes = list(colour = NULL),
+                      reverse = FALSE,
                       title.position = "top", nrow = 3))
 
 fig_w <- fig_w + theme(axis.line = element_line(colour = "black"),
                  panel.grid.major = element_blank(),
                  panel.grid.minor = element_blank(),
-                 panel.border = element_rect(colour = "black", 
-                                             fill = NA, size = 1)) 
-fig_w 
+                 panel.border = element_rect(colour = "black",
+                                             fill = NA, size = 1))
+fig_w
 #ggsave("oxstate_by_taxa.png")
 #invisible(dev.off())
 ```
@@ -480,9 +475,9 @@ knitr::include_graphics("figures/16s-water/bar-norm-v-hypox.png")
 We can also look at this in tabular format. To accomplish the task, we use the `aggregate` command to group abundance values by oxygen state *and* taxonomic group.
 
 ```{r hyp_v_norm_agg, eval=FALSE}
-hyp_v_norm <- aggregate(meltd_w1$Abundance, 
-                 by = list(Rank = meltd_w1[[TRANK]], 
-                           Sample = meltd_w1$Sample), 
+hyp_v_norm <- aggregate(meltd_w1$Abundance,
+                 by = list(Rank = meltd_w1[[TRANK]],
+                           Sample = meltd_w1$Sample),
                  FUN = sum)
 hyp_v_norm$x <- round(hyp_v_norm$x, digits = 4)
 hyp_v_norm <- spread(hyp_v_norm, Sample, x)
@@ -493,7 +488,7 @@ datatable(hyp_v_norm, width = "100%", escape = FALSE,
           rownames = FALSE,
           caption = htmltools::tags$caption(
             style = 'caption-side: bottom; text-align: left;',
-            'Table: ', htmltools::em('Relative abundance (reads) of normoxic 
+            'Table: ', htmltools::em('Relative abundance (reads) of normoxic
                                      vs hypoxic samples by dominant taxa.')),
           elementId = "wewuidn73q2ceico4vyw",
           extensions = 'Buttons', options = list(
@@ -509,7 +504,7 @@ datatable(hyp_v_norm, width = "100%", escape = FALSE,
 
 <br/>
 
-## During vs. After the Event 
+## During vs. After the Event
 
 What did taxonomic composition look like during and after the event at **each site**? To look at this, we will combine samples by the `period` variable and then calculate the *relative abundance* for each taxon. The code for this analysis is basically the same as the code above where we compared hypoxic to normoxic samples. Therefore, all of the code is hidden. See the link at the bottom of the page for the page source code if you are interested in the code we used here. We go through the same steps:
 
@@ -564,7 +559,7 @@ datatable(
     scroller=TRUE, lengthMenu = c(9, 25, 60)))
 ```
 
-Again, Time to group low abundance taxa into an *Other* category for the bar graph. Since we cannot possibly display all `r nrow(means_tm)` different taxa in one figure, we need to collapse the low abundance groups.  
+Again, Time to group low abundance taxa into an *Other* category for the bar graph. Since we cannot possibly display all `r nrow(means_tm)` different taxa in one figure, we need to collapse the low abundance groups.
 
 ```{r calc_avg6B, warning=FALSE, echo=FALSE, eval=FALSE}
 TAXAN <- 8
@@ -582,9 +577,9 @@ samp_names_tm <- aggregate(meltd_tm$Abundance, by = list(meltd_tm$Sample), FUN =
 meltd_tm[, TRANK] <- factor(meltd_tm[, TRANK], sort(unique(meltd_tm[, TRANK])))
 meltd_tm1 <- meltd_tm[order(meltd_tm[, TRANK]), ]
 
-target <- c("Cyanobacteriia", "Alphaproteobacteria", 
-            "Bacteroidia", "Gammaproteobacteria", 
-            "Thermoplasmata", "Phylum_Marinimicrobia_(SAR406_clade)", 
+target <- c("Cyanobacteriia", "Alphaproteobacteria",
+            "Bacteroidia", "Gammaproteobacteria",
+            "Thermoplasmata", "Phylum_Marinimicrobia_(SAR406_clade)",
             "Acidimicrobiia", "Campylobacteria", "Other")
 meltd_tm1[[TRANK]] <- reorder.factor(meltd_tm1[[TRANK]], new.order=target)
 ```
@@ -601,8 +596,8 @@ family_pal <- c("#009E73", #1
                 "#323232", #9
                 "#7F7F7F")
 
-fig_tm <- ggplot(meltd_tm1, 
-         aes_string(x = "Sample", y = "Abundance", 
+fig_tm <- ggplot(meltd_tm1,
+         aes_string(x = "Sample", y = "Abundance",
                     fill = TRANK, show.legend = FALSE),
          ordered = TRUE, xlab = "x-axis label", ylab = "y-axis label")
 
@@ -612,25 +607,25 @@ fig_tm <- fig_tm + geom_bar(stat = "identity",
                  theme(aspect.ratio = 1/4) + theme(legend.position = "bottom")
 fig_tm <- fig_tm + scale_fill_manual(values = family_pal)
 
-fig_tm <- fig_tm + labs(x = "Environment", 
-                      y = "Relative abundance (% total reads)", 
+fig_tm <- fig_tm + labs(x = "Environment",
+                      y = "Relative abundance (% total reads)",
                       title = "Abundance of taxa before & after event")
 
-fig_tm <- fig_tm + theme(plot.margin = margin(0, 0.1, 0, 0.1, unit = "cm")) + 
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.45, vjust = 1)) + 
+fig_tm <- fig_tm + theme(plot.margin = margin(0, 0.1, 0, 0.1, unit = "cm")) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.45, vjust = 1)) +
   theme(legend.key = element_rect(colour = "black"))
 
 fig_tm <- fig_tm + guides(
-  fill = guide_legend(override.aes = list(colour = NULL), 
-                      reverse = FALSE, 
+  fill = guide_legend(override.aes = list(colour = NULL),
+                      reverse = FALSE,
                       title.position = "top", nrow = 3))
 
 fig_tm <- fig_tm + theme(axis.line = element_line(colour = "black"),
                  panel.grid.major = element_blank(),
                  panel.grid.minor = element_blank(),
-                 panel.border = element_rect(colour = "black", 
-                                             fill = NA, size = 1)) 
-fig_tm 
+                 panel.border = element_rect(colour = "black",
+                                             fill = NA, size = 1))
+fig_tm
 #ggsave("period_by_taxa.png")
 #invisible(dev.off())
 ```
@@ -640,9 +635,9 @@ knitr::include_graphics("figures/16s-water/bar-before-v-after.png")
 ```
 
 ```{r before_v_after1, echo=FALSE, eval=FALSE}
-before_v_after <- aggregate(meltd_tm1$Abundance, 
-                 by = list(Rank = meltd_tm1[[TRANK]], 
-                           Sample = meltd_tm1$Sample), 
+before_v_after <- aggregate(meltd_tm1$Abundance,
+                 by = list(Rank = meltd_tm1[[TRANK]],
+                           Sample = meltd_tm1$Sample),
                  FUN = sum)
 before_v_after$x <- round(before_v_after$x, digits = 4)
 before_v_after <- spread(before_v_after, Sample, x)
@@ -650,13 +645,13 @@ before_v_after <- spread(before_v_after, Sample, x)
 
 ```{r before_v_after2, echo=FALSE}
 datatable(before_v_after, width = "100%", escape = FALSE,
-          rownames = FALSE, colnames = c("Crawl Caye (after)", 
-                                         "Crawl Caye (during)", 
-                                         "Cayo Roldan (after)", 
-                                         "Cayo Roldan (during)"), 
+          rownames = FALSE, colnames = c("Crawl Caye (after)",
+                                         "Crawl Caye (during)",
+                                         "Cayo Roldan (after)",
+                                         "Cayo Roldan (during)"),
           caption = htmltools::tags$caption(
             style = 'caption-side: bottom; text-align: left;',
-            'Table: ', htmltools::em('Relative abundance (reads) of normoxic 
+            'Table: ', htmltools::em('Relative abundance (reads) of normoxic
                                      vs hypoxic samples by dominant taxa.')),
           elementId = "kqtr8k9xeqyk0sb1s4h4",
           extensions = 'Buttons', options = list(
@@ -701,4 +696,4 @@ The source code for this page can be accessed on GitHub by [clicking this link](
 
 ## Data Availability {.appendix}
 
-Output files from this workflow available on figshare at [doi:10.25573/data.12794258](https://doi.org/10.25573/data.12794258). The *16s-water.rdata* file contains all variables and phyloseq objects from this pipeline and is needed for the next workflow (as are the .rds files). 
+Output files from this workflow available on figshare at [doi:10.25573/data.12794258](https://doi.org/10.25573/data.12794258). The *16s-water.rdata* file contains all variables and phyloseq objects from this pipeline and is needed for the next workflow (as are the .rds files).
