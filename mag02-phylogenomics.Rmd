@@ -1,24 +1,21 @@
 ---
-title: "No 6. MAG02 Phylogenomic Analysis"
+title: "No 6a. MAG02 Phylogenomic Analysis"
 description: |
   In this section, we create a workflow to compare MAG02 with publicly available genomes. MAG02 was only found in the hypoxic sample.
 bibliography: assets/cite.bib  
 ---
 
-```{r setup, include=FALSE}
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
-library(kableExtra)
-library(DT)
-library(htmlwidgets)
-library(htmltools)
-library(DiagrammeR)
-library(DiagrammeRsvg)
-library(rsvg)
-library(readr)
-library(tidyverse)
-library(plyr)
-library(data.table)
+pacman::p_load(kableExtra, DT, htmlwidgets, htmltools, 
+               DiagrammeR, DiagrammeRsvg, rsvg, readr, 
+               tidyverse, plyr, data.table,
+               install = FALSE, update = FALSE)
 ```
+</details>
 
 What we want to do next is compare MAG02^[In the analysis, this MAG is named WATER_MAG_00002. For brevity we refer to it henceforth as MAG02] to publicly available genomes. We know from our binning and binning summary that MAG02 has a lot of hits to *Arcobacter*, an Epsilonproteobacteria. However, when we run `anvi-estimate-scg-taxonomy` we get something a little different.
 
@@ -1149,26 +1146,26 @@ If you are unfamiliar with IQ-TREE, check out the [tutorial](http://www.iqtree.o
 
 Here is the metadata for record of all genomes used in phylogenomic analysis of MAG02. Table contains information for each of the 72 Arcobacter-like genomes (plus 3 outgroup genomes). Description of table headers are as follows.
 
-**genome_id**: Name of genome in phylogenomic tree.
-**isolation_category**: Broad category based on *host/isolation source* information retrieved from the BioSample record.
-**organism**: Organism name retrieved from the BioSample record.
-**strain_or_isolate**: Genome stain or isolate designation.
-**sample_information**: Host/isolation source information retrieved from the BioSample record.
-**bioproject**: [NCBI BioProject ID](https://www.ncbi.nlm.nih.gov/bioproject).
-**biosample**: [NCBI BioSample ID](https://www.ncbi.nlm.nih.gov/biosample).
-**assembly_accession**: [NCBI Assembly ID](https://www.ncbi.nlm.nih.gov/assembly).
-**taxid**: [NCBI Taxonomy ID](https://www.ncbi.nlm.nih.gov/taxonomy).
-**species_taxid**: [NCBI Species Taxonomy ID](https://www.ncbi.nlm.nih.gov/taxonomy).
-**doi_publication**: DOI link for related publication.
-**assembly_level**: Assembly level.
-**seq_rel_date**: Genome release data.
-**ftp_path**: FTP link to download genome.
-**submitter**: Submitting Institution.
+**genome_id**: Name of genome in phylogenomic tree.   
+**isolation_category**: Broad category based on *host/isolation source* information retrieved from the BioSample record.   
+**organism**: Organism name retrieved from the BioSample record.   
+**strain_or_isolate**: Genome stain or isolate designation.   
+**sample_information**: Host/isolation source information retrieved from the BioSample record.   
+**bioproject**: [NCBI BioProject ID](https://www.ncbi.nlm.nih.gov/bioproject).   
+**biosample**: [NCBI BioSample ID](https://www.ncbi.nlm.nih.gov/biosample).   
+**assembly_accession**: [NCBI Assembly ID](https://www.ncbi.nlm.nih.gov/assembly).   
+**taxid**: [NCBI Taxonomy ID](https://www.ncbi.nlm.nih.gov/taxonomy).   
+**species_taxid**: [NCBI Species Taxonomy ID](https://www.ncbi.nlm.nih.gov/taxonomy).   
+**doi_publication**: DOI link for related publication.   
+**assembly_level**: Assembly level.   
+**seq_rel_date**: Genome release data.   
+**ftp_path**: FTP link to download genome.   
+**submitter**: Submitting Institution.   
 
 <br/>
 
 ```{r suppl_table_6, echo=FALSE, , layout="l-page"}
-table_s1 <- read.table("tables/mag02-phylogenomics/Supplementary_Table_1_links.txt",
+table_s1 <- read.table("tables/mag02-phylogenomics/metadata_links_MAG02.txt",
                       sep = "\t", header = TRUE)#,
                       #colClasses=c("X..identity" = "numeric"))
 
@@ -1186,7 +1183,7 @@ datatable(table_s1, escape = 15, rownames = FALSE, width = "100%", filter = 'top
 
 <br/>
 
-> A plain text version of this table (without HTML tags) <a href="files/mag02-phylogenomics/Supplementary_Table_1.txt" download="Supplementary_Table_1.txt"> can be downloaded here.</a>
+> A plain text version of this table (without HTML tags) <a href="files/mag02-phylogenomics/metadata_MAG02.txt" download="metadata_MAG02.txt"> can be downloaded here.</a>
 
 # Conclusion
 
@@ -1202,7 +1199,7 @@ Dandy. Now we have a phylogenomic tree of MAG02 with 72 other *Arcobacter* genom
 <div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Next</div>
-<a href="mg-function.html" rel="prev">N<sup><u>o</u></sup> 7. KEGG/KOFam Analysis</a>
+<a href="mag04-phylogenomics.html" rel="prev">N<sup><u>o</u></sup> 6b. MAG04 Phylogenomics</a>
 </div>
 </div>
 

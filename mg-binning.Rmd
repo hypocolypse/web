@@ -5,13 +5,15 @@ description: |
 bibliography: assets/cite.bib  
 ---
 
-```{r setup, include=FALSE}
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE, results='hide'}
 knitr::opts_chunk$set(collapse = TRUE)
-library(kableExtra)
-library(DT)
-library(htmlwidgets)
-library(htmltools)
+pacman::p_load(kableExtra, DT, htmlwidgets, htmltools,
+               install = FALSE, update = FALSE)
 ```
+</details>
 
 
 This workflow is largely based on the [Recovering Microbial Genomes from TARA Oceans Metagenomes](http://merenlab.org/data/tara-oceans-mags/#binning-mags) binning section provided by Delmont and Eren.
@@ -660,7 +662,7 @@ In the next section we explore WATER_MAG_00002 in a phylogenomic context. That's
 <div class="post-nav">
 <div class="post-nav-item">
 <div class="meta-nav">Next</div>
-<a href="mag02-phylogenomics.html" rel="prev">N<sup><u>o</u></sup> 6. MAG02 Phylogenomics</a>
+<a href="mag02-phylogenomics.html" rel="prev">N<sup><u>o</u></sup> 6a. MAG02 Phylogenomics</a>
 </div>
 </div>
 

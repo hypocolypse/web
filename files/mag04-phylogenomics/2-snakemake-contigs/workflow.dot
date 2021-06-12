@@ -1,0 +1,114 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "contigs_target_rule", color = "0.18 0.6 0.85", style="rounded,dashed"];
+	1[label = "annotate_contigs_database", color = "0.15 0.6 0.85", style="rounded,dashed"];
+	2[label = "annotate_contigs_database", color = "0.15 0.6 0.85", style="rounded,dashed"];
+	3[label = "annotate_contigs_database", color = "0.15 0.6 0.85", style="rounded,dashed"];
+	4[label = "annotate_contigs_database", color = "0.15 0.6 0.85", style="rounded,dashed"];
+	5[label = "anvi_gen_contigs_database", color = "0.39 0.6 0.85", style="rounded,dashed"];
+	6[label = "anvi_run_hmms", color = "0.27 0.6 0.85", style="rounded,dashed"];
+	7[label = "anvi_run_ncbi_cogs", color = "0.03 0.6 0.85", style="rounded,dashed"];
+	8[label = "anvi_run_kegg_kofams", color = "0.48 0.6 0.85", style="rounded,dashed"];
+	9[label = "anvi_run_scg_taxonomy", color = "0.42 0.6 0.85", style="rounded,dashed"];
+	10[label = "anvi_run_trna_scan", color = "0.33 0.6 0.85", style="rounded,dashed"];
+	11[label = "anvi_run_pfams", color = "0.12 0.6 0.85", style="rounded,dashed"];
+	12[label = "anvi_gen_contigs_database", color = "0.39 0.6 0.85", style="rounded,dashed"];
+	13[label = "anvi_run_hmms", color = "0.27 0.6 0.85", style="rounded,dashed"];
+	14[label = "anvi_run_ncbi_cogs", color = "0.03 0.6 0.85", style="rounded,dashed"];
+	15[label = "anvi_run_kegg_kofams", color = "0.48 0.6 0.85", style="rounded,dashed"];
+	16[label = "anvi_run_scg_taxonomy", color = "0.42 0.6 0.85", style="rounded,dashed"];
+	17[label = "anvi_run_trna_scan", color = "0.33 0.6 0.85", style="rounded,dashed"];
+	18[label = "anvi_run_pfams", color = "0.12 0.6 0.85", style="rounded,dashed"];
+	19[label = "anvi_gen_contigs_database", color = "0.39 0.6 0.85", style="rounded,dashed"];
+	20[label = "anvi_run_hmms", color = "0.27 0.6 0.85", style="rounded,dashed"];
+	21[label = "anvi_run_ncbi_cogs", color = "0.03 0.6 0.85", style="rounded,dashed"];
+	22[label = "anvi_run_kegg_kofams", color = "0.48 0.6 0.85", style="rounded,dashed"];
+	23[label = "anvi_run_scg_taxonomy", color = "0.42 0.6 0.85", style="rounded,dashed"];
+	24[label = "anvi_run_trna_scan", color = "0.33 0.6 0.85", style="rounded,dashed"];
+	25[label = "anvi_run_pfams", color = "0.12 0.6 0.85", style="rounded,dashed"];
+	26[label = "anvi_gen_contigs_database", color = "0.39 0.6 0.85", style="rounded,dashed"];
+	27[label = "anvi_run_hmms", color = "0.27 0.6 0.85", style="rounded,dashed"];
+	28[label = "anvi_run_ncbi_cogs", color = "0.03 0.6 0.85", style="rounded,dashed"];
+	29[label = "anvi_run_kegg_kofams", color = "0.48 0.6 0.85", style="rounded,dashed"];
+	30[label = "anvi_run_scg_taxonomy", color = "0.42 0.6 0.85", style="rounded,dashed"];
+	31[label = "anvi_run_trna_scan", color = "0.33 0.6 0.85", style="rounded,dashed"];
+	32[label = "anvi_run_pfams", color = "0.12 0.6 0.85", style="rounded,dashed"];
+	33[label = "anvi_script_reformat_fasta", color = "0.45 0.6 0.85", style="rounded,dashed"];
+	34[label = "anvi_script_reformat_fasta", color = "0.45 0.6 0.85", style="rounded,dashed"];
+	35[label = "anvi_script_reformat_fasta", color = "0.45 0.6 0.85", style="rounded,dashed"];
+	36[label = "anvi_script_reformat_fasta", color = "0.45 0.6 0.85", style="rounded,dashed"];
+	37[label = "anvi_script_reformat_fasta_prefix_only\ngroup: Aliiroseovarius_crassostreae_CV919_312", color = "0.64 0.6 0.85", style="rounded,dashed"];
+	38[label = "anvi_script_reformat_fasta_prefix_only\ngroup: Aliiroseovarius_marinus_A6024", color = "0.64 0.6 0.85", style="rounded,dashed"];
+	39[label = "anvi_script_reformat_fasta_prefix_only\ngroup: Aliiroseovarius_halocynthiae_MA1_10", color = "0.64 0.6 0.85", style="rounded,dashed"];
+	40[label = "anvi_script_reformat_fasta_prefix_only\ngroup: MAG04", color = "0.64 0.6 0.85", style="rounded,dashed"];
+	1 -> 0
+	2 -> 0
+	3 -> 0
+	4 -> 0
+	5 -> 1
+	6 -> 1
+	7 -> 1
+	8 -> 1
+	9 -> 1
+	10 -> 1
+	11 -> 1
+	12 -> 2
+	13 -> 2
+	14 -> 2
+	15 -> 2
+	16 -> 2
+	17 -> 2
+	18 -> 2
+	19 -> 3
+	20 -> 3
+	21 -> 3
+	22 -> 3
+	23 -> 3
+	24 -> 3
+	25 -> 3
+	26 -> 4
+	27 -> 4
+	28 -> 4
+	29 -> 4
+	30 -> 4
+	31 -> 4
+	32 -> 4
+	33 -> 5
+	5 -> 6
+	5 -> 7
+	5 -> 8
+	6 -> 9
+	5 -> 9
+	5 -> 10
+	5 -> 11
+	34 -> 12
+	12 -> 13
+	12 -> 14
+	12 -> 15
+	13 -> 16
+	12 -> 16
+	12 -> 17
+	12 -> 18
+	35 -> 19
+	19 -> 20
+	19 -> 21
+	19 -> 22
+	20 -> 23
+	19 -> 23
+	19 -> 24
+	19 -> 25
+	36 -> 26
+	26 -> 27
+	26 -> 28
+	26 -> 29
+	27 -> 30
+	26 -> 30
+	26 -> 31
+	26 -> 32
+	37 -> 33
+	38 -> 34
+	39 -> 35
+	40 -> 36
+}            

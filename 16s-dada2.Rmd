@@ -5,16 +5,18 @@ description: |
 bibliography: assets/cite.bib  
 ---
 
-```{r setup, include=FALSE}
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE, results='hide'}
 knitr::opts_chunk$set(echo = TRUE)
 set.seed(911)
 library(dada2); packageVersion("dada2")
 library(ShortRead); packageVersion("ShortRead")
 library(ggplot2); packageVersion("ggplot2")
-library(rmarkdown)
-library(DT)
-library(gridExtra)
-library(grid)
+pacman::p_load(rmarkdown, DT, gridExtra, grid,   
+               install = FALSE, update = FALSE)
+
 knitr::opts_current$get(c(
   "cache",
   "cache.path",
@@ -23,6 +25,8 @@ knitr::opts_current$get(c(
   "autodep"
 ))
 ```
+</details>
+
 
 # Workflow Overview
 

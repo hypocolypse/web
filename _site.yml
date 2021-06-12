@@ -51,8 +51,10 @@ navbar:
         - text: "MAG Analysis"
         - text: "5. Binning"
           href: mg-binning.html
-        - text: "6. MAG02 Phylogenomics"
+        - text: "6a. MAG02 Phylogenomics"
           href: mag02-phylogenomics.html
+        - text: "6b. MAG04 Phylogenomics"
+          href: mag04-phylogenomics.html
         - text: "7. KEGG/KOFam Analysis"
           href: mg-function.html
     - text: "DATA"

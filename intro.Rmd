@@ -5,17 +5,18 @@ description: |
 bibliography: assets/cite.bib  
 ---
 
-```{r setup, include=FALSE}
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(dplyr)
-library(DT)
-library(ggplot2)
-library(scales)
-library(magick)
-library(gridExtra)
-library(grid)
+pacman::p_load(dplyr, DT, ggplot2, scales, 
+               magick, gridExtra, grid,
+               install = FALSE, update = FALSE)
 options(scipen=999)
 ```
+</details>
+
 
 This website provides reproducible workflows for our study on the Bocas del Toro hypoxic event in 2017. We go through the steps  used to process the raw 16S rRNA marker and  metagenomic  data. We describe the various tools used to analyze and interpret the data. We also provide access to all data, data products, and code. With this workflow you can generate the figures and tables from the paper as well as many additional data products.
 

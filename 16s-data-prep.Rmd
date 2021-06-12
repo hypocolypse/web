@@ -5,16 +5,16 @@ description: |
 bibliography: assets/cite.bib  
 ---
 
-```{r setup, include=FALSE}
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE, results='hide'}
 knitr::opts_chunk$set(echo = TRUE)
 set.seed(0199)
 library(phyloseq); packageVersion("phyloseq")
-library(DT)
-library(ggplot2)
 library(Biostrings); packageVersion("Biostrings")
-library(dplyr)
-library(microbiome)
-library(tidyverse)
+pacman::p_load(DT, ggplot2, dplyr, microbiome, tidyverse,   
+               install = FALSE, update = FALSE)
 options(scipen=999)
 knitr::opts_current$get(c(
   "cache",
@@ -24,6 +24,7 @@ knitr::opts_current$get(c(
   "autodep"
 ))
 ```
+</details>
 
 ```{r, echo=FALSE}
 ### NOTE: this should only be run AFTER the workflow is finished.

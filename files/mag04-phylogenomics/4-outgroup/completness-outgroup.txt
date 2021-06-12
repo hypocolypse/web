@@ -1,0 +1,7 @@
+genome name	domain	confidence	% completion	% redundancy	num_splits	total length
+Roseovarius_atlanticus	BACTERIA	1.0	100.00	1.41	244	4578348
+Roseovarius_halotolerans_A	BACTERIA	1.0	100.00	2.82	189	3718295
+Roseovarius_halotolerans_B	BACTERIA	1.0	100.00	2.82	191	3725543
+Roseovarius_mucosus_DSM_17069	BACTERIA	1.0	100.00	1.41	206	4241818
+Roseovarius_pacificus_A	BACTERIA	1.0	100.00	5.63	237	4557337
+Roseovarius_pacificus_B	BACTERIA	1.0	100.00	5.63	232	4547027

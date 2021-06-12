@@ -11,27 +11,19 @@ bibliography: assets/cite.bib
 ---
 
 
-```{r setup, include = FALSE}
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 rm(list = ls())
-library(lme4)
-library(lmerTest)
-library(car)
-library(rcompanion)
-library(MASS)
-library(emmeans)
-library(nlme)
-library(ggplot2)
-library(plyr)
-library(RColorBrewer)
-library(wesanderson)
-library(reshape2) # restructuring the data
-library(cowplot)
-library(scales)
-library(tidyr)
-library(dplyr)
-library(patchwork)
+pacman::p_load(lme4, lmerTest, car, rcompanion, MASS, 
+               emmeans, nlme, ggplot2, plyr, RColorBrewer, 
+               wesanderson, reshape2, cowplot, scales, 
+               tidyr, dplyr, patchwork,   
+               install = FALSE, update = FALSE)
 ```
+</details>
 
 
 ## Hypoxic Reef Conditions

@@ -5,17 +5,15 @@ description: |
 bibliography: assets/cite.bib  
 ---
 
-```{r message=FALSE, warning=FALSE}
-#library(conflicted)
-library(tidyverse)
-library(seqinr)
-library(Biostrings)
-library(stringr)
-library(plyr)
-library(dplyr)
-library(pathview)
-library(heatmaply)
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE, results='hide'}
+pacman::p_load(tidyverse, seqinr, Biostrings, stringr, 
+               plyr, dplyr, pathview, heatmaply,  
+               install = FALSE, update = FALSE)
 ```
+</details>
 
 ```{r master_load, include=FALSE}
 remove(list = ls())

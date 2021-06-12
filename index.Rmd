@@ -4,19 +4,22 @@ description: |
   Reproducible workflows for the study ***Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean reef***.
 author:
   - name: "Maggie D Johnson"
+    orcid_id: 0000-0002-1319-2545
     url: https://www.maggiedjohnson.com/
     affiliation: Woods Hole Oceanographic Institution
     affiliation_url: https://www.whoi.edu/
   - name: "Jarrod J Scott"
     orcid_id: 0000-0001-9863-1318
-    url: https://github.com/jarrodscott
+    url: https://metacrobe.github.io/
     affiliation: Smithsonian Tropical Research Institute
     affiliation_url: https://stri.si.edu/
   - name: "Matthieu Leray"
+    orcid_id: 0000-0002-7327-1878
     url: https://www.matthieuleray.website/
     affiliation: Smithsonian Tropical Research Institute
     affiliation_url: https://stri.si.edu/
   - name: "Noelle Lucey"
+    orcid_id: 0000-0002-7975-8521
     #url: https://github.com/yihui
     affiliation: Smithsonian Tropical Research Institute
     affiliation_url: https://stri.si.edu/
@@ -29,6 +32,7 @@ author:
     affiliation: Florida International University
     affiliation_url: https://www.fiu.edu/
   - name: "Andrew H Altieri"
+    orcid_id: 0000-0001-7439-8742
     url: https://www.altierilab.org
     affiliation: University of Florida
     affiliation_url: https://www.essie.ufl.edu/environmental-engineering-sciences/
@@ -44,25 +48,23 @@ output:
 site: distill::distill_website
 ---
 
-```{r setup, include=FALSE}
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library("tm")
-library("SnowballC")
-library("wordcloud")
-library("RColorBrewer")
-library("wordcloud2")
-library("webshot")
-library("htmlwidgets")
-library(dplyr)
-library(leaflet)
-library(htmlwidgets)
+pacman::p_load(tm, SnowballC, wordcloud, RColorBrewer, 
+               wordcloud2, webshot, htmlwidgets, dplyr, 
+               leaflet, htmlwidgets,
+               install = FALSE, update = FALSE)
 ```
+</details>
 
-# Synopsis 
+# Synopsis
 
-Dissolved oxygen (DO) concentrations in the ocean are declining at an unprecedented rate due eutrophication and climate change. The corresponding increase in the occurrence of coastal hypoxic events, and resulting mass mortality of marine life, is threatening the persistence of ecologically and economically valuable ecosystems. Though hypoxic events have long been recognized to cause ecosystem collapse in temperate environments, similar consequences have only recently been identified in the tropics, where the effects on coral reef ecosystems remain poorly understood. Emerging evidence indicates that hypoxic events can decimate coral reefs, but the progress of a coral reef hypoxia event has yet to be captured in real-time. 
+Dissolved oxygen (DO) concentrations in the ocean are declining at an unprecedented rate due eutrophication and climate change. The corresponding increase in the occurrence of coastal hypoxic events, and resulting mass mortality of marine life, is threatening the persistence of ecologically and economically valuable ecosystems. Though hypoxic events have long been recognized to cause ecosystem collapse in temperate environments, similar consequences have only recently been identified in the tropics, where the effects on coral reef ecosystems remain poorly understood. Emerging evidence indicates that hypoxic events can decimate coral reefs, but the progress of a coral reef hypoxia event has yet to be captured in real-time.
 
-Here we present the first account of an unfolding hypoxia event on a Caribbean coral reef, documenting the environmental parameters associated with the event that occurred in September 2017 and subsequent impacts on the ecosystem. We provide the first quantitative evidence that hypoxic events can precipitate coral bleaching and lead to dramatic shifts in reef benthic community structure that persist over time. We also describe how the microbial community overlying the reef benthos (~1 m above the seafloor) had a unique taxonomic fingerprint in hypoxic waters that dissipated with the return of oxygenated water. 
+Here we present the first account of an unfolding hypoxia event on a Caribbean coral reef, documenting the environmental parameters associated with the event that occurred in September 2017 and subsequent impacts on the ecosystem. We provide the first quantitative evidence that hypoxic events can precipitate coral bleaching and lead to dramatic shifts in reef benthic community structure that persist over time. We also describe how the microbial community overlying the reef benthos (~1 m above the seafloor) had a unique taxonomic fingerprint in hypoxic waters that dissipated with the return of oxygenated water.
 
 Together our study demonstrates the catastrophic implications of a hypoxic event on multiple aspects of the coral reef ecosystems, from coral physiology to microbial community structure. Our results have alarming implications for coral reefs in an age where deoxygenation is accelerating rapidly. In order to truly understand how local and global environmental changes will affect the persistence of coral reefs into the future, ocean deoxygenation must be accounted for and incorporated into monitoring and managements frameworks.
 
@@ -93,39 +95,39 @@ Conditions characteristic of a low-oxygen event were detected in Bahía Almirant
 
 leaflet() %>%
   setView(-82.235052, 9.277137, zoom = 12) %>%
-  addTiles() %>% 
-  addScaleBar(position = "topright") %>% 
+  addTiles() %>%
+  addScaleBar(position = "topright") %>%
 #  addMiniMap(position = "topright", zoomLevelOffset = -5) %>%
-  addCircleMarkers(lng = c(-82.334720, -82.131119), 
+  addCircleMarkers(lng = c(-82.334720, -82.131119),
              lat = c(9.219640, 9.248433), radius = 22.5,
              label = c("Cayo Roldan (impacted)", "Coral Caye (control)"),
-             labelOptions = labelOptions(textOnly = TRUE, 
-                                         noHide = TRUE, 
-                                         direction = "bottom", offset = c(6, 12), 
-                                         style = list("font-size" = "14px" , 
+             labelOptions = labelOptions(textOnly = TRUE,
+                                         noHide = TRUE,
+                                         direction = "bottom", offset = c(6, 12),
+                                         style = list("font-size" = "14px" ,
                                                       "font-style" = "bold")),
-             color = c("#141414", "#141414"), 
-             fillColor = c("#D55E00", "#0072B2"), 
+             color = c("#141414", "#141414"),
+             fillColor = c("#D55E00", "#0072B2"),
              stroke = TRUE, fillOpacity = 0.9, weight = 10) %>%
-  addCircleMarkers(lng = -82.256463, 
-             lat = 9.352402, 
+  addCircleMarkers(lng = -82.256463,
+             lat = 9.352402,
              label = "STRI",
-             labelOptions = labelOptions(textOnly = TRUE, 
-                                         noHide = TRUE, 
-                                         direction = "left", offset = c(-20, 1), 
-                                         style = list("font-size" = "20px" , 
+             labelOptions = labelOptions(textOnly = TRUE,
+                                         noHide = TRUE,
+                                         direction = "left", offset = c(-20, 1),
+                                         style = list("font-size" = "20px" ,
                                                       "font-style" = "bold")),
-             color = "#0072B2", 
-             fillColor = "#F0E442", 
+             color = "#0072B2",
+             fillColor = "#F0E442",
              stroke = TRUE, fillOpacity = 0.95, weight = 5,
-             opacity = 0.95) 
+             opacity = 0.95)
 ```
 
 <br/>
 
 # Science to Words
 
-Curious how the study translates to words? Here is a tag cloud of the manuscript. 
+Here is a word cloud of the manuscript, just for the fun of it ;)
 
 ```{r, echo=FALSE, eval=FALSE}
 filePath <- "files/main.txt"
@@ -147,9 +149,9 @@ docs <- tm_map(docs, removeNumbers)
 docs <- tm_map(docs, removeWords, stopwords("english"))
 # Remove your own stop word
 # specify your stopwords as a character vector
-docs <- tm_map(docs, removeWords, c("used", "based", "samples", 
-                                    "using", "sample", "one", 
-                                    "two", "site", "within", "fig")) 
+docs <- tm_map(docs, removeWords, c("used", "based", "samples",
+                                    "using", "sample", "one",
+                                    "two", "site", "within", "fig"))
 # Remove punctuations
 docs <- tm_map(docs, removePunctuation)
 # Eliminate extra white spaces
@@ -171,7 +173,7 @@ set.seed(1234)
 d1 <- d %>% filter(freq > 1)
 
 #wordcloud(words = d$word, freq = d$freq, min.freq = 1, scale=c(2,.5),
-#          max.words=200, random.order=FALSE, rot.per=0.35, 
+#          max.words=200, random.order=FALSE, rot.per=0.35,
 #          colors=brewer.pal(8, "Dark2"))
 wc <- wordcloud2(data = d1, size = 1.1, color = 'random-dark', fontFamily = "serif", gridSize = 0)
 saveWidget(wc, "tmp.html", selfcontained = F)
@@ -196,8 +198,8 @@ See the [Data Availability](data-availability.html) for complete details on obta
 
 ## Source Code {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/index.Rmd). Source code for the complete site can be accessed [here](https://github.com/hypocolypse/web/) or by clicking  the icon on the far right of the navigation bar. 
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/index.Rmd). Source code for the complete site can be accessed [here](https://github.com/hypocolypse/web/) or by clicking  the icon on the far right of the navigation bar.
 
 ## Disclaimer {.appendix}
 
-Unfortunately, some of the publications we cite in this project sit behind paywalls and are inaccessible unless you are either at an institution that subscribes to the journal, you pay for each article, or you obtain the article via "illegal" means. Either way, at the moment this is beyond our control, and hence apologize if you are unable to access some of the articles we cite. 
+Unfortunately, some of the publications we cite in this project sit behind paywalls and are inaccessible unless you are either at an institution that subscribes to the journal, you pay for each article, or you obtain the article via "illegal" means. Either way, at the moment this is beyond our control, and hence apologize if you are unable to access some of the articles we cite.

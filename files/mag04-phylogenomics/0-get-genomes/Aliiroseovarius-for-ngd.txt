@@ -1,0 +1,25 @@
+parent_taxid	descendent_taxid	descendent_name
+1658781	154981	Aliiroseovarius crassostreae
+1658781	985055	Aliiroseovarius halocynthiae
+1658781	1173584	Aliiroseovarius sediminilitoris
+1658781	1632025	Aliiroseovarius zhejiangensis
+1658781	1639690	Aliiroseovarius pelagivivens
+1658781	2500159	Aliiroseovarius marinus
+1658781	1872442	Aliiroseovarius sp.
+1658781	2651822	Aliiroseovarius sp. xm-a-104
+1658781	2651823	Aliiroseovarius sp. xm-a-134
+1658781	2651824	Aliiroseovarius sp. xm-a-151
+1658781	2651825	Aliiroseovarius sp. xm-d-517
+1658781	2651826	Aliiroseovarius sp. xm-g-7
+1658781	2651827	Aliiroseovarius sp. xm-m-309
+1658781	2651828	Aliiroseovarius sp. xm-m-314
+1658781	2651829	Aliiroseovarius sp. xm-m-339-2
+1658781	2651830	Aliiroseovarius sp. xm-m-354
+1658781	2651831	Aliiroseovarius sp. xm-m-378
+1658781	2651832	Aliiroseovarius sp. xm-m-379
+1658781	2651833	Aliiroseovarius sp. xm-v-201
+1658781	2651834	Aliiroseovarius sp. xm-v-204
+1658781	2651835	Aliiroseovarius sp. xm-v-208
+1658781	2651836	Aliiroseovarius sp. xm-v-209
+1658781	2651837	Aliiroseovarius sp. xm-v-225
+1658781	2706883	Aliiroseovarius sp. PrR006

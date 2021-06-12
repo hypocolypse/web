@@ -1,0 +1,7 @@
+genome_or_bin	Archaeal_16S_rRNA	Bacterial_16S_rRNA	Mitochondrial_16S_rRNA
+Roseovarius_atlanticus	0	1	0
+Roseovarius_halotolerans_A	0	1	0
+Roseovarius_halotolerans_B	0	1	0
+Roseovarius_mucosus_DSM_17069	0	1	0
+Roseovarius_pacificus_A	0	1	0
+Roseovarius_pacificus_B	0	1	0

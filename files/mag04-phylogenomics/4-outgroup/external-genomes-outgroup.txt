@@ -1,0 +1,7 @@
+name	contigs_db_path
+Roseovarius_atlanticus	/pool/genomics/stri_istmobiome/data/TEMP/Aliiroseovarius/ALIIROSEOVARIUS/OUTGROUP/03_CONTIGS/Roseovarius_atlanticus-contigs.db
+Roseovarius_halotolerans_A	/pool/genomics/stri_istmobiome/data/TEMP/Aliiroseovarius/ALIIROSEOVARIUS/OUTGROUP/03_CONTIGS/Roseovarius_halotolerans_A-contigs.db
+Roseovarius_halotolerans_B	/pool/genomics/stri_istmobiome/data/TEMP/Aliiroseovarius/ALIIROSEOVARIUS/OUTGROUP/03_CONTIGS/Roseovarius_halotolerans_B-contigs.db
+Roseovarius_mucosus_DSM_17069	/pool/genomics/stri_istmobiome/data/TEMP/Aliiroseovarius/ALIIROSEOVARIUS/OUTGROUP/03_CONTIGS/Roseovarius_mucosus_DSM_17069-contigs.db
+Roseovarius_pacificus_A	/pool/genomics/stri_istmobiome/data/TEMP/Aliiroseovarius/ALIIROSEOVARIUS/OUTGROUP/03_CONTIGS/Roseovarius_pacificus_A-contigs.db
+Roseovarius_pacificus_B	/pool/genomics/stri_istmobiome/data/TEMP/Aliiroseovarius/ALIIROSEOVARIUS/OUTGROUP/03_CONTIGS/Roseovarius_pacificus_B-contigs.db

@@ -5,14 +5,14 @@ description: |
 bibliography: assets/cite.bib  
 ---
 
-```{r setup, include=FALSE}
+<details markdown="1">
+<summary>Show setup information.</summary>
+
+```{r setup, message = FALSE, warning = FALSE, results='hide'}
 knitr::opts_chunk$set(echo = TRUE)
 set.seed(019911)
-library(DiagrammeR)
-# library(htmlwidgets)
-library(DiagrammeRsvg)
-library(rsvg)
-
+pacman::p_load(DiagrammeR, DiagrammeRsvg, rsvg,  
+               install = FALSE, update = FALSE)
 options(scipen=999)
 knitr::opts_current$get(c(
   "cache",
@@ -22,6 +22,8 @@ knitr::opts_current$get(c(
   "autodep"
 ))
 ```
+</details>
+
 
 # The Workflow
 
