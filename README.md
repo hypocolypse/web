@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/268354818.svg)](https://zenodo.org/badge/latestdoi/268354818)
+
+
 This repo contains reproducible workflows for the study *Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean reef*, also known as Hypocolypse.
 
 ## Code Availability
