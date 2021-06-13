@@ -85,9 +85,13 @@ In this section of the workflow, we assess the QC & assembly results, Kraken sho
 
 In this section of the workflow we reconstruct metagenome assembled genomes (MAGs), first using CONCOCT for automated binning of the assembled contigs followed by manual refinement. You can access the workflow from the navbar above or [this link](mg-binning.html).
 
-### No 6. MAG02 Phylogenomic Analysis
+### No 6a. MAG02 Phylogenomic Analysis
 
 In this section, we create a workflow to compare MAG02 with publicly available genomes. MAG02 was only found in the hypoxic sample. You can access the workflow from the navbar above or [this link](mag02-phylogenomics.html).
+
+### No 6b. MAG04 Phylogenomic Analysis
+
+In this section, we create a workflow to compare MAG04 with publicly available genomes. MAG04 was also only found in the hypoxic sample. You can access the workflow from the navbar above or [this link](mag04-phylogenomics.html).
 
 ### No 7. KEGG/KOFam Analysis
 
