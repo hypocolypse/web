@@ -38,6 +38,24 @@ knitr::opts_current$get(c(
 load("rdata/16s-water/16s-water.rdata")
 ```
 
+# Data Availability
+
+> In order to run this workflow, you either need to run the previous workflows or grab the files below from figshare.
+
+All files needed to run this workflow can be downloaded from figshare. These are the output files from the [Data Prep Workflow](16s-data-prep.html).
+
+<iframe src="https://widgets.figshare.com/articles/12403925/embed?show_title=1" width="568" height="351"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+**seq_table.txt**, **tax_table.txt**, **asv.fasta**: Sequence tables, taxonomy tables, and ASV fasta files from the full phyloseq object (before removing contaminants) and the trimmed dataset (after removing contaminants).
+
+**16s-data_prep.rdata**: contains all variables and phyloseq objects from the data prep pipeline. To see the Objects, in R run load("16s-data_prep.rdata", verbose=TRUE)
+
+# Workflow Overview
+
+This script will process the curated water sample data from the [Data Prep Workflow](16s-data-prep.html). 
+
 # Summary of Water Samples
 
 Now that we have a phyloseq object containing the water samples only, we can summarize the data in the water phyloseq object. Again, we use the `summarize_phyloseq` from the [microbiome R package](https://github.com/microbiome/microbiome/) [@lahti2017microbiome] as we did before.

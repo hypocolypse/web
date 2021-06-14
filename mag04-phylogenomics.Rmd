@@ -17,6 +17,18 @@ pacman::p_load(kableExtra, DT, htmlwidgets, htmltools,
 ```
 </details>
 
+# Data Availability
+
+All files generated in this workflow can be downloaded from figshare. 
+
+<iframe src="https://widgets.figshare.com/articles/14774802/embed?show_title=1" width="568" height="251"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+- **01_MAG04_PAN** Pangenomic analysis of MAG04.
+- **02_MAG04_PHYLOGENOMICS** Phylogenomic analysis of MAG04.
+You can use the anvi'o commands described in the workflow to visualize the data.
+
 
 What we want to do here is compare MAG04^[In the analysis, this MAG is named WATER_MAG_00004. For brevity we refer to it henceforth as MAG04] to publicly available genomes. We will generally follow workflow similar to the one presented for [MAG02](mag02-phylogenomics.html).
 

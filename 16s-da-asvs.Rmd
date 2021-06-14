@@ -29,6 +29,34 @@ knitr::opts_current$get(c(
 ```
 </details>
 
+# Data Availability
+
+> In order to run this workflow, you either need to run the previous workflows or grab the files below from figshare.
+
+All files needed to run this workflow can be downloaded from figshare. These are the output files from the [Diversity workflow](16s-water.html) page.
+
+<iframe src="https://widgets.figshare.com/articles/12794258/embed?show_title=1" width="568" height="301"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+- **16s-water.rdata**: contains all variables and phyloseq objects from the pipeline. To see the Objects, in R run `load("16s-water.rdata", verbose=TRUE)`.
+- **ps_water.rds**: Phyloseq object where NA ranks renamed by next named rank.
+- **ps_water_o.rds**: Phyloseq object with original NA ranks.
+- **ps_water_ox.rds**: Same Phyloseq object as ps_water_o.rds but with sample oxygen states added.
+
+And here are the output files from this workflow. 
+
+<iframe src="https://widgets.figshare.com/articles/12808427/embed?show_title=1" width="568" height="201"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+- **da_asvs_pipeline.rdata**: contains all variables and objects from the pipeline. To see the Objects, in R run load("da_asvs_pipeline.rdata", verbose=TRUE)
+ - **da_asv_anvio.zip** contains all the files needed to visualize the DA ASVs in anvi’o. See the workflow for instructions. 
+
+# Workflow Overview
+
+This script will process the curated water sample data from the [Diversity Workflow](16s-water.html). 
+
 ```{r, echo=FALSE}
 ### NOTE: this should only be run AFTER the workflow is finished.
 ### This image is created at the END of this workflow and now read back in.
@@ -40,7 +68,7 @@ load("rdata/16s-da-asvs/da_asvs_pipeline.rdata")
 ```
 
 
-```{r, echo=FALSE, eval=FALSE}
+```{r, echo=TRUE, eval=FALSE}
 remove(list = ls())
 ps_water <- readRDS("rdata/16s-water/ps_water.rds")
 ps_water_o <- readRDS("rdata/16s-water/ps_water_o.rds")

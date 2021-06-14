@@ -24,6 +24,25 @@ knitr::opts_current$get(c(
 ```
 </details>
 
+# Data Availability
+
+All files generated in this workflow can be downloaded from figshare. 
+
+<iframe src="https://widgets.figshare.com/articles/12808601/embed?show_title=1" width="568" height="351"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+- **00_RAW/**: Raw fastq files before trimming.
+- **00_LOGS/**: Individual log files for each step of the snakemake workflow.
+- **00_TRIMMED/**: Eight trimmed, compressed fastq files for each sample.
+- **01_QC/**: Merged forward (R1) & reverse (R2) QC'ed fastq files. QC STATS file for each sample. `qc-report.txt` file, a summary table of all QC results.
+- **02_FASTA/**: A contig fasta file and reformat report for each assembly.
+- **03_CONTIGS/**: An annotated contig database for each assembly.
+- **04_MAPPING/**: Short read BAM files.
+- **05_ANVIO_PROFILE/**: Individual profile database for each sample.
+- **06_MERGED/**: Single merged profile database.
+
+The `contigs.db` contains all taxonomic and functional annotations. The `profile.db` contains information on coverage, detection, etc. as well as COLLECTION information for automatic binning and manual refinement ([see step 5](https://hypocolypse.github.io/mg-binning.html)).
 
 # The Workflow
 

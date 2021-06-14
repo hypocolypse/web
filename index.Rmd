@@ -48,6 +48,8 @@ output:
 site: distill::distill_website
 ---
 
+[![DOI](https://zenodo.org/badge/268354818.svg)](https://zenodo.org/badge/latestdoi/268354818)
+
 <details markdown="1">
 <summary>Show setup information.</summary>
 
@@ -59,6 +61,7 @@ pacman::p_load(tm, SnowballC, wordcloud, RColorBrewer,
                install = FALSE, update = FALSE)
 ```
 </details>
+
 
 # Synopsis
 

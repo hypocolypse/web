@@ -27,12 +27,17 @@ knitr::opts_current$get(c(
 ```
 </details>
 
+# Data Availability
+
+> In order to run this workflow, you either need the *raw* data---available on the figshare project site---or the *trimmed* data, available from the ENA under project accession number [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). See the [Data Availability](data-availability.html) page for complete details.
+
+All files needed to run this workflow can be downloaded from figshare. 
+
+<iframe src="https://widgets.figshare.com/articles/11819745/embed?show_title=1" width="568" height="351"  frameborder="0"></iframe>
 
 # Workflow Overview
 
 This script will process the raw data from the water samples. Please note that to decrease rendering time of this website, we set code chunks to `eval=FALSE` after the initial processing. Remove this flag to rerun these code chunks.
-
-> In order to run this workflow, you either need the *raw* data---available on the figshare project site---or the *trimmed* data, available from the ENA under project accession number ... See the [Data Availability](data-availability.html) page for complete details.
 
 This pipeline below is exactly how we processed our 16S rRNA data using [DADA2](https://benjjneb.github.io/dada2/) [@callahan2016dada2]. This is not meant to be a tutorial and we only provide minimal annotation. There are many great tutorials and explanations out there on amplicon processing that you can dive into.
 

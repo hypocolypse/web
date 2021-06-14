@@ -36,7 +36,32 @@ knitr::opts_current$get(c(
 load("rdata/16s-data-prep/16s-data_prep.rdata")
 ```
 
-> You will either need to run the [DADA2 workflow](16s-dada2.html) or the grab output file `combo_pipeline.rdata` from the workflow. This file contains the sequence and taxonomy tables. See the [Data Availability](data-availability.html) page for complete details.
+# Data Availability
+
+> You will either need to run the [DADA2 workflow](16s-dada2.html) or the grab output file `water_pipeline.rdata` from the workflow. This file contains the sequence and taxonomy tables. See the [Data Availability](data-availability.html) page for complete details.
+
+All files needed to run this workflow can be downloaded from figshare. These are the output files from the [DADA2 workflow](16s-dada2.html) page.
+
+<iframe src="https://widgets.figshare.com/articles/12403865/embed?show_title=1" width="568" height="300"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+- **RUN01_read_changes.txt**: Tracking changes in read counts (per sample) from the beginning to end of the DADA2 workflow.
+- **RUN02_read_changes.txt**: Tracking changes in read counts (per sample) from the beginning to end of the DADA2 workflow.
+- **water_pipeline.rdata**: contains water sample sequence and taxonomy tables from the DADA2 pipeline needed for subsequent analyses. To see the Objects, in R run load("water_pipeline.rdata", verbose=TRUE)
+- **combo_pipeline.rdata**: contains sequence and taxonomy tables from the DADA2 pipeline for all samples. To see the Objects, in R run load("combo_pipeline.rdata", verbose=TRUE)
+
+`water_pipeline.rdata` contents. 
+
+- **seqtab.1**: Sequence table from Run01 before merging with Run02.
+- **seqtab.1**: Sequence table from Run02 before merging with Run01.
+- **st.sum**: merged sequence table before removing chimeras
+- **st.all**: duplicate of st.sum
+- **seqtab**: merged sequence table after removing chimeras
+- **tax_silva**: Silva (v132) taxonomy table of seqtab
+- **tax_gg**: GreenGenes taxonomy table of seqtab
+
+# Workflow Overview
 
 Unless otherwise noted, we primarily use [phyloseq](https://joey711.github.io/phyloseq/) [@mcmurdie2013phyloseq] in this section of the workflow to analyze the 16S rRNA data set. Before we conduct any analyses we first need to *prepare our data set* by curating samples, removing *contaminants*, and creating phyloseq objects.
 
@@ -97,7 +122,7 @@ remove_sam <- joined_tab[joined_tab$nonchim <= cutoff, ]
 
 # Defining Groups
 
-1. The first thing we want to do is load the data packet produced by the final step of the DADA2 workflow. This packet (`combo_pipeline.rdata`) contains the ASV-by-sample table and the ASV taxonomy table.
+1. The first thing we want to do is load the data packet produced by the final step of the DADA2 workflow. This packet (`water_pipeline.rdata`) contains the ASV-by-sample table and the ASV taxonomy table.
 
 2. After we load the data packet we next need to format sample names and define groups. We will use the actual sample names to define the different groups.
 

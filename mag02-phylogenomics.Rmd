@@ -17,6 +17,19 @@ pacman::p_load(kableExtra, DT, htmlwidgets, htmltools,
 ```
 </details>
 
+# Data Availability
+
+All files generated in this workflow can be downloaded from figshare. 
+
+<iframe src="https://widgets.figshare.com/articles/12809561/embed?show_title=1" width="568" height="301"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+- **01_MAG02_PAN** Pangenomic analysis of MAG02.
+- **02_MAG02_PHYLOGENOMICS** Phylogenomic analysis of MAG02.
+- **03_MAG02_16S_rRNA_PHYLOGENETICS** 16S rRNA phylogenetic analyses of MAG02.
+You can use the anvi'o commands described in the workflow to visualize the data.
+
 What we want to do next is compare MAG02^[In the analysis, this MAG is named WATER_MAG_00002. For brevity we refer to it henceforth as MAG02] to publicly available genomes. We know from our binning and binning summary that MAG02 has a lot of hits to *Arcobacter*, an Epsilonproteobacteria. However, when we run `anvi-estimate-scg-taxonomy` we get something a little different.
 
 ```bash

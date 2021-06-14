@@ -15,6 +15,19 @@ pacman::p_load(kableExtra, DT, htmlwidgets, htmltools, magick,
 ```
 </details>
 
+# Data Availability
+
+All files generated in this workflow can be downloaded from figshare. 
+
+<iframe src="https://widgets.figshare.com/articles/12808502/embed?show_title=1" width="568" height="301"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+- **cc-kraken.html**: Short-read Kraken Krona plots for site Coral Caye (cc).
+- **cr-kraken.html**: Short-read Kraken Krona plots for site Cayo Roldan Caye (cr).
+- **water_kaiju_mar.html**: Contig Kaiju Krona plots against the mar database.
+- **water_kaiju_nr.html**: Contig Kaiju Krona plots against the nr database.
+
 # QC & Contig Stats
 
 ## QC Results

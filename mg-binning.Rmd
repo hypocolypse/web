@@ -15,6 +15,15 @@ pacman::p_load(kableExtra, DT, htmlwidgets, htmltools,
 ```
 </details>
 
+# Data Availability
+
+All files generated in this workflow can be downloaded from figshare. 
+
+<iframe src="https://widgets.figshare.com/articles/12809069/embed?show_title=1" width="568" height="351"  frameborder="0"></iframe>
+
+File names and descriptions:
+
+Binning summary data for four collections: 1) **CONCOCT_5**, the automatic binning, 2) **VIRAL_FINAL**, the bins after manual refinement deemed to be viral, 3) **MICROBIAL_FINAL**, the bins after manual refinement deemed to be microbial, 4) **MAGS the 5 MAG bins only**. Within each directory is an index.html that can be opened in a browser for closer inspection. Self-Contained profile and contig databases for each MAG are also provided. 
 
 This workflow is largely based on the [Recovering Microbial Genomes from TARA Oceans Metagenomes](http://merenlab.org/data/tara-oceans-mags/#binning-mags) binning section provided by Delmont and Eren.
 
