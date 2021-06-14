@@ -24,6 +24,7 @@ author:
     affiliation: Smithsonian Tropical Research Institute
     affiliation_url: https://stri.si.edu/
   - name: "Lucia Rodriguez"
+    orcid_id: 0000-0002-2945-9208
     #url: https://github.com/yihui
     affiliation: Universidad Autónoma de Baja California
     affiliation_url: http://www.uabc.mx/
