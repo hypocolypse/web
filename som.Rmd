@@ -91,7 +91,9 @@ knitr::include_graphics("files/som/Supp_Fig_1.png")
 knitr::include_graphics("files/som/Supp_Fig_2.png")
 ```
 
-**Supplementary Fig. 2. Photophysiology of *Agaricia* during the acute deoxygenation event.** Box plots with colony means overlaid for *Agaricia* tenuifolia **a**) maximum quantum yield (i.e., photosynthetic efficiency) **b**) and chlorophyll a concentration. Coral fragments were collected from the impacted (**vermillion**) and reference (**blue**) sites during the deoxygenation event, with three fragments from each of six colonies per site. The center line indicates the median, the box limits the interquartile range, and the whiskers the minimum and maximum for the data. Lower quantum yield and chlorophyll concentrations are indicative of coral bleaching (**red arrow**).
+
+**Supplementary Fig. 2. Photophysiology of *Agaricia* during the acute deoxygenation event.** Box plots for *Agaricia tenuifolia* photophysiology from corals collected at the impacted (vermillion) and reference (blue) sites during the deoxygenation event. The center line indicates the median, the box limits the interquartile range, and the whiskers the minimum and maximum for the data. In each plot the colony means are overlaid as black dots (*N* = 6 biologically independent colony replicates). Differences between sites were evaluated with linear mixed effects models with site as a fixed effect and colony as a random effect. **a**) Maximum quantum yield (*P* = 1.156e^-6^) and **b**) chlorophyll *a* concentrations were significantly lower at the impacted site (*P* = 6.851e^-07^). Lower quantum yield and chlorophyll concentrations are indicative of coral bleaching (red arrow). 
+
 
 <a href="files/som/Supp_Fig_2.png" download="Supp_Fig_2.png"> Download a **PNG** file.</a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
 
@@ -103,7 +105,8 @@ knitr::include_graphics("files/som/Supp_Fig_2.png")
 knitr::include_graphics("files/som/Supp_Fig_3.png")
 ```
 
-**Supplementary Fig. 3. Percent of total available coral substrate by genus and health condition.** **a**) Mean percent (± SE) of live, bleached (including partially bleached), and dead corals relative to the total amount of coral substrate available at the impacted site. There were no significant changes in the benthic community at the reference site over the duration of the study. **b**) Stacked bar charts of the percent of the dominant coral genera per health condition before, during, and after the hypoxic event at the impacted site. 
+**Supplementary Fig. 3. Percent of total available coral substrate by genus and health condition**. **a**) Mean percent (± SE) of live, bleached (including partially bleached), and dead corals at each time point relative to the total amount of coral substrate available at the impacted site (*N* = 11 independent plot replicates per time point). There were no significant changes in the benthic community at the reference site over the duration of the study. **b**) Stacked bar charts of the percent of the dominant coral genera per health condition before, during, and after the hypoxic event at the impacted site. 
+
 
 <a href="files/som/Supp_Fig_3.png" download="Supp_Fig_3.png"> Download a **PNG** file.</a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
 
