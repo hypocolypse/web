@@ -1,7 +1,7 @@
 ---
 title: "Electronic Supplementary Material"
 description: |
-  Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean coral reef
+  Extended supplementary material for the publication
 bibliography: assets/cite.bib 
 output:
     distill::distill_article:
@@ -36,8 +36,8 @@ This page contains the Supplementary Information for the manuscript ***Rapid eco
 
 ## Content Description
 
-Data & Code Availability: DOI and accession numbers for study related data.    
-Supplementary Table 1: Primer sequences for 16S rRNA gene amplification.    
+[Data & Code Availability](#data-code-availability): DOI and accession numbers for study related data.    
+[Supplementary Table 1](#supplementary-table-1): Primer sequences for 16S rRNA gene amplification.    
 [Supplementary Figure 1](#supplementary-figure-1): Environmental conditions during the acute deoxygenation event.   
 [Supplementary Figure 2](#supplementary-figure-2): Photophysiology of *Agaricia* during the acute deoxygenation event.   
 [Supplementary Figure 3](#supplementary-figure-3): Percent of total available coral substrate by genus and health condition.   
