@@ -37,10 +37,10 @@ author:
     url: https://www.altierilab.org
     affiliation: University of Florida
     affiliation_url: https://www.essie.ufl.edu/environmental-engineering-sciences/
-#date: September 10, 2018
-#citation_url: https://rstudio.github.io/distill
-bibliography: assets/cite.bib
+date: July 23, 2021
+citation_url: https://rstudio.github.io/distill
 link-citations: true
+bibliography: assets/cite.bib
 output:
   distill::distill_article:
     includes:
@@ -48,8 +48,6 @@ output:
     toc: true
 site: distill::distill_website
 ---
-
-[![DOI](https://zenodo.org/badge/268354818.svg)](https://zenodo.org/badge/latestdoi/268354818)
 
 <details markdown="1">
 <summary>Show setup information.</summary>
@@ -184,9 +182,15 @@ saveWidget(wc, "tmp.html", selfcontained = F)
 webshot("tmp.html", "wordcloud.png", delay = 10, vwidth = 1080, vheight = 480)
 ```
 
-```{r, echo=FALSE, warning=FALSE, fig.height=1.5, layout='l-screen'}
+```{r, echo=FALSE, warning=FALSE, fig.height=1.5, layout='l-page'}
 knitr::include_graphics("figures/index/wordcloud.png")
 ```
+
+## Code Availability {.appendix}
+
+The code embedded in the website is available on the [Hypocolypse GitHub repo](https://github.com/hypocolypse/web) in R Markdown format. The version of code used in the publication is archived under [Hypocolypse Workflows v1.0](https://github.com/hypocolypse/web/releases/tag/v1.0), DOI identifier, [doi:10.5281/zenodo.4940132](https://doi.org/10.5281/zenodo.4940132). 
+
+[![DOI](https://zenodo.org/badge/268354818.svg)](https://zenodo.org/badge/latestdoi/268354818)
 
 ## Acknowledgements {.appendix}
 

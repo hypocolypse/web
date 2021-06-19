@@ -59,6 +59,8 @@ navbar:
           href: mg-function.html
     - text: "DATA"
       href: data-availability.html
+    - text: "SOM"
+      href: som.html
 #    - icon: fa-github fa-lg
 #      href: https://github.com/hypocolypse/web/
 output:

@@ -1,0 +1,308 @@
+---
+title: "Electronic Supplementary Material"
+description: |
+  Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean coral reef
+bibliography: assets/cite.bib 
+output:
+    distill::distill_article:
+      css: assets/styles.css
+      toc: true
+      toc_depth: 3
+---
+
+```{r setup, message = FALSE, warning = FALSE, results='hide', echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(0199)
+library(phyloseq); packageVersion("phyloseq")
+library(Biostrings); packageVersion("Biostrings")
+require(gdata)
+pacman::p_load(DT, ggplot2, dplyr, microbiome, tidyverse, 
+               data.table, plyr, stringr, labdsv, reshape, 
+               metacoder, naniar,   
+               install = FALSE, update = FALSE)
+options(scipen=999)
+knitr::opts_current$get(c(
+  "cache",
+  "cache.path",
+  "cache.rebuild",
+  "dependson",
+  "autodep"
+))
+```
+
+## Overview
+
+This page contains the Supplementary Information for the manuscript ***Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean coral reef***. It is basically the same information contained in the published version of the online material except here, all tables are embedded in the page and the information can be download directly. 
+
+## Content Description
+
+Data & Code Availability: DOI and accession numbers for study related data.    
+Supplementary Table 1: Primer sequences for 16S rRNA gene amplification.    
+[Supplementary Figure 1](#supplementary-figure-1): Environmental conditions during the acute deoxygenation event.   
+[Supplementary Figure 2](#supplementary-figure-2): Photophysiology of *Agaricia* during the acute deoxygenation event.   
+[Supplementary Figure 3](#supplementary-figure-3): Percent of total available coral substrate by genus and health condition.   
+[Supplementary Figure 4](#supplementary-figure-4): Phylogenomic analysis of MAG02.   
+[Supplementary Figure 5](#supplementary-figure-5): Phylogenomic analysis of MAG04.  
+[Supplementary Data 1](#supplementary-data-1): Differentially abundant ASVs.   
+[Supplementary Data 2](#supplementary-data-2): KEGG module estimations for MAGs.   
+[Supplementary Data 3](#supplementary-data-3): Metadata of genomes in MAG02 phylogenomic analysis.   
+[Supplementary Data 4](#supplementary-data-4): Metadata of genomes in MAG04 phylogenomic analysis.   
+
+## Data & Code Availability
+
+We provide additional data products and code through online repositories. For further details, please see the [Data Availability page](data-availability.html).
+
+[doi:10.25573/data.c.5025362.v1](https://doi.org/10.25573/data.c.5025362.v1): Figshare collection containing all data and data products.  
+[doi:10.5281/zenodo.4940132](https://zenodo.org/badge/latestdoi/268354818): Zenodo archive containing reproducible workflows in RMarkdown format.  
+[doi:10.25573/data.11819745.v4](https://doi.org/10.25573/data.11819745.v4): Raw 16S rRNA data for each sample (before removing primers).  
+[PRJEB36632](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632): Study accession number PRJEB36632 (ERP119845) sequencing data deposited at the European Nucleotide Archive.  
+[ERS4291994-ERS4292031](https://www.ebi.ac.uk/ena/browser/view/ERS4291994-ERS4292031): Sample accession numbers (ERS4291994-ERS4292031) for trimmed 16S rRNA data (primers removed) deposited at the European Nucleotide Archive.  
+[ERS4578390-ERS4578393](https://www.ebi.ac.uk/ena/browser/view/ERS4578390-ERS4578393): Sample accession numbers (ERS4578390-ERS4578393) for the metagenomic data from the four water column samples deposited at the European Nucleotide Archive.  
+
+
+## Supplementary Tables
+
+### Supplementary Table 1 
+
+Primer sequences for 16S rRNA gene amplification
+
+```{r, fig.cap = "Supplementary Table 1. Primer sequences for 16S rRNA amplification of microbial samples.", echo = FALSE, eval=TRUE}
+tableS2 <- read.table("files/som/Supp_Table_1.txt", sep = "\t", header = TRUE)
+knitr::kable(tableS2, col.names = gsub("[_]", " ", names(tableS2)))
+```
+
+## Supplementary Figures
+
+### Supplementary Figure 1
+
+```{r, out.width = "100%", echo = FALSE, eval=TRUE}
+knitr::include_graphics("files/som/Supp_Fig_1.png")
+```
+
+**Supplementary Fig. 1. Environmental conditions during the 2017 acute deoxygenation event in Bocas del Toro, Panamá.** Maps of environmental conditions across Bahía Almirante six days after initial detection of the hypoxic event, with locations of the impacted site (white triangle) and the non-impacted reference site (black triangle). **a**) Temperature is in ºC, **b**) salinity is in practical salinity units (PSU), **c**) pH is presented on the NBS scale, and **d**) chlorophyll concentrations are presented as relative fluorescence units (RFU).
+
+<a href="files/som/Supp_Fig_1.png" download="Supp_Fig_1.png"> Download a **PNG** file.</a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+<a href="files/som/Supp_Fig_1.svg" download="Supp_Fig_1.svg"> Download a **SVG** file. </a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+### Supplementary Figure 2
+
+```{r, out.width = "80%", echo = FALSE, eval=TRUE}
+knitr::include_graphics("files/som/Supp_Fig_2.png")
+```
+
+**Supplementary Fig. 2. Photophysiology of *Agaricia* during the acute deoxygenation event.** Box plots with colony means overlaid for *Agaricia* tenuifolia **a**) maximum quantum yield (i.e., photosynthetic efficiency) **b**) and chlorophyll a concentration. Coral fragments were collected from the impacted (**vermillion**) and reference (**blue**) sites during the deoxygenation event, with three fragments from each of six colonies per site. The center line indicates the median, the box limits the interquartile range, and the whiskers the minimum and maximum for the data. Lower quantum yield and chlorophyll concentrations are indicative of coral bleaching (**red arrow**).
+
+<a href="files/som/Supp_Fig_2.png" download="Supp_Fig_2.png"> Download a **PNG** file.</a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+<a href="files/som/Supp_Fig_2.svg" download="Supp_Fig_2.svg"> Download a **SVG** file. </a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+### Supplementary Figure 3
+
+```{r, out.width = "80%", echo = FALSE, eval=TRUE}
+knitr::include_graphics("files/som/Supp_Fig_3.png")
+```
+
+**Supplementary Fig. 3. Percent of total available coral substrate by genus and health condition.** **a**) Mean percent (± SE) of live, bleached (including partially bleached), and dead corals relative to the total amount of coral substrate available at the impacted site. There were no significant changes in the benthic community at the reference site over the duration of the study. **b**) Stacked bar charts of the percent of the dominant coral genera per health condition before, during, and after the hypoxic event at the impacted site. 
+
+<a href="files/som/Supp_Fig_3.png" download="Supp_Fig_3.png"> Download a **PNG** file.</a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+<a href="files/som/Supp_Fig_3.svg" download="Supp_Fig_3.svg"> Download a **SVG** file. </a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+### Supplementary Figure 4
+
+```{r, out.width = "100%", echo = FALSE, eval=TRUE}
+knitr::include_graphics("files/som/Supp_Fig_4.png")
+```
+
+**Supplementary Fig. 4. Phylogenomic analysis of MAG02.** Phylogenomic placement of MAG02 against a manually curated collection of 72 *Arcobacter* group genomes. The tree was rooted with three *Sulfurimonas* genomes. The colored bar on the left indicates the broad habitat category, assigned based on the host and isolation source retrieved from NCBI's BioSample database for each genome. Values in parentheses indicate the number of genomes per category. Results of taxonomy estimates for each genome are shown on the right, based on a collection of 23 ribosomal genes from the [Genome Taxonomy Database (GTDB)](https://gtdb.ecogenomic.org/). See Supplementary Data 3 for information on source data.
+
+<a href="files/som/Supp_Fig_4.png" download="Supp_Fig_4.png"> Download a **PNG** file.</a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+<a href="files/som/Supp_Fig_4.svg" download="Supp_Fig_4.svg"> Download a **SVG** file. </a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+### Supplementary Figure 5
+
+```{r, out.width = "100%", echo = FALSE, eval=TRUE}
+knitr::include_graphics("files/som/Supp_Fig_5.png")
+```
+
+**Supplementary Fig. 5. Phylogenomic analysis of MAG04.** Phylogenomic placement of MAG04 against a manually curated collection of 14 *Aliiroseovarius* genomes. The tree was rooted with four *Roseovarius* genomes. The colored bar on the left indicates the broad habitat category, assigned based on the host and isolation source retrieved from NCBI's BioSample database for each genome. Values in parentheses indicate the number of genomes per category. Results of taxonomy estimates for each genome are shown on the right, based on a collection of 23 ribosomal genes from the Genome Taxonomy Database (GTDB). See Supplementary Data 4 for information on source data.
+
+<a href="files/som/Supp_Fig_5.png" download="Supp_Fig_5.png"> Download a **PNG** file.</a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+<a href="files/som/Supp_Fig_5.svg" download="Supp_Fig_5.svg"> Download a **SVG** file. </a> Click on the link then right click and hit *Save link as...*  or it may just download when you click the link. 
+
+## Supplementary Data
+
+For this study, *Supplementary Data* are text files that were too large to include in the Supplementary Material. The individual files can be downloaded from the journal's website. Below are descriptions for each Supplementary Data item.
+
+### Supplementary Data 1 
+
+Differentially abundant ASVs. Data table of all 111 differentially abundant ASVs between hypoxic and normoxic conditions. ASVs that were enriched and more frequent in hypoxic and normoxic samples were identified using the Indicator Species Analysis [@dufrene1997species] with the R package labdsv [@roberts2007labdsv]. Only ASVs represented by > 100 reads are included.
+
+<br/>
+
+```{r, echo=FALSE, layout="l-body-outset"}
+supp_tab_1 <- read_csv("files/som/Supp_Table_1.csv")
+datatable(supp_tab_1, width = "100%", rownames = FALSE, caption = htmltools::tags$caption(
+            style = 'caption-side: bottom; text-align: left;',
+            'Table: ', htmltools::em('Differentially abundant ASVs assessed by Indicator Species Analysis (ISA).')),
+          elementId = "7r9epd1x1n2y9hrabwvs",
+          extensions = 'Buttons', options = list(
+            scrollX = TRUE,
+            dom = 'Blftip',
+            buttons = c('copy', 'csv', 'excel'),
+            pageLength = 5,
+            lengthMenu = list(c(5, 10, -1), c("5", "10", "All"))
+            )
+          ) %>%
+    DT::formatStyle(columns = colnames(supp_tab_1),
+                    fontSize = '80%')
+```
+
+Description of table headers are as follows:
+
+* **ASV** ASV name.
+* **reads** Total reads in data set. 
+* **norm** Total reads in normoxic samples. 
+* **hypo** Total reads in hypoxic samples. 
+* **group** Sample group ASV is enriched in. 
+* **indval** Indicator value from Dufrene-Legendre Indicator Species Analysis. 
+* **pval** p-value from Dufrene-Legendre Indicator Species Analysis
+* **freq** Total number of samples where ASV was detected.
+* The remaining columns contain lineage information for each ASV.
+
+
+
+### Supplementary Data 2
+
+KEGG module estimations for MAGs. Results of reconstructing metabolic pathways and estimating pathway completeness using anvi-estimate-metabolism for MAGs 01–05 and Bin13. All modules are included in the table, regardless of module completeness.
+
+<br/>
+
+```{r, echo=FALSE, layout="l-body-outset"}
+supp_tab_2 <- read_tsv("files/som/Supp_Table_2.txt")
+datatable(supp_tab_2, width = "100%", rownames = FALSE, caption = htmltools::tags$caption(
+            style = 'caption-side: bottom; text-align: left;',
+            'Table: ', htmltools::em('KEGG module estimations for MAGs.')),
+          elementId = "h188jsxi0q6lm0bpzs1g",
+          extensions = 'Buttons', options = list(
+            scrollX = TRUE,
+            dom = 'Blftip',
+            buttons = c('copy', 'csv', 'excel'),
+            pageLength = 5,
+            lengthMenu = list(c(5, 10, -1), c("5", "10", "All"))
+            )
+          ) %>%
+    DT::formatStyle(columns = colnames(supp_tab_2),
+                    fontSize = '80%') %>%
+    DT::formatRound(columns = c(9),
+                    digits = 2)
+```
+
+Description of table headers are as follows:
+
+* **unique_id**
+* **genome_name**: MAGs 01–05 and Bin13
+* **kegg_module**: KEGG module number, for example M00595	is the module number for thiosulfate oxidation by SOX complex.
+* **module_name**: KEGG module name.
+* **module_class**: KEGG module class.
+* **module_category**: KEGG module category.
+* **module_subcategory**: KEGG module subcategory.
+* **module_definition**: List of KOfams belonging to KEGG module. 
+* **module_completeness**: Percent module completeness estimated based on number of hits in **module definition**. 
+* **module_is_complete**: Module completeness cutoff set at 0.7, where greater value 
+* **kofam_hits_in_module**: KOfams found in each genome. 
+* **gene_caller_ids_in_module**: Corresponding gene IDs for KOfams found in each genome. 
+
+### Supplementary Data 3 
+
+Metadata of genomes in MAG02 phylogenomic analysis. Metadata record of all genomes used in phylogenomic analysis of MAG02 (Supplementary Figure 4). Table contains information for each of the 72 *Arcobacter*-like genomes (plus 3 outgroup genomes).
+
+<br/>
+
+```{r, echo=FALSE, layout="l-body-outset"}
+supp_tab_3 <- read_tsv("files/som/Supp_Table_3.txt")
+datatable(supp_tab_3, escape = 3, width = "100%", rownames = FALSE, caption = htmltools::tags$caption(
+            style = 'caption-side: bottom; text-align: left;',
+            'Table: ', htmltools::em('Metadata of genomes in MAG02 phylogenomic analysis.')),
+          elementId = "vsidja5ridlesw563gth",
+          extensions = 'Buttons', options = list(
+            scrollX = TRUE,
+            dom = 'Blftip',
+            buttons = c('copy', 'csv', 'excel'),
+            pageLength = 5,
+            lengthMenu = list(c(5, 10, -1), c("5", "10", "All"))
+            )
+          ) %>%
+    DT::formatStyle(columns = colnames(supp_tab_3),
+                    fontSize = '80%')
+```
+
+Description of table headers are as follows:
+
+* **genome_id**: Name of genome in phylogenomic tree.
+* **isolation_category**: Broad category based on host/isolation source information retrieved from the BioSample record.
+* **organism**: Organism name retrieved from the BioSample record.
+* **strain_or_isolate**: Genome stain or isolate designation.
+* **sample_information**: Host/isolation source information retrieved from the BioSample record.
+* **bioproject**: NCBI BioProject ID.
+* **biosample**: NCBI BioSample ID.
+* **assembly_accession**: NCBI Assembly ID.
+* **taxid**: NCBI Taxonomy ID.
+* **species_taxid**: NCBI Species Taxonomy ID.
+* **doi_publication**: DOI link for related publication.
+* **assembly_level**: Assembly level.
+* **seq_rel_date**: Genome release data.
+* **ftp_path**: FTP link to download genome.
+* **submitter**: Submitting Institution.
+
+### Supplementary Data 4
+
+Metadata of genomes in MAG04 phylogenomic analysis. Metadata record of all genomes used in phylogenomic analysis of MAG04 (Supplementary Figure 5). Table contains information for each of the 14 *Aliiroseovarius* genomes (plus 4 outgroup genomes).
+
+<br/>
+
+```{r, echo=FALSE, layout="l-body-outset"}
+supp_tab_4 <- read_tsv("files/som/Supp_Table_4.txt")
+datatable(supp_tab_4, escape = 3, width = "100%", rownames = FALSE, caption = htmltools::tags$caption(
+            style = 'caption-side: bottom; text-align: left;',
+            'Table: ', htmltools::em('Metadata of genomes in MAG04 phylogenomic analysis.')),
+          elementId = "t6q2hstgdq5idir2tcf2",
+          extensions = 'Buttons', options = list(
+            scrollX = TRUE,
+            dom = 'Blftip',
+            buttons = c('copy', 'csv', 'excel'),
+            pageLength = 5,
+            lengthMenu = list(c(5, 10, -1), c("5", "10", "All"))
+            )
+          ) %>%
+    DT::formatStyle(columns = colnames(supp_tab_4),
+                    fontSize = '80%')
+```
+Description of table headers are as follows:  
+
+* **genome_id**: Name of genome in phylogenomic tree.
+* **isolation_category**: Broad category based on host/isolation source information retrieved from the BioSample record.
+* **organism**: Organism name retrieved from the BioSample record.
+* **strain_or_isolate**: Genome stain or isolate designation.
+* **sample_information**: Host/isolation source information retrieved from the BioSample record.
+* **bioproject**: NCBI BioProject ID.
+* **biosample**: NCBI BioSample ID.
+* **assembly_accession**: NCBI Assembly ID.
+* **taxid**: NCBI Taxonomy ID.
+* **species_taxid**: NCBI Species Taxonomy ID.
+* **doi_publication**: DOI link for related publication.
+* **assembly_level**: Assembly level.
+* **seq_rel_date**: Genome release data.
+* **ftp_path**: FTP link to download genome.
+* **submitter**: Submitting Institution.
+
+
+
+Have a nice day. 
+
+## Source Code {.appendix}
+
+The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/som.Rmd).
