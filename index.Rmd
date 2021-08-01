@@ -1,7 +1,7 @@
 ---
 title: "Hypocolypse"
 description: |
-  Reproducible workflows for the study ***Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean reef***.
+  Raw data, data products, & reproducible workflows for the study ***Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean reef***.
 author:
   - name: "Maggie D Johnson"
     orcid_id: 0000-0002-1319-2545
@@ -37,9 +37,13 @@ author:
     url: https://www.altierilab.org
     affiliation: University of Florida
     affiliation_url: https://www.essie.ufl.edu/environmental-engineering-sciences/
-date: July 23, 2021
-citation_url: https://rstudio.github.io/distill
-link-citations: true
+date: July 27, 2021
+#journal: "Nature Communications"
+#volume: "12"
+doi: "10.1038/s41467-021-24777-3"
+#slug: johnson2021hypocolypse
+#citation_url: https://doi.org/10.1038/s41467-021-24777-3
+#link-citations: true
 bibliography: assets/cite.bib
 output:
   distill::distill_article:
@@ -48,6 +52,44 @@ output:
     toc: true
 site: distill::distill_website
 ---
+<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+<script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+
+<div class="pub_float">
+  <div class="__dimensions_badge_embed__" data-doi="10.1038/s41467-021-24777-3" data-hide-zero-citations="false" data-legend="hover-bottom" data-style="small_circle"></div>
+  <div class="altmetric-embed" data-badge-type="donut" data-doi="10.1038/s41467-021-24777-3" data-altmetric-id="110485762"></div>
+  <span class="pub-title"><a href=" https://doi.org/10.1038/s41467-021-24777-3" target="_new">Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean reef</a></span>
+  <span class="pub-authors">Johnson MD<sup>☯</sup>, Scott JJ<sup>☯</sup>, Leray M<sup>☯</sup>, Lucey N<sup>☯</sup>, Bravo LMR, Wied WL, Altieri AH</span>
+  <span class="pub-co-first-authors"><sup>☯</sup>Co-first authors</span>
+<div class="pub-info">
+<div class="pub-featured-image">
+  <a href="assets/main_figs.png">
+    <img src="assets/main_figs.png" style="max-width: 100px; max-height: 400px; width: auto; border: none; height: auto; margin: 0 auto; display: block; transform: translateY(10%);" />
+  </a>
+</div>
+<div class="pub-highlights">
+  <span style="display: inline-block; padding-bottom: 5px;"
+  >- <b>Loss of oxygen</b> in the global ocean is <b>accelerating</b> due to climate change & eutrophication.</span><br><span style="display: inline-block; padding-bottom: 5px;"
+  >- How does <b>acute deoxygenation</b> events affect tropical marine ecosystems?</span><br><span style="display: inline-block; padding-bottom: 5px;"
+  >- Integrate <b>coral reef</b> benthic communities with <b>microbial community</b> analyses.</span><br><span style="display: inline-block; padding-bottom: 5px;"
+  >- Deoxygenation event <b>rapidly altered</b> benthic communities & microbial assemblages.</span><br><span style="display: inline-block; padding-bottom: 5px;"
+  >- Event precipitated <b>coral bleaching & mass mortality</b>, 50% loss of live coral & a shift in the benthic community that persisted a year later.</span><br><span style="display: inline-block; padding-bottom: 5px;"
+  >- Hypoxia-associated <b>microbes rapidly reverted</b> to a normoxic assemblage one month after the event.</span><br><span style="display: inline-block; padding-bottom: 5px;"
+  >-  Found a <b>decoupling of ecological trajectories</b> among major functional groups following an acute event.</span>
+</div>
+  </div>
+  <span class="pub-journal">
+    <b>Nature Communications 12 (2021)</b>
+    <a href="https://doi.org/10.1038/s41467-021-24777-3" target="_blank">🔗</a>
+  </span>
+</div>
+
+<small><em>Code for the highlight box above shamelessly stolen from the [Meren Lab website](https://merenlab.org/).</em></small>
+
+
+> [Click here](https://www.nature.com/articles/s41467-021-24777-3/metrics) for article metrics on the Nature Communications website. 
+
+<br/>
 
 <details markdown="1">
 <summary>Show setup information.</summary>
@@ -101,7 +143,7 @@ leaflet() %>%
   addScaleBar(position = "topright") %>%
 #  addMiniMap(position = "topright", zoomLevelOffset = -5) %>%
   addCircleMarkers(lng = c(-82.334720, -82.131119),
-             lat = c(9.219640, 9.248433), radius = 22.5,
+             lat = c(9.219640, 9.248433), radius = 18.5,
              label = c("Cayo Roldan (impacted)", "Coral Caye (control)"),
              labelOptions = labelOptions(textOnly = TRUE,
                                          noHide = TRUE,
@@ -186,27 +228,26 @@ webshot("tmp.html", "wordcloud.png", delay = 10, vwidth = 1080, vheight = 480)
 knitr::include_graphics("figures/index/wordcloud.png")
 ```
 
-## Code Availability {.appendix}
-
-The code embedded in the website is available on the [Hypocolypse GitHub repo](https://github.com/hypocolypse/web) in R Markdown format. The version of code used in the publication is archived under [Hypocolypse Workflows v1.0](https://github.com/hypocolypse/web/releases/tag/v1.0), DOI identifier, [doi:10.5281/zenodo.4940132](https://doi.org/10.5281/zenodo.4940132). 
-
-[![DOI](https://zenodo.org/badge/268354818.svg)](https://zenodo.org/badge/latestdoi/268354818)
 
 ## Acknowledgements {.appendix}
 
-MDJ was funded by postdoctoral fellow awards from the Smithsonian Institution Marine Global Earth Observatory (MarineGEO) and Smithsonian Tropical Research Institute (STRI); ML and NL were funded by postdoctoral support from the STRI Office of Fellowships. JJS was funded by a grant from the Gordon and Betty Moore Foundation to STRI and UC Davis [doi:10.37807/GBMF5603](http://doi.org/10.37807/GBMF5603). LR, WW, and AHA were supported by MarineGEO, a private funder, and STRI funds to AHA. Research permits were provided by the Autoridad Nacional del Ambiente de Panamá. We thank R Collin for facilities support at the Bocas del Toro Research Station, P Gondola and the research station staff for logistical support. This is contribution number X from MarineGEO and the Smithsonian’s Tennenbaum Marine Observatories Network. Many of the computations were conducted on the Smithsonian High-Performance Cluster (SI/HPC), Smithsonian Institution. [doi:10.25572/SIHPC](https://doi.org/10.25572/SIHPC).
+M.D.J. was funded by postdoctoral fellow awards from the Smithsonian Institution’s Marine Global Earth Observatory (MarineGEO) and the Smithsonian Tropical Research Institute (STRI); M.L. and N.L. were funded by postdoctoral support from the STRI Office of Fellowships. J.J.S. was funded by a grant from the Gordon and Betty Moore Foundation awarded to STRI and UC Davis ([doi:10.37807/GBMF5603](http://doi.org/10.37807/GBMF5603)). L.M.R.B., W.L.W., and A.H.A. were supported by MarineGEO, a private funder, and STRI funds to A.H.A. Many of the computations were conducted on the Smithsonian High-Performance Cluster (SI/HPC), Smithsonian Institution ([doi:10.25572/SIHPC](https://doi.org/10.25572/SIHPC)). We thank Rachel Collin for facilities support at the Bocas del Toro Research Station, Plinio Gondola and the research station staff for logistical support, Roman Barco for insight into the functional analyses, Sherly Castro for informative feedback, and Mike Fox for assistance with community analyses. Research permits were provided by the Autoridad Nacional del Ambiente de Panamá. This paper is the result of research funded by the National Oceanic and Atmospheric Administration’s National Centers for Coastal Ocean Science Competitive Research Program under award NA18NOS4780170 to A.H.A. and M.D.J. through the University of Florida. This is contribution 257 from the Coastal Hypoxia Research Program and 86 from the Smithsonian’s MarineGEO and Tennenbaum Marine Observatories Network.
 
 ## Author Contributions {.appendix}
 
-MDJ, JJS, ML, NL, and AA contributed to conception and experimental design. MDJ, NL, LR, and WW conducted surveys and collected field samples. NL, LR, and WW conducted laboratory analyses. JJS and ML performed extractions and sample processing for sequencing. MDJ, JJS, ML, and NL conducted statistical analyses and created figures. MDJ drafted the manuscript and Supplementary Information, and managed revisions with assistance from all co-authors. Website created by JJS with input and material from co-authors.
+M.D.J., J.J.S., M.L., N.L., and A.H.A. conceived and designed the study. M.D.J., N.L., L.M.R.B., and W.L.W. conducted surveys and collected field samples. N.L., L.M.R.B., and W.L.W. conducted laboratory analyses. J.J.S. and M.L. performed extractions and sample processing for sequencing. M.D.J., J.J.S., M.L., and N.L. conducted statistical analyses and created figures. M.D.J. and J.J.S. drafted the manuscript and supporting information, and managed revisions with input from all co-authors. Website created by J.J.S. with input and material from co-authors.
 
 ## Data Availability {.appendix}
 
-See the [Data Availability](data-availability.html) for complete details on obtaining all data and data products for this study. Sequence data is deposited in the European Nucleotide Archive (ENA) under the project accession number [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632). Additional data are available through the Smithsonian figshare under the collection [doi:10.25573/data.c.5025362](https://doi.org/10.25573/data.c.5025362).
+See the [Data Availability](data-availability.html) for complete details on obtaining all data and data products for this study. Trimmed 16S rRNA (primers removed) sequence data generated in this study are deposited in the European Nucleotide Archive (ENA) under Project Accession number [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632), sample accession numbers [ERS4291994-ERS4292031](https://www.ebi.ac.uk/ena/browser/view/ERS4291994-ERS4292031). Raw 16S rRNA fastq files can be accessed through the Smithsonian figshare, [doi:10.25573/data.11819745](https://doi.org/10.25573/data.11819745). The metagenomic sequence data generated in this study are deposited in the ENA under Project Accession number [PRJEB36632 (ERP119845)](https://www.ebi.ac.uk/ena/browser/view/PRJEB36632), sample accession numbers [ERS4578390-ERS4578393](https://www.ebi.ac.uk/ena/browser/view/ERS4578390-ERS4578393). Related data and data products for individual analysis workflows are available through the Smithsonian figshare under the collection [doi:10.25573/data.c.5025362.v1](https://doi.org/10.25573/data.c.5025362.v1). 
 
-## Source Code {.appendix}
+## Code availability {.appendix}
 
-The source code for this page can be accessed on GitHub by [clicking this link](https://github.com/hypocolypse/web/blob/master/index.Rmd). Source code for the complete site can be accessed [here](https://github.com/hypocolypse/web/) or by clicking  the icon on the far right of the navigation bar.
+All code, reproducible workflows, and further information on data availability can be found on the project website at https://hypocolypse.github.io/. The code embedded in the website is available on the [Hypocolypse GitHub repo](https://github.com/hypocolypse/web) in R Markdown format. The version of code used in this study is archived under [Hypocolypse Workflows v1.0](https://github.com/hypocolypse/web/releases/tag/v1.0), DOI identifier, [doi:10.5281/zenodo.4940132](https://doi.org/10.5281/zenodo.4940132).
+
+[![DOI](https://zenodo.org/badge/268354818.svg)](https://zenodo.org/badge/latestdoi/268354818)
+
+## 
 
 ## Disclaimer {.appendix}
 
