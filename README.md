@@ -74,10 +74,10 @@ In this section of the workflow we reconstruct metagenome assembled genomes (MAG
 
 In this section, we create a workflow to compare MAG02 with publicly available genomes. MAG02 was only found in the hypoxic sample. Workflows can be found on this [webpage](https://hypocolypse.github.io/mag02-phylogenomics.html) or you can download the raw [Rmd file](https://github.com/hypocolypse/web/blob/master/mag02-phylogenomics.Rmd).
 
-### No 6b. MAG04 Phylogenomic Analysis
+#### No 6b. MAG04 Phylogenomic Analysis
 
 In this section, we create a workflow to compare MAG04 with publicly available genomes. MAG04 was also only found in the hypoxic sample. Workflows can be found on this [webpage](https://hypocolypse.github.io/mag04-phylogenomics.html) or you can download the raw [Rmd file](https://github.com/hypocolypse/web/blob/master/mag04-phylogenomics.Rmd).
 
-### No 7. KEGG/KOFam Analysis
+#### No 7. KEGG/KOFam Analysis
 
 The objective of this section is to visualize all of the genes that have KEGG-KOfam annotations and assess their distribution across metagenomes. Workflows can be found on this [webpage](https://hypocolypse.github.io/mg-function.html) or you can download the raw [Rmd file](https://github.com/hypocolypse/web/blob/master/mg-function.Rmd).
