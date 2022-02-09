@@ -104,9 +104,9 @@ pacman::p_load(tm, SnowballC, wordcloud, RColorBrewer,
 </details>
 
 
-# Synopsis
+## Synopsis
 
-Dissolved oxygen (DO) concentrations in the ocean are declining at an unprecedented rate due eutrophication and climate change. The corresponding increase in the occurrence of coastal hypoxic events, and resulting mass mortality of marine life, is threatening the persistence of ecologically and economically valuable ecosystems. Though hypoxic events have long been recognized to cause ecosystem collapse in temperate environments, similar consequences have only recently been identified in the tropics, where the effects on coral reef ecosystems remain poorly understood. Emerging evidence indicates that hypoxic events can decimate coral reefs, but the progress of a coral reef hypoxia event has yet to be captured in real-time.
+Dissolved oxygen (DO) concentrations in the ocean are declining at an unprecedented rate due to eutrophication and climate change. The corresponding increase in the occurrence of coastal hypoxic events, and resulting mass mortality of marine life, is threatening the persistence of ecologically and economically valuable ecosystems. Though hypoxic events have long been recognized to cause ecosystem collapse in temperate environments, similar consequences have only recently been identified in the tropics, where the effects on coral reef ecosystems remain poorly understood. Emerging evidence indicates that hypoxic events can decimate coral reefs, but the progress of a coral reef hypoxia event has yet to be captured in real-time.
 
 Here we present the first account of an unfolding hypoxia event on a Caribbean coral reef, documenting the environmental parameters associated with the event that occurred in September 2017 and subsequent impacts on the ecosystem. We provide the first quantitative evidence that hypoxic events can precipitate coral bleaching and lead to dramatic shifts in reef benthic community structure that persist over time. We also describe how the microbial community overlying the reef benthos (~1 m above the seafloor) had a unique taxonomic fingerprint in hypoxic waters that dissipated with the return of oxygenated water.
 
@@ -116,14 +116,14 @@ Together our study demonstrates the catastrophic implications of a hypoxic event
 knitr::include_graphics("figures/index/banner.png")
 ```
 
-# Goals of the study
+## Goals of the study
 
 1)	Characterize the environmental conditions the occur during an in-progress, acute hypoxic event on a shallow Caribbean coral reef,  
 2)	Quantify the observed effect of the hypoxic event on coral bleaching and subsequent mortality using a representative coral species, *Agaricia tenuifolia*,  
 3)	Evaluate the effects of the hypoxic event on the benthic community through long-term benthic monitoring surveys before, during, and after the event,  
 4)	Assess the effects of the hypoxic event on the microbial community overlying the coral reef benthos, ~1 m above the seafloor.   
 
-# Field Sites
+## Field Sites
 
 Conditions characteristic of a low-oxygen event were detected in Bahía Almirante (Bocas del Toro, Panama) on September 20, 2017. Sampling was conducted inside the bay at the **impacted site** (Cayo Roldan, vermilion) and outside the bay at the **control site** (Coral Caye, blue).
 
@@ -169,9 +169,9 @@ leaflet() %>%
 
 <br/>
 
-# Science to Words
+## Manuscript Visualization
 
-Here is a word cloud of the manuscript, just for the fun of it ;)
+Here is a word cloud of the manuscript, just for the fun of it ;) The size of each word in proportional to the number of times it appeared in the manuscript.
 
 ```{r, echo=FALSE, eval=FALSE}
 filePath <- "files/main.txt"
@@ -227,6 +227,68 @@ webshot("tmp.html", "wordcloud.png", delay = 10, vwidth = 1080, vheight = 480)
 ```{r, echo=FALSE, warning=FALSE, fig.height=1.5, layout='l-page'}
 knitr::include_graphics("figures/index/wordcloud.png")
 ```
+
+## Stories & Reactions
+
+Here are a two press pieces about our publication. 
+<br>
+
+<div class="story_float">
+  <span class="story-title"><a href=" https://stri.si.edu/story/caribbean-asphyxiation" target="_new">Caribbean Asphyxiation</a></span>
+  <span class="story-authors">A story by Beth King & Jorge Aleman</span>
+<div class="story-info">
+<div class="story-featured-image">
+  <a href="https://stri.si.edu/story/caribbean-asphyxiation">
+    <img src="figures/index/stri_hypoxia.jpg" style="max-width: 300px; max-height: 300px; width: auto; border: none; height: auto; margin: 0 auto; display: block; transform: translateY(10%);" />
+  </a>
+</div>
+<div class="story-highlights">
+  <span style="display: inline-block; padding-bottom: 5px;"
+  > <b>Desperate brittlestars, suffocating corals and resilient microbes: First multidisciplinary data from an acute marine hypoxic event and its historical context.</b></span><br><span>
+  In September 2017, divers observed a massive “dead zone” rising to envelop Caribbean coral reefs in Bocas del Toro, Panama. Smithsonian post-docs joined together to understand marine hypoxia now and in the past.</span><br><span>
+  No one knows what triggers the sudden onset of hypoxia, a quickly-spreading drop in ocean oxygen. Like a wildfire, hypoxia kills everything that can’t walk or swim out of harm’s way... Click the link to keep reading.</a></span>
+</div>
+  </div>
+  <span class="story-journal">
+    <b>STRI News 29 July 2021</b>
+    <a href="https://stri.si.edu/story/caribbean-asphyxiation" target="_blank">🔗</a>
+  </span>
+</div>
+
+
+<div class="story_float">
+  <span class="story-title"><a href="https://scitechdaily.com/what-happens-to-marine-life-when-there-isnt-enough-oxygen/" target="_new">What Happens to Marine Life When There Isn’t Enough Oxygen?</a></span>
+  <span class="story-authors">A story by Kylee Denesha</span>
+<div class="story-info">
+<div class="story-featured-image">
+  <a href="https://scitechdaily.com/what-happens-to-marine-life-when-there-isnt-enough-oxygen/">
+    <img src="figures/index/whoi_hypoxia.jpg" style="max-width: 300px; max-height: 300px; width: auto; border: none; height: auto; margin: 0 auto; display: block; transform: translateY(10%);" />
+  </a>
+</div>
+<div class="story-highlights">
+  <span style="display: inline-block; padding-bottom: 5px;"
+  > <b>In September of 2017, Woods Hole Oceanographic Institution postdoctoral scholar Maggie Johnson was conducting an experiment with a colleague in Bocas del Toro off the Caribbean coast of Panama.</b> </span><br>
+  After sitting on a quiet, warm open ocean, they snorkeled down to find a peculiar layer of murky, foul-smelling water about 10 feet below the surface, with brittle stars and sea urchins, which are usually in hiding, perching on the tops of coral. This unique observation prompted a collaborative study explained in a new paper published today in Nature Communications... Click the link to keep reading.</span><br>
+</div>
+  </div>
+  <span class="story-journal">
+    <b>WHOI Media Relations Office 31 July 2021</b>
+    <a href="https://scitechdaily.com/what-happens-to-marine-life-when-there-isnt-enough-oxygen/" target="_blank">🔗</a>
+  </span>
+</div>
+
+
+<br/>
+
+And tweets from [\@coraloha](https://twitter.com/coraloha?s=20), [\@MikeD_Fox](https://twitter.com/MikeD_Fox?s=20), and  [\@merenbey](https://twitter.com/merenbey?s=20) that made us smile really big. We couldn't resist including these. 
+
+
+<center><blockquote class="twitter-tweet"><p lang="en" dir="ltr">My mind is blown! Now I just want <a href="https://twitter.com/hashtag/Hypocolypse?src=hash&amp;ref_src=twsrc%5Etfw">#Hypocolypse</a> merch and an instrumental album where <a href="https://twitter.com/MaggieDJohnson?ref_src=twsrc%5Etfw">@MaggieDJohnson</a> reads the abstract over wailing guitar solos. SO stoked</p>&mdash; Dr. Chris Wall (@coraloha) <a href="https://twitter.com/coraloha/status/1420774546106322949?ref_src=twsrc%5Etfw">July 29, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center> 
+
+<center><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Whoaaaaaa now this is open science to the next level! And the name, come on...Metal AF 🔥 🎸 🤘 <a href="https://t.co/8sznPR5QYz">https://t.co/8sznPR5QYz</a></p>&mdash; Dr. Chris Wall (@coraloha) <a href="https://twitter.com/coraloha/status/1420774018668318721?ref_src=twsrc%5Etfw">July 29, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
+
+<center><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Here is a great study, <a href="https://t.co/PMP0LBCdG4">https://t.co/PMP0LBCdG4</a>, in which <a href="https://twitter.com/MaggieDJohnson?ref_src=twsrc%5Etfw">@MaggieDJohnson</a>, Jarrod J. Scott, <a href="https://twitter.com/Matt_Leray?ref_src=twsrc%5Etfw">@Matt_Leray</a>, &amp; <a href="https://twitter.com/noellelucey?ref_src=twsrc%5Etfw">@noellelucey</a> et al. show how different members of coral ecosystems respond to hypoxia.<br><br>It also happens to contain one of the most beautiful <a href="https://twitter.com/hashtag/anvio?src=hash&amp;ref_src=twsrc%5Etfw">#anvio</a> figures I&#39;ve seen: <a href="https://t.co/vj3roVgVfn">pic.twitter.com/vj3roVgVfn</a></p>&mdash; A. Murat Eren (Meren) (@merenbey) <a href="https://twitter.com/merenbey/status/1449090571021307909?ref_src=twsrc%5Etfw">October 15, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
+
 
 
 ## Acknowledgements {.appendix}

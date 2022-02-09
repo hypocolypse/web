@@ -1,0 +1,31 @@
+contigs_db	WA	EP
+Total Length	1296862353	1585187512
+Num Contigs	574304	753612
+Num Contigs > 100 kb	54	60
+Num Contigs > 50 kb	400	406
+Num Contigs > 20 kb	3090	2753
+Num Contigs > 10 kb	10839	9995
+Num Contigs > 5 kb	34383	36218
+Num Contigs > 2.5 kb	111369	132627
+Longest Contig	779833	459828
+Shortest Contig	1000	1000
+Num Genes (prodigal)	1756476	2168906
+L50	118539	174734
+L75	298617	410833
+L90	452327	603589
+N50	2413	2157
+N75	1427	1371
+N90	1136	1121
+Archaea_76	14236	18414
+Bacteria_71	22916	32181
+Protista_83	2359	3037
+Ribosomal_RNA_12S	0	0
+Ribosomal_RNA_16S	156	153
+Ribosomal_RNA_18S	43	45
+Ribosomal_RNA_23S	227	253
+Ribosomal_RNA_28S	89	67
+Ribosomal_RNA_5S	0	0
+Transfer_RNAs	18910	22099
+archaea (Archaea_76)	40	29
+bacteria (Bacteria_71)	308	367
+eukarya (Protista_83)	2	2

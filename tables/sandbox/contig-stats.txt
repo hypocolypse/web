@@ -1,0 +1,32 @@
+	Western Atlantic (WA)	Eastern Pacific (EP)
+Total Length (Gb)	1.297	1.585
+Total Length (bp)	1,296,862,353	1,585,187,512
+Num Contigs	574,304	753,612
+Num Contigs > 100 kb	54	60
+Num Contigs > 50 kb	400	406
+Num Contigs > 20 kb	3090	2753
+Num Contigs > 10 kb	10,839	9995
+Num Contigs > 5 kb	34,383	36,218
+Num Contigs > 2.5 kb	111,369	132,627
+Longest Contig	779,833	459,828
+Shortest Contig	1000	1000
+Num Genes (prodigal)	1,756,476	2,168,906
+L50	118,539	174,734
+L75	298,617	410,833
+L90	452,327	603,589
+N50	2413	2157
+N75	1427	1371
+N90	1136	1121
+Archaea_76	14,236	18,414
+Bacteria_71	22,916	32,181
+Protista_83	2359	3037
+Ribosomal_RNA_12S	0	0
+Ribosomal_RNA_16S	156	153
+Ribosomal_RNA_18S	43	45
+Ribosomal_RNA_23S	227	253
+Ribosomal_RNA_28S	89	67
+Ribosomal_RNA_5S	0	0
+Transfer_RNAs	18,910	22,099
+eukarya (Protista_83)	2	2
+archaea (Archaea_76)	40	29
+bacteria (Bacteria_71)	308	367
